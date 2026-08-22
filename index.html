@@ -3195,9 +3195,6 @@ function scheduleAutomaticYearSelection(){
 
 yearInput.addEventListener("input", scheduleAutomaticYearSelection);
 yearInput.addEventListener("change", scheduleAutomaticYearSelection);
-yearInput.addEventListener("click", () => {
-  if (!playerStarted) openYearPicker();
-});
 
 yearPickerBtn.addEventListener("click", openYearPicker);
 yearPickerClose.addEventListener("click", () => yearPickerDialog.close());
