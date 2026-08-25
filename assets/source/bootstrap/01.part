@@ -73,3 +73,5 @@ if (matchMedia("(pointer:fine)").matches) requestAnimationFrame(() => yearInput.
 if (location.protocol === "file:"){
   setStatus(`Escolha um ano entre ${MIN_YEAR} e ${MAX_YEAR}.`);
 }
+
+window.PlayHistoryEntry?.setReady?.(selectYear);
