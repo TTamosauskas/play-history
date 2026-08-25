@@ -1,4 +1,3 @@
-/* YouTube media resolution, caching and external links. */
 function queueSupportsPlaylist(){
   return queue.every(track => Boolean(track?.youtubeId));
 }
@@ -131,42 +130,3 @@ function hydrateCachedYoutubeId(track){
   track.youtubeMusicUrl = `https://music.youtube.com/watch?v=${cached}`;
   return cached;
 }
-
-function nearestPlayableTrack(referenceTrack){
-  if (!CHRONOLOGICAL_CATALOG.length) return null;
-  const referenceYear = Number(referenceTrack?.year || yearInput.value || DEFAULT_PICKER_YEAR);
-  const referenceSource = referenceTrack?.catalogSource || null;
-  const candidates = CHRONOLOGICAL_CATALOG.filter(track => {
-    const id = hydrateCachedYoutubeId(track);
-    return Boolean(id);
-  });
-  if (!candidates.length) return null;
-
-  let best = candidates[0];
-  let bestScore = Infinity;
-  for (const candidate of candidates){
-    const yearDistance = Math.abs(Number(candidate.year) - referenceYear);
-    const sourcePenalty = catalogMode === "combined" && referenceSource && candidate.catalogSource !== referenceSource ? 0.4 : 0;
-    const score = yearDistance + sourcePenalty;
-    if (score < bestScore || (score === bestScore && Number(candidate.year) < Number(best.year))){
-      best = candidate;
-      bestScore = score;
-    }
-  }
-  return best;
-}
-
-async function resolveMusicBrainzYoutubeId(track){
-  const key = trackIdentity(track);
-  if (musicBrainzYoutubeCache.has(key)) return musicBrainzYoutubeCache.get(key);
-  let resolved = null;
-  try {
-    const recording = await resolveMusicBrainzRecording(track);
-    if (recording?.id){
-      const api = new URL(`https://musicbrainz.org/ws/2/recording/${encodeURIComponent(recording.id)}`);
-      api.searchParams.set("inc", "url-rels");
-      api.searchParams.set("fmt", "json");
-      const data = await fetchJson(api.toString(), 3000);
-      const relations = Array.isArray(data?.relations) ? data.relations : [];
-      const ranked = relations
-        .map(relation => {
