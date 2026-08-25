@@ -1,0 +1,196 @@
+o ↗";
+  if (kind === "genre") return "Wikipedia — gênero ↗";
+  if (kind === "movement") return "Wikipedia — movimento ↗";
+  if (kind === "century") return "Wikipedia — século ↗";
+  if (kind === "decade") return "Wikipedia — década ↗";
+  return "Wikipedia — contexto ↗";
+}
+
+function deterministicArtistWikipediaTarget(track){
+  const rawArtist = String(track?.artist || "").trim();
+  if (!rawArtist || /^an[oô]nimo$/i.test(rawArtist)) return null;
+
+  // artworkPageTitle costuma guardar uma página enciclopédica útil, mas em
+  // alguns registros históricos ela descreve a obra. Só a aceitamos como
+  // artista quando há sobreposição lexical com o nome exibido do artista.
+  const artworkName = String(track?.artworkPageTitle || "").trim();
+  const artworkLooksLikeArtist = artworkName && tokenOverlap(artworkName, rawArtist) >= 0.5;
+
+  // O fallback determinístico só usa um título enciclopédico já sugerido
+  // pelos próprios metadados do catálogo. Isso preserva casos como Ernesto
+  // Nazareth sem transformar todo nome de artista em uma URL potencialmente
+  // inexistente.
+  if (!artworkLooksLikeArtist) return null;
+  const title = artworkName;
+
+  const lang = track?.catalogSource === "brazil" ? "pt" : "en";
+  const slug = encodeURIComponent(title.replaceAll(" ", "_"));
+  return {
+    kind:"artist",
+    lang,
+    title,
+    url:`https://${lang}.wikipedia.org/wiki/${slug}`,
+    deterministic:true
+  };
+}
+
+function deterministicDecadeWikipediaTarget(track){
+  const decade = trackDecade(track);
+  const brazil = track?.catalogSource === "brazil";
+  const lang = brazil ? "pt" : "en";
+  const title = brazil ? `Década de ${decade}` : `${decade}s`;
+  const slug = encodeURIComponent(title.replaceAll(" ", "_"));
+  return {
+    kind:"decade",
+    lang,
+    title,
+    url:`https://${lang}.wikipedia.org/wiki/${slug}`,
+    deterministic:true
+  };
+}
+
+function geniusTitleScore(resultTitle, track){
+  const core = coreTrackTitle(track);
+  const normalizedResult = normalizeSearchText(resultTitle || "");
+  const normalizedCore = normalizeSearchText(core);
+  if (!normalizedResult || !normalizedCore) return 0;
+  if (normalizedResult === normalizedCore) return 1;
+  if (normalizedResult.includes(normalizedCore) || normalizedCore.includes(normalizedResult)) return 0.92;
+  return tokenOverlap(resultTitle, core);
+}
+
+function geniusArtistScore(resultArtist, track){
+  const normalizedResult = normalizeSearchText(resultArtist || "");
+  const normalizedArtist = normalizeSearchText(track.artist || "");
+  if (!normalizedResult || !normalizedArtist) return 0;
+  if (normalizedResult === normalizedArtist) return 1;
+  if (normalizedResult.includes(normalizedArtist) || normalizedArtist.includes(normalizedResult)) return 0.92;
+  return tokenOverlap(resultArtist, track.artist);
+}
+
+function directGeniusLyricsUrl(candidate){
+  if (!candidate) return null;
+  let pathname = String(candidate.path || "").trim();
+  if (!pathname && candidate.url){
+    try {
+      const parsed = new URL(candidate.url);
+      if (!/(^|\.)genius\.com$/i.test(parsed.hostname)) return null;
+      pathname = parsed.pathname;
+    } catch (_) { return null; }
+  }
+  if (!pathname.startsWith("/")) pathname = `/${pathname}`;
+  pathname = pathname.replace(/\/+$/, "");
+  if (!/-lyrics$/i.test(pathname)) return null;
+  if (/^\/(search|artists|albums|songs)(\/|$)/i.test(pathname)) return null;
+  return `https://genius.com${pathname}`;
+}
+
+function geniusCandidateScore(candidate, track){
+  const resultTitle = candidate?.meta?.title || "";
+  const resultArtist = candidate?.meta?.primaryArtist?.name || candidate?.meta?.artists || "";
+  const titleScore = geniusTitleScore(resultTitle, track);
+  const artistScore = geniusArtistScore(resultArtist, track);
+  const releaseYear = Number(candidate?.meta?.releaseDate?.year);
+  let score = titleScore * 100 + artistScore * 38;
+
+  if (Number.isFinite(releaseYear) && Number(track.year) >= 1900){
+    const distance = Math.abs(releaseYear - Number(track.year));
+    if (distance === 0) score += 12;
+    else if (distance <= 2) score += 7;
+    else if (distance <= 5) score += 3;
+    else if (distance >= 15) score -= 12;
+  }
+
+  const versionText = normalizeSearchText([
+    candidate?.meta?.title,
+    candidate?.meta?.fullTitle,
+    candidate?.path
+  ].filter(Boolean).join(" "));
+  if (/\btranslation|traducao|traduccion|romanized|romanization\b/.test(versionText)) score -= 30;
+  if (/\bkaraoke|parody|cover|tribute|remix|sped up|slowed|reverb\b/.test(versionText)) score -= 24;
+  if (/\blive\b/.test(versionText) && !/\blive\b/.test(normalizeSearchText(track.title))) score -= 10;
+  return {score, titleScore, artistScore};
+}
+
+async function resolveGeniusMetadata(track){
+  const key = trackIdentity(track);
+  if (geniusMetadataCache.has(key)) return geniusMetadataCache.get(key);
+
+  let result = null;
+  try {
+    const api = new URL("https://api.sv443.net/geniurl/search");
+    api.searchParams.set("q", `${track.artist} - ${coreTrackTitle(track)}`);
+    api.searchParams.set("threshold", "0.65");
+    const data = await fetchJson(api.toString(), 6500);
+
+    const candidates = Array.isArray(data?.all)
+      ? data.all
+      : (data?.top ? [data.top] : []);
+
+    const ranked = candidates
+      .map(candidate => {
+        const directUrl = directGeniusLyricsUrl(candidate);
+        const metrics = geniusCandidateScore(candidate, track);
+        return {candidate, directUrl, ...metrics};
+      })
+      .filter(item => item.directUrl)
+      .sort((a,b) => b.score - a.score);
+
+    const best = ranked[0];
+    const historic = Number(track.year) < 1900;
+    const artistThreshold = historic ? 0.24 : 0.62;
+
+    if (
+      best &&
+      best.titleScore >= 0.88 &&
+      best.artistScore >= artistThreshold &&
+      best.candidate?.lyricsState !== "unreviewed"
+    ){
+      const meta = best.candidate.meta || {};
+      result = {
+        id: best.candidate.id,
+        url: best.directUrl,
+        path: best.candidate.path || new URL(best.directUrl).pathname,
+        title: meta.title || "",
+        fullTitle: meta.fullTitle || "",
+        artist: meta.primaryArtist?.name || meta.artists || "",
+        releaseYear: Number(meta.releaseDate?.year) || null,
+        lyricsState: best.candidate.lyricsState || null,
+        album: null
+      };
+    }
+  } catch (_) {}
+
+  geniusMetadataCache.set(key, result);
+  return result;
+}
+
+async function resolveGeniusAlbumName(metadata){
+  if (!metadata?.id) return null;
+  if (geniusAlbumCache.has(metadata.id)) return geniusAlbumCache.get(metadata.id);
+  let albumName = null;
+  try {
+    const data = await fetchJson(`https://api.sv443.net/geniurl/album/${encodeURIComponent(metadata.id)}`, 5000);
+    albumName = !data?.error && data?.matches > 0 ? (data?.album?.name || null) : null;
+  } catch (_) {}
+  geniusAlbumCache.set(metadata.id, albumName);
+  return albumName;
+}
+
+
+function albumTitleLooksLikeCompilation(title){
+  const text = normalizeSearchText(title || "");
+  return /\b(greatest hits|best of|the best|anthology|collection|compilation|complete|essential|essentials|gold|singles|hits collection|ultimate collection|definitive collection|very best)\b/.test(text);
+}
+
+function musicBrainzArtistCreditText(value){
+  const credit = value?.["artist-credit"] || value?.artistCredit || [];
+  if (!Array.isArray(credit)) return "";
+  return credit.map(part => typeof part === "string" ? part : (part?.name || part?.artist?.name || "")).join(" ").trim();
+}
+
+function musicBrainzRecordingScore(recording, track){
+  const titleScore = Math.max(tokenOverlap(recording?.title || "", track.title), tokenOverlap(recording?.title || "", coreTrackTitle(track)));
+  const artistText = musicBrainzArtistCreditText(recording);
+  const artistScore = tokenOverlap(artistText, track.artist);
+  const sourceScore = Number(recording?.score || 0

@@ -1,0 +1,163 @@
+ntury !== wheelCentury){
+    const previousYear = wheelYear;
+    wheelCentury = nextCentury;
+    populateYearWheel(previousYear, "auto");
+  }
+}
+
+function syncYearWheelFromScroll(){
+  const {start, end} = yearBoundsForCentury(wheelCentury);
+  const count = Math.max(1, end - start + 1);
+  const index = Math.max(0, Math.min(count - 1, Math.round(yearWheel.scrollTop / WHEEL_ROW_HEIGHT)));
+  wheelYear = start + index;
+  updateWheelVisuals(yearWheel, index);
+}
+
+function yearWheelAtTop(){
+  return yearWheel.scrollTop <= 1;
+}
+
+function yearWheelAtBottom(){
+  return yearWheel.scrollTop >= Math.max(0, yearWheel.scrollHeight - yearWheel.clientHeight - 1);
+}
+
+function moveYearWheelAcrossCentury(direction, behavior = "smooth"){
+  const step = direction < 0 ? -1 : 1;
+  const nextCentury = wheelCentury + step;
+  if (nextCentury < MIN_CENTURY || nextCentury > MAX_CENTURY) return false;
+
+  const now = performance.now();
+  if (now - wheelBoundaryTransitionAt < 180) return false;
+  wheelBoundaryTransitionAt = now;
+
+  wheelCentury = nextCentury;
+  const {start, end} = yearBoundsForCentury(wheelCentury);
+  wheelYear = step > 0 ? start : end;
+
+  const centuryIndex = wheelCentury - MIN_CENTURY;
+  scrollWheelToIndex(centuryWheel, centuryIndex, behavior);
+  populateYearWheel(wheelYear, "auto");
+
+  requestAnimationFrame(() => {
+    const bounds = yearBoundsForCentury(wheelCentury);
+    const yearIndex = wheelYear - bounds.start;
+    yearWheel.scrollTop = yearIndex * WHEEL_ROW_HEIGHT;
+    updateWheelVisuals(yearWheel, yearIndex);
+    updateWheelVisuals(centuryWheel, centuryIndex);
+  });
+  return true;
+}
+
+function bindYearWheelCenturyCrossing(){
+  yearWheel.addEventListener("wheel", event => {
+    if (event.deltaY < 0 && yearWheelAtTop()){
+      if (moveYearWheelAcrossCentury(-1)) event.preventDefault();
+      return;
+    }
+    if (event.deltaY > 0 && yearWheelAtBottom()){
+      if (moveYearWheelAcrossCentury(1)) event.preventDefault();
+    }
+  }, {passive:false});
+
+  yearWheel.addEventListener("touchstart", event => {
+    const touch = event.touches?.[0];
+    wheelTouchStartY = touch ? touch.clientY : null;
+    wheelTouchLastY = wheelTouchStartY;
+  }, {passive:true});
+
+  yearWheel.addEventListener("touchmove", event => {
+    const touch = event.touches?.[0];
+    if (!touch || wheelTouchLastY === null) return;
+    const currentY = touch.clientY;
+    const delta = currentY - wheelTouchLastY;
+
+    if (delta > 10 && yearWheelAtTop()){
+      if (moveYearWheelAcrossCentury(-1, "auto")) wheelTouchLastY = currentY;
+    } else if (delta < -10 && yearWheelAtBottom()){
+      if (moveYearWheelAcrossCentury(1, "auto")) wheelTouchLastY = currentY;
+    } else if (Math.abs(currentY - (wheelTouchStartY ?? currentY)) > 18){
+      wheelTouchLastY = currentY;
+    }
+  }, {passive:true});
+
+  yearWheel.addEventListener("touchend", () => {
+    wheelTouchStartY = null;
+    wheelTouchLastY = null;
+  }, {passive:true});
+
+  yearWheel.addEventListener("keydown", event => {
+    const towardPrevious = event.key === "ArrowUp" || event.key === "PageUp";
+    const towardNext = event.key === "ArrowDown" || event.key === "PageDown";
+    if (!towardPrevious && !towardNext) return;
+    if (towardPrevious && yearWheelAtTop()){
+      event.preventDefault();
+      moveYearWheelAcrossCentury(-1);
+    } else if (towardNext && yearWheelAtBottom()){
+      event.preventDefault();
+      moveYearWheelAcrossCentury(1);
+    }
+  });
+}
+
+function bindWheelInteraction(wheel, syncFn){
+  wheel.addEventListener("scroll", () => {
+    cancelAnimationFrame(wheelSyncFrame);
+    wheelSyncFrame = requestAnimationFrame(syncFn);
+  }, {passive:true});
+
+  wheel.addEventListener("keydown", event => {
+    if (!["ArrowUp","ArrowDown","PageUp","PageDown"].includes(event.key)) return;
+    const multiplier = event.key.startsWith("Page") ? 3 : 1;
+    const direction = event.key === "ArrowUp" || event.key === "PageUp" ? -1 : 1;
+    const current = Math.round(wheel.scrollTop / WHEEL_ROW_HEIGHT);
+    const itemCount = wheelItems(wheel).length;
+    if (wheel === yearWheel && ((direction < 0 && current <= 0) || (direction > 0 && current >= itemCount - 1))) return;
+    event.preventDefault();
+    scrollWheelToIndex(wheel, current + direction * multiplier, "smooth");
+  });
+}
+
+function renderYearPicker(){
+  populateCenturyWheel();
+  const centuryIndex = wheelCentury - MIN_CENTURY;
+  scrollWheelToIndex(centuryWheel, centuryIndex, "auto");
+  populateYearWheel(wheelYear, "auto");
+}
+
+function openYearPicker(){
+  const inputYear = Number(yearInput.value);
+  const baseYear = playerStarted && Number.isInteger(inputYear) && inputYear >= MIN_YEAR && inputYear <= MAX_YEAR
+    ? inputYear
+    : DEFAULT_PICKER_YEAR;
+  wheelYear = baseYear;
+  wheelCentury = Math.min(MAX_CENTURY, Math.max(MIN_CENTURY, centuryForWheelYear(baseYear)));
+
+  if (!yearPickerDialog.open && typeof yearPickerDialog.showModal === "function") yearPickerDialog.showModal();
+
+  // The wheel must be positioned after the dialog has layout dimensions.
+  // Rendering it while the <dialog> is closed leaves scrollTop at zero in some browsers.
+  requestAnimationFrame(() => {
+    renderYearPicker();
+    requestAnimationFrame(() => {
+      const centuryIndex = wheelCentury - MIN_CENTURY;
+      const {start} = yearBoundsForCentury(wheelCentury);
+      centuryWheel.scrollTop = centuryIndex * WHEEL_ROW_HEIGHT;
+      yearWheel.scrollTop = (wheelYear - start) * WHEEL_ROW_HEIGHT;
+      updateWheelVisuals(centuryWheel, centuryIndex);
+      updateWheelVisuals(yearWheel, wheelYear - start);
+      centuryWheel.focus({preventScroll:true});
+    });
+  });
+}
+
+function confirmYearPicker(){
+  syncCenturyWheelFromScroll();
+  syncYearWheelFromScroll();
+  yearInput.value = String(wheelYear);
+  yearPickerDialog.close();
+  selectYear(wheelYear, true);
+}
+
+bindWheelInteraction(centuryWheel, syncCenturyWheelFromScroll);
+bindWheelInteraction(yearWheel, syncYearWheelFromScroll);
+bindYearWheelCenturyCrossing();

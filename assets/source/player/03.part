@@ -1,0 +1,229 @@
+;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function setPlayingUI(isPlaying){
+  playBtn.classList.toggle("is-playing", isPlaying);
+  playBtn.setAttribute("aria-label", isPlaying ? "Pausar" : "Reproduzir");
+}
+
+function interruptPlaybackForSelection(options = {}){
+  const hardReset = options.hardReset === true;
+  const preserveSlot = Number.isInteger(options.preserveSlot) ? options.preserveSlot : null;
+  const preservedVideoId = preserveSlot !== null ? loadedVideoIds[preserveSlot] : null;
+  playbackSelectionSerial += 1;
+  activePlaybackSelectionSerial = playbackSelectionSerial;
+  expectedActiveVideoId = null;
+  playlistLoadSerial += 1;
+  clearTimeout(skipTimer);
+  skipTimer = null;
+  clearPlaylistWatchdog();
+
+  // Fast handoff: silence all iframes but keep their cued/loaded videos alive.
+  // The next selection can therefore promote an already-warm slot with playVideo().
+  desiredPlaying = false;
+  pendingPlay = false;
+  warmStandaloneActive = false;
+  setPlayingUI(false);
+
+  for (let slot = 0; slot < PLAYER_POOL_SIZE; slot++){
+    const slotPlayer = players[slot];
+    if (!slotPlayer) continue;
+    try { slotPlayer.pauseVideo?.(); } catch (_) {}
+    try { slotPlayer.mute?.(); } catch (_) {}
+    if (hardReset && slot !== preserveSlot){
+      try { slotPlayer.stopVideo?.(); } catch (_) {}
+      loadedVideoIds[slot] = null;
+    }
+  }
+
+  if (hardReset){
+    if (preserveSlot !== null && preservedVideoId){
+      loadedVideoIds[preserveSlot] = preservedVideoId;
+    } else {
+      warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
+    }
+  }
+
+  // Detach the active reference immediately. Late PLAYING events from any old
+  // iframe are treated as background and are silenced by handlePlayerState().
+  activePlayerIndex = null;
+  player = null;
+  playerReady = false;
+  progressDragging = false;
+  if (progressRange){
+    progressRange.value = "0";
+    progressRange.style.setProperty("--progress", "0%");
+  }
+  if (currentTimeLabel) currentTimeLabel.textContent = "0:00";
+  if (durationLabel) durationLabel.textContent = "0:00";
+}
+
+function wrappedQueueIndex(index){
+  if (!queue.length) return 0;
+  return (index % queue.length + queue.length) % queue.length;
+}
+
+function relativeQueueIndex(baseIndex, offset){
+  if (!queue.length) return 0;
+  return wrappedQueueIndex(baseIndex + offset);
+}
+
+function playerSlotForVideo(videoId){
+  if (!videoId) return -1;
+  return loadedVideoIds.findIndex((id, slot) => id === videoId && readyPlayerSlots.has(slot));
+}
+
+function freePlayerSlot(reservedSlots = new Set()){
+  for (let slot = 0; slot < PLAYER_POOL_SIZE; slot++){
+    if (!readyPlayerSlots.has(slot)) continue;
+    if (slot === activePlayerIndex) continue;
+    if (reservedSlots.has(slot)) continue;
+    if (
+      catalogMode === "international" &&
+      slot === warmBrazilPreload.slot &&
+      warmBrazilPreload.videoId &&
+      loadedVideoIds[slot] === warmBrazilPreload.videoId
+    ) continue;
+    return slot;
+  }
+  return -1;
+}
+
+function cueTrackOnSlot(slot, track){
+  const targetPlayer = players[slot];
+  if (!targetPlayer || !readyPlayerSlots.has(slot) || !track?.youtubeId) return;
+  if (loadedVideoIds[slot] === track.youtubeId) return;
+
+  try {
+    targetPlayer.mute?.();
+    targetPlayer.cueVideoById(track.youtubeId);
+    loadedVideoIds[slot] = track.youtubeId;
+  } catch (_) {}
+}
+
+function brazilTrackForReferenceYear(referenceYear){
+  if (!BRAZILIAN_CATALOG.length) return null;
+  const wantedYear = Number(referenceYear);
+  let best = BRAZILIAN_CATALOG[0];
+  let bestDistance = Math.abs(Number(best.year) - wantedYear);
+  for (const candidate of BRAZILIAN_CATALOG){
+    const distance = Math.abs(Number(candidate.year) - wantedYear);
+    if (distance < bestDistance || (distance === bestDistance && Number(candidate.year) < Number(best.year))){
+      best = candidate;
+      bestDistance = distance;
+    }
+  }
+  return best;
+}
+
+function warmBrazilSlotIsUsable(track = null){
+  const slot = warmBrazilPreload.slot;
+  if (!Number.isInteger(slot) || slot < 0 || slot >= PLAYER_POOL_SIZE) return false;
+  if (!readyPlayerSlots.has(slot) || !players[slot]) return false;
+  const target = track || brazilTrackForReferenceYear(warmBrazilPreload.referenceYear);
+  if (!target?.youtubeId) return false;
+  return (
+    warmBrazilPreload.ready === true &&
+    warmBrazilPreload.trackKey === trackIdentity(target) &&
+    warmBrazilPreload.videoId === target.youtubeId &&
+    loadedVideoIds[slot] === target.youtubeId
+  );
+}
+
+function requestWarmBrazilPreload(referenceYear){
+  if (catalogMode !== "international" || !playerStarted) return;
+  const wantedYear = Number(referenceYear);
+  if (!Number.isFinite(wantedYear)) return;
+  const target = brazilTrackForReferenceYear(wantedYear);
+  if (!target) return;
+
+  if (!target.youtubeId){
+    const requestedKey = trackIdentity(target);
+    warmBrazilPreload = {referenceYear:wantedYear, trackKey:requestedKey, videoId:null, slot:null, ready:false};
+    resolveTrackYoutubeId(target).then(() => {
+      if (
+        catalogMode === "international" &&
+        warmBrazilPreload.referenceYear === wantedYear &&
+        warmBrazilPreload.trackKey === requestedKey
+      ) requestWarmBrazilPreload(wantedYear);
+    }).catch(() => {});
+    return;
+  }
+
+  if (
+    warmBrazilPreload.referenceYear === wantedYear &&
+    warmBrazilPreload.trackKey === trackIdentity(target) &&
+    warmBrazilSlotIsUsable(target)
+  ) return;
+
+  warmBrazilPreload = {referenceYear:wantedYear, trackKey:trackIdentity(target), videoId:target.youtubeId, slot:null, ready:false};
+
+  let slot = playerSlotForVideo(target.youtubeId);
+  if (slot === activePlayerIndex) slot = -1;
+  if (slot < 0) slot = freePlayerSlot();
+  if (slot < 0) return;
+
+  cueTrackOnSlot(slot, target);
+  if (loadedVideoIds[slot] === target.youtubeId){
+    warmBrazilPreload.slot = slot;
+  }
+}
+
+function tryActivateWarmBrazilTrack(track, autoplay = true, startSeconds = 0, selectionToken = playbackSelectionSerial){
+  if (catalogMode !== "brazil" || !track || !warmBrazilSlotIsUsable(track)) return false;
+  if (selectionToken !== playbackSelectionSerial || !trackBelongsToActiveCatalog(track)) return false;
+
+  const slot = warmBrazilPreload.slot;
+  const warmedPlayer = players[slot];
+  if (!warmedPlayer) return false;
+
+  activePlaybackSelectionSerial = selectionToken;
+  expectedActiveVideoId = track.youtubeId || null;
+  desiredPlaying = Boolean(autoplay);
+  pendingPlay = false;
+  activePlayerIndex = slot;
+  player = warmedPlayer;
+  playerReady = true;
+  warmStandaloneActive = true;
+
+  try { player.unMute?.(); } catch (_) {}
+  try {
+    if (startSeconds > 0) player.seekTo?.(Math.max(0, Number(startSeconds) || 0), true);
+    if (autoplay) player.playVideo?.();
+    else player.pauseVideo?.();
+  } catch (_) {
+    warmStandaloneActive = false;
+    return false;
+  }
+
+  warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
+  setPlayingUI(Boolean(autoplay));
+  refreshPreloadWindow();
+  return true;
+}
+
+function preloadArtworkAroundCurrent(){
+  if (!queue.length) return;
+  const seen = new Set();
+  for (const offset of PRELOAD_OFFSETS){
+    const track = queue[relativeQueueIndex(currentIndex, offset)];
+    const key = trackIdentity(track);
+    if (!track || seen.has(key)) continue;
+    seen.add(key);
+    resolvedArtworkCandidates(track).then(candidates => {
+      const url = candidates?.[0];
+      if (!url) return;
+      const image = new Image();
+      image.decoding = "async";
+      image.src = url;
+    }).catch(() => {});
+  }
+}
+
+function refreshPreloadWindow(){
+  if (!queue.length || !readyPlayerSlots.size) return;
+
+  // Five-player rolling buffer: current, previous, next, -2 and +2. Existing
+  // slots are retained, while only newly exposed edge tracks 

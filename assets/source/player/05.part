@@ -1,0 +1,207 @@
+
+  }
+
+  // Any click, swipe, year choice or catalog change increments the serial.
+  // Resolutions belonging to an older selection are therefore discarded.
+  const currentTrack = queue[currentIndex];
+  if (
+    selectionToken !== playbackSelectionSerial ||
+    requestedCatalogMode !== catalogMode ||
+    !currentTrack ||
+    trackIdentity(currentTrack) !== requestedTrackKey ||
+    !trackBelongsToActiveCatalog(currentTrack)
+  ) return;
+
+  if (!track.youtubeId){
+    const fallbackTrack = nearestPlayableTrack(track);
+    if (fallbackTrack && trackIdentity(fallbackTrack) !== requestedTrackKey && selectionToken === playbackSelectionSerial){
+      const wantedYear = Number(track.year);
+      if (decadeLocked) lockedDecade = trackLockAnchor(fallbackTrack);
+      rebuildQueueAroundTrack(fallbackTrack);
+      selectedTrackMustPlayFirstId = trackIdentity(fallbackTrack);
+      selectedTrackGuardAttempts = 0;
+      renderTrack();
+      setStatus(`Abrindo uma faixa disponível do catálogo ${catalogMode === "brazil" ? "brasileiro" : "ativo"} próxima de ${wantedYear}.`);
+      return activateCurrentTrack(Boolean(autoplay), 0, selectionToken);
+    }
+    setStatus(`A faixa ${track.title} aguarda uma fonte reproduzível. Escolha outra entrada para continuar.`);
+    setPlayingUI(false);
+    return;
+  }
+
+  expectedActiveVideoId = track.youtubeId;
+  activePlaybackSelectionSerial = selectionToken;
+  resolvePreloadWindowVideoIds();
+
+  if (tryActivateWarmBrazilTrack(track, autoplay, startSeconds, selectionToken)) return;
+
+  if (effectivePlaybackEngine() === "playlist"){
+    playlistActivateCurrentTrack(autoplay, startSeconds, selectionToken);
+  } else {
+    legacyActivateCurrentTrack(autoplay, startSeconds, selectionToken);
+  }
+}
+
+function rebuildActivePlaylistPreservingPosition(){
+  if (effectivePlaybackEngine() !== "playlist" || !player || activePlayerIndex === null) return;
+  let startSeconds = 0;
+  let autoplay = desiredPlaying;
+  try {
+    startSeconds = Math.max(0, Number(player.getCurrentTime?.()) || 0);
+    autoplay = player.getPlayerState?.() === YT.PlayerState.PLAYING || desiredPlaying;
+  } catch (_) {}
+  playlistActivateCurrentTrack(Boolean(autoplay), startSeconds, playbackSelectionSerial);
+}
+
+function syncTrackFromActiveVideo(){
+  if (effectivePlaybackEngine() !== "playlist" || !player || activePlayerIndex === null) return false;
+  let videoId = "";
+  try { videoId = player.getVideoData?.()?.video_id || ""; } catch (_) {}
+  if (!videoId) return false;
+  const selectedTrack = queue[currentIndex];
+  if (selectedTrackMustPlayFirstId){
+    const selectedKey = trackIdentity(selectedTrack);
+    const selectedVideoId = selectedTrack?.youtubeId || "";
+    if (selectedKey === selectedTrackMustPlayFirstId && (!selectedVideoId || videoId !== selectedVideoId)) return false;
+  }
+  if (expectedActiveVideoId && videoId !== expectedActiveVideoId) return false;
+  loadedVideoIds[activePlayerIndex] = videoId;
+  const located = queue.findIndex(track => track.youtubeId === videoId);
+  if (located < 0 || located === currentIndex) return located >= 0;
+  currentIndex = located;
+  renderTrack();
+  preloadArtworkAroundCurrent();
+  return true;
+}
+
+function formatPlaybackTime(seconds){
+  const total = Math.max(0, Math.floor(Number(seconds) || 0));
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
+  if (hours > 0) return `${hours}:${String(minutes).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
+  return `${minutes}:${String(secs).padStart(2,"0")}`;
+}
+
+function updateProgressUI(){
+  if (!player){
+    progressRange.disabled = true;
+    progressRange.max = "1";
+    progressRange.value = "0";
+    currentTimeLabel.textContent = "0:00";
+    durationLabel.textContent = "0:00";
+    return;
+  }
+
+  if (effectivePlaybackEngine() === "playlist" && !document.hidden) syncTrackFromActiveVideo();
+
+  let duration = 0;
+  let current = 0;
+  try {
+    duration = Number(player.getDuration?.()) || 0;
+    current = Number(player.getCurrentTime?.()) || 0;
+  } catch (_) {}
+
+  if (duration > 0){
+    progressRange.disabled = false;
+    progressRange.max = String(duration);
+    if (!progressDragging) progressRange.value = String(Math.min(duration, Math.max(0, current)));
+    const shown = progressDragging ? (Number(progressRange.value) || 0) : current;
+    progressRange.style.setProperty("--progress", `${Math.min(100, Math.max(0, shown / duration * 100))}%`);
+    durationLabel.textContent = formatPlaybackTime(duration);
+    if (!progressDragging) currentTimeLabel.textContent = formatPlaybackTime(current);
+  } else {
+    progressRange.disabled = true;
+    progressRange.max = "1";
+    if (!progressDragging) progressRange.value = "0";
+    progressRange.style.setProperty("--progress", "0%");
+    if (!progressDragging) currentTimeLabel.textContent = "0:00";
+    durationLabel.textContent = "0:00";
+  }
+}
+
+function selectIndex(index, autoplay = true){
+  if (!queue.length) return;
+  const targetIndex = wrappedQueueIndex(index);
+  interruptPlaybackForSelection();
+  currentIndex = targetIndex;
+  const selectedTrack = queue[currentIndex];
+  selectedTrackMustPlayFirstId = selectedTrack ? trackIdentity(selectedTrack) : null;
+  selectedTrackGuardAttempts = 0;
+  renderTrack();
+  activateCurrentTrack(Boolean(autoplay), 0);
+  if (catalogMode === "international" && selectedTrack){
+    requestWarmBrazilPreload(selectedTrack.year);
+  }
+}
+
+function selectYear(rawYear, autoplay = false){
+  const year = Number(rawYear);
+  if (!Number.isInteger(year) || year < MIN_YEAR || year > MAX_YEAR){
+    setStatus(`Escolha um ano entre ${MIN_YEAR} e ${MAX_YEAR}.`);
+    return false;
+  }
+
+  if (repeatOne && playerStarted && queue.length){
+    const repeatedTrack = queue[currentIndex];
+    if (repeatedTrack){
+      yearInput.value = repeatedTrack.year;
+      yearInput.dataset.resolvedYear = String(repeatedTrack.year);
+      if (document.activeElement === yearInput) yearInput.blur();
+      setStatus(`Repeat mantém ${repeatedTrack.title}. Desative repeat para escolher outra faixa.`);
+      keepRepeatTrackPlaying(autoplay || desiredPlaying);
+      return true;
+    }
+  }
+
+  ensurePlayerStarted();
+
+  interruptPlaybackForSelection();
+
+  const catalogIndex = indexForYear(year);
+  const selectedTrack = CHRONOLOGICAL_CATALOG[catalogIndex] || CHRONOLOGICAL_CATALOG[0];
+
+  // Keep exactly what the user entered in the field. If the catalog has no
+  // track for that year, playback quietly resolves to the nearest available year.
+  yearInput.value = year;
+  yearInput.dataset.resolvedYear = String(selectedTrack.year);
+  if (document.activeElement === yearInput) yearInput.blur();
+  if (decadeLocked) lockedDecade = trackLockAnchor(selectedTrack);
+  rebuildQueueAroundTrack(selectedTrack);
+  selectedTrackMustPlayFirstId = trackIdentity(selectedTrack);
+  selectedTrackGuardAttempts = 0;
+
+  updateModeButtons();
+  pendingPlay = Boolean(autoplay);
+  desiredPlaying = Boolean(autoplay);
+  setPlayingUI(Boolean(autoplay));
+  renderTrack();
+  activateCurrentTrack(Boolean(autoplay));
+  if (catalogMode === "international"){
+    requestWarmBrazilPreload(selectedTrack.year);
+  }
+  return true;
+}
+
+function togglePlay(){
+  if (!queue.length){
+    if (!selectYear(yearInput.value, false)) return;
+  }
+
+  const wantedId = queue[currentIndex]?.youtubeId;
+  const loadedId = activePlayerIndex === null ? null : loadedVideoIds[activePlayerIndex];
+
+  if (!playerReady || !player || loadedId !== wantedId){
+    pendingPlay = true;
+    desiredPlaying = true;
+    setPlayingUI(true);
+    activateCurrentTrack(true);
+    if (!readyPlayerSlots.size) setStatus("Conectando ao YouTube…");
+    return;
+  }
+
+  const state = player.getPlayerState();
+  if (state === YT.PlayerState.PLAYING){
+    desiredPlaying = false;
+    player.pauseVideo();
+  } el

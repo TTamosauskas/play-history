@@ -1,0 +1,90 @@
+) / 100;
+  return titleScore * 100 + artistScore * 55 + sourceScore * 20;
+}
+
+async function resolveMusicBrainzRecording(track){
+  const key = trackIdentity(track);
+  if (musicBrainzRecordingCache.has(key)) return musicBrainzRecordingCache.get(key);
+  let best = null;
+  try {
+    const api = new URL("https://musicbrainz.org/ws/2/recording");
+    api.searchParams.set("query", `recording:\"${coreTrackTitle(track).replaceAll('"','')}\" AND artist:\"${String(track.artist || '').replaceAll('"','')}\"`);
+    api.searchParams.set("fmt", "json");
+    api.searchParams.set("limit", "8");
+    const data = await fetchJson(api.toString(), 6500);
+    const candidates = Array.isArray(data?.recordings) ? data.recordings : [];
+    const ranked = candidates
+      .map(recording => ({recording, score: musicBrainzRecordingScore(recording, track)}))
+      .sort((a,b) => b.score - a.score);
+    if (ranked[0] && ranked[0].score >= 92) best = ranked[0].recording;
+  } catch (_) {}
+  musicBrainzRecordingCache.set(key, best);
+  return best;
+}
+
+function releaseYear(value){
+  const match = String(value || "").match(/^(\d{4})/);
+  return match ? Number(match[1]) : null;
+}
+
+function musicBrainzReleaseScore(release, track){
+  const group = release?.["release-group"] || {};
+  const primaryType = normalizeSearchText(group?.["primary-type"] || group?.primaryType || "");
+  const secondaryTypes = (group?.["secondary-types"] || group?.secondaryTypes || []).map(normalizeSearchText);
+  const title = release?.title || group?.title || "";
+  let score = 0;
+
+  if (primaryType === "album") score += 115;
+  else if (primaryType === "ep") score -= 25;
+  else if (primaryType === "single") score -= 120;
+  else score -= 45;
+
+  if (String(release?.status || "").toLowerCase() === "official") score += 18;
+  if (secondaryTypes.some(type => ["compilation","live","remix","dj mix","mixtape street","demo","broadcast","interview"].includes(type))) score -= 125;
+  if (albumTitleLooksLikeCompilation(title)) score -= 105;
+
+  const year = releaseYear(group?.["first-release-date"] || release?.date);
+  const trackYear = Number(track.year);
+  if (year && Number.isFinite(trackYear)){
+    const distance = Math.abs(year - trackYear);
+    if (distance === 0) score += 34;
+    else if (distance === 1) score += 28;
+    else if (distance <= 3) score += 18;
+    else if (distance <= 6) score += 7;
+    else if (distance >= 12) score -= Math.min(70, distance * 2);
+    if (year > trackYear + 4) score -= 18;
+  }
+
+  return score;
+}
+
+async function resolveMusicBrainzAlbum(track){
+  const recording = await resolveMusicBrainzRecording(track);
+  if (!recording?.id) return null;
+  try {
+    const api = new URL(`https://musicbrainz.org/ws/2/recording/${encodeURIComponent(recording.id)}`);
+    api.searchParams.set("inc", "releases+release-groups");
+    api.searchParams.set("fmt", "json");
+    const data = await fetchJson(api.toString(), 6500);
+    const releases = Array.isArray(data?.releases) ? data.releases : [];
+    const ranked = releases
+      .map(release => ({release, score: musicBrainzReleaseScore(release, track)}))
+      .sort((a,b) => b.score - a.score);
+    const best = ranked.find(item => item.score >= 72);
+    if (!best) return null;
+    const group = best.release?.["release-group"] || {};
+    const title = group?.title || best.release?.title || null;
+    const releaseGroupId = group?.id || null;
+    if (!title || albumTitleLooksLikeCompilation(title)) return null;
+    return {title, releaseGroupId, score: best.score};
+  } catch (_) {
+    return null;
+  }
+}
+
+async function resolveYoutubeMusicAlbumUrlFromMusicBrainz(releaseGroupId){
+  if (!releaseGroupId) return null;
+  if (musicBrainzReleaseGroupCache.has(releaseGroupId)) return musicBrainzReleaseGroupCache.get(releaseGroupId);
+  let resolved = null;
+  try {
+    const api = new URL(`https://musicbrainz.org/ws/2/release-group/${encodeURIComponent(releaseG

@@ -1,0 +1,206 @@
+       const resource = relation?.url?.resource || "";
+          const videoId = extractYoutubeVideoId(resource);
+          if (!videoId || failedYoutubeIds.has(videoId)) return null;
+          const attrs = (relation?.attributes || []).map(normalizeSearchText).join(" ");
+          const type = normalizeSearchText(relation?.type || "");
+          let score = 120;
+          if (/free streaming|streaming/.test(type)) score += 12;
+          if (/video/.test(attrs)) score += 8;
+          if (/music\.youtube\.com/.test(resource)) score += 5;
+          return {videoId, score};
+        })
+        .filter(Boolean)
+        .sort((a,b) => b.score - a.score);
+      resolved = ranked[0]?.videoId || null;
+    }
+  } catch (_) {}
+  musicBrainzYoutubeCache.set(key, resolved);
+  return resolved;
+}
+
+async function searchYoutubeEndpoint(endpoint, query, source){
+  try {
+    const api = new URL(endpoint);
+    api.searchParams.set("q", query);
+    if (source === "piped") api.searchParams.set("filter", "videos");
+    else api.searchParams.set("type", "video");
+    const data = await fetchJson(api.toString(), 3000);
+    const rows = source === "piped"
+      ? (Array.isArray(data?.items) ? data.items : (Array.isArray(data) ? data : []))
+      : (Array.isArray(data) ? data : []);
+    return rows.slice(0, 12)
+      .map(raw => normalizedYoutubeCandidate(raw, source))
+      .filter(Boolean);
+  } catch (_) {
+    return [];
+  }
+}
+
+async function searchYoutubeResolverWave(track, query){
+  if (!query) return [];
+  const jobs = [
+    ...PIPED_SEARCH_ENDPOINTS.map(endpoint => searchYoutubeEndpoint(endpoint, query, "piped")),
+    ...INVIDIOUS_SEARCH_ENDPOINTS.map(endpoint => searchYoutubeEndpoint(endpoint, query, "invidious"))
+  ];
+  const settled = await Promise.allSettled(jobs);
+  return settled.flatMap(result => result.status === "fulfilled" ? result.value : []);
+}
+
+function bestYoutubeCandidate(candidates, track){
+  let best = null;
+  for (const candidate of candidates){
+    if (!candidate?.videoId || failedYoutubeIds.has(candidate.videoId)) continue;
+    const score = youtubeCandidateScore(candidate, track);
+    if (!best || score > best.score) best = {...candidate, score};
+  }
+  return best;
+}
+
+async function resolveTrackYoutubeId(track){
+  if (!track) return null;
+  if (track.youtubeId && !failedYoutubeIds.has(track.youtubeId)) return track.youtubeId;
+  const key = trackIdentity(track);
+  const cached = cachedYoutubeIdForTrack(track);
+  if (cached) {
+    track.youtubeId = cached;
+    track.youtubeUrl = `https://www.youtube.com/watch?v=${cached}`;
+    track.youtubeMusicUrl = `https://music.youtube.com/watch?v=${cached}`;
+    return cached;
+  }
+  if (youtubeResolutionInFlight.has(key)) return youtubeResolutionInFlight.get(key);
+
+  const task = (async () => {
+    const queries = youtubeQueriesForTrack(track);
+    let best = null;
+
+    // Run independent sources together. This caps first playback latency instead
+    // of waiting through every public API timeout one after another.
+    const firstQuery = queries[0] || `${track.artist} ${track.title}`;
+    const mbPromise = resolveMusicBrainzYoutubeId(track).catch(() => null);
+    const [mbResult, firstWave] = await Promise.all([
+      Promise.race([
+        mbPromise,
+        new Promise(resolve => setTimeout(() => resolve(null), 3000))
+      ]),
+      searchYoutubeResolverWave(track, firstQuery)
+    ]);
+
+    if (mbResult && !failedYoutubeIds.has(mbResult)){
+      best = {videoId:mbResult, source:"musicbrainz", score:145};
+    }
+    const waveBest = bestYoutubeCandidate(firstWave, track);
+    if (waveBest && (!best || waveBest.score > best.score)) best = waveBest;
+
+    // Keep foreground resolution within the browser's user-activation window.
+    // If the public search sources are slow, playback falls back immediately
+    // to another already-playable track from the selected catalog.
+    const resolvedId = best && best.score >= 74 ? best.videoId : null;
+    if (resolvedId){
+      persistYoutubeIdForTrack(track, resolvedId);
+      track.youtubeId = resolvedId;
+      track.youtubeUrl = `https://www.youtube.com/watch?v=${resolvedId}`;
+      track.youtubeMusicUrl = `https://music.youtube.com/watch?v=${resolvedId}`;
+      track.videoStatus = `runtime_resolved_${best.source || "search"}`;
+      track.videoValidationClass = best.score >= 108 ? "runtime_hq_confident" : "runtime_hq_best_match";
+    }
+    return resolvedId;
+  })().finally(() => youtubeResolutionInFlight.delete(key));
+
+  youtubeResolutionInFlight.set(key, task);
+  return task;
+}
+
+async function recoverTrackVideo(track, failedId){
+  if (!track) return null;
+  const key = trackIdentity(track);
+  if (recoveringVideoKeys.has(key)) return null;
+  recoveringVideoKeys.add(key);
+
+  try {
+    if (failedId) failedYoutubeIds.add(failedId);
+    clearCachedYoutubeIdForTrack(track);
+
+    // Clear the failed fixed ID so the runtime resolver can search for a fresh execution.
+    track.youtubeId = null;
+    track.youtubeUrl = null;
+    track.youtubeMusicUrl = null;
+
+    const replacementId = await resolveTrackYoutubeId(track);
+    if (!replacementId || replacementId === failedId) return null;
+
+    track.videoStatus = "runtime_recovered_after_playback_error";
+    track.videoValidationClass = "runtime_recovery";
+    return replacementId;
+  } finally {
+    recoveringVideoKeys.delete(key);
+  }
+}
+
+function resolvePreloadWindowVideoIds(){
+  if (!queue.length) return;
+  for (const offset of PRELOAD_OFFSETS){
+    const track = queue[relativeQueueIndex(currentIndex, offset)];
+    if (!track || track.youtubeId) continue;
+    resolveTrackYoutubeId(track).then(() => {
+      if (effectivePlaybackEngine() === "legacy") refreshPreloadWindow();
+    }).catch(() => {});
+  }
+}
+
+function updateExternalLinks(track){
+  const token = ++externalLinkRenderToken;
+  showTrackAction(infoLink);
+  showTrackAction(contextLink);
+  hideTrackLink(albumLink);
+  if (shouldHideLyrics(track)) hideTrackAction(lyricsLink);
+  else showTrackAction(lyricsLink);
+
+  // Prefer catalog metadata synchronously. This keeps album discovery from
+  // competing with YouTube playback during the critical first seconds.
+  const immediateAlbumUrl = track.albumUrl || (track.albumTitle ? youtubeMusicAlbumSearchUrl(track, track.albumTitle) : null);
+  if (immediateAlbumUrl){
+    albumLink.title = track.albumTitle ? `Abrir ${track.albumTitle} no YouTube Music` : "Abrir álbum no YouTube Music";
+    showTrackLink(albumLink, immediateAlbumUrl);
+    return;
+  }
+
+  const resolveLater = () => {
+    if (token !== externalLinkRenderToken) return;
+    resolvePreferredAlbumLink(track).then(albumResult => {
+      if (token !== externalLinkRenderToken) return;
+      if (albumResult?.url){
+        albumLink.title = albumResult.title ? `Abrir ${albumResult.title} no YouTube Music` : "Abrir álbum no YouTube Music";
+        showTrackLink(albumLink, albumResult.url);
+      }
+    }).catch(() => {});
+  };
+
+  if ("requestIdleCallback" in window){
+    window.requestIdleCallback(resolveLater, {timeout:4000});
+  } else {
+    setTimeout(resolveLater, 2200);
+  }
+}
+/* Rendering, player pool, buffering and playback control. */
+function renderTrack(){
+  const track = queue[currentIndex];
+  if (!track) return;
+
+  trackTitle.textContent = track.title;
+  trackArtist.textContent = track.artist;
+  trackYear.textContent = ` · ${track.year}`;
+  renderArtwork(track);
+
+  prevBtn.disabled = queue.length < 2;
+  nextBtn.disabled = queue.length < 2;
+  updateExternalLinks(track);
+
+  const decadeText = decadeLocked && lockedDecade !== null ? ` · ${lockedPeriodLabel(lockedDecade)}` : "";
+  setStatus(`${track.title} — ${track.artist}, ${track.year}${decadeText}`);
+}
+
+function escapeHtml(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt

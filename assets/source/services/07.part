@@ -1,0 +1,203 @@
+    const result = makeResult(data.title, data.extract || data.description, data.content_urls?.desktop?.page, null);
+      if (result.extract) return result;
+    }
+  } catch (_) {}
+
+  // 3) Parse API: recupera os primeiros parágrafos do artigo quando a página
+  // existe, mas os endpoints de resumo/extract retornam vazio ou falham.
+  try {
+    const api = new URL(`https://${lang}.wikipedia.org/w/api.php`);
+    api.searchParams.set("action", "parse");
+    api.searchParams.set("format", "json");
+    api.searchParams.set("origin", "*");
+    api.searchParams.set("redirects", "1");
+    api.searchParams.set("page", title);
+    api.searchParams.set("prop", "text|displaytitle");
+    const data = await fetchJson(api.toString(), 7500);
+    const html = String(data?.parse?.text?.["*"] || "");
+    if (html){
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      doc.querySelectorAll("sup, table, style, script, .mw-editsection, .navbox, .infobox").forEach(node => node.remove());
+      const paragraphs = [...doc.querySelectorAll("p")]
+        .map(node => String(node.textContent || "").replace(/\s+/g, " ").trim())
+        .filter(value => value.length >= 45)
+        .slice(0, 3);
+      const extract = paragraphs.join("\n\n").trim();
+      if (extract){
+        const resolvedTitle = String(data?.parse?.title || title).trim();
+        return makeResult(resolvedTitle, extract, `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(resolvedTitle.replaceAll(" ", "_"))}`, null);
+      }
+    }
+  } catch (_) {}
+
+  return null;
+}
+
+async function fetchDirectedWikipediaSummary(lang, title, kind, labeler){
+  if (!lang || !title) return null;
+  try {
+    const summary = await fetchWikipediaExtract(lang, title, false);
+    if (!summary?.extract) return null;
+    return {
+      ...summary,
+      contextKind:kind,
+      contextLabel:labeler(kind),
+      requestedTitle:title
+    };
+  } catch (_) {
+    return null;
+  }
+}
+
+function directedAboutTargets(track){
+  const trackTerm = String(track?.wikipediaTrackTerm || track?.title || "").trim();
+  const artistPt = String(track?.wikipediaArtistTermPt || track?.artist || "").trim();
+  const artistEn = String(track?.wikipediaArtistTermEn || track?.artist || "").trim();
+  const targets = [];
+  if (trackTerm){
+    targets.push({kind:"track",lang:"pt",title:trackTerm});
+    targets.push({kind:"track",lang:"en",title:trackTerm});
+  }
+  if (artistPt && !/^an[oô]nimo$/i.test(artistPt)) targets.push({kind:"artist",lang:"pt",title:artistPt});
+  if (artistEn && !/^an[oô]nimo$/i.test(artistEn)) targets.push({kind:"artist",lang:"en",title:artistEn});
+  return targets;
+}
+
+function directedCulturalTargets(track){
+  const raw = Array.isArray(track?.contextWikiTargets) ? track.contextWikiTargets : [];
+  const musicalKinds = new Set(["subgenre","genre","movement"]);
+  const periodKinds = new Set(["decade","century"]);
+  const musical = raw.filter(item => item?.kind && musicalKinds.has(item.kind));
+  const period = raw.filter(item => item?.kind && periodKinds.has(item.kind));
+
+  // Contexto encerra no primeiro contexto musical dirigido disponível.
+  // Década/século entra apenas quando a faixa carece de termo musical.
+  const selected = musical.length ? musical : period;
+  const targets = [];
+  for (const item of selected){
+    if (item.pt) targets.push({kind:item.kind,lang:"pt",title:item.pt});
+    if (item.en) targets.push({kind:item.kind,lang:"en",title:item.en});
+  }
+  return targets;
+}
+
+async function resolveWikipediaSummary(track){
+  const key = trackIdentity(track);
+  if (wikipediaSummaryCache.has(key)) return wikipediaSummaryCache.get(key);
+  const task = (async () => {
+    for (const target of directedAboutTargets(track)){
+      const result = await fetchDirectedWikipediaSummary(target.lang, target.title, target.kind, wikipediaContextLabel);
+      if (result?.extract) return result;
+    }
+    return null;
+  })().catch(() => null);
+  wikipediaSummaryCache.set(key, task);
+  const result = await task;
+  wikipediaSummaryCache.set(key, result);
+  return result;
+}
+
+async function resolveWikipediaCulturalContext(track){
+  const key = trackIdentity(track);
+  if (wikipediaCulturalContextCache.has(key)) return wikipediaCulturalContextCache.get(key);
+  const task = (async () => {
+    for (const target of directedCulturalTargets(track)){
+      const result = await fetchDirectedWikipediaSummary(target.lang, target.title, target.kind, wikipediaCulturalContextLabel);
+      if (result?.extract) return result;
+    }
+    return null;
+  })().catch(() => null);
+  wikipediaCulturalContextCache.set(key, task);
+  const result = await task;
+  wikipediaCulturalContextCache.set(key, result);
+  return result;
+}
+/* Lyrics resolution and contextual dialogs. */
+function lyricsStorageKey(track){
+  return `${LYRICS_ID_STORAGE_PREFIX}${track.youtubeId || trackIdentity(track)}`;
+}
+
+function storedLyricsId(track){
+  try {
+    const value = localStorage.getItem(lyricsStorageKey(track));
+    const id = Number(value);
+    return Number.isInteger(id) && id > 0 ? id : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function storeLyricsId(track, id){
+  if (!Number.isInteger(Number(id)) || Number(id) <= 0) return;
+  try { localStorage.setItem(lyricsStorageKey(track), String(id)); } catch (_) {}
+}
+
+function clearStoredLyricsId(track){
+  try { localStorage.removeItem(lyricsStorageKey(track)); } catch (_) {}
+}
+
+async function fetchLrclibJson(url, timeoutMs = 7000){
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      mode: "cors",
+      credentials: "omit",
+      headers: {"Lrclib-Client": LRCLIB_CLIENT_HEADER}
+    });
+    if (response.status === 404) return null;
+    if (response.status === 429) throw new Error("LRCLIB_RATE_LIMIT");
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function tokenSimilarity(a, b){
+  const left = normalizeSearchText(a);
+  const right = normalizeSearchText(b);
+  if (!left || !right) return 0;
+  if (left === right) return 1;
+  if (left.includes(right) || right.includes(left)) return .88;
+  const aa = new Set(left.split(" ").filter(Boolean));
+  const bb = new Set(right.split(" ").filter(Boolean));
+  const union = new Set([...aa, ...bb]);
+  let common = 0;
+  for (const token of aa) if (bb.has(token)) common += 1;
+  return union.size ? common / union.size : 0;
+}
+
+function lrclibRecordScore(record, track, duration){
+  const titleScore = tokenSimilarity(record?.trackName || record?.name, track.title);
+  const artistScore = tokenSimilarity(record?.artistName, track.artist);
+  const albumWanted = track.albumTitle || track.preferredAlbumTitle || "";
+  const albumScore = albumWanted ? tokenSimilarity(record?.albumName, albumWanted) : .5;
+  const recordDuration = Number(record?.duration) || 0;
+  let durationScore = 0;
+  if (duration > 0 && recordDuration > 0){
+    const delta = Math.abs(recordDuration - duration);
+    durationScore = delta <= 2 ? 1 : delta <= 5 ? .75 : delta <= 10 ? .35 : 0;
+  } else {
+    durationScore = .5;
+  }
+  const total = titleScore * 55 + artistScore * 35 + albumScore * 10 + durationScore * 15;
+  return {total, titleScore, artistScore};
+}
+
+function lyricsTextFromRecord(record){
+  const plain = String(record?.plainLyrics || "").trim();
+  if (plain) return plain;
+  const synced = String(record?.syncedLyrics || "").trim();
+  if (!synced) return "";
+  return synced
+    .split(/\r?\n/)
+    .map(line => line.replace(/^\s*(?:\[[^\]]+\]\s*)+/, "").trimEnd())
+    .join("\n")
+    .trim();
+}
+
+function currentPlaybackDuration(){
+  try {
+    const duration = Math.round(Number(player?.getDuration?.())  

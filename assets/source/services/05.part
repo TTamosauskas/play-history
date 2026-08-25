@@ -1,0 +1,103 @@
+roupId)}`);
+    api.searchParams.set("inc", "url-rels");
+    api.searchParams.set("fmt", "json");
+    const data = await fetchJson(api.toString(), 6000);
+    const relations = Array.isArray(data?.relations) ? data.relations : [];
+    for (const relation of relations){
+      const resource = relation?.url?.resource || "";
+      try {
+        const parsed = new URL(resource);
+        if (parsed.hostname === "music.youtube.com" && (/^\/browse\//.test(parsed.pathname) || /^\/playlist/.test(parsed.pathname))){
+          resolved = parsed.toString();
+          break;
+        }
+      } catch (_) {}
+    }
+  } catch (_) {}
+  musicBrainzReleaseGroupCache.set(releaseGroupId, resolved);
+  return resolved;
+}
+
+function youtubeMusicAlbumSearchUrl(track, albumTitle){
+  if (!albumTitle) return null;
+  const query = `${track.artist} ${albumTitle}`.trim();
+  return `https://music.youtube.com/search?q=${encodeURIComponent(query)}`;
+}
+
+async function resolvePreferredAlbumLink(track){
+  const key = trackIdentity(track);
+  if (preferredAlbumCache.has(key)) return preferredAlbumCache.get(key);
+
+  const task = (async () => {
+    // Explicit catalog album link wins. This keeps artwork/album/link changes synchronized.
+    if (track.albumTitle && track.albumUrl && !albumTitleLooksLikeCompilation(track.albumTitle)){
+      return {
+        title: track.albumTitle,
+        url: track.albumUrl,
+        direct: /^https:\/\/music\.youtube\.com\/(?:browse\/|playlist)/.test(track.albumUrl),
+        source: "catalog_explicit"
+      };
+    }
+
+    // Curated catalog metadata wins when the source explicitly supplies the original album.
+    if (track.albumTitle && !albumTitleLooksLikeCompilation(track.albumTitle)){
+      return {
+        title: track.albumTitle,
+        url: youtubeMusicAlbumSearchUrl(track, track.albumTitle),
+        direct: false,
+        source: "catalog"
+      };
+    }
+
+    // First network choice: an official original album associated with this exact recording.
+    const mbAlbum = await resolveMusicBrainzAlbum(track);
+    if (mbAlbum?.title){
+      const directUrl = await resolveYoutubeMusicAlbumUrlFromMusicBrainz(mbAlbum.releaseGroupId);
+      return {
+        title: mbAlbum.title,
+        url: directUrl || youtubeMusicAlbumSearchUrl(track, mbAlbum.title),
+        direct: Boolean(directUrl),
+        source: "musicbrainz"
+      };
+    }
+
+    // Fallback: Genius often exposes the canonical album attached to the song.
+    const geniusMetadata = await resolveGeniusMetadata(track);
+    const geniusAlbum = await resolveGeniusAlbumName(geniusMetadata);
+    if (geniusAlbum && !albumTitleLooksLikeCompilation(geniusAlbum)){
+      return {
+        title: geniusAlbum,
+        url: youtubeMusicAlbumSearchUrl(track, geniusAlbum),
+        direct: false,
+        source: "genius"
+      };
+    }
+
+    return null;
+  })();
+
+  preferredAlbumCache.set(key, task);
+  const result = await task;
+  preferredAlbumCache.set(key, result);
+  return result;
+}
+
+function modernInstrumentalOverride(track){
+  const key = `${track.artist}|${track.title}`;
+  const known = new Set([
+    "Sousa's Band|The Stars and Stripes Forever",
+    "Victor Orchestra|The Glow-Worm",
+    "Prince's Orchestra|Ballin' the Jack",
+    "Original Dixieland Jazz Band|Tiger Rag",
+    "Paul Whiteman & His Orchestra|Song of India",
+    "Paul Whiteman & His Orchestra|Three O'Clock in the Morning",
+    "Paul Whiteman & His Orchestra|Parade of the Wooden Soldiers",
+    "Paul Whiteman & His Orchestra|Rhapsody in Blue",
+    "Duke Ellington and His Orchestra|East St. Louis Toodle-Oo",
+    "Duke Ellington and His Orchestra|Black and Tan Fantasy",
+    "Duke Ellington and His Orchestra|The Mooche",
+    "Duke Ellington and His Orchestra|Mood Indigo",
+    "Duke Ellington|Sophisticated Lady",
+    "Benny Goodman|King Porter Stomp",
+    "Benny Goodman and His Orchestra|Sing, Sing, Sing",
+    "Count Basie Orchestra|One O'Clo

@@ -1,0 +1,216 @@
+ck Jump",
+    "Duke Ellington|Caravan",
+    "Artie Shaw|Nightmare",
+    "Benny Goodman|Don't Be That Way",
+    "Glenn Miller Orchestra|In the Mood",
+    "Glenn Miller Orchestra|Moonlight Serenade",
+    "Glenn Miller Orchestra|Tuxedo Junction",
+    "Artie Shaw and His Orchestra|Frenesi",
+    "Duke Ellington Orchestra|Take the 'A' Train",
+    "Freddy Martin and His Orchestra|Piano Concerto in B Flat",
+    "Booker T. & the M.G.'s|Green Onions"
+  ]);
+  return known.has(key);
+}
+
+function shouldHideLyrics(track, geniusMetadata = null){
+  if (track.lyricsPolicy === "hide_instrumental") return true;
+  if (track.lyricsPolicy === "show_if_verified") return false;
+  if (modernInstrumentalOverride(track)) return true;
+
+  const metadataText = normalizeSearchText([
+    geniusMetadata?.title,
+    geniusMetadata?.fullTitle,
+    geniusMetadata?.path
+  ].filter(Boolean).join(" "));
+  if (/\binstrumental\b/.test(metadataText)) return true;
+
+  const titleText = normalizeSearchText(track.title);
+  if (/\binstrumental\b/.test(titleText)) return true;
+  return false;
+}
+
+function wikipediaDirectUrl(lang, title){
+  if (!lang || !title) return null;
+  return `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(String(title).replaceAll(" ", "_"))}`;
+}
+
+async function resolveWikipediaContextTarget(track){
+  // Compatibility helper kept for older internal callers. It resolves only exact,
+  // directed article titles and never invokes Wikipedia search.
+  const key = trackIdentity(track);
+  if (wikipediaContextCache.has(key)) return wikipediaContextCache.get(key);
+  const targets = [
+    {kind:"track", lang:"pt", title:track.wikipediaTrackTerm || track.title},
+    {kind:"track", lang:"en", title:track.wikipediaTrackTerm || track.title},
+    {kind:"artist", lang:"pt", title:track.wikipediaArtistTermPt || track.artist},
+    {kind:"artist", lang:"en", title:track.wikipediaArtistTermEn || track.artist}
+  ].filter(item => item.title && !/^an[oô]nimo$/i.test(String(item.title)));
+  let resolved = null;
+  for (const target of targets){
+    try {
+      const result = await fetchWikipediaExtract(target.lang, target.title, false);
+      if (result?.extract){
+        resolved = {url:result.url || wikipediaDirectUrl(target.lang,target.title), kind:target.kind, lang:target.lang, title:result.title || target.title};
+        break;
+      }
+    } catch (_) {}
+  }
+  wikipediaContextCache.set(key, resolved);
+  return resolved;
+}
+
+async function resolveWikipediaInfoUrl(track, geniusMetadata = null){
+  const target = await resolveWikipediaContextTarget(track);
+  return target?.url || null;
+}
+
+function hideTrackAction(control){
+  control.hidden = true;
+  control.setAttribute("aria-disabled", "true");
+}
+
+function showTrackAction(control){
+  control.hidden = false;
+  control.setAttribute("aria-disabled", "false");
+}
+
+function hideTrackLink(control){
+  control.hidden = true;
+  control.removeAttribute("href");
+  control.setAttribute("aria-disabled", "true");
+}
+
+function showTrackLink(control, href){
+  if (!href){
+    hideTrackLink(control);
+    return;
+  }
+  control.hidden = false;
+  control.href = href;
+  control.setAttribute("aria-disabled", "false");
+}
+
+function googleLyricsSearchUrl(track){
+  const suffix = track.catalogSource === "brazil" ? "letra lyrics" : "lyrics";
+  const query = `${track.title} ${track.artist} ${suffix}`;
+  return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
+function currentTrack(){
+  return queue[currentIndex] || null;
+}
+
+function contextTrackIsCurrent(track){
+  return Boolean(track && currentTrack() && trackIdentity(track) === trackIdentity(currentTrack()));
+}
+
+function openContextDialog(kind, track){
+  contextRenderToken += 1;
+  contextDialogKicker.textContent = kind;
+  contextDialogTitle.textContent = track?.title || "";
+  contextDialogSubtitle.textContent = track ? `${track.artist} · ${track.year}` : "";
+  contextDialogBody.replaceChildren();
+  contextDialogActions.replaceChildren();
+  const loading = document.createElement("p");
+  loading.className = "context-loading";
+  loading.textContent = "Carregando…";
+  contextDialogBody.appendChild(loading);
+  if (!contextDialog.open) contextDialog.showModal();
+  return contextRenderToken;
+}
+
+function setContextMessage(message){
+  contextDialogBody.replaceChildren();
+  const node = document.createElement("p");
+  node.className = "context-message";
+  node.textContent = message;
+  contextDialogBody.appendChild(node);
+}
+
+function setContextText(text, className){
+  contextDialogBody.replaceChildren();
+  const node = document.createElement(className === "context-lyrics" ? "pre" : "p");
+  node.className = className;
+  node.textContent = text;
+  contextDialogBody.appendChild(node);
+}
+
+function setContextActions(actions){
+  contextDialogActions.replaceChildren();
+  for (const action of actions.filter(item => item?.url)){
+    const link = document.createElement("a");
+    link.className = "context-action";
+    link.href = action.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = action.label;
+    contextDialogActions.appendChild(link);
+  }
+}
+
+function trimContextExcerpt(value, maxChars = 900){
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (text.length <= maxChars) return text;
+  const cut = text.slice(0, maxChars);
+  const sentence = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("! "), cut.lastIndexOf("? "));
+  const safe = sentence > maxChars * .58 ? cut.slice(0, sentence + 1) : cut.replace(/\s+\S*$/, "");
+  return `${safe.trim()}…`;
+}
+
+function wikipediaLocationFromUrl(url){
+  try {
+    const parsed = new URL(url);
+    const match = parsed.hostname.match(/^([a-z-]+)\.wikipedia\.org$/i);
+    if (!match || !parsed.pathname.startsWith("/wiki/")) return null;
+    return {
+      lang: match[1],
+      title: decodeURIComponent(parsed.pathname.slice(6)).replaceAll("_", " ")
+    };
+  } catch (_) {
+    return null;
+  }
+}
+
+async function fetchWikipediaExtract(lang, title, includePortugueseLink = false){
+  if (!lang || !title) return null;
+
+  const makeResult = (resolvedTitle, extract, url, ptTitle = null) => ({
+    title: resolvedTitle || title,
+    extract: String(extract || "").trim(),
+    url: url || `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(String(resolvedTitle || title).replaceAll(" ", "_"))}`,
+    lang,
+    ptTitle
+  });
+
+  // 1) MediaWiki TextExtracts: rota preferida e equivalente ao comportamento
+  // original do player, que mostrava o texto diretamente no painel.
+  try {
+    const api = new URL(`https://${lang}.wikipedia.org/w/api.php`);
+    api.searchParams.set("action", "query");
+    api.searchParams.set("format", "json");
+    api.searchParams.set("origin", "*");
+    api.searchParams.set("redirects", "1");
+    api.searchParams.set("titles", title);
+    api.searchParams.set("prop", includePortugueseLink ? "extracts|info|langlinks" : "extracts|info");
+    api.searchParams.set("inprop", "url");
+    api.searchParams.set("exintro", "1");
+    api.searchParams.set("explaintext", "1");
+    if (includePortugueseLink){
+      api.searchParams.set("lllang", "pt");
+      api.searchParams.set("lllimit", "1");
+    }
+    const data = await fetchJson(api.toString(), 7000);
+    const page = Object.values(data?.query?.pages || {})[0];
+    if (page && !page.missing){
+      const result = makeResult(page.title, page.extract, page.fullurl, page.langlinks?.[0]?.["*"] || null);
+      if (result.extract) return result;
+    }
+  } catch (_) {}
+
+  // 2) REST summary como rota alternativa.
+  try {
+    const slug = encodeURIComponent(String(title).replaceAll(" ", "_"));
+    const data = await fetchJson(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${slug}`, 7000);
+    if (data && data.type !== "https://mediawiki.org/wiki/HyperSwitch/errors/not_found"){
+   

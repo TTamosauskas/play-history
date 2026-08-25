@@ -1,0 +1,45 @@
+failedTrackKey)){
+    try { player?.pauseVideo?.(); } catch (_) {}
+    setStatus(`A execução retornou erro ${event.data}. Buscando outra versão de ${failedTrack.title}…`);
+
+    recoverTrackVideo(failedTrack, failedId).then(replacementId => {
+      // The user may have changed tracks or catalogs while the replacement was being resolved.
+      if (failureSelectionToken !== playbackSelectionSerial || trackIdentity(queue[currentIndex]) !== failedTrackKey) return;
+
+      if (replacementId){
+        selectedTrackMustPlayFirstId = failedTrackKey;
+        selectedTrackGuardAttempts = 0;
+        renderTrack();
+        activateCurrentTrack(true);
+        return;
+      }
+
+      setStatus(`A execução de ${failedTrack.title} ficou indisponível. Seguindo a direção atual.`);
+      clearTimeout(skipTimer);
+      skipTimer = setTimeout(() => {
+        if (failureSelectionToken === playbackSelectionSerial) advanceInPlaybackDirection(true);
+      }, 500);
+    }).catch(() => {
+      if (failureSelectionToken !== playbackSelectionSerial || trackIdentity(queue[currentIndex]) !== failedTrackKey) return;
+      clearTimeout(skipTimer);
+      skipTimer = setTimeout(() => {
+        if (failureSelectionToken === playbackSelectionSerial) advanceInPlaybackDirection(true);
+      }, 500);
+    });
+    return;
+  }
+
+  setStatus(`A faixa retornou erro ${event.data}. Seguindo a direção atual.`);
+  clearTimeout(skipTimer);
+  skipTimer = setTimeout(() => {
+    if (failureSelectionToken === playbackSelectionSerial) advanceInPlaybackDirection(true);
+  }, 700);
+}
+
+function handleAutoplayBlocked(slot){
+  if (slot !== activePlayerIndex) return;
+  pendingPlay = false;
+  desiredPlaying = false;
+  setPlayingUI(false);
+  setStatus("O navegador bloqueou a reprodução automática com áudio. Toque em play para liberar a reprodução.");
+}
