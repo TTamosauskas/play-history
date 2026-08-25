@@ -130,7 +130,7 @@ function scheduleAutomaticYearSelection(){
   clearTimeout(yearInputTimer);
   yearInputTimer = setTimeout(() => {
     const raw = String(yearInput.value || "").trim();
-    if (!/^\d{4}$/.test(raw)) return;
+    if (!/^\d{3,4}$/.test(raw)) return;
     const year = Number(raw);
     if (year >= MIN_YEAR && year <= MAX_YEAR) selectYear(year, true);
   }, 180);
