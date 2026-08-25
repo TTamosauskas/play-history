@@ -1,5 +1,5 @@
-/* Play History v6.7.2 — modular static loader */
-const BUILD_VERSION = '6.7.2';
+/* Play History v6.7.3 — modular static loader and year-search entry point */
+const BUILD_VERSION = '6.7.3';
 const MODULES = [
   './assets/js/app.js',
   './assets/js/services.js',
@@ -11,6 +11,7 @@ const earlyYearForm = document.getElementById('yearForm');
 const earlyYearInput = document.getElementById('yearInput');
 let bootReady = false;
 let pendingYear = String(earlyYearInput?.value || '').trim();
+let entryYearTimer = null;
 
 function validRequestedYear(raw) {
   const value = String(raw || '').trim();
@@ -19,15 +20,44 @@ function validRequestedYear(raw) {
   return year >= 800 && year <= 2026;
 }
 
-function captureEarlyYear(event) {
-  if (bootReady) return;
-  if (event?.type === 'submit') event.preventDefault();
-  pendingYear = String(earlyYearInput?.value || '').trim();
+function requestedYearValue() {
+  return String(earlyYearInput?.value || '').trim();
 }
 
-earlyYearInput?.addEventListener('input', captureEarlyYear);
-earlyYearInput?.addEventListener('change', captureEarlyYear);
-earlyYearForm?.addEventListener('submit', captureEarlyYear);
+function applyRequestedYear(raw, autoplay = true) {
+  const value = String(raw || '').trim();
+  if (!validRequestedYear(value)) return false;
+  pendingYear = value;
+  if (!bootReady || typeof window.selectYear !== 'function') return false;
+  return window.selectYear(Number(value), Boolean(autoplay)) !== false;
+}
+
+function handleYearEntryInput(event) {
+  pendingYear = requestedYearValue();
+  if (!bootReady) return;
+
+  // This listener owns year search. Prevent the legacy player listener from
+  // scheduling a second selection for the same keystroke.
+  event?.stopImmediatePropagation?.();
+  clearTimeout(entryYearTimer);
+  if (!validRequestedYear(pendingYear)) return;
+  const requested = pendingYear;
+  entryYearTimer = setTimeout(() => {
+    if (requested === requestedYearValue()) applyRequestedYear(requested, true);
+  }, 160);
+}
+
+function handleYearEntrySubmit(event) {
+  event?.preventDefault?.();
+  event?.stopImmediatePropagation?.();
+  clearTimeout(entryYearTimer);
+  pendingYear = requestedYearValue();
+  applyRequestedYear(pendingYear, true);
+}
+
+earlyYearInput?.addEventListener('input', handleYearEntryInput);
+earlyYearInput?.addEventListener('change', handleYearEntryInput);
+earlyYearForm?.addEventListener('submit', handleYearEntrySubmit);
 
 function versionedUrl(url) {
   return `${url}${url.includes('?') ? '&' : '?'}v=${encodeURIComponent(BUILD_VERSION)}`;
@@ -78,20 +108,11 @@ function loadScript(url) {
   });
 }
 
-function releaseEarlyYearCapture() {
-  bootReady = true;
-  earlyYearInput?.removeEventListener('input', captureEarlyYear);
-  earlyYearInput?.removeEventListener('change', captureEarlyYear);
-  earlyYearForm?.removeEventListener('submit', captureEarlyYear);
-}
-
 function replayPendingYear() {
-  const raw = String(pendingYear || earlyYearInput?.value || '').trim();
-  if (!validRequestedYear(raw) || !earlyYearForm || !earlyYearInput) return;
-  earlyYearInput.value = raw;
-  queueMicrotask(() => {
-    earlyYearForm.dispatchEvent(new Event('submit', { bubbles:true, cancelable:true }));
-  });
+  const raw = String(pendingYear || requestedYearValue()).trim();
+  if (!validRequestedYear(raw)) return;
+  if (earlyYearInput) earlyYearInput.value = raw;
+  queueMicrotask(() => applyRequestedYear(raw, true));
 }
 
 (async () => {
@@ -104,11 +125,11 @@ function replayPendingYear() {
 
     for (const url of MODULES) await loadScript(url);
 
-    releaseEarlyYearCapture();
+    bootReady = true;
     replayPendingYear();
   } catch (error) {
     console.error(error);
-    releaseEarlyYearCapture();
+    bootReady = true;
     const status = document.getElementById('status');
     if (status) status.textContent = 'Falha ao carregar o player.';
   }

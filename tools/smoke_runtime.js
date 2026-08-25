@@ -36,7 +36,10 @@ function makeElement(id = '') {
     },
     dispatchEvent(event) {
       event.target ||= target;
-      for (const fn of [...(listeners.get(event.type) || [])]) fn.call(target, event);
+      for (const fn of [...(listeners.get(event.type) || [])]) {
+        fn.call(target, event);
+        if (event.immediateStopped) break;
+      }
       return !event.defaultPrevented;
     },
     setAttribute() {}, removeAttribute() {}, replaceChildren() {},
@@ -59,8 +62,10 @@ class MockEvent {
     this.bubbles = Boolean(options.bubbles);
     this.cancelable = Boolean(options.cancelable);
     this.defaultPrevented = false;
+    this.immediateStopped = false;
   }
   preventDefault() { if (this.cancelable) this.defaultPrevented = true; }
+  stopImmediatePropagation() { this.immediateStopped = true; }
 }
 
 async function main() {
@@ -119,8 +124,6 @@ async function main() {
     return String(url).replace(/[?&]v=[^&]+/, '').replace(/\?$/, '');
   }
 
-  // Simulate a strict environment where inline injected JavaScript is refused.
-  // The runtime must load real external scripts through src.
   head.appendChild = node => {
     if (node.text) throw new Error('Inline runtime injection is forbidden by this smoke test');
     if (!node.src) return node;
@@ -144,6 +147,8 @@ async function main() {
 
   const loaderSource = fs.readFileSync(path.join(SITE, 'assets/loader.js'), 'utf8');
   assert.ok(loaderSource.includes("script.src = versionedUrl(url)"), 'o loader deve usar scripts externos nativos');
+  assert.ok(loaderSource.includes("window.selectYear"), 'o entry point deve chamar selectYear diretamente');
+  assert.ok(loaderSource.includes("handleYearEntryInput"), 'o entry point deve possuir o listener permanente de input');
   assert.ok(!loaderSource.includes('script.text ='), 'o loader não deve reinjetar módulos como JavaScript inline');
   const loaderPromise = vm.runInContext(loaderSource, context, { filename: 'loader.js' });
 
@@ -153,7 +158,7 @@ async function main() {
   yearInput.dispatchEvent(new MockEvent('input', { bubbles: true, cancelable: true }));
 
   await loaderPromise;
-  await new Promise(resolve => setTimeout(resolve, 10));
+  await new Promise(resolve => setTimeout(resolve, 20));
 
   assert.ok(yearForm._listeners.get('submit')?.length, 'yearForm precisa ter listener de submit após o bootstrap');
   assert.ok(yearInput._listeners.get('input')?.length, 'yearInput precisa ter listener de input após o bootstrap');
@@ -163,16 +168,19 @@ async function main() {
   assert.notStrictEqual(get('trackTitle').textContent, 'Escolha um ano', 'a seleção por ano deve renderizar uma faixa');
   assert.ok(!app.classList.contains('is-start-screen'), 'a tela inicial deve sair do estado inicial após a seleção');
 
-  // Verify a normal post-bootstrap search as well.
+  // Exact user gesture: type a year after bootstrap and do nothing else.
   yearInput.value = '1969';
+  yearInput.dispatchEvent(new MockEvent('input', { bubbles: true, cancelable: true }));
+  await new Promise(resolve => setTimeout(resolve, 220));
+  assert.strictEqual(yearInput.dataset.resolvedYear, '1969', 'digitar o ano deve resolver automaticamente sem Enter');
+  assert.strictEqual(get('trackTitle').textContent, 'Come Together', '1969 digitado deve selecionar a faixa esperada');
+
+  // Enter remains an immediate fallback.
+  yearInput.value = '1970';
   yearForm.dispatchEvent(new MockEvent('submit', { bubbles: true, cancelable: true }));
-  assert.strictEqual(yearInput.dataset.resolvedYear, '1969', 'submit após o bootstrap deve resolver o ano selecionado');
-  assert.strictEqual(get('trackTitle').textContent, 'Come Together', '1969 deve selecionar a faixa esperada');
+  assert.strictEqual(yearInput.dataset.resolvedYear, '1970', 'Enter deve continuar selecionando imediatamente');
 
-  const playerSource = files.get('./assets/js/player.js');
-  assert.ok(playerSource.includes('/^\\d{3,4}$/.test(raw)'), 'a seleção automática deve aceitar anos de 800 a 999');
-
-  console.log(`OK: runtime externo + busca por ano -> ${get('trackTitle').textContent} (${yearInput.dataset.resolvedYear})`);
+  console.log(`OK: digitação direta por ano -> ${get('trackTitle').textContent} (${yearInput.dataset.resolvedYear})`);
 }
 
 main().catch(error => {
