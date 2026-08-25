@@ -1,4 +1,148 @@
-are cued.
+      slot === warmBrazilPreload.slot &&
+      warmBrazilPreload.videoId &&
+      loadedVideoIds[slot] === warmBrazilPreload.videoId
+    ) continue;
+    return slot;
+  }
+  return -1;
+}
+
+function cueTrackOnSlot(slot, track){
+  const targetPlayer = players[slot];
+  if (!targetPlayer || !readyPlayerSlots.has(slot) || !track?.youtubeId) return;
+  if (loadedVideoIds[slot] === track.youtubeId) return;
+
+  try {
+    targetPlayer.mute?.();
+    targetPlayer.cueVideoById(track.youtubeId);
+    loadedVideoIds[slot] = track.youtubeId;
+  } catch (_) {}
+}
+
+function brazilTrackForReferenceYear(referenceYear){
+  if (!BRAZILIAN_CATALOG.length) return null;
+  const wantedYear = Number(referenceYear);
+  let best = BRAZILIAN_CATALOG[0];
+  let bestDistance = Math.abs(Number(best.year) - wantedYear);
+  for (const candidate of BRAZILIAN_CATALOG){
+    const distance = Math.abs(Number(candidate.year) - wantedYear);
+    if (distance < bestDistance || (distance === bestDistance && Number(candidate.year) < Number(best.year))){
+      best = candidate;
+      bestDistance = distance;
+    }
+  }
+  return best;
+}
+
+function warmBrazilSlotIsUsable(track = null){
+  const slot = warmBrazilPreload.slot;
+  if (!Number.isInteger(slot) || slot < 0 || slot >= PLAYER_POOL_SIZE) return false;
+  if (!readyPlayerSlots.has(slot) || !players[slot]) return false;
+  const target = track || brazilTrackForReferenceYear(warmBrazilPreload.referenceYear);
+  if (!target?.youtubeId) return false;
+  return (
+    warmBrazilPreload.ready === true &&
+    warmBrazilPreload.trackKey === trackIdentity(target) &&
+    warmBrazilPreload.videoId === target.youtubeId &&
+    loadedVideoIds[slot] === target.youtubeId
+  );
+}
+
+function requestWarmBrazilPreload(referenceYear){
+  if (catalogMode !== "international" || !playerStarted) return;
+  const wantedYear = Number(referenceYear);
+  if (!Number.isFinite(wantedYear)) return;
+  const target = brazilTrackForReferenceYear(wantedYear);
+  if (!target) return;
+
+  if (!target.youtubeId){
+    const requestedKey = trackIdentity(target);
+    warmBrazilPreload = {referenceYear:wantedYear, trackKey:requestedKey, videoId:null, slot:null, ready:false};
+    resolveTrackYoutubeId(target).then(() => {
+      if (
+        catalogMode === "international" &&
+        warmBrazilPreload.referenceYear === wantedYear &&
+        warmBrazilPreload.trackKey === requestedKey
+      ) requestWarmBrazilPreload(wantedYear);
+    }).catch(() => {});
+    return;
+  }
+
+  if (
+    warmBrazilPreload.referenceYear === wantedYear &&
+    warmBrazilPreload.trackKey === trackIdentity(target) &&
+    warmBrazilSlotIsUsable(target)
+  ) return;
+
+  warmBrazilPreload = {referenceYear:wantedYear, trackKey:trackIdentity(target), videoId:target.youtubeId, slot:null, ready:false};
+
+  let slot = playerSlotForVideo(target.youtubeId);
+  if (slot === activePlayerIndex) slot = -1;
+  if (slot < 0) slot = freePlayerSlot();
+  if (slot < 0) return;
+
+  cueTrackOnSlot(slot, target);
+  if (loadedVideoIds[slot] === target.youtubeId){
+    warmBrazilPreload.slot = slot;
+  }
+}
+
+function tryActivateWarmBrazilTrack(track, autoplay = true, startSeconds = 0, selectionToken = playbackSelectionSerial){
+  if (catalogMode !== "brazil" || !track || !warmBrazilSlotIsUsable(track)) return false;
+  if (selectionToken !== playbackSelectionSerial || !trackBelongsToActiveCatalog(track)) return false;
+
+  const slot = warmBrazilPreload.slot;
+  const warmedPlayer = players[slot];
+  if (!warmedPlayer) return false;
+
+  activePlaybackSelectionSerial = selectionToken;
+  expectedActiveVideoId = track.youtubeId || null;
+  desiredPlaying = Boolean(autoplay);
+  pendingPlay = false;
+  activePlayerIndex = slot;
+  player = warmedPlayer;
+  playerReady = true;
+  warmStandaloneActive = true;
+
+  try { player.unMute?.(); } catch (_) {}
+  try {
+    if (startSeconds > 0) player.seekTo?.(Math.max(0, Number(startSeconds) || 0), true);
+    if (autoplay) player.playVideo?.();
+    else player.pauseVideo?.();
+  } catch (_) {
+    warmStandaloneActive = false;
+    return false;
+  }
+
+  warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
+  setPlayingUI(Boolean(autoplay));
+  refreshPreloadWindow();
+  return true;
+}
+
+function preloadArtworkAroundCurrent(){
+  if (!queue.length) return;
+  const seen = new Set();
+  for (const offset of PRELOAD_OFFSETS){
+    const track = queue[relativeQueueIndex(currentIndex, offset)];
+    const key = trackIdentity(track);
+    if (!track || seen.has(key)) continue;
+    seen.add(key);
+    resolvedArtworkCandidates(track).then(candidates => {
+      const url = candidates?.[0];
+      if (!url) return;
+      const image = new Image();
+      image.decoding = "async";
+      image.src = url;
+    }).catch(() => {});
+  }
+}
+
+function refreshPreloadWindow(){
+  if (!queue.length || !readyPlayerSlots.size) return;
+
+  // Five-player rolling buffer: current, previous, next, -2 and +2. Existing
+  // slots are retained, while only newly exposed edge tracks are cued.
   const desiredTracks = [];
   const seenIds = new Set();
   for (const offset of PRELOAD_OFFSETS){
@@ -34,200 +178,3 @@ are cued.
 function choosePlayerForTrack(track){
   let slot = playerSlotForVideo(track?.youtubeId);
   if (slot >= 0) return slot;
-
-  if (activePlayerIndex !== null && readyPlayerSlots.has(activePlayerIndex)){
-    return activePlayerIndex;
-  }
-
-  for (const candidate of readyPlayerSlots) return candidate;
-  return -1;
-}
-
-function playlistTracksForCurrent(){
-  if (!queue.length) return [];
-  const currentTrack = queue[currentIndex];
-  if (!currentTrack) return [];
-  if (repeatOne) return [currentTrack];
-
-  if (playbackDirection < 0){
-    const backwardToStart = queue.slice(0, currentIndex + 1).reverse();
-    const wrappedTail = queue.slice(currentIndex + 1).reverse();
-    return backwardToStart.concat(wrappedTail);
-  }
-
-  return queue.slice(currentIndex).concat(queue.slice(0, currentIndex));
-}
-
-function playlistShouldLoop(){
-  if (repeatOne) return true;
-  return queue.length > 1;
-}
-
-function setPlaybackEngine(engine){
-  playbackEngine = engine === "legacy" ? "legacy" : "playlist";
-  document.documentElement.dataset.playbackEngine = playbackEngine;
-}
-
-function clearPlaylistWatchdog(){
-  if (playlistWatchdog){
-    clearTimeout(playlistWatchdog);
-    playlistWatchdog = null;
-  }
-}
-
-function legacyActivateCurrentTrack(autoplay = true, startSeconds = 0, selectionToken = playbackSelectionSerial){
-  warmStandaloneActive = false;
-  const track = queue[currentIndex];
-  if (!track || selectionToken !== playbackSelectionSerial || !trackBelongsToActiveCatalog(track)) return;
-  activePlaybackSelectionSerial = selectionToken;
-  expectedActiveVideoId = track.youtubeId || null;
-
-  desiredPlaying = Boolean(autoplay);
-  pendingPlay = Boolean(autoplay) && !readyPlayerSlots.size;
-  setPlayingUI(Boolean(autoplay) && readyPlayerSlots.size > 0);
-
-  if (!readyPlayerSlots.size){
-    refreshPreloadWindow();
-    return;
-  }
-
-  const previousPlayer = player;
-  const previousSlot = activePlayerIndex;
-  const targetSlot = choosePlayerForTrack(track);
-  if (targetSlot < 0) return;
-
-  if (previousPlayer && previousSlot !== targetSlot){
-    try { previousPlayer.pauseVideo?.(); } catch (_) {}
-    try { previousPlayer.mute?.(); } catch (_) {}
-  }
-
-  activePlayerIndex = targetSlot;
-  player = players[targetSlot];
-  playerReady = Boolean(player);
-
-  try { player.unMute?.(); } catch (_) {}
-
-  const alreadyLoaded = loadedVideoIds[targetSlot] === track.youtubeId;
-  try {
-    if (!alreadyLoaded || startSeconds > 0){
-      loadedVideoIds[targetSlot] = track.youtubeId;
-      const payload = {videoId: track.youtubeId, startSeconds: Math.max(0, Number(startSeconds) || 0)};
-      if (autoplay) player.loadVideoById(payload);
-      else player.cueVideoById(payload);
-    } else if (autoplay){
-      player.playVideo();
-    } else {
-      player.pauseVideo?.();
-    }
-  } catch (_) {}
-
-  pendingPlay = false;
-  refreshPreloadWindow();
-}
-
-function fallbackToLegacy(reason = "playlist indisponível"){
-  if (playbackEngine === "legacy") return;
-  const activeTime = (() => {
-    try { return Math.max(0, Number(player?.getCurrentTime?.()) || 0); } catch (_) { return 0; }
-  })();
-  const wasPlaying = (() => {
-    try { return player?.getPlayerState?.() === YT.PlayerState.PLAYING || desiredPlaying; } catch (_) { return desiredPlaying; }
-  })();
-
-  clearPlaylistWatchdog();
-  setPlaybackEngine("legacy");
-  setStatus(`Mecanismo de playlist indisponível (${reason}). Reprodução contínua mantida pelo modo compatível.`);
-  legacyActivateCurrentTrack(Boolean(wasPlaying), activeTime, playbackSelectionSerial);
-}
-
-function loadDirectionalPlaylist(autoplay = true, startSeconds = 0){
-  if (!player || activePlayerIndex === null) return false;
-  const tracks = playlistTracksForCurrent();
-  const ids = tracks.map(track => track.youtubeId).filter(Boolean);
-  const currentTrack = queue[currentIndex];
-  if (!ids.length || !currentTrack?.youtubeId) return false;
-
-  const serial = ++playlistLoadSerial;
-  clearPlaylistWatchdog();
-
-  try {
-    loadedVideoIds[activePlayerIndex] = currentTrack.youtubeId;
-    player.setLoop?.(playlistShouldLoop());
-    if (autoplay){
-      player.loadPlaylist(ids, 0, Math.max(0, Number(startSeconds) || 0));
-      if (selectedTrackMustPlayFirstId === trackIdentity(currentTrack)){
-        setTimeout(() => {
-          try { player?.playVideoAt?.(0); } catch (_) {}
-        }, 120);
-      }
-    } else {
-      player.cuePlaylist(ids, 0, Math.max(0, Number(startSeconds) || 0));
-    }
-  } catch (error) {
-    fallbackToLegacy("falha ao carregar a fila");
-    return false;
-  }
-
-  playlistWatchdog = setTimeout(() => {
-    if (serial !== playlistLoadSerial || effectivePlaybackEngine() !== "playlist" || !player) return;
-    let playlistIds = [];
-    let activeId = "";
-    try { playlistIds = player.getPlaylist?.() || []; } catch (_) {}
-    try { activeId = player.getVideoData?.()?.video_id || ""; } catch (_) {}
-    const hasUsablePlaylist = ids.length <= 1
-      ? activeId === currentTrack.youtubeId || playlistIds.length >= 1
-      : playlistIds.length >= 2;
-    if (!hasUsablePlaylist) fallbackToLegacy("fila interna não confirmada");
-  }, 10000);
-
-  return true;
-}
-
-function playlistActivateCurrentTrack(autoplay = true, startSeconds = 0, selectionToken = playbackSelectionSerial){
-  warmStandaloneActive = false;
-  const track = queue[currentIndex];
-  if (!track || selectionToken !== playbackSelectionSerial || !trackBelongsToActiveCatalog(track)) return;
-  activePlaybackSelectionSerial = selectionToken;
-  expectedActiveVideoId = track.youtubeId || null;
-
-  desiredPlaying = Boolean(autoplay);
-  pendingPlay = Boolean(autoplay) && !readyPlayerSlots.size;
-  setPlayingUI(Boolean(autoplay) && readyPlayerSlots.size > 0);
-
-  if (!readyPlayerSlots.size){
-    refreshPreloadWindow();
-    return;
-  }
-
-  let targetSlot = activePlayerIndex;
-  if (targetSlot === null || !readyPlayerSlots.has(targetSlot)){
-    targetSlot = choosePlayerForTrack(track);
-  }
-  if (targetSlot < 0 || targetSlot === null) return;
-
-  if (player && activePlayerIndex !== targetSlot){
-    try { player.pauseVideo?.(); } catch (_) {}
-    try { player.mute?.(); } catch (_) {}
-  }
-
-  activePlayerIndex = targetSlot;
-  player = players[targetSlot];
-  playerReady = Boolean(player);
-  try { player.unMute?.(); } catch (_) {}
-
-  if (!loadDirectionalPlaylist(autoplay, startSeconds)) return;
-  pendingPlay = false;
-  refreshPreloadWindow();
-}
-
-async function activateCurrentTrack(autoplay = true, startSeconds = 0, selectionToken = playbackSelectionSerial){
-  const track = queue[currentIndex];
-  if (!track) return;
-  const requestedTrackKey = trackIdentity(track);
-  const requestedCatalogMode = catalogMode;
-
-  if (selectionToken !== playbackSelectionSerial || !trackBelongsToActiveCatalog(track)) return;
-
-  if (!track.youtubeId) {
-    setStatus(`Resolvendo vídeo para ${track.title}…`);
-    await resolveTrackYoutubeId(track);
