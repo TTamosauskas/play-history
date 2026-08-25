@@ -1,4 +1,42 @@
-       const resource = relation?.url?.resource || "";
+function nearestPlayableTrack(referenceTrack){
+  if (!CHRONOLOGICAL_CATALOG.length) return null;
+  const referenceYear = Number(referenceTrack?.year || yearInput.value || DEFAULT_PICKER_YEAR);
+  const referenceSource = referenceTrack?.catalogSource || null;
+  const candidates = CHRONOLOGICAL_CATALOG.filter(track => {
+    const id = hydrateCachedYoutubeId(track);
+    return Boolean(id);
+  });
+  if (!candidates.length) return null;
+
+  let best = candidates[0];
+  let bestScore = Infinity;
+  for (const candidate of candidates){
+    const yearDistance = Math.abs(Number(candidate.year) - referenceYear);
+    const sourcePenalty = catalogMode === "combined" && referenceSource && candidate.catalogSource !== referenceSource ? 0.4 : 0;
+    const score = yearDistance + sourcePenalty;
+    if (score < bestScore || (score === bestScore && Number(candidate.year) < Number(best.year))){
+      best = candidate;
+      bestScore = score;
+    }
+  }
+  return best;
+}
+
+async function resolveMusicBrainzYoutubeId(track){
+  const key = trackIdentity(track);
+  if (musicBrainzYoutubeCache.has(key)) return musicBrainzYoutubeCache.get(key);
+  let resolved = null;
+  try {
+    const recording = await resolveMusicBrainzRecording(track);
+    if (recording?.id){
+      const api = new URL(`https://musicbrainz.org/ws/2/recording/${encodeURIComponent(recording.id)}`);
+      api.searchParams.set("inc", "url-rels");
+      api.searchParams.set("fmt", "json");
+      const data = await fetchJson(api.toString(), 3000);
+      const relations = Array.isArray(data?.relations) ? data.relations : [];
+      const ranked = relations
+        .map(relation => {
+          const resource = relation?.url?.resource || "";
           const videoId = extractYoutubeVideoId(resource);
           if (!videoId || failedYoutubeIds.has(videoId)) return null;
           const attrs = (relation?.attributes || []).map(normalizeSearchText).join(" ");
@@ -105,102 +143,3 @@ async function resolveTrackYoutubeId(track){
     }
     return resolvedId;
   })().finally(() => youtubeResolutionInFlight.delete(key));
-
-  youtubeResolutionInFlight.set(key, task);
-  return task;
-}
-
-async function recoverTrackVideo(track, failedId){
-  if (!track) return null;
-  const key = trackIdentity(track);
-  if (recoveringVideoKeys.has(key)) return null;
-  recoveringVideoKeys.add(key);
-
-  try {
-    if (failedId) failedYoutubeIds.add(failedId);
-    clearCachedYoutubeIdForTrack(track);
-
-    // Clear the failed fixed ID so the runtime resolver can search for a fresh execution.
-    track.youtubeId = null;
-    track.youtubeUrl = null;
-    track.youtubeMusicUrl = null;
-
-    const replacementId = await resolveTrackYoutubeId(track);
-    if (!replacementId || replacementId === failedId) return null;
-
-    track.videoStatus = "runtime_recovered_after_playback_error";
-    track.videoValidationClass = "runtime_recovery";
-    return replacementId;
-  } finally {
-    recoveringVideoKeys.delete(key);
-  }
-}
-
-function resolvePreloadWindowVideoIds(){
-  if (!queue.length) return;
-  for (const offset of PRELOAD_OFFSETS){
-    const track = queue[relativeQueueIndex(currentIndex, offset)];
-    if (!track || track.youtubeId) continue;
-    resolveTrackYoutubeId(track).then(() => {
-      if (effectivePlaybackEngine() === "legacy") refreshPreloadWindow();
-    }).catch(() => {});
-  }
-}
-
-function updateExternalLinks(track){
-  const token = ++externalLinkRenderToken;
-  showTrackAction(infoLink);
-  showTrackAction(contextLink);
-  hideTrackLink(albumLink);
-  if (shouldHideLyrics(track)) hideTrackAction(lyricsLink);
-  else showTrackAction(lyricsLink);
-
-  // Prefer catalog metadata synchronously. This keeps album discovery from
-  // competing with YouTube playback during the critical first seconds.
-  const immediateAlbumUrl = track.albumUrl || (track.albumTitle ? youtubeMusicAlbumSearchUrl(track, track.albumTitle) : null);
-  if (immediateAlbumUrl){
-    albumLink.title = track.albumTitle ? `Abrir ${track.albumTitle} no YouTube Music` : "Abrir álbum no YouTube Music";
-    showTrackLink(albumLink, immediateAlbumUrl);
-    return;
-  }
-
-  const resolveLater = () => {
-    if (token !== externalLinkRenderToken) return;
-    resolvePreferredAlbumLink(track).then(albumResult => {
-      if (token !== externalLinkRenderToken) return;
-      if (albumResult?.url){
-        albumLink.title = albumResult.title ? `Abrir ${albumResult.title} no YouTube Music` : "Abrir álbum no YouTube Music";
-        showTrackLink(albumLink, albumResult.url);
-      }
-    }).catch(() => {});
-  };
-
-  if ("requestIdleCallback" in window){
-    window.requestIdleCallback(resolveLater, {timeout:4000});
-  } else {
-    setTimeout(resolveLater, 2200);
-  }
-}
-/* Rendering, player pool, buffering and playback control. */
-function renderTrack(){
-  const track = queue[currentIndex];
-  if (!track) return;
-
-  trackTitle.textContent = track.title;
-  trackArtist.textContent = track.artist;
-  trackYear.textContent = ` · ${track.year}`;
-  renderArtwork(track);
-
-  prevBtn.disabled = queue.length < 2;
-  nextBtn.disabled = queue.length < 2;
-  updateExternalLinks(track);
-
-  const decadeText = decadeLocked && lockedDecade !== null ? ` · ${lockedPeriodLabel(lockedDecade)}` : "";
-  setStatus(`${track.title} — ${track.artist}, ${track.year}${decadeText}`);
-}
-
-function escapeHtml(value){
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt
