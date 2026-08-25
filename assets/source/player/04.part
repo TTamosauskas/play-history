@@ -1,0 +1,180 @@
+      slot === warmBrazilPreload.slot &&
+      warmBrazilPreload.videoId &&
+      loadedVideoIds[slot] === warmBrazilPreload.videoId
+    ) continue;
+    return slot;
+  }
+  return -1;
+}
+
+function cueTrackOnSlot(slot, track){
+  const targetPlayer = players[slot];
+  if (!targetPlayer || !readyPlayerSlots.has(slot) || !track?.youtubeId) return;
+  if (loadedVideoIds[slot] === track.youtubeId) return;
+
+  try {
+    targetPlayer.mute?.();
+    targetPlayer.cueVideoById(track.youtubeId);
+    loadedVideoIds[slot] = track.youtubeId;
+  } catch (_) {}
+}
+
+function brazilTrackForReferenceYear(referenceYear){
+  if (!BRAZILIAN_CATALOG.length) return null;
+  const wantedYear = Number(referenceYear);
+  let best = BRAZILIAN_CATALOG[0];
+  let bestDistance = Math.abs(Number(best.year) - wantedYear);
+  for (const candidate of BRAZILIAN_CATALOG){
+    const distance = Math.abs(Number(candidate.year) - wantedYear);
+    if (distance < bestDistance || (distance === bestDistance && Number(candidate.year) < Number(best.year))){
+      best = candidate;
+      bestDistance = distance;
+    }
+  }
+  return best;
+}
+
+function warmBrazilSlotIsUsable(track = null){
+  const slot = warmBrazilPreload.slot;
+  if (!Number.isInteger(slot) || slot < 0 || slot >= PLAYER_POOL_SIZE) return false;
+  if (!readyPlayerSlots.has(slot) || !players[slot]) return false;
+  const target = track || brazilTrackForReferenceYear(warmBrazilPreload.referenceYear);
+  if (!target?.youtubeId) return false;
+  return (
+    warmBrazilPreload.ready === true &&
+    warmBrazilPreload.trackKey === trackIdentity(target) &&
+    warmBrazilPreload.videoId === target.youtubeId &&
+    loadedVideoIds[slot] === target.youtubeId
+  );
+}
+
+function requestWarmBrazilPreload(referenceYear){
+  if (catalogMode !== "international" || !playerStarted) return;
+  const wantedYear = Number(referenceYear);
+  if (!Number.isFinite(wantedYear)) return;
+  const target = brazilTrackForReferenceYear(wantedYear);
+  if (!target) return;
+
+  if (!target.youtubeId){
+    const requestedKey = trackIdentity(target);
+    warmBrazilPreload = {referenceYear:wantedYear, trackKey:requestedKey, videoId:null, slot:null, ready:false};
+    resolveTrackYoutubeId(target).then(() => {
+      if (
+        catalogMode === "international" &&
+        warmBrazilPreload.referenceYear === wantedYear &&
+        warmBrazilPreload.trackKey === requestedKey
+      ) requestWarmBrazilPreload(wantedYear);
+    }).catch(() => {});
+    return;
+  }
+
+  if (
+    warmBrazilPreload.referenceYear === wantedYear &&
+    warmBrazilPreload.trackKey === trackIdentity(target) &&
+    warmBrazilSlotIsUsable(target)
+  ) return;
+
+  warmBrazilPreload = {referenceYear:wantedYear, trackKey:trackIdentity(target), videoId:target.youtubeId, slot:null, ready:false};
+
+  let slot = playerSlotForVideo(target.youtubeId);
+  if (slot === activePlayerIndex) slot = -1;
+  if (slot < 0) slot = freePlayerSlot();
+  if (slot < 0) return;
+
+  cueTrackOnSlot(slot, target);
+  if (loadedVideoIds[slot] === target.youtubeId){
+    warmBrazilPreload.slot = slot;
+  }
+}
+
+function tryActivateWarmBrazilTrack(track, autoplay = true, startSeconds = 0, selectionToken = playbackSelectionSerial){
+  if (catalogMode !== "brazil" || !track || !warmBrazilSlotIsUsable(track)) return false;
+  if (selectionToken !== playbackSelectionSerial || !trackBelongsToActiveCatalog(track)) return false;
+
+  const slot = warmBrazilPreload.slot;
+  const warmedPlayer = players[slot];
+  if (!warmedPlayer) return false;
+
+  activePlaybackSelectionSerial = selectionToken;
+  expectedActiveVideoId = track.youtubeId || null;
+  desiredPlaying = Boolean(autoplay);
+  pendingPlay = false;
+  activePlayerIndex = slot;
+  player = warmedPlayer;
+  playerReady = true;
+  warmStandaloneActive = true;
+
+  try { player.unMute?.(); } catch (_) {}
+  try {
+    if (startSeconds > 0) player.seekTo?.(Math.max(0, Number(startSeconds) || 0), true);
+    if (autoplay) player.playVideo?.();
+    else player.pauseVideo?.();
+  } catch (_) {
+    warmStandaloneActive = false;
+    return false;
+  }
+
+  warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
+  setPlayingUI(Boolean(autoplay));
+  refreshPreloadWindow();
+  return true;
+}
+
+function preloadArtworkAroundCurrent(){
+  if (!queue.length) return;
+  const seen = new Set();
+  for (const offset of PRELOAD_OFFSETS){
+    const track = queue[relativeQueueIndex(currentIndex, offset)];
+    const key = trackIdentity(track);
+    if (!track || seen.has(key)) continue;
+    seen.add(key);
+    resolvedArtworkCandidates(track).then(candidates => {
+      const url = candidates?.[0];
+      if (!url) return;
+      const image = new Image();
+      image.decoding = "async";
+      image.src = url;
+    }).catch(() => {});
+  }
+}
+
+function refreshPreloadWindow(){
+  if (!queue.length || !readyPlayerSlots.size) return;
+
+  // Five-player rolling buffer: current, previous, next, -2 and +2. Existing
+  // slots are retained, while only newly exposed edge tracks are cued.
+  const desiredTracks = [];
+  const seenIds = new Set();
+  for (const offset of PRELOAD_OFFSETS){
+    const track = queue[relativeQueueIndex(currentIndex, offset)];
+    if (!track?.youtubeId || seenIds.has(track.youtubeId)) continue;
+    seenIds.add(track.youtubeId);
+    desiredTracks.push(track);
+  }
+
+  const reservedSlots = new Set();
+  for (const track of desiredTracks){
+    const slot = playerSlotForVideo(track.youtubeId);
+    if (slot >= 0) reservedSlots.add(slot);
+  }
+
+  for (const track of desiredTracks){
+    if (playerSlotForVideo(track.youtubeId) >= 0) continue;
+    const slot = freePlayerSlot(reservedSlots);
+    if (slot < 0) break;
+    reservedSlots.add(slot);
+    cueTrackOnSlot(slot, track);
+  }
+
+  for (let slot = 0; slot < PLAYER_POOL_SIZE; slot++){
+    if (!readyPlayerSlots.has(slot) || slot === activePlayerIndex) continue;
+    try { players[slot]?.mute?.(); } catch (_) {}
+  }
+
+  preloadArtworkAroundCurrent();
+  resolvePreloadWindowVideoIds();
+}
+
+function choosePlayerForTrack(track){
+  let slot = playerSlotForVideo(track?.youtubeId);
+  if (slot >= 0) return slot;

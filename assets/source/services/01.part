@@ -1,0 +1,200 @@
+/* Artwork resolution and rendering. */
+function normalizeSearchText(value){
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+async function fetchJson(url, timeoutMs = 5000){
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {signal:controller.signal, mode:"cors", credentials:"omit"});
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function wikipediaPageScore(page, track){
+  const pageTitle = normalizeSearchText(page.title);
+  const wantedTitle = normalizeSearchText(track.title);
+  const wantedArtist = normalizeSearchText(track.artist);
+  const description = normalizeSearchText(page.terms?.description?.join(" ") || "");
+  let score = 0;
+
+  if (pageTitle === wantedTitle) score += 12;
+  else if (pageTitle.includes(wantedTitle)) score += 8;
+  else if (wantedTitle && wantedTitle.includes(pageTitle)) score += 4;
+
+  const artistTokens = wantedArtist.split(" ").filter(token => token.length > 3);
+  score += Math.min(6, artistTokens.filter(token => description.includes(token) || pageTitle.includes(token)).length * 2);
+  if (/\b(song|single|album|recording|composition)\b/.test(description)) score += 3;
+  if (page.thumbnail?.source || page.original?.source) score += 2;
+  return score;
+}
+
+async function wikipediaArtwork(track){
+  const api = new URL("https://en.wikipedia.org/w/api.php");
+  api.searchParams.set("action", "query");
+  api.searchParams.set("format", "json");
+  api.searchParams.set("origin", "*");
+  api.searchParams.set("prop", "pageimages|pageterms");
+  api.searchParams.set("piprop", "thumbnail|original");
+  api.searchParams.set("pithumbsize", "1200");
+  api.searchParams.set("pilicense", "any");
+  api.searchParams.set("wbptterms", "description");
+
+  const portraitHint = track.artworkMode === "composer_portrait" ? (track.artworkPageTitle || track.artist) : null;
+  const hint = portraitHint || WIKIPEDIA_PAGE_HINTS[`${track.artist}|${track.title}`];
+  if (hint){
+    api.searchParams.set("titles", hint);
+  } else {
+    api.searchParams.set("generator", "search");
+    api.searchParams.set("gsrnamespace", "0");
+    api.searchParams.set("gsrlimit", "8");
+    api.searchParams.set("gsrsearch", `${track.title} ${track.artist}`);
+  }
+
+  const data = await fetchJson(api.toString());
+  const pages = Object.values(data?.query?.pages || {}).filter(page => page.thumbnail?.source || page.original?.source);
+  if (!pages.length) return null;
+
+  if (hint){
+    const page = pages[0];
+    return page.thumbnail?.source || page.original?.source || null;
+  }
+
+  pages.sort((a,b) => wikipediaPageScore(b, track) - wikipediaPageScore(a, track));
+  const winner = pages[0];
+  if (wikipediaPageScore(winner, track) < 8) return null;
+  return winner.thumbnail?.source || winner.original?.source || null;
+}
+
+function commonsPageScore(page, track){
+  const name = normalizeSearchText(page.title?.replace(/^File:/i, ""));
+  const title = normalizeSearchText(track.title);
+  const artist = normalizeSearchText(track.artist);
+  let score = 0;
+  if (name.includes(title)) score += 8;
+  const artistTokens = artist.split(" ").filter(token => token.length > 3);
+  score += Math.min(5, artistTokens.filter(token => name.includes(token)).length * 2);
+  if (/\b(cover|sleeve|album|single|record|sheet music|label)\b/.test(name)) score += 3;
+  if (page.imageinfo?.[0]?.thumburl || page.imageinfo?.[0]?.url) score += 2;
+  return score;
+}
+
+async function commonsArtwork(track){
+  const api = new URL("https://commons.wikimedia.org/w/api.php");
+  api.searchParams.set("action", "query");
+  api.searchParams.set("format", "json");
+  api.searchParams.set("origin", "*");
+  api.searchParams.set("generator", "search");
+  api.searchParams.set("gsrnamespace", "6");
+  api.searchParams.set("gsrlimit", "10");
+  api.searchParams.set("gsrsearch", `${track.title} ${track.artist} cover`);
+  api.searchParams.set("prop", "imageinfo");
+  api.searchParams.set("iiprop", "url");
+  api.searchParams.set("iiurlwidth", "1200");
+
+  const data = await fetchJson(api.toString());
+  const pages = Object.values(data?.query?.pages || {}).filter(page => page.imageinfo?.[0]);
+  if (!pages.length) return null;
+  pages.sort((a,b) => commonsPageScore(b, track) - commonsPageScore(a, track));
+  const winner = pages[0];
+  if (commonsPageScore(winner, track) < 8) return null;
+  return winner.imageinfo[0].thumburl || winner.imageinfo[0].url || null;
+}
+
+async function resolvedArtworkCandidates(track){
+  const key = trackIdentity(track);
+  if (artworkCache.has(key)) return artworkCache.get(key);
+
+  // Audio has priority during a track switch. Catalog artwork and YouTube
+  // thumbnails are immediately available URLs, so return them without waiting
+  // for Wikipedia/Commons network lookups.
+  const immediate = [];
+  if (track.artworkUrl) immediate.push(track.artworkUrl);
+  if (track.youtubeId){
+    const id = encodeURIComponent(track.youtubeId);
+    immediate.push(`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`);
+    immediate.push(`https://i.ytimg.com/vi/${id}/hqdefault.jpg`);
+  }
+
+  const immediateUnique = [...new Set(immediate.filter(Boolean))];
+  if (immediateUnique.length){
+    artworkCache.set(key, immediateUnique);
+    return immediateUnique;
+  }
+
+  // Historical entries without a fixed image/video still use the richer
+  // Wikipedia/Commons fallback.
+  const [wikipediaResult, commonsResult] = await Promise.allSettled([
+    wikipediaArtwork(track),
+    commonsArtwork(track)
+  ]);
+  const candidates = [];
+  if (wikipediaResult.status === "fulfilled" && wikipediaResult.value) candidates.push(wikipediaResult.value);
+  if (commonsResult.status === "fulfilled" && commonsResult.value) candidates.push(commonsResult.value);
+  const unique = [...new Set(candidates.filter(Boolean))];
+  artworkCache.set(key, unique);
+  return unique;
+}
+
+function renderArtwork(track){
+  const token = ++artworkRenderToken;
+  const seed = `${track.artist}|${track.title}|${track.year}`;
+  art.style.setProperty("--h1", stableHue(seed, 0));
+  art.style.setProperty("--h2", stableHue(seed, 137));
+  artInitials.textContent = initials(track.artist);
+  artArtist.textContent = track.artist;
+  artYear.textContent = track.year;
+
+  art.classList.remove("has-image");
+  artImg.removeAttribute("src");
+  artImg.alt = `${track.artist} — ${track.title}`;
+
+  resolvedArtworkCandidates(track).then(candidates => {
+    if (token !== artworkRenderToken) return;
+    let candidateIndex = 0;
+
+    const loadNextCandidate = () => {
+      if (token !== artworkRenderToken) return;
+      if (candidateIndex >= candidates.length){
+        art.classList.remove("has-image");
+        artImg.removeAttribute("src");
+        return;
+      }
+      artImg.src = candidates[candidateIndex++];
+    };
+
+    artImg.onload = () => {
+      if (token !== artworkRenderToken) return;
+      art.classList.add("has-image");
+    };
+    artImg.onerror = () => {
+      if (token !== artworkRenderToken) return;
+      art.classList.remove("has-image");
+      loadNextCandidate();
+    };
+
+    loadNextCandidate();
+  }).catch(() => {
+    if (token !== artworkRenderToken) return;
+    art.classList.remove("has-image");
+  });
+}
+
+/* Wikipedia Sobre/Contexto plus album metadata resolution. */
+function wikipediaPageUrl(page, lang = "en"){
+  if (page?.fullurl) return page.fullurl;
+  if (page?.title) return `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(page.title.replaceAll(" ", "_"))}`;
+  return null;
+}
+
+async function wikipediaSearchPages(query, limit = 8, lang = "en"){
+  const api = new URL(`https://${lang}.wikipedia.org/w/api.php`

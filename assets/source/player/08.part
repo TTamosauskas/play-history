@@ -1,0 +1,177 @@
+  const dy = e.clientY - swipeStartY;
+  swipePointerId = null;
+
+  if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) <= Math.abs(dy) * 1.15) return;
+  userHasSwipedDirection = true;
+  if (dx < 0) nextTrack(true);
+  else prevTrack(true);
+});
+
+playerCard.addEventListener("pointercancel", e => {
+  if (swipePointerId === e.pointerId) swipePointerId = null;
+});
+
+function handlePlayerState(slot, event){
+  const slotPlayer = players[slot];
+
+  if (slot !== activePlayerIndex){
+    if (slot === warmBrazilPreload.slot && event.data === YT.PlayerState.CUED){
+      let activeId = "";
+      try { activeId = slotPlayer?.getVideoData?.()?.video_id || ""; } catch (_) {}
+      if (!activeId || activeId === warmBrazilPreload.videoId) warmBrazilPreload.ready = true;
+    }
+    if (event.data === YT.PlayerState.PLAYING){
+      try { slotPlayer?.pauseVideo?.(); } catch (_) {}
+      try { slotPlayer?.mute?.(); } catch (_) {}
+    }
+    return;
+  }
+
+  if (event.data === YT.PlayerState.PLAYING){
+    desiredPlaying = true;
+    setPlayingUI(true);
+    if (effectivePlaybackEngine() === "playlist"){
+      let activeId = "";
+      try { activeId = slotPlayer?.getVideoData?.()?.video_id || ""; } catch (_) {}
+      const selectedTrack = queue[currentIndex];
+      const wantedSelectionId = selectedTrackMustPlayFirstId;
+      const selectedYoutubeId = selectedTrack?.youtubeId || "";
+
+      if (wantedSelectionId && selectedYoutubeId && activeId && activeId !== selectedYoutubeId && selectedTrackGuardAttempts < 2){
+        selectedTrackGuardAttempts += 1;
+        try { slotPlayer?.playVideoAt?.(0); } catch (_) {}
+        return;
+      }
+
+      if (wantedSelectionId && (!activeId || activeId === selectedYoutubeId)){
+        selectedTrackMustPlayFirstId = null;
+        selectedTrackGuardAttempts = 0;
+        if (activeId === expectedActiveVideoId) expectedActiveVideoId = null;
+      }
+      syncTrackFromActiveVideo();
+    } else if (selectedTrackMustPlayFirstId){
+      const selectedTrack = queue[currentIndex];
+      let activeId = "";
+      try { activeId = slotPlayer?.getVideoData?.()?.video_id || ""; } catch (_) {}
+      if (!selectedTrack?.youtubeId || !activeId || activeId === selectedTrack.youtubeId){
+        selectedTrackMustPlayFirstId = null;
+        selectedTrackGuardAttempts = 0;
+        if (activeId === expectedActiveVideoId) expectedActiveVideoId = null;
+      }
+    }
+  } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.CUED){
+    if (effectivePlaybackEngine() === "playlist") syncTrackFromActiveVideo();
+    if (!desiredPlaying) setPlayingUI(false);
+  } else if (event.data === YT.PlayerState.ENDED){
+    desiredPlaying = true;
+
+    if (warmStandaloneActive){
+      if (repeatOne){
+        try {
+          slotPlayer.seekTo?.(0, true);
+          slotPlayer.playVideo?.();
+        } catch (_) {}
+        return;
+      }
+      warmStandaloneActive = false;
+      advanceInPlaybackDirection(true);
+      return;
+    }
+
+    if (effectivePlaybackEngine() === "playlist"){
+      if (repeatOne){
+        try {
+          slotPlayer.seekTo?.(0, true);
+          slotPlayer.playVideo?.();
+        } catch (_) {}
+        return;
+      }
+      return;
+    }
+
+    if (repeatOne){
+      try {
+        slotPlayer.seekTo(0, true);
+        slotPlayer.playVideo();
+      } catch (_) {}
+    } else {
+      advanceInPlaybackDirection(true);
+    }
+  }
+  updateProgressUI();
+}
+
+function handlePlayerError(slot, event){
+  if (slot !== activePlayerIndex){
+    if (slot === warmBrazilPreload.slot){
+      loadedVideoIds[slot] = null;
+      warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
+    }
+    return;
+  }
+  desiredPlaying = true;
+  setPlayingUI(false);
+
+  const failedTrack = queue[currentIndex];
+  const failedTrackKey = trackIdentity(failedTrack);
+  const failedId = failedTrack?.youtubeId || "";
+  const failureSelectionToken = playbackSelectionSerial;
+
+  if (failedTrack && failedId && !recoveringVideoKeys.has(failedTrackKey)){
+    try { player?.pauseVideo?.(); } catch (_) {}
+    setStatus(`A execução retornou erro ${event.data}. Buscando outra versão de ${failedTrack.title}…`);
+
+    recoverTrackVideo(failedTrack, failedId).then(replacementId => {
+      // The user may have changed tracks or catalogs while the replacement was being resolved.
+      if (failureSelectionToken !== playbackSelectionSerial || trackIdentity(queue[currentIndex]) !== failedTrackKey) return;
+
+      if (replacementId){
+        selectedTrackMustPlayFirstId = failedTrackKey;
+        selectedTrackGuardAttempts = 0;
+        renderTrack();
+        activateCurrentTrack(true);
+        return;
+      }
+
+      setStatus(`A execução de ${failedTrack.title} ficou indisponível. Seguindo a direção atual.`);
+      clearTimeout(skipTimer);
+      skipTimer = setTimeout(() => {
+        if (failureSelectionToken === playbackSelectionSerial) advanceInPlaybackDirection(true);
+      }, 500);
+    }).catch(() => {
+      if (failureSelectionToken !== playbackSelectionSerial || trackIdentity(queue[currentIndex]) !== failedTrackKey) return;
+      clearTimeout(skipTimer);
+      skipTimer = setTimeout(() => {
+        if (failureSelectionToken === playbackSelectionSerial) advanceInPlaybackDirection(true);
+      }, 500);
+    });
+    return;
+  }
+
+  setStatus(`A faixa retornou erro ${event.data}. Seguindo a direção atual.`);
+  clearTimeout(skipTimer);
+  skipTimer = setTimeout(() => {
+    if (failureSelectionToken === playbackSelectionSerial) advanceInPlaybackDirection(true);
+  }, 700);
+}
+
+function handleAutoplayBlocked(slot){
+  if (slot !== activePlayerIndex) return;
+  pendingPlay = false;
+  desiredPlaying = false;
+  setPlayingUI(false);
+  setStatus("O navegador bloqueou a reprodução automática com áudio. Toque em play para liberar a reprodução.");
+}
+
+infoLink.addEventListener("click", () => openAboutForTrack(currentTrack()));
+contextLink.addEventListener("click", () => openCulturalContextForTrack(currentTrack()));
+lyricsLink.addEventListener("click", () => openLyricsForTrack(currentTrack()));
+contextDialogClose.addEventListener("click", () => contextDialog.close());
+contextDialog.addEventListener("close", () => {
+  contextRenderToken += 1;
+  contextDialogBody.replaceChildren();
+  contextDialogActions.replaceChildren();
+});
+contextDialog.addEventListener("click", event => {
+  if (event.target === contextDialog) contextDialog.close();
+});

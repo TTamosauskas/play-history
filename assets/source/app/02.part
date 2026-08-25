@@ -1,0 +1,213 @@
+ce(0,2).toUpperCase();
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+}
+
+function setStatus(text){
+  statusEl.innerHTML = text;
+}
+
+function trackIdentity(track){
+  if (!track) return "";
+  // Identity must stay stable while a runtime YouTube ID is resolved.
+  // A mutable identity was the main source of stale catalog-switch callbacks.
+  return [
+    track.catalogSource === "brazil" ? "brazil" : "international",
+    Number(track.year) || 0,
+    String(track.artist || "").trim(),
+    String(track.title || "").trim(),
+    String(track.originalAlbum || track.albumName || track.album || "").trim()
+  ].join("|");
+}
+
+function trackBelongsToActiveCatalog(track){
+  if (!track) return false;
+  const isBrazil = track.catalogSource === "brazil";
+  return isBrazil ? brazilCatalogEnabled : internationalCatalogEnabled;
+}
+
+function indexForYear(year){
+  const exact = CHRONOLOGICAL_CATALOG.findIndex(track => track.year === year);
+  if (exact >= 0) return exact;
+
+  let bestIndex = 0;
+  let bestDistance = Infinity;
+  let bestYear = CHRONOLOGICAL_CATALOG[0]?.year ?? MIN_YEAR;
+
+  CHRONOLOGICAL_CATALOG.forEach((track, index) => {
+    const distance = Math.abs(track.year - year);
+    if (
+      distance < bestDistance ||
+      (distance === bestDistance && track.year < bestYear)
+    ){
+      bestDistance = distance;
+      bestYear = track.year;
+      bestIndex = index;
+    }
+  });
+
+  return bestIndex;
+}
+
+function fisherYates(items){
+  const copy = items.slice();
+  for (let i = copy.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function trackDecade(track){
+  return Math.floor(Number(track?.year || MIN_YEAR) / 10) * 10;
+}
+
+function historicalCenturyAnchor(year){
+  const numericYear = Number(year);
+  if (!Number.isFinite(numericYear) || numericYear >= 1900) return null;
+  return Math.floor(numericYear / 100) * 100;
+}
+
+function isHistoricalCenturyAnchor(anchor){
+  const numericAnchor = Number(anchor);
+  return Number.isFinite(numericAnchor) && numericAnchor < 1900 && numericAnchor % 100 === 0;
+}
+
+function centuryRomanForAnchor(anchor){
+  return romanNumeral(Math.floor(Number(anchor) / 100) + 1);
+}
+
+function trackLockAnchor(track){
+  const year = Number(track?.year || MIN_YEAR);
+  return historicalCenturyAnchor(year) ?? trackDecade(track);
+}
+
+function trackMatchesLockedPeriod(track, anchor){
+  const year = Number(track?.year || MIN_YEAR);
+  if (isHistoricalCenturyAnchor(anchor)) return year >= Number(anchor) && year <= Number(anchor) + 99;
+  return trackDecade(track) === anchor;
+}
+
+function lockedPeriodLabel(anchor){
+  if (isHistoricalCenturyAnchor(anchor)) return `século ${centuryRomanForAnchor(anchor)}`;
+  return `década ${anchor}`;
+}
+
+function modeUniverseForTrack(track){
+  if (!decadeLocked) return CHRONOLOGICAL_CATALOG;
+  const anchor = lockedDecade ?? trackLockAnchor(track);
+  lockedDecade = anchor;
+  return CHRONOLOGICAL_CATALOG.filter(item => trackMatchesLockedPeriod(item, anchor));
+}
+
+function rebuildQueueAroundTrack(currentTrack){
+  const fallback = currentTrack || CHRONOLOGICAL_CATALOG[0];
+  const baseUniverse = modeUniverseForTrack(fallback);
+  const lockAnchor = decadeLocked ? (lockedDecade ?? trackLockAnchor(fallback)) : null;
+  const universe = decadeLocked
+    ? baseUniverse.filter(track => trackMatchesLockedPeriod(track, lockAnchor))
+    : baseUniverse;
+  const currentId = trackIdentity(fallback);
+  const currentInUniverse = universe.find(track => trackIdentity(track) === currentId) || universe[0] || fallback;
+  const currentUniverseId = trackIdentity(currentInUniverse);
+
+  if (shuffleEnabled){
+    // Random + lock is strictly constrained to the active decade/century.
+    const rest = universe.filter(track => trackIdentity(track) !== currentUniverseId);
+    queue = [currentInUniverse, ...fisherYates(rest)];
+    currentIndex = 0;
+  } else {
+    queue = universe.slice();
+    const located = queue.findIndex(track => trackIdentity(track) === currentUniverseId);
+    currentIndex = located >= 0 ? located : 0;
+  }
+}
+
+function ensurePlayerStarted(){
+  if (playerStarted) return;
+  playerStarted = true;
+  app.classList.remove("is-start-screen");
+  playerCard.hidden = false;
+}
+
+function updateModeTags(){
+  if (!modeTags) return;
+  modeTags.replaceChildren();
+  const currentTrack = queue[currentIndex] || CHRONOLOGICAL_CATALOG[0];
+  const labels = [];
+  if (repeatOne) labels.push("repeat");
+  if (shuffleEnabled) labels.push("random");
+  if (decadeLocked){
+    const anchor = lockedDecade ?? trackLockAnchor(currentTrack);
+    labels.push(isHistoricalCenturyAnchor(anchor)
+      ? `${centuryRomanForAnchor(anchor)}s🔒`
+      : `${anchor}s🔒`);
+  }
+  for (const label of labels){
+    const tag = document.createElement("span");
+    tag.className = "mode-tag";
+    tag.textContent = label;
+    modeTags.appendChild(tag);
+  }
+}
+
+function updateCatalogButton(){
+  if (!catalogModeBtn) return;
+  catalogModeBtn.dataset.catalogMode = catalogMode;
+  catalogModeBtn.classList.toggle("is-active", catalogMode !== "international");
+
+  if (catalogMode === "brazil") {
+    catalogModeBtn.innerHTML = '<span class="catalog-symbol" aria-hidden="true">🇧🇷</span>';
+    catalogModeBtn.setAttribute("aria-label", "Catálogo brasileiro");
+    catalogModeBtn.title = "Catálogo brasileiro";
+    return;
+  }
+
+  if (catalogMode === "combined") {
+    catalogModeBtn.innerHTML = '<span class="catalog-symbol catalog-symbol-combined" aria-hidden="true"><span class="catalog-globe">🌐</span><span class="catalog-brazil">🇧🇷</span></span>';
+    catalogModeBtn.setAttribute("aria-label", "Catálogos internacional e brasileiro");
+    catalogModeBtn.title = "Catálogos internacional e brasileiro";
+    return;
+  }
+
+  catalogModeBtn.innerHTML = '<span class="catalog-symbol" aria-hidden="true">🌐</span>';
+  catalogModeBtn.setAttribute("aria-label", "Catálogo internacional");
+  catalogModeBtn.title = "Catálogo internacional";
+}
+
+function activeCatalogTracks(){
+  const merged = [];
+  if (internationalCatalogEnabled) merged.push(...INTERNATIONAL_CATALOG);
+  if (brazilCatalogEnabled) merged.push(...BRAZILIAN_CATALOG);
+  return merged.sort(chronologicalSort);
+}
+
+function catalogFlagsForMode(mode){
+  if (mode === "brazil") return {international:false, brazil:true};
+  if (mode === "combined") return {international:true, brazil:true};
+  return {international:true, brazil:false};
+}
+
+function setCatalogMode(mode){
+  const nextMode = ["international", "brazil", "combined"].includes(mode) ? mode : "international";
+  const currentTrack = queue[currentIndex] || CHRONOLOGICAL_CATALOG[0] || INTERNATIONAL_CATALOG[0] || BRAZILIAN_CATALOG[0];
+  const flags = catalogFlagsForMode(nextMode);
+  const referenceYear = Number(currentTrack?.year || yearInput.value || DEFAULT_PICKER_YEAR);
+  const warmedBrazilTarget = nextMode === "brazil" ? brazilTrackForReferenceYear(referenceYear) : null;
+  const warmedBrazilSlot = warmedBrazilTarget && warmBrazilSlotIsUsable(warmedBrazilTarget)
+    ? warmBrazilPreload.slot
+    : null;
+
+  // A catalog switch is also a playback switch. The one exception is the
+  // already-muted BR warm slot, which survives international -> Brazil so the
+  // selected Brazilian track can start with playVideo() instead of a fresh load.
+  if (nextMode !== catalogMode) interruptPlaybackForSelection({preserveSlot:warmedBrazilSlot});
+
+  catalogMode = nextMode;
+  internationalCatalogEnabled = flags.international;
+  brazilCatalogEnabled = flags.brazil;
+  CHRONOLOGICAL_CATALOG = activeCatalogTracks();
+  updateCatalogButton();
+  if (!CHRONOLOGICAL_CATALOG.length) return;
+
+  const currentStillEnabled = currentTrack && trackBelongsToActiveCatalog(currentTrack) &&
+    CHRONOLOGICAL_CATALOG.some(track => trackIdentity(track) === trackIdentity(curr

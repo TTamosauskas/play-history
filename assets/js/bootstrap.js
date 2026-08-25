@@ -1,0 +1,63 @@
+
+setPlaybackEngine(playbackEngine);
+progressTimer = setInterval(updateProgressUI, 500);
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden){
+    syncTrackFromActiveVideo();
+    updateProgressUI();
+  }
+});
+window.addEventListener("pagehide", () => clearPlaylistWatchdog());
+
+window.onYouTubeIframeAPIReady = function(){
+  for (let slot = 0; slot < PLAYER_POOL_SIZE; slot++){
+    players[slot] = new YT.Player(`ytPlayer${slot}`, {
+      width: 240,
+      height: 240,
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        disablekb: 1,
+        playsinline: 1,
+        rel: 0,
+        fs: 0
+      },
+      events: {
+        onReady: event => {
+          readyPlayerSlots.add(slot);
+          try { event.target.mute?.(); } catch (_) {}
+
+          if (playerStarted && activePlayerIndex === null){
+            activateCurrentTrack(pendingPlay);
+          } else if (playerStarted) {
+            refreshPreloadWindow();
+          }
+          if (playerStarted && catalogMode === "international"){
+            const referenceYear = Number(queue[currentIndex]?.year || yearInput.value || DEFAULT_PICKER_YEAR);
+            requestWarmBrazilPreload(referenceYear);
+          }
+        },
+        onStateChange: event => handlePlayerState(slot, event),
+        onError: event => handlePlayerError(slot, event),
+        onAutoplayBlocked: () => handleAutoplayBlocked(slot)
+      }
+    });
+  }
+};
+
+(function loadYouTubeAPI(){
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  tag.async = true;
+  document.head.appendChild(tag);
+})();
+
+updateModeButtons();
+wheelYear = DEFAULT_PICKER_YEAR;
+wheelCentury = centuryForWheelYear(DEFAULT_PICKER_YEAR);
+setStatus(`Escolha um ano entre ${MIN_YEAR} e ${MAX_YEAR}.`);
+if (matchMedia("(pointer:fine)").matches) requestAnimationFrame(() => yearInput.focus({preventScroll:true}));
+
+if (location.protocol === "file:"){
+  setStatus(`Escolha um ano entre ${MIN_YEAR} e ${MAX_YEAR}.`);
+}

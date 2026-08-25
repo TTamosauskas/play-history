@@ -1,0 +1,132 @@
+function queueSupportsPlaylist(){
+  return queue.every(track => Boolean(track?.youtubeId));
+}
+
+function effectivePlaybackEngine(){
+  return playbackEngine === "playlist" && queueSupportsPlaylist() ? "playlist" : "legacy";
+}
+
+function youtubeQueriesForTrack(track){
+  const artist = String(track?.artist || "").trim();
+  const title = String(track?.title || "").trim();
+  const album = String(track?.albumTitle || track?.preferredAlbumTitle || "").trim();
+  const core = coreTrackTitle(track);
+  const values = [
+    album ? `${artist} ${title} ${album} official audio` : "",
+    album ? `${artist} ${title} ${album}` : "",
+    `${artist} ${title} official audio`,
+    `${artist} ${title} Topic`,
+    track?.youtubeQuery,
+    `${artist} ${core}`
+  ].filter(Boolean);
+  return [...new Set(values)];
+}
+
+function extractYoutubeVideoId(value){
+  const raw = String(value || "");
+  const direct = raw.match(/(?:[?&]v=|youtu\.be\/|\/shorts\/|\/embed\/)([A-Za-z0-9_-]{11})/);
+  if (direct) return direct[1];
+  if (/^[A-Za-z0-9_-]{11}$/.test(raw)) return raw;
+  return null;
+}
+
+function normalizedYoutubeCandidate(candidate, source = "invidious"){
+  if (!candidate) return null;
+  if (source === "piped") {
+    const videoId = extractYoutubeVideoId(candidate.url || candidate.videoId);
+    if (!videoId) return null;
+    return {
+      videoId,
+      title: candidate.title || "",
+      author: candidate.uploaderName || candidate.uploader || candidate.author || "",
+      uploaderVerified: Boolean(candidate.uploaderVerified || candidate.verified),
+      views: Number(candidate.views || candidate.viewCount || 0),
+      duration: Number(candidate.duration || candidate.lengthSeconds || 0),
+      source
+    };
+  }
+  const videoId = extractYoutubeVideoId(candidate.videoId || candidate.url);
+  if (!videoId) return null;
+  return {
+    videoId,
+    title: candidate.title || "",
+    author: candidate.author || candidate.uploader || candidate.uploaderName || "",
+    uploaderVerified: Boolean(candidate.authorVerified || candidate.uploaderVerified || candidate.verified),
+    views: Number(candidate.viewCount || candidate.views || 0),
+    duration: Number(candidate.lengthSeconds || candidate.duration || 0),
+    source
+  };
+}
+
+function youtubeCandidateScore(candidate, track){
+  const title = String(candidate?.title || "");
+  const author = String(candidate?.author || "");
+  const targetTitle = String(track?.title || "");
+  const targetArtist = String(track?.artist || "");
+  const album = String(track?.albumTitle || track?.preferredAlbumTitle || "");
+  const core = coreTrackTitle(track);
+  const titleScore = Math.max(tokenOverlap(title, targetTitle), tokenOverlap(title, core));
+  const artistScore = Math.max(tokenOverlap(author, targetArtist), tokenOverlap(title, targetArtist));
+  const albumScore = album ? tokenOverlap(title, album) : 0;
+  const normalizedTitle = normalizeSearchText(title);
+  const normalizedAuthor = normalizeSearchText(author);
+  const normalizedTrackTitle = normalizeSearchText(targetTitle);
+  const normalizedArtist = normalizeSearchText(targetArtist);
+  const normalizedAlbum = normalizeSearchText(album);
+  let score = Math.round(titleScore * 112 + artistScore * 42 + albumScore * 14);
+
+  if (normalizedTitle === normalizedTrackTitle) score += 32;
+  if (normalizedTitle.includes(normalizedTrackTitle) && normalizedTrackTitle.length > 4) score += 18;
+  if (normalizedAuthor && normalizedArtist && (normalizedAuthor.includes(normalizedArtist) || normalizedArtist.includes(normalizedAuthor))) score += 16;
+  if (candidate?.uploaderVerified) score += 12;
+  if (/\b(topic|vevo|official)\b/.test(normalizedAuthor)) score += 9;
+  if (/\b(official audio|official music video|official video|audio oficial|video oficial)\b/.test(normalizedTitle)) score += 8;
+  if (/\b(remaster|remastered|remasterizado)\b/.test(normalizedTitle)) score += 1;
+  if (normalizedAlbum && normalizedTitle.includes(normalizedAlbum)) score += 7;
+  if (candidate?.views > 0) score += Math.min(9, Math.max(0, Math.log10(candidate.views) - 3));
+
+  const forbidden = /\b(karaoke|cover|tribute|reaction|analysis|review|lesson|tutorial|slowed|sped up|reverb|nightcore|instrumental cover|lyrics cover)\b/;
+  if (forbidden.test(normalizedTitle) || forbidden.test(normalizedAuthor)) score -= 65;
+  const trackIsLive = /\b(live|ao vivo)\b/.test(normalizedTrackTitle) || /\b(live|ao vivo)\b/.test(normalizedAlbum);
+  if (/\b(live|ao vivo)\b/.test(normalizedTitle) && !trackIsLive) score -= 32;
+  if (/\b(remix|mix version|extended mix)\b/.test(normalizedTitle) && !/\b(remix|mix)\b/.test(normalizedTrackTitle)) score -= 36;
+  if (/\b(full album|album completo|complete album)\b/.test(normalizedTitle)) score -= 30;
+  if (/\b(shorts|short)\b/.test(normalizedTitle)) score -= 25;
+  return score;
+}
+
+function cachedYoutubeIdForTrack(track){
+  const key = trackIdentity(track);
+  if (youtubeResolutionCache.has(key)) return youtubeResolutionCache.get(key);
+  try {
+    const stored = localStorage.getItem(`${YOUTUBE_RESOLUTION_STORAGE_PREFIX}${key}`);
+    if (stored && /^[A-Za-z0-9_-]{11}$/.test(stored) && !failedYoutubeIds.has(stored)) {
+      youtubeResolutionCache.set(key, stored);
+      return stored;
+    }
+  } catch (_) {}
+  return null;
+}
+
+function persistYoutubeIdForTrack(track, videoId){
+  const key = trackIdentity(track);
+  youtubeResolutionCache.set(key, videoId);
+  try { localStorage.setItem(`${YOUTUBE_RESOLUTION_STORAGE_PREFIX}${key}`, videoId); } catch (_) {}
+}
+
+function clearCachedYoutubeIdForTrack(track){
+  const key = trackIdentity(track);
+  youtubeResolutionCache.delete(key);
+  try { localStorage.removeItem(`${YOUTUBE_RESOLUTION_STORAGE_PREFIX}${key}`); } catch (_) {}
+}
+
+function hydrateCachedYoutubeId(track){
+  if (!track) return null;
+  if (track.youtubeId && !failedYoutubeIds.has(track.youtubeId)) return track.youtubeId;
+  const cached = cachedYoutubeIdForTrack(track);
+  if (!cached) return null;
+  track.youtubeId = cached;
+  track.youtubeUrl = `https://www.youtube.com/watch?v=${cached}`;
+  track.youtubeMusicUrl = `https://music.youtube.com/watch?v=${cached}`;
+  return cached;
+}

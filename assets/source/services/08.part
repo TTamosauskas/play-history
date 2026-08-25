@@ -1,0 +1,191 @@
+|| 0);
+    return duration >= 1 && duration <= 3600 ? duration : 0;
+  } catch (_) {
+    return 0;
+  }
+}
+
+function lrclibGetUrl(track, duration){
+  const api = new URL("https://lrclib.net/api/get");
+  api.searchParams.set("track_name", track.title);
+  api.searchParams.set("artist_name", track.artist);
+  const album = track.albumTitle || track.preferredAlbumTitle || "";
+  if (album) api.searchParams.set("album_name", album);
+  if (duration > 0) api.searchParams.set("duration", String(duration));
+  return api.toString();
+}
+
+function lrclibSearchUrl(track){
+  const api = new URL("https://lrclib.net/api/search");
+  api.searchParams.set("track_name", track.title);
+  api.searchParams.set("artist_name", track.artist);
+  const album = track.albumTitle || track.preferredAlbumTitle || "";
+  if (album) api.searchParams.set("album_name", album);
+  return api.toString();
+}
+
+function validateLyricsRecord(record, track, duration){
+  if (!record) return null;
+  const score = lrclibRecordScore(record, track, duration);
+  if (score.titleScore < .58 || score.artistScore < .42 || score.total < 66) return null;
+  if (!record.instrumental && !lyricsTextFromRecord(record)) return null;
+  return record;
+}
+
+async function resolveLyrics(track){
+  const key = trackIdentity(track);
+  if (lyricsCache.has(key)) return lyricsCache.get(key);
+
+  const task = (async () => {
+    const duration = currentPlaybackDuration();
+    const cachedId = storedLyricsId(track);
+    if (cachedId){
+      try {
+        const cached = await fetchLrclibJson(`https://lrclib.net/api/get/${cachedId}`);
+        const validated = validateLyricsRecord(cached, track, duration);
+        if (validated) return validated;
+        clearStoredLyricsId(track);
+      } catch (_) {}
+    }
+
+    try {
+      const exact = await fetchLrclibJson(lrclibGetUrl(track, duration));
+      const validated = validateLyricsRecord(exact, track, duration);
+      if (validated){
+        storeLyricsId(track, validated.id);
+        return validated;
+      }
+    } catch (error) {
+      if (String(error?.message || "") === "LRCLIB_RATE_LIMIT") throw error;
+    }
+
+    const results = await fetchLrclibJson(lrclibSearchUrl(track));
+    if (!Array.isArray(results) || !results.length) return null;
+    const ranked = results
+      .map(record => ({record, score: lrclibRecordScore(record, track, duration)}))
+      .filter(item => item.score.titleScore >= .58 && item.score.artistScore >= .42)
+      .sort((a,b) => b.score.total - a.score.total);
+    const best = ranked[0];
+    if (!best || best.score.total < 66) return null;
+    const validated = validateLyricsRecord(best.record, track, duration);
+    if (!validated) return null;
+    storeLyricsId(track, validated.id);
+    return validated;
+  })();
+
+  lyricsCache.set(key, task);
+  try {
+    const result = await task;
+    lyricsCache.set(key, result);
+    return result;
+  } catch (error) {
+    lyricsCache.delete(key);
+    throw error;
+  }
+}
+
+async function openAboutForTrack(track){
+  if (!track) return;
+  const token = openContextDialog("Sobre", track);
+  try {
+    const result = await resolveWikipediaSummary(track);
+    if (token !== contextRenderToken || !contextTrackIsCurrent(track)) return;
+    if (!result?.extract){
+      contextDialogKicker.textContent = "Sobre";
+      setContextMessage("Nenhum dos títulos enciclopédicos direcionados para a faixa ou o artista forneceu texto.");
+      setContextActions([]);
+      return;
+    }
+    contextDialogKicker.textContent = result.contextLabel || wikipediaContextLabel(result.contextKind);
+    contextDialogTitle.textContent = result.title || track.title;
+    setContextText(trimContextExcerpt(result.extract), "context-summary");
+    setContextActions([{label:wikipediaActionLabel(result.contextKind), url:result.url}]);
+  } catch (_) {
+    if (token !== contextRenderToken) return;
+    setContextMessage("A fonte de contexto está temporariamente indisponível.");
+    setContextActions([]);
+  }
+}
+
+async function openCulturalContextForTrack(track){
+  if (!track) return;
+  const token = openContextDialog("Contexto", track);
+  try {
+    const result = await resolveWikipediaCulturalContext(track);
+    if (token !== contextRenderToken || !contextTrackIsCurrent(track)) return;
+    if (!result?.extract){
+      contextDialogKicker.textContent = "Contexto";
+      setContextMessage("Nenhum dos títulos enciclopédicos direcionados para subgênero, gênero, movimento ou período forneceu texto.");
+      setContextActions([]);
+      return;
+    }
+    contextDialogKicker.textContent = result.contextLabel || wikipediaCulturalContextLabel(result.contextKind);
+    contextDialogTitle.textContent = result.title || track.contextTermPt || track.title;
+    setContextText(trimContextExcerpt(result.extract), "context-summary");
+    setContextActions([{label:wikipediaCulturalActionLabel(result.contextKind), url:result.url}]);
+  } catch (_) {
+    if (token !== contextRenderToken) return;
+    setContextMessage("A fonte enciclopédica de contexto está temporariamente indisponível.");
+    setContextActions([]);
+  }
+}
+
+async function openLyricsForTrack(track){
+  if (!track) return;
+  if (shouldHideLyrics(track)) return;
+  const token = openContextDialog("Letra", track);
+  try {
+    const result = await resolveLyrics(track);
+    if (token !== contextRenderToken || !contextTrackIsCurrent(track)) return;
+    if (result?.instrumental){
+      hideTrackAction(lyricsLink);
+      setContextMessage("Faixa instrumental.");
+      setContextActions([]);
+      return;
+    }
+    const lyrics = lyricsTextFromRecord(result);
+    if (!lyrics){
+      setContextMessage("Letra indisponível nesta fonte.");
+      setContextActions([{label:"Buscar letra no Google ↗", url:googleLyricsSearchUrl(track)}]);
+      return;
+    }
+    setContextText(lyrics, "context-lyrics");
+    setContextActions([{label:"LRCLIB ↗", url:"https://lrclib.net"}]);
+  } catch (error) {
+    if (token !== contextRenderToken) return;
+    const rateLimited = String(error?.message || "") === "LRCLIB_RATE_LIMIT";
+    setContextMessage(rateLimited ? "O serviço de letras está ocupado neste momento." : "A fonte de letras está temporariamente indisponível.");
+    setContextActions([{label:"Buscar letra no Google ↗", url:googleLyricsSearchUrl(track)}]);
+  }
+}
+
+async function openAlbumForTrack(track){
+  if (!track) return;
+
+  if (track.albumUrl){
+    window.open(track.albumUrl, "_blank", "noopener,noreferrer");
+    return;
+  }
+  if (track.albumTitle && !albumTitleLooksLikeCompilation(track.albumTitle)){
+    window.open(youtubeMusicAlbumSearchUrl(track, track.albumTitle), "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  const token = openContextDialog("Álbum", track);
+  try {
+    const result = await resolvePreferredAlbumLink(track);
+    if (token !== contextRenderToken || !contextTrackIsCurrent(track)) return;
+    if (!result?.url){
+      setContextMessage("Álbum específico indisponível para esta gravação.");
+      setContextActions([]);
+      return;
+    }
+    const detail = result.title ? `Álbum identificado: ${result.title}.` : "Álbum identificado para esta gravação.";
+    setContextMessage(detail);
+    setContextActions([{label:"Abrir no YouTube Music ↗", url:result.url}]);
+  } catch (_) {
+    if (token !== contextRenderToken) return;
+    setContextMessage("A resolução do álbum está temporariamente indisponível.");
+    setContextActions([]);
+  }
+}

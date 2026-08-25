@@ -1,0 +1,214 @@
+entTrack));
+  // In single-source modes, replacement is chosen strictly from that source.
+  // In combined mode the current track is preserved whenever it belongs to either source.
+  const replacementUniverse = nextMode === "brazil"
+    ? BRAZILIAN_CATALOG
+    : (nextMode === "international" ? INTERNATIONAL_CATALOG : CHRONOLOGICAL_CATALOG);
+  const nearestReplacement = (() => {
+    if (!replacementUniverse.length) return CHRONOLOGICAL_CATALOG[0];
+    let best = replacementUniverse[0];
+    let bestDistance = Math.abs(Number(best.year) - referenceYear);
+    for (const candidate of replacementUniverse){
+      const distance = Math.abs(Number(candidate.year) - referenceYear);
+      if (distance < bestDistance || (distance === bestDistance && Number(candidate.year) < Number(best.year))){
+        best = candidate;
+        bestDistance = distance;
+      }
+    }
+    return best;
+  })();
+  const selectedTrack = currentStillEnabled ? currentTrack : nearestReplacement;
+
+  if (decadeLocked) lockedDecade = trackLockAnchor(selectedTrack);
+  rebuildQueueAroundTrack(selectedTrack);
+  selectedTrackMustPlayFirstId = trackIdentity(selectedTrack);
+  selectedTrackGuardAttempts = 0;
+  updateModeButtons();
+  renderTrack();
+
+  // Catalog changes are explicit user actions, so the selected entry starts
+  // immediately from its beginning even if playback had previously been paused.
+  pendingPlay = true;
+  desiredPlaying = true;
+  setPlayingUI(true);
+  activateCurrentTrack(true, 0);
+  refreshPreloadWindow();
+}
+
+function cycleCatalogMode(){
+  const sequence = ["international", "brazil", "combined"];
+  const current = Math.max(0, sequence.indexOf(catalogMode));
+  setCatalogMode(sequence[(current + 1) % sequence.length]);
+}
+
+function updateModeButtons(){
+  updateCatalogButton();
+  repeatBtn.classList.toggle("is-active", repeatOne);
+  repeatBtn.setAttribute("aria-pressed", String(repeatOne));
+  decadeLockBtn.classList.toggle("is-active", decadeLocked);
+  decadeLockBtn.setAttribute("aria-pressed", String(decadeLocked));
+  const currentTrack = queue[currentIndex] || CHRONOLOGICAL_CATALOG[0];
+  const previewAnchor = lockedDecade ?? trackLockAnchor(currentTrack);
+  decadeLockBtn.title = decadeLocked && lockedDecade !== null
+    ? `${lockedPeriodLabel(lockedDecade)} fixado`
+    : `Tocar somente músicas do ${lockedPeriodLabel(previewAnchor)}`;
+  decadeLockBtn.setAttribute("aria-label", decadeLocked && lockedDecade !== null
+    ? `${lockedPeriodLabel(lockedDecade)} fixado`
+    : `Fixar ${lockedPeriodLabel(previewAnchor)}`);
+  shuffleBtn.classList.toggle("is-active", shuffleEnabled);
+  shuffleBtn.setAttribute("aria-pressed", String(shuffleEnabled));
+  updateModeTags();
+}
+
+function setShuffle(enabled){
+  const currentTrack = queue[currentIndex] || CHRONOLOGICAL_CATALOG[0];
+  shuffleEnabled = Boolean(enabled);
+  rebuildQueueAroundTrack(currentTrack);
+  updateModeButtons();
+  renderTrack();
+  rebuildActivePlaylistPreservingPosition();
+  refreshPreloadWindow();
+}
+
+function setDecadeLock(enabled){
+  const currentTrack = queue[currentIndex] || CHRONOLOGICAL_CATALOG[0];
+  decadeLocked = Boolean(enabled);
+  lockedDecade = decadeLocked ? trackLockAnchor(currentTrack) : null;
+  rebuildQueueAroundTrack(currentTrack);
+  updateModeButtons();
+  renderTrack();
+  rebuildActivePlaylistPreservingPosition();
+  refreshPreloadWindow();
+}
+
+function setRepeatOne(enabled){
+  const wasRepeat = repeatOne;
+  const repeatedTrack = queue[currentIndex] || null;
+  repeatOne = Boolean(enabled);
+
+  if (wasRepeat && !repeatOne && repeatedTrack && CHRONOLOGICAL_CATALOG.length){
+    const stillEnabled = CHRONOLOGICAL_CATALOG.some(track => trackIdentity(track) === trackIdentity(repeatedTrack));
+    if (!stillEnabled){
+      const replacement = CHRONOLOGICAL_CATALOG[indexForYear(Number(repeatedTrack.year) || DEFAULT_PICKER_YEAR)] || CHRONOLOGICAL_CATALOG[0];
+      if (decadeLocked) lockedDecade = trackLockAnchor(replacement);
+      rebuildQueueAroundTrack(replacement);
+      selectedTrackMustPlayFirstId = trackIdentity(replacement);
+      selectedTrackGuardAttempts = 0;
+      updateModeButtons();
+      renderTrack();
+      activateCurrentTrack(desiredPlaying, 0);
+      return;
+    }
+  }
+
+  updateModeButtons();
+  renderTrack();
+  rebuildActivePlaylistPreservingPosition();
+}
+
+function keepRepeatTrackPlaying(autoplay = true){
+  if (!repeatOne || !queue.length) return false;
+  const track = queue[currentIndex];
+  if (!track) return true;
+  desiredPlaying = Boolean(autoplay);
+  if (autoplay){
+    try {
+      player?.seekTo?.(0, true);
+      player?.playVideo?.();
+      setPlayingUI(true);
+    } catch (_) {
+      activateCurrentTrack(true, 0);
+    }
+  }
+  return true;
+}
+
+function romanNumeral(value){
+  const pairs = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+  let number = Math.max(1, Math.floor(Number(value) || 1));
+  let result = "";
+  for (const [amount, glyph] of pairs){
+    while (number >= amount){
+      result += glyph;
+      number -= amount;
+    }
+  }
+  return result;
+}
+
+function centuryForWheelYear(year){
+  return Math.floor((Number(year) - 1) / 100) + 1;
+}
+
+function yearBoundsForCentury(century){
+  const start = Math.max(MIN_YEAR, (Number(century) - 1) * 100 + 1);
+  const end = Math.min(MAX_YEAR, Number(century) * 100);
+  return {start, end};
+}
+
+function wheelItems(wheel){
+  return [...wheel.querySelectorAll(".year-wheel-item")];
+}
+
+function updateWheelVisuals(wheel, selectedIndex){
+  const items = wheelItems(wheel);
+  items.forEach((item, index) => {
+    const rawDistance = index - selectedIndex;
+    const distance = Math.max(-2, Math.min(2, rawDistance));
+    item.dataset.distance = String(distance);
+    const selected = index === selectedIndex;
+    item.classList.toggle("is-selected", selected);
+    item.setAttribute("aria-selected", String(selected));
+  });
+}
+
+function scrollWheelToIndex(wheel, index, behavior = "auto"){
+  const items = wheelItems(wheel);
+  const safeIndex = Math.max(0, Math.min(Math.max(0, items.length - 1), Number(index) || 0));
+  const top = safeIndex * WHEEL_ROW_HEIGHT;
+  wheel.scrollTo({top, behavior});
+  updateWheelVisuals(wheel, safeIndex);
+}
+
+function populateCenturyWheel(){
+  centuryWheel.replaceChildren();
+  for (let century = MIN_CENTURY; century <= MAX_CENTURY; century++){
+    const item = document.createElement("div");
+    item.className = "year-wheel-item";
+    item.role = "option";
+    item.dataset.value = String(century);
+    item.textContent = romanNumeral(century);
+    item.addEventListener("click", () => {
+      const index = century - MIN_CENTURY;
+      scrollWheelToIndex(centuryWheel, index, "smooth");
+    });
+    centuryWheel.appendChild(item);
+  }
+}
+
+function populateYearWheel(preferredYear = wheelYear, behavior = "auto"){
+  const {start, end} = yearBoundsForCentury(wheelCentury);
+  const suffix = ((Math.max(1, Number(preferredYear) || start) - 1) % 100) + 1;
+  const candidate = (wheelCentury - 1) * 100 + suffix;
+  wheelYear = Math.min(end, Math.max(start, candidate));
+
+  yearWheel.replaceChildren();
+  for (let year = start; year <= end; year++){
+    const item = document.createElement("div");
+    item.className = "year-wheel-item";
+    item.role = "option";
+    item.dataset.value = String(year);
+    item.textContent = String(year);
+    item.addEventListener("click", () => {
+      scrollWheelToIndex(yearWheel, year - start, "smooth");
+    });
+    yearWheel.appendChild(item);
+  }
+  scrollWheelToIndex(yearWheel, wheelYear - start, behavior);
+}
+
+function syncCenturyWheelFromScroll(){
+  const index = Math.max(0, Math.min(MAX_CENTURY - MIN_CENTURY, Math.round(centuryWheel.scrollTop / WHEEL_ROW_HEIGHT)));
+  const nextCentury = MIN_CENTURY + index;
+  updateWheelVisuals(centuryWheel, index);
+  if (nextCe

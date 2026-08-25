@@ -1,0 +1,183 @@
+/* Shared DOM/state. Classic injected scripts share the global lexical environment. */
+const CATALOG = window.PLAY_HISTORY.catalog;
+const PROJECT = {version: window.PLAY_HISTORY.meta.version, tracks: CATALOG};
+const MIN_YEAR = 800;
+const MAX_YEAR = 2026;
+
+const app = document.getElementById("app");
+const yearForm = document.getElementById("yearForm");
+const yearInput = document.getElementById("yearInput");
+const yearPickerBtn = document.getElementById("yearPickerBtn");
+const yearPickerDialog = document.getElementById("yearPickerDialog");
+const centuryWheel = document.getElementById("centuryWheel");
+const yearWheel = document.getElementById("yearWheel");
+const yearPickerClose = document.getElementById("yearPickerClose");
+const yearPickerConfirm = document.getElementById("yearPickerConfirm");
+const art = document.getElementById("art");
+const artImg = document.getElementById("artImg");
+const artInitials = document.getElementById("artInitials");
+const artArtist = document.getElementById("artArtist");
+const artYear = document.getElementById("artYear");
+const trackTitle = document.getElementById("trackTitle");
+const trackArtist = document.getElementById("trackArtist");
+const trackYear = document.getElementById("trackYear");
+const prevBtn = document.getElementById("prevBtn");
+const playBtn = document.getElementById("playBtn");
+const nextBtn = document.getElementById("nextBtn");
+const repeatBtn = document.getElementById("repeatBtn");
+const decadeLockBtn = document.getElementById("decadeLockBtn");
+const shuffleBtn = document.getElementById("shuffleBtn");
+const catalogModeBtn = document.getElementById("catalogModeBtn");
+const infoLink = document.getElementById("infoLink");
+const contextLink = document.getElementById("contextLink");
+const albumLink = document.getElementById("albumLink");
+const lyricsLink = document.getElementById("lyricsLink");
+const contextDialog = document.getElementById("contextDialog");
+const contextDialogClose = document.getElementById("contextDialogClose");
+const contextDialogKicker = document.getElementById("contextDialogKicker");
+const contextDialogTitle = document.getElementById("contextDialogTitle");
+const contextDialogSubtitle = document.getElementById("contextDialogSubtitle");
+const contextDialogBody = document.getElementById("contextDialogBody");
+const contextDialogActions = document.getElementById("contextDialogActions");
+const statusEl = document.getElementById("status");
+const playerCard = document.querySelector(".player-card");
+const progressRange = document.getElementById("progressRange");
+const currentTimeLabel = document.getElementById("currentTimeLabel");
+const durationLabel = document.getElementById("durationLabel");
+const modeTags = document.getElementById("modeTags");
+
+function chronologicalSort(a,b){
+  return a.year - b.year ||
+    (a.yearPriority ?? 999) - (b.yearPriority ?? 999) ||
+    (a.decadeRank ?? 999) - (b.decadeRank ?? 999) ||
+    a.artist.localeCompare(b.artist, "pt-BR") ||
+    a.title.localeCompare(b.title, "pt-BR");
+}
+
+const INTERNATIONAL_CATALOG = CATALOG
+  .filter(track => track.catalogSource !== "brazil")
+  .slice()
+  .sort(chronologicalSort);
+
+const BRAZILIAN_CATALOG = CATALOG
+  .filter(track => track.catalogSource === "brazil")
+  .slice()
+  .sort(chronologicalSort);
+
+let catalogMode = "international";
+let internationalCatalogEnabled = true;
+let brazilCatalogEnabled = false;
+let CHRONOLOGICAL_CATALOG = INTERNATIONAL_CATALOG.slice();
+let queue = CHRONOLOGICAL_CATALOG.slice();
+let currentIndex = 0;
+const PLAYER_POOL_SIZE = 5;
+let players = Array(PLAYER_POOL_SIZE).fill(null);
+let loadedVideoIds = Array(PLAYER_POOL_SIZE).fill(null);
+let readyPlayerSlots = new Set();
+let activePlayerIndex = null;
+let player = null;
+let playerReady = false;
+let pendingPlay = false;
+let desiredPlaying = false;
+let repeatOne = false;
+let decadeLocked = false;
+let lockedDecade = null;
+let shuffleEnabled = false;
+let playbackDirection = -1;
+// Fast buffered playback is the default. Add ?engine=playlist only to compare
+// against the older large-playlist strategy.
+const REQUESTED_PLAYBACK_ENGINE = new URLSearchParams(location.search).get("engine");
+let playbackEngine = REQUESTED_PLAYBACK_ENGINE === "playlist" ? "playlist" : "legacy";
+let playlistLoadSerial = 0;
+let playlistWatchdog = null;
+let progressDragging = false;
+let progressTimer = null;
+let playerStarted = false;
+const WHEEL_ROW_HEIGHT = 56;
+const DEFAULT_PICKER_YEAR = 1953;
+const MIN_CENTURY = Math.floor((MIN_YEAR - 1) / 100) + 1;
+const MAX_CENTURY = Math.floor((MAX_YEAR - 1) / 100) + 1;
+let wheelCentury = Math.floor((DEFAULT_PICKER_YEAR - 1) / 100) + 1;
+let wheelYear = DEFAULT_PICKER_YEAR;
+let wheelSyncFrame = null;
+let wheelCenturyScrollTimer = null;
+let wheelYearScrollTimer = null;
+let wheelBoundaryTransitionAt = 0;
+let wheelTouchStartY = null;
+let wheelTouchLastY = null;
+let skipTimer = null;
+let userHasSwipedDirection = false;
+let selectedTrackMustPlayFirstId = null;
+let selectedTrackGuardAttempts = 0;
+let playbackSelectionSerial = 0;
+let activePlaybackSelectionSerial = 0;
+let expectedActiveVideoId = null;
+let swipePointerId = null;
+let swipeStartX = 0;
+let swipeStartY = 0;
+let artworkRenderToken = 0;
+const artworkCache = new Map();
+const wikipediaInfoCache = new Map();
+const wikipediaSummaryCache = new Map();
+const wikipediaCulturalContextCache = new Map();
+const wikipediaContextCache = new Map();
+const lyricsCache = new Map();
+const geniusMetadataCache = new Map();
+const geniusAlbumCache = new Map();
+const preferredAlbumCache = new Map();
+const musicBrainzRecordingCache = new Map();
+const musicBrainzReleaseGroupCache = new Map();
+const musicBrainzYoutubeCache = new Map();
+const youtubeResolutionCache = new Map();
+const youtubeResolutionInFlight = new Map();
+const failedYoutubeIds = new Set();
+const recoveringVideoKeys = new Set();
+const PIPED_SEARCH_ENDPOINTS = [
+  "https://pipedapi.kavin.rocks/search",
+  "https://pipedapi.tokhmi.xyz/search",
+  "https://pipedapi.moomoo.me/search",
+  "https://pipedapi.syncpundit.io/search",
+  "https://api-piped.mha.fi/search",
+  "https://piped-api.garudalinux.org/search"
+];
+const INVIDIOUS_SEARCH_ENDPOINTS = [
+  "https://inv.nadeko.net/api/v1/search",
+  "https://invidious.nerdvpn.de/api/v1/search",
+  "https://yt.chocolatemoo53.com/api/v1/search",
+  "https://invidious.tiekoetter.com/api/v1/search"
+];
+const YOUTUBE_RESOLUTION_STORAGE_PREFIX = "player-musical-yt-v47:";
+const LYRICS_ID_STORAGE_PREFIX = "player-musical-lrclib-v1:";
+const LRCLIB_CLIENT_HEADER = "Player Musical 800-2026 v6.7.0 (https://ttamosauskas.github.io/play-history/)";
+let externalLinkRenderToken = 0;
+let contextRenderToken = 0;
+let yearInputTimer = null;
+const SWIPE_THRESHOLD = 56;
+const PRELOAD_OFFSETS = [0, -1, 1, -2, 2];
+
+// Warm handoff: while the international catalog is active, keep the first
+// Brazilian track nearest to the selected year cued in one silent idle iframe.
+// The slot survives only the explicit international -> Brazil transition.
+let warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
+let warmStandaloneActive = false;
+
+const WIKIPEDIA_PAGE_HINTS = {
+  "The Beatles|Come Together":"Abbey Road",
+  "Don McLean|American Pie":"American Pie (Don McLean album)",
+  "Simon & Garfunkel|Mrs. Robinson":"Bookends (Simon & Garfunkel album)"
+};
+/* Catalog selection, UI modes and year picker. */
+function stableHue(text, offset = 0){
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++){
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return Math.abs(h + offset) % 360;
+}
+
+function initials(name){
+  const clean = name.replace(/&/g, " ").replace(/\band\b/gi, " ").trim();
+  const words = clean.split(/\s+/).filter(Boolean);
+  if (!words.length) return "—";
+  if (words.length === 1) return words[0].sli

@@ -1,0 +1,176 @@
+);
+  api.searchParams.set("action", "query");
+  api.searchParams.set("format", "json");
+  api.searchParams.set("origin", "*");
+  api.searchParams.set("generator", "search");
+  api.searchParams.set("gsrnamespace", "0");
+  api.searchParams.set("gsrlimit", String(limit));
+  api.searchParams.set("gsrsearch", query);
+  api.searchParams.set("prop", "pageterms|info");
+  api.searchParams.set("inprop", "url");
+  api.searchParams.set("wbptterms", "description");
+  const data = await fetchJson(api.toString(), 5500);
+  return Object.values(data?.query?.pages || {})
+    .filter(page => !page.missing && wikipediaPageUrl(page, lang))
+    .map(page => ({...page, _wikiLang:lang}));
+}
+
+async function wikipediaExactPage(title, lang = "en"){
+  if (!title) return null;
+  const api = new URL(`https://${lang}.wikipedia.org/w/api.php`);
+  api.searchParams.set("action", "query");
+  api.searchParams.set("format", "json");
+  api.searchParams.set("origin", "*");
+  api.searchParams.set("redirects", "1");
+  api.searchParams.set("titles", title);
+  api.searchParams.set("prop", "pageterms|info");
+  api.searchParams.set("inprop", "url");
+  api.searchParams.set("wbptterms", "description");
+  const data = await fetchJson(api.toString(), 5500);
+  const page = Object.values(data?.query?.pages || {})[0];
+  return page && !page.missing && wikipediaPageUrl(page, lang) ? {...page, _wikiLang:lang} : null;
+}
+
+async function safeWikipediaExactPage(title, lang = "en"){
+  try { return await wikipediaExactPage(title, lang); } catch (_) { return null; }
+}
+
+async function wikipediaSearchMany(queries, limit = 8, lang = "en"){
+  const uniqueQueries = [...new Set(queries.filter(Boolean))];
+  const settled = await Promise.allSettled(uniqueQueries.map(query => wikipediaSearchPages(query, limit, lang)));
+  const pages = settled.flatMap(result => result.status === "fulfilled" ? result.value : []);
+  return [...new Map(pages.map(page => [`${page._wikiLang || lang}:${page.pageid || page.title}`, page])).values()];
+}
+
+function wikipediaPageResolvedUrl(page){
+  return wikipediaPageUrl(page, page?._wikiLang || "en");
+}
+
+function wikipediaDescription(page){
+  return normalizeSearchText(page?.terms?.description?.join(" ") || "");
+}
+
+function coreTrackTitle(track){
+  const raw = String(track?.title || "").trim();
+  const afterColon = raw.includes(":") ? raw.split(":").slice(1).join(":").trim() : raw;
+  return afterColon
+    .replace(/[“”"']/g, "")
+    .replace(/\s*[–—-]\s*(remaster(?:ed)?|mono|stereo|live|version).*$/i, "")
+    .trim();
+}
+
+function significantTokens(value){
+  return normalizeSearchText(value)
+    .split(/\s+/)
+    .filter(token => token.length > 2 && !["the","and","with","from","feat","major","minor"].includes(token));
+}
+
+function tokenOverlap(a, b){
+  const aa = new Set(significantTokens(a));
+  const bb = new Set(significantTokens(b));
+  if (!aa.size || !bb.size) return 0;
+  let common = 0;
+  aa.forEach(token => { if (bb.has(token)) common += 1; });
+  return common / Math.max(1, Math.min(aa.size, bb.size));
+}
+
+function wikipediaArtistMatches(page, track){
+  const haystack = `${normalizeSearchText(page?.title)} ${wikipediaDescription(page)}`;
+  return significantTokens(track.artist).filter(token => haystack.includes(token)).length;
+}
+
+function scoreWorkArticle(page, track){
+  const pageTitle = normalizeSearchText(page?.title);
+  const fullTitle = normalizeSearchText(track.title);
+  const coreTitle = normalizeSearchText(coreTrackTitle(track));
+  const desc = wikipediaDescription(page);
+  let score = 0;
+
+  if (pageTitle === fullTitle || pageTitle === coreTitle) score += 18;
+  score += Math.round(Math.max(tokenOverlap(page?.title, track.title), tokenOverlap(page?.title, coreTrackTitle(track))) * 10);
+  score += Math.min(6, wikipediaArtistMatches(page, track) * 2);
+
+  if (/\b(song|single|composition|musical composition|aria|opera|symphony|concerto|sonata|oratorio|mass|anthem|march|waltz|quartet|quintet|suite|serenade|overture|prelude|passion|requiem|canção|cancao|música|musica|composição|composicao|hino|marcha|samba|choro|tango|valsa)\b/.test(desc)) score += 8;
+  if (/\balbum\b/.test(desc)) score -= 6;
+  if (/\b(disambiguation|surname|given name)\b/.test(desc)) score -= 10;
+  return score;
+}
+
+function scoreAlbumArticle(page, albumName, track){
+  const title = normalizeSearchText(page?.title);
+  const album = normalizeSearchText(albumName || "");
+  const desc = wikipediaDescription(page);
+  let score = 0;
+  if (title === album) score += 16;
+  score += Math.round(tokenOverlap(page?.title, albumName) * 9);
+  score += Math.min(6, wikipediaArtistMatches(page, track) * 2);
+  if (/\b(album|álbum)\b/.test(desc)) score += 10;
+  return score;
+}
+
+function scoreArtistArticle(page, track){
+  const title = normalizeSearchText(page?.title);
+  const artist = normalizeSearchText(track.artist);
+  const desc = wikipediaDescription(page);
+  let score = 0;
+  if (title === artist) score += 20;
+  score += Math.round(tokenOverlap(page?.title, track.artist) * 10);
+
+  // Pequena tolerância ortográfica útil para nomes históricos, por exemplo
+  // Bahiano (catálogo) ↔ Baiano (título enciclopédico).
+  const compact = value => normalizeSearchText(value).replace(/h/g, "").replace(/[^a-z0-9]/g, "");
+  if (compact(page?.title) && compact(page?.title).includes(compact(track.artist))) score += 7;
+
+  if (/\b(singer|musician|band|group|duo|composer|rapper|artist|orchestra|quartet|songwriter|pianist|violinist|conductor|cantor|cantora|músico|musico|música|musica|banda|grupo|dupla|compositor|compositora|artista|orquestra|pianista|violinista|maestro|regente)\b/.test(desc)) score += 8;
+  if (track.catalogSource === "brazil" && /\b(brasileiro|brasileira|brazilian|brasil)\b/.test(desc)) score += 6;
+  if (track.catalogSource === "brazil" && /\b(argentino|argentina|argentine)\b/.test(desc)) score -= 8;
+  return score;
+}
+
+function wikipediaAlbumContextName(track){
+  const raw = String(track?.albumTitle || track?.preferredAlbumTitle || "").trim();
+  if (!raw) return "";
+  const normalized = normalizeSearchText(raw);
+  const archival = /\b(78 rpm|disco historico|gravacao historica|edicao de arquivo|arquivo|catalogo|catalog number|registro sonoro oficial)\b/.test(normalized);
+  const catalogLike = /\b(odeon|continental|rca|victor|columbia|parlophon|berliner|zon o phone)\b/.test(normalized) && /\d/.test(raw);
+  return archival || catalogLike ? "" : raw;
+}
+
+function scoreDecadeArticle(page, track){
+  const decade = trackDecade(track);
+  const decadeText = `${decade}s`;
+  const title = normalizeSearchText(page?.title);
+  const desc = wikipediaDescription(page);
+  const wanted = normalizeSearchText(`${decadeText} in music`);
+  let score = 0;
+  if (title === wanted) score += 24;
+  if (title.includes(normalizeSearchText(decadeText))) score += 9;
+  if (/\bmusic\b/.test(`${title} ${desc}`)) score += 9;
+  if (track.catalogSource === "brazil" && /\b(brazil|brazilian)\b/.test(`${title} ${desc}`)) score += 4;
+  if (/\b(disambiguation|surname|given name)\b/.test(desc)) score -= 12;
+  return score;
+}
+
+function wikipediaContextLabel(kind){
+  if (kind === "track") return "Sobre a faixa";
+  if (kind === "artist") return "Sobre o artista";
+  return "Sobre";
+}
+
+function wikipediaActionLabel(kind){
+  if (kind === "track") return "Wikipedia — faixa ↗";
+  if (kind === "artist") return "Wikipedia — artista ↗";
+  return "Wikipedia ↗";
+}
+
+function wikipediaCulturalContextLabel(kind){
+  if (kind === "subgenre") return "Contexto — subgênero";
+  if (kind === "genre") return "Contexto — gênero";
+  if (kind === "movement") return "Contexto — movimento";
+  if (kind === "century") return "Contexto — século";
+  if (kind === "decade") return "Contexto — década";
+  return "Contexto";
+}
+
+function wikipediaCulturalActionLabel(kind){
+  if (kind === "subgenre") return "Wikipedia — subgêner

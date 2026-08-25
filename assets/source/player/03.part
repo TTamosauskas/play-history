@@ -1,0 +1,181 @@
+  youtubeResolutionInFlight.set(key, task);
+  return task;
+}
+
+async function recoverTrackVideo(track, failedId){
+  if (!track) return null;
+  const key = trackIdentity(track);
+  if (recoveringVideoKeys.has(key)) return null;
+  recoveringVideoKeys.add(key);
+
+  try {
+    if (failedId) failedYoutubeIds.add(failedId);
+    clearCachedYoutubeIdForTrack(track);
+
+    // Clear the failed fixed ID so the runtime resolver can search for a fresh execution.
+    track.youtubeId = null;
+    track.youtubeUrl = null;
+    track.youtubeMusicUrl = null;
+
+    const replacementId = await resolveTrackYoutubeId(track);
+    if (!replacementId || replacementId === failedId) return null;
+
+    track.videoStatus = "runtime_recovered_after_playback_error";
+    track.videoValidationClass = "runtime_recovery";
+    return replacementId;
+  } finally {
+    recoveringVideoKeys.delete(key);
+  }
+}
+
+function resolvePreloadWindowVideoIds(){
+  if (!queue.length) return;
+  for (const offset of PRELOAD_OFFSETS){
+    const track = queue[relativeQueueIndex(currentIndex, offset)];
+    if (!track || track.youtubeId) continue;
+    resolveTrackYoutubeId(track).then(() => {
+      if (effectivePlaybackEngine() === "legacy") refreshPreloadWindow();
+    }).catch(() => {});
+  }
+}
+
+function updateExternalLinks(track){
+  const token = ++externalLinkRenderToken;
+  showTrackAction(infoLink);
+  showTrackAction(contextLink);
+  hideTrackLink(albumLink);
+  if (shouldHideLyrics(track)) hideTrackAction(lyricsLink);
+  else showTrackAction(lyricsLink);
+
+  // Prefer catalog metadata synchronously. This keeps album discovery from
+  // competing with YouTube playback during the critical first seconds.
+  const immediateAlbumUrl = track.albumUrl || (track.albumTitle ? youtubeMusicAlbumSearchUrl(track, track.albumTitle) : null);
+  if (immediateAlbumUrl){
+    albumLink.title = track.albumTitle ? `Abrir ${track.albumTitle} no YouTube Music` : "Abrir álbum no YouTube Music";
+    showTrackLink(albumLink, immediateAlbumUrl);
+    return;
+  }
+
+  const resolveLater = () => {
+    if (token !== externalLinkRenderToken) return;
+    resolvePreferredAlbumLink(track).then(albumResult => {
+      if (token !== externalLinkRenderToken) return;
+      if (albumResult?.url){
+        albumLink.title = albumResult.title ? `Abrir ${albumResult.title} no YouTube Music` : "Abrir álbum no YouTube Music";
+        showTrackLink(albumLink, albumResult.url);
+      }
+    }).catch(() => {});
+  };
+
+  if ("requestIdleCallback" in window){
+    window.requestIdleCallback(resolveLater, {timeout:4000});
+  } else {
+    setTimeout(resolveLater, 2200);
+  }
+}
+
+function renderTrack(){
+  const track = queue[currentIndex];
+  if (!track) return;
+
+  trackTitle.textContent = track.title;
+  trackArtist.textContent = track.artist;
+  trackYear.textContent = ` · ${track.year}`;
+  renderArtwork(track);
+
+  prevBtn.disabled = queue.length < 2;
+  nextBtn.disabled = queue.length < 2;
+  updateExternalLinks(track);
+
+  const decadeText = decadeLocked && lockedDecade !== null ? ` · ${lockedPeriodLabel(lockedDecade)}` : "";
+  setStatus(`${track.title} — ${track.artist}, ${track.year}${decadeText}`);
+}
+
+function escapeHtml(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function setPlayingUI(isPlaying){
+  playBtn.classList.toggle("is-playing", isPlaying);
+  playBtn.setAttribute("aria-label", isPlaying ? "Pausar" : "Reproduzir");
+}
+
+function interruptPlaybackForSelection(options = {}){
+  const hardReset = options.hardReset === true;
+  const preserveSlot = Number.isInteger(options.preserveSlot) ? options.preserveSlot : null;
+  const preservedVideoId = preserveSlot !== null ? loadedVideoIds[preserveSlot] : null;
+  playbackSelectionSerial += 1;
+  activePlaybackSelectionSerial = playbackSelectionSerial;
+  expectedActiveVideoId = null;
+  playlistLoadSerial += 1;
+  clearTimeout(skipTimer);
+  skipTimer = null;
+  clearPlaylistWatchdog();
+
+  // Fast handoff: silence all iframes but keep their cued/loaded videos alive.
+  // The next selection can therefore promote an already-warm slot with playVideo().
+  desiredPlaying = false;
+  pendingPlay = false;
+  warmStandaloneActive = false;
+  setPlayingUI(false);
+
+  for (let slot = 0; slot < PLAYER_POOL_SIZE; slot++){
+    const slotPlayer = players[slot];
+    if (!slotPlayer) continue;
+    try { slotPlayer.pauseVideo?.(); } catch (_) {}
+    try { slotPlayer.mute?.(); } catch (_) {}
+    if (hardReset && slot !== preserveSlot){
+      try { slotPlayer.stopVideo?.(); } catch (_) {}
+      loadedVideoIds[slot] = null;
+    }
+  }
+
+  if (hardReset){
+    if (preserveSlot !== null && preservedVideoId){
+      loadedVideoIds[preserveSlot] = preservedVideoId;
+    } else {
+      warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
+    }
+  }
+
+  // Detach the active reference immediately. Late PLAYING events from any old
+  // iframe are treated as background and are silenced by handlePlayerState().
+  activePlayerIndex = null;
+  player = null;
+  playerReady = false;
+  progressDragging = false;
+  if (progressRange){
+    progressRange.value = "0";
+    progressRange.style.setProperty("--progress", "0%");
+  }
+  if (currentTimeLabel) currentTimeLabel.textContent = "0:00";
+  if (durationLabel) durationLabel.textContent = "0:00";
+}
+
+function wrappedQueueIndex(index){
+  if (!queue.length) return 0;
+  return (index % queue.length + queue.length) % queue.length;
+}
+
+function relativeQueueIndex(baseIndex, offset){
+  if (!queue.length) return 0;
+  return wrappedQueueIndex(baseIndex + offset);
+}
+
+function playerSlotForVideo(videoId){
+  if (!videoId) return -1;
+  return loadedVideoIds.findIndex((id, slot) => id === videoId && readyPlayerSlots.has(slot));
+}
+
+function freePlayerSlot(reservedSlots = new Set()){
+  for (let slot = 0; slot < PLAYER_POOL_SIZE; slot++){
+    if (!readyPlayerSlots.has(slot)) continue;
+    if (slot === activePlayerIndex) continue;
+    if (reservedSlots.has(slot)) continue;
+    if (
+      catalogMode === "international" &&
