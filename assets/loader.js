@@ -1,5 +1,5 @@
-/* Play History v6.7.1 — modular static loader */
-const BUILD_VERSION = '6.7.1';
+/* Play History v6.7.2 — modular static loader */
+const BUILD_VERSION = '6.7.2';
 const MODULES = [
   './assets/js/app.js',
   './assets/js/services.js',
@@ -10,7 +10,7 @@ const MODULES = [
 const earlyYearForm = document.getElementById('yearForm');
 const earlyYearInput = document.getElementById('yearInput');
 let bootReady = false;
-let pendingYear = '';
+let pendingYear = String(earlyYearInput?.value || '').trim();
 
 function validRequestedYear(raw) {
   const value = String(raw || '').trim();
@@ -22,8 +22,7 @@ function validRequestedYear(raw) {
 function captureEarlyYear(event) {
   if (bootReady) return;
   if (event?.type === 'submit') event.preventDefault();
-  const raw = String(earlyYearInput?.value || '').trim();
-  if (raw) pendingYear = raw;
+  pendingYear = String(earlyYearInput?.value || '').trim();
 }
 
 earlyYearInput?.addEventListener('input', captureEarlyYear);
@@ -68,10 +67,15 @@ function expandTrack(row) {
   return track;
 }
 
-function runScript(code, name) {
-  const script = document.createElement('script');
-  script.text = `${code}\n//# sourceURL=play-history/${name}`;
-  document.head.appendChild(script);
+function loadScript(url) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = versionedUrl(url);
+    script.async = false;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error(`Falha ao executar ${url}`));
+    document.head.appendChild(script);
+  });
 }
 
 function releaseEarlyYearCapture() {
@@ -92,16 +96,14 @@ function replayPendingYear() {
 
 (async () => {
   try {
-    const [catalogText, ...moduleTexts] = await Promise.all([
-      fetchText('./assets/catalog.json'),
-      ...MODULES.map(fetchText)
-    ]);
-    const rows = JSON.parse(catalogText);
+    const rows = JSON.parse(await fetchText('./assets/catalog.json'));
     window.PLAY_HISTORY = {
       meta: { version:BUILD_VERSION, totalTracks:rows.length },
       catalog: rows.map(expandTrack)
     };
-    moduleTexts.forEach((code, index) => runScript(code, MODULES[index].split('/').pop()));
+
+    for (const url of MODULES) await loadScript(url);
+
     releaseEarlyYearCapture();
     replayPendingYear();
   } catch (error) {
