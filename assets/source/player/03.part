@@ -1,4 +1,101 @@
-;")
+  youtubeResolutionInFlight.set(key, task);
+  return task;
+}
+
+async function recoverTrackVideo(track, failedId){
+  if (!track) return null;
+  const key = trackIdentity(track);
+  if (recoveringVideoKeys.has(key)) return null;
+  recoveringVideoKeys.add(key);
+
+  try {
+    if (failedId) failedYoutubeIds.add(failedId);
+    clearCachedYoutubeIdForTrack(track);
+
+    // Clear the failed fixed ID so the runtime resolver can search for a fresh execution.
+    track.youtubeId = null;
+    track.youtubeUrl = null;
+    track.youtubeMusicUrl = null;
+
+    const replacementId = await resolveTrackYoutubeId(track);
+    if (!replacementId || replacementId === failedId) return null;
+
+    track.videoStatus = "runtime_recovered_after_playback_error";
+    track.videoValidationClass = "runtime_recovery";
+    return replacementId;
+  } finally {
+    recoveringVideoKeys.delete(key);
+  }
+}
+
+function resolvePreloadWindowVideoIds(){
+  if (!queue.length) return;
+  for (const offset of PRELOAD_OFFSETS){
+    const track = queue[relativeQueueIndex(currentIndex, offset)];
+    if (!track || track.youtubeId) continue;
+    resolveTrackYoutubeId(track).then(() => {
+      if (effectivePlaybackEngine() === "legacy") refreshPreloadWindow();
+    }).catch(() => {});
+  }
+}
+
+function updateExternalLinks(track){
+  const token = ++externalLinkRenderToken;
+  showTrackAction(infoLink);
+  showTrackAction(contextLink);
+  hideTrackLink(albumLink);
+  if (shouldHideLyrics(track)) hideTrackAction(lyricsLink);
+  else showTrackAction(lyricsLink);
+
+  // Prefer catalog metadata synchronously. This keeps album discovery from
+  // competing with YouTube playback during the critical first seconds.
+  const immediateAlbumUrl = track.albumUrl || (track.albumTitle ? youtubeMusicAlbumSearchUrl(track, track.albumTitle) : null);
+  if (immediateAlbumUrl){
+    albumLink.title = track.albumTitle ? `Abrir ${track.albumTitle} no YouTube Music` : "Abrir álbum no YouTube Music";
+    showTrackLink(albumLink, immediateAlbumUrl);
+    return;
+  }
+
+  const resolveLater = () => {
+    if (token !== externalLinkRenderToken) return;
+    resolvePreferredAlbumLink(track).then(albumResult => {
+      if (token !== externalLinkRenderToken) return;
+      if (albumResult?.url){
+        albumLink.title = albumResult.title ? `Abrir ${albumResult.title} no YouTube Music` : "Abrir álbum no YouTube Music";
+        showTrackLink(albumLink, albumResult.url);
+      }
+    }).catch(() => {});
+  };
+
+  if ("requestIdleCallback" in window){
+    window.requestIdleCallback(resolveLater, {timeout:4000});
+  } else {
+    setTimeout(resolveLater, 2200);
+  }
+}
+
+function renderTrack(){
+  const track = queue[currentIndex];
+  if (!track) return;
+
+  trackTitle.textContent = track.title;
+  trackArtist.textContent = track.artist;
+  trackYear.textContent = ` · ${track.year}`;
+  renderArtwork(track);
+
+  prevBtn.disabled = queue.length < 2;
+  nextBtn.disabled = queue.length < 2;
+  updateExternalLinks(track);
+
+  const decadeText = decadeLocked && lockedDecade !== null ? ` · ${lockedPeriodLabel(lockedDecade)}` : "";
+  setStatus(`${track.title} — ${track.artist}, ${track.year}${decadeText}`);
+}
+
+function escapeHtml(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
 }
@@ -82,148 +179,3 @@ function freePlayerSlot(reservedSlots = new Set()){
     if (reservedSlots.has(slot)) continue;
     if (
       catalogMode === "international" &&
-      slot === warmBrazilPreload.slot &&
-      warmBrazilPreload.videoId &&
-      loadedVideoIds[slot] === warmBrazilPreload.videoId
-    ) continue;
-    return slot;
-  }
-  return -1;
-}
-
-function cueTrackOnSlot(slot, track){
-  const targetPlayer = players[slot];
-  if (!targetPlayer || !readyPlayerSlots.has(slot) || !track?.youtubeId) return;
-  if (loadedVideoIds[slot] === track.youtubeId) return;
-
-  try {
-    targetPlayer.mute?.();
-    targetPlayer.cueVideoById(track.youtubeId);
-    loadedVideoIds[slot] = track.youtubeId;
-  } catch (_) {}
-}
-
-function brazilTrackForReferenceYear(referenceYear){
-  if (!BRAZILIAN_CATALOG.length) return null;
-  const wantedYear = Number(referenceYear);
-  let best = BRAZILIAN_CATALOG[0];
-  let bestDistance = Math.abs(Number(best.year) - wantedYear);
-  for (const candidate of BRAZILIAN_CATALOG){
-    const distance = Math.abs(Number(candidate.year) - wantedYear);
-    if (distance < bestDistance || (distance === bestDistance && Number(candidate.year) < Number(best.year))){
-      best = candidate;
-      bestDistance = distance;
-    }
-  }
-  return best;
-}
-
-function warmBrazilSlotIsUsable(track = null){
-  const slot = warmBrazilPreload.slot;
-  if (!Number.isInteger(slot) || slot < 0 || slot >= PLAYER_POOL_SIZE) return false;
-  if (!readyPlayerSlots.has(slot) || !players[slot]) return false;
-  const target = track || brazilTrackForReferenceYear(warmBrazilPreload.referenceYear);
-  if (!target?.youtubeId) return false;
-  return (
-    warmBrazilPreload.ready === true &&
-    warmBrazilPreload.trackKey === trackIdentity(target) &&
-    warmBrazilPreload.videoId === target.youtubeId &&
-    loadedVideoIds[slot] === target.youtubeId
-  );
-}
-
-function requestWarmBrazilPreload(referenceYear){
-  if (catalogMode !== "international" || !playerStarted) return;
-  const wantedYear = Number(referenceYear);
-  if (!Number.isFinite(wantedYear)) return;
-  const target = brazilTrackForReferenceYear(wantedYear);
-  if (!target) return;
-
-  if (!target.youtubeId){
-    const requestedKey = trackIdentity(target);
-    warmBrazilPreload = {referenceYear:wantedYear, trackKey:requestedKey, videoId:null, slot:null, ready:false};
-    resolveTrackYoutubeId(target).then(() => {
-      if (
-        catalogMode === "international" &&
-        warmBrazilPreload.referenceYear === wantedYear &&
-        warmBrazilPreload.trackKey === requestedKey
-      ) requestWarmBrazilPreload(wantedYear);
-    }).catch(() => {});
-    return;
-  }
-
-  if (
-    warmBrazilPreload.referenceYear === wantedYear &&
-    warmBrazilPreload.trackKey === trackIdentity(target) &&
-    warmBrazilSlotIsUsable(target)
-  ) return;
-
-  warmBrazilPreload = {referenceYear:wantedYear, trackKey:trackIdentity(target), videoId:target.youtubeId, slot:null, ready:false};
-
-  let slot = playerSlotForVideo(target.youtubeId);
-  if (slot === activePlayerIndex) slot = -1;
-  if (slot < 0) slot = freePlayerSlot();
-  if (slot < 0) return;
-
-  cueTrackOnSlot(slot, target);
-  if (loadedVideoIds[slot] === target.youtubeId){
-    warmBrazilPreload.slot = slot;
-  }
-}
-
-function tryActivateWarmBrazilTrack(track, autoplay = true, startSeconds = 0, selectionToken = playbackSelectionSerial){
-  if (catalogMode !== "brazil" || !track || !warmBrazilSlotIsUsable(track)) return false;
-  if (selectionToken !== playbackSelectionSerial || !trackBelongsToActiveCatalog(track)) return false;
-
-  const slot = warmBrazilPreload.slot;
-  const warmedPlayer = players[slot];
-  if (!warmedPlayer) return false;
-
-  activePlaybackSelectionSerial = selectionToken;
-  expectedActiveVideoId = track.youtubeId || null;
-  desiredPlaying = Boolean(autoplay);
-  pendingPlay = false;
-  activePlayerIndex = slot;
-  player = warmedPlayer;
-  playerReady = true;
-  warmStandaloneActive = true;
-
-  try { player.unMute?.(); } catch (_) {}
-  try {
-    if (startSeconds > 0) player.seekTo?.(Math.max(0, Number(startSeconds) || 0), true);
-    if (autoplay) player.playVideo?.();
-    else player.pauseVideo?.();
-  } catch (_) {
-    warmStandaloneActive = false;
-    return false;
-  }
-
-  warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
-  setPlayingUI(Boolean(autoplay));
-  refreshPreloadWindow();
-  return true;
-}
-
-function preloadArtworkAroundCurrent(){
-  if (!queue.length) return;
-  const seen = new Set();
-  for (const offset of PRELOAD_OFFSETS){
-    const track = queue[relativeQueueIndex(currentIndex, offset)];
-    const key = trackIdentity(track);
-    if (!track || seen.has(key)) continue;
-    seen.add(key);
-    resolvedArtworkCandidates(track).then(candidates => {
-      const url = candidates?.[0];
-      if (!url) return;
-      const image = new Image();
-      image.decoding = "async";
-      image.src = url;
-    }).catch(() => {});
-  }
-}
-
-function refreshPreloadWindow(){
-  if (!queue.length || !readyPlayerSlots.size) return;
-
-  // Five-player rolling buffer: current, previous, next, -2 and +2. Existing
-  // slots are retained, while only newly exposed edge tracks 
