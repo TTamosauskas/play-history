@@ -5,6 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
+VERSION='6.8.0'
 
 def load_project():
     text=LEGACY.read_text(encoding='utf-8')
@@ -25,6 +26,45 @@ def load_patch(name):
 def assemble(group):
     parts=sorted((ROOT/'assets'/'source'/group).glob('*.part'))
     return ''.join(p.read_text(encoding='utf-8') for p in parts)
+
+def catalog_javascript(rows):
+    packed=json.dumps(rows,ensure_ascii=False,separators=(',',':'))
+    return f'''/* Play History {VERSION} — generated compact catalog. */
+(() => {{
+  const rows={packed};
+  function expandTrack(row) {{
+    const [artist,title,year,youtubeId,brazil,packedContext,decadeRank,yearPriority,albumTitle,albumUrl,artworkMode,artworkPageTitle,artworkUrl,lyricsPolicy,wikiTrack,wikiArtistPt,wikiArtistEn] = row;
+    const packedTargets = typeof packedContext?.[0] === 'string' ? [packedContext] : packedContext;
+    const contextWikiTargets = (packedTargets || []).map(([kind,pt,en]) => ({{kind,pt,en}}));
+    const track = {{
+      artist,title,year,youtubeId,
+      catalogSource:brazil ? 'brazil' : 'international',
+      contextWikiTargets,
+      contextTermPt:contextWikiTargets[0]?.pt || '',
+      decadeRank,yearPriority,
+      wikipediaTrackTerm:wikiTrack || title,
+      wikipediaArtistTermPt:wikiArtistPt || artist,
+      wikipediaArtistTermEn:wikiArtistEn || artist
+    }};
+    if (youtubeId){{
+      track.youtubeUrl=`https://www.youtube.com/watch?v=${{youtubeId}}`;
+      track.youtubeMusicUrl=`https://music.youtube.com/watch?v=${{youtubeId}}`;
+    }}
+    track.youtubeQuery=`${{artist || ''}} ${{title || ''}}`.trim();
+    if (albumTitle) track.albumTitle=albumTitle;
+    if (albumUrl) track.albumUrl=albumUrl;
+    if (artworkMode) track.artworkMode=artworkMode;
+    if (artworkPageTitle) track.artworkPageTitle=artworkPageTitle;
+    if (artworkUrl) track.artworkUrl=artworkUrl;
+    if (lyricsPolicy) track.lyricsPolicy=lyricsPolicy;
+    return track;
+  }}
+  window.PLAY_HISTORY = {{
+    meta: {{version:'{VERSION}', totalTracks:rows.length}},
+    catalog: rows.map(expandTrack)
+  }};
+}})();
+'''
 
 def build():
     tracks=load_project()
@@ -62,8 +102,9 @@ def build():
     (OUT/'assets'/'js').mkdir(parents=True)
     shutil.copy2(ROOT/'index.html',OUT/'index.html')
     shutil.copy2(ROOT/'assets'/'styles.css',OUT/'assets'/'styles.css')
-    shutil.copy2(ROOT/'assets'/'loader.js',OUT/'assets'/'loader.js')
+    shutil.copy2(ROOT/'assets'/'entry.js',OUT/'assets'/'entry.js')
     (OUT/'assets'/'catalog.json').write_text(json.dumps(rows,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+    (OUT/'assets'/'catalog.js').write_text(catalog_javascript(rows),encoding='utf-8')
     for group,outname in [('app','app.js'),('services','services.js'),('player','player.js'),('bootstrap','bootstrap.js')]:
         code=assemble(group)
         if not code.strip(): raise SystemExit(f'Módulo vazio: {group}')
@@ -72,4 +113,4 @@ def build():
 
 if __name__=='__main__':
     rows=build()
-    print(f'OK: {len(rows)} faixas; site modular gerado em {OUT}')
+    print(f'OK: {len(rows)} faixas; site modular direto gerado em {OUT}')

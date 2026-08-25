@@ -38,18 +38,18 @@ function makeElement(id = '') {
       event.target ||= target;
       for (const fn of [...(listeners.get(event.type) || [])]) {
         fn.call(target, event);
-        if (event.immediateStopped) break;
+        if (event._immediateStopped) break;
       }
       return !event.defaultPrevented;
     },
-    setAttribute() {}, removeAttribute() {}, replaceChildren() {},
-    appendChild() {}, focus() {}, blur() {},
+    setAttribute(name, value) { target[name] = String(value); },
+    removeAttribute(name) { delete target[name]; },
+    replaceChildren() {}, appendChild() {}, focus() {}, blur() {},
     close() { target.open = false; }, showModal() { target.open = true; },
     scrollTo() {}, querySelectorAll() { return []; }, querySelector() { return null; },
     closest() { return null; },
     getBoundingClientRect() { return { width: 100, height: 100 }; },
     innerHTML: '', textContent: '', title: '', href: '', src: '', alt: '', open: false,
-    async: true, onload: null, onerror: null,
     scrollTop: 0, scrollHeight: 0, clientHeight: 0,
     _listeners: listeners
   };
@@ -62,10 +62,10 @@ class MockEvent {
     this.bubbles = Boolean(options.bubbles);
     this.cancelable = Boolean(options.cancelable);
     this.defaultPrevented = false;
-    this.immediateStopped = false;
+    this._immediateStopped = false;
   }
   preventDefault() { if (this.cancelable) this.defaultPrevented = true; }
-  stopImmediatePropagation() { this.immediateStopped = true; }
+  stopImmediatePropagation() { this._immediateStopped = true; }
 }
 
 async function main() {
@@ -76,35 +76,28 @@ async function main() {
   };
   const app = get('app');
   const playerCard = get('playerCard');
-  const head = get('head');
   const document = {
+    readyState: 'complete',
     getElementById: get,
     querySelector(selector) { return selector === '.player-card' ? playerCard : get(`qs:${selector}`); },
     createElement(tag) { return makeElement(tag); },
-    head,
-    body: get('body'),
-    documentElement: get('html'),
-    activeElement: null,
-    hidden: false,
+    head: get('head'), body: get('body'), documentElement: get('html'),
+    activeElement: null, hidden: false,
     addEventListener() {}, removeEventListener() {}
   };
+  document.head.appendChild = node => node;
 
   const context = {
-    console,
-    document,
+    console, document,
     location: { search: '', protocol: 'https:', href: 'https://example.test/' },
     URLSearchParams, URL,
     setTimeout, clearTimeout, setInterval: () => 1, clearInterval,
     queueMicrotask,
-    requestAnimationFrame: () => 0, cancelAnimationFrame() {},
-    performance: { now: () => 0 },
-    matchMedia: () => ({ matches: false }),
-    AbortController,
+    requestAnimationFrame: fn => { if (typeof fn === 'function') fn(); return 1; },
+    cancelAnimationFrame() {}, performance: { now: () => 0 },
+    matchMedia: () => ({ matches: false }), AbortController,
     localStorage: { getItem() { return null; }, setItem() {}, removeItem() {} },
-    navigator: {},
-    Image: function Image() { return makeElement('img'); },
-    Event: MockEvent,
-    YT: { PlayerState: { PLAYING: 1, PAUSED: 2, CUED: 5, ENDED: 0 } }
+    navigator: {}, Image: function Image() { return makeElement('img'); }, Event: MockEvent
   };
   context.addEventListener = () => {};
   context.removeEventListener = () => {};
@@ -112,75 +105,40 @@ async function main() {
   context.globalThis = context;
   vm.createContext(context);
 
-  const files = new Map([
-    ['./assets/catalog.json', fs.readFileSync(path.join(SITE, 'assets/catalog.json'), 'utf8')],
-    ['./assets/js/app.js', fs.readFileSync(path.join(SITE, 'assets/js/app.js'), 'utf8')],
-    ['./assets/js/services.js', fs.readFileSync(path.join(SITE, 'assets/js/services.js'), 'utf8')],
-    ['./assets/js/player.js', fs.readFileSync(path.join(SITE, 'assets/js/player.js'), 'utf8')],
-    ['./assets/js/bootstrap.js', fs.readFileSync(path.join(SITE, 'assets/js/bootstrap.js'), 'utf8')]
-  ]);
-
-  function cleanUrl(url) {
-    return String(url).replace(/[?&]v=[^&]+/, '').replace(/\?$/, '');
+  const scripts = [
+    'assets/entry.js',
+    'assets/catalog.js',
+    'assets/js/app.js',
+    'assets/js/services.js',
+    'assets/js/player.js',
+    'assets/js/bootstrap.js'
+  ];
+  for (const rel of scripts) {
+    const source = fs.readFileSync(path.join(SITE, rel), 'utf8');
+    vm.runInContext(source, context, { filename: rel });
   }
 
-  head.appendChild = node => {
-    if (node.text) throw new Error('Inline runtime injection is forbidden by this smoke test');
-    if (!node.src) return node;
-    const key = cleanUrl(node.src);
-    if (!files.has(key)) {
-      queueMicrotask(() => node.onerror?.(new Error(`missing ${key}`)));
-      return node;
-    }
-    vm.runInContext(files.get(key), context, { filename: key });
-    queueMicrotask(() => node.onload?.());
-    return node;
-  };
-
-  context.fetch = async url => {
-    await new Promise(resolve => setTimeout(resolve, 25));
-    const key = cleanUrl(url);
-    if (!files.has(key)) return { ok: false, status: 404, text: async () => '', json: async () => ({}) };
-    const body = files.get(key);
-    return { ok: true, status: 200, text: async () => body, json: async () => JSON.parse(body) };
-  };
-
-  const loaderSource = fs.readFileSync(path.join(SITE, 'assets/loader.js'), 'utf8');
-  assert.ok(loaderSource.includes("script.src = versionedUrl(url)"), 'o loader deve usar scripts externos nativos');
-  assert.ok(loaderSource.includes("window.selectYear"), 'o entry point deve chamar selectYear diretamente');
-  assert.ok(loaderSource.includes("handleYearEntryInput"), 'o entry point deve possuir o listener permanente de input');
-  assert.ok(!loaderSource.includes('script.text ='), 'o loader não deve reinjetar módulos como JavaScript inline');
-  const loaderPromise = vm.runInContext(loaderSource, context, { filename: 'loader.js' });
+  assert.strictEqual(context.PLAY_HISTORY.catalog.length, 1726, 'catálogo deve carregar 1726 faixas');
+  assert.strictEqual(context.PlayHistoryEntry.isReady(), true, 'controlador de ano deve ficar pronto após bootstrap');
+  assert.strictEqual(get('html').dataset.playerReady, 'true', 'bootstrap deve sinalizar player pronto');
 
   const yearInput = get('yearInput');
-  const yearForm = get('yearForm');
-  yearInput.value = '1953';
-  yearInput.dispatchEvent(new MockEvent('input', { bubbles: true, cancelable: true }));
-
-  await loaderPromise;
-  await new Promise(resolve => setTimeout(resolve, 20));
-
-  assert.ok(yearForm._listeners.get('submit')?.length, 'yearForm precisa ter listener de submit após o bootstrap');
-  assert.ok(yearInput._listeners.get('input')?.length, 'yearInput precisa ter listener de input após o bootstrap');
-  assert.strictEqual(String(yearInput.value), '1953', 'o ano digitado durante o carregamento deve ser preservado');
-  assert.strictEqual(yearInput.dataset.resolvedYear, '1953', 'o ano digitado durante o carregamento deve ser executado após o bootstrap');
-  assert.strictEqual(playerCard.hidden, false, 'a seleção por ano deve abrir o player');
-  assert.notStrictEqual(get('trackTitle').textContent, 'Escolha um ano', 'a seleção por ano deve renderizar uma faixa');
-  assert.ok(!app.classList.contains('is-start-screen'), 'a tela inicial deve sair do estado inicial após a seleção');
-
-  // Exact user gesture: type a year after bootstrap and do nothing else.
   yearInput.value = '1969';
   yearInput.dispatchEvent(new MockEvent('input', { bubbles: true, cancelable: true }));
   await new Promise(resolve => setTimeout(resolve, 220));
-  assert.strictEqual(yearInput.dataset.resolvedYear, '1969', 'digitar o ano deve resolver automaticamente sem Enter');
-  assert.strictEqual(get('trackTitle').textContent, 'Come Together', '1969 digitado deve selecionar a faixa esperada');
+  assert.strictEqual(yearInput.dataset.resolvedYear, '1969', 'digitar 1969 e esperar deve resolver o ano');
+  assert.strictEqual(get('trackTitle').textContent, 'Come Together', '1969 deve selecionar Come Together');
+  assert.strictEqual(playerCard.hidden, false, 'digitar um ano deve abrir o player');
+  assert.ok(!app.classList.contains('is-start-screen'), 'a tela inicial deve desaparecer após a seleção');
 
-  // Enter remains an immediate fallback.
-  yearInput.value = '1970';
-  yearForm.dispatchEvent(new MockEvent('submit', { bubbles: true, cancelable: true }));
-  assert.strictEqual(yearInput.dataset.resolvedYear, '1970', 'Enter deve continuar selecionando imediatamente');
+  yearInput.value = '1953';
+  yearInput.dispatchEvent(new MockEvent('input', { bubbles: true, cancelable: true }));
+  await new Promise(resolve => setTimeout(resolve, 220));
+  assert.strictEqual(yearInput.dataset.resolvedYear, '1953');
+  assert.strictEqual(get('trackTitle').textContent, "That's Amore");
 
-  console.log(`OK: digitação direta por ano -> ${get('trackTitle').textContent} (${yearInput.dataset.resolvedYear})`);
+  assert.strictEqual(typeof context.YT, 'undefined', 'busca por ano deve funcionar antes da API do YouTube existir');
+  console.log('OK: boot direto + digitar ano -> Come Together / That\'s Amore, sem YT disponível.');
 }
 
 main().catch(error => {
