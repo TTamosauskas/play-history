@@ -1,231 +1,154 @@
-se {
-    desiredPlaying = true;
-    try { player.unMute?.(); } catch (_) {}
-    player.playVideo();
+  if (!loadDirectionalPlaylist(autoplay, startSeconds)) return;
+  pendingPlay = false;
+  refreshPreloadWindow();
+}
+
+async function activateCurrentTrack(autoplay = true, startSeconds = 0, selectionToken = playbackSelectionSerial){
+  const track = queue[currentIndex];
+  if (!track) return;
+  const requestedTrackKey = trackIdentity(track);
+  const requestedCatalogMode = catalogMode;
+
+  if (selectionToken !== playbackSelectionSerial || !trackBelongsToActiveCatalog(track)) return;
+
+  if (!track.youtubeId) {
+    setStatus(`Resolvendo vídeo para ${track.title}…`);
+    await resolveTrackYoutubeId(track);
   }
-}
 
-function nextTrack(autoplay = true, rememberDirection = true){
-  if (rememberDirection) playbackDirection = 1;
-  if (keepRepeatTrackPlaying(autoplay)) return;
-  if (decadeLocked && currentIndex >= queue.length - 1){
-    selectIndex(0, autoplay);
-    return;
-  }
-  selectIndex(currentIndex + 1, autoplay);
-}
+  // Any click, swipe, year choice or catalog change increments the serial.
+  // Resolutions belonging to an older selection are therefore discarded.
+  const currentTrack = queue[currentIndex];
+  if (
+    selectionToken !== playbackSelectionSerial ||
+    requestedCatalogMode !== catalogMode ||
+    !currentTrack ||
+    trackIdentity(currentTrack) !== requestedTrackKey ||
+    !trackBelongsToActiveCatalog(currentTrack)
+  ) return;
 
-function prevTrack(autoplay = true, rememberDirection = true){
-  if (rememberDirection) playbackDirection = -1;
-  if (keepRepeatTrackPlaying(autoplay)) return;
-  if (decadeLocked && currentIndex <= 0){
-    selectIndex(queue.length - 1, autoplay);
-    return;
-  }
-  selectIndex(currentIndex - 1, autoplay);
-}
-
-function advanceInPlaybackDirection(autoplay = true){
-  if (playbackDirection < 0) prevTrack(autoplay, false);
-  else nextTrack(autoplay, false);
-}
-
-progressRange.addEventListener("pointerdown", () => { progressDragging = true; });
-progressRange.addEventListener("input", () => {
-  const target = Math.max(0, Number(progressRange.value) || 0);
-  currentTimeLabel.textContent = formatPlaybackTime(target);
-  const duration = Math.max(0, Number(progressRange.max) || 0);
-  progressRange.style.setProperty("--progress", duration > 0 ? `${Math.min(100, Math.max(0, target / duration * 100))}%` : "0%");
-  try { player?.seekTo?.(target, true); } catch (_) {}
-});
-function finishProgressDrag(){
-  progressDragging = false;
-  updateProgressUI();
-}
-progressRange.addEventListener("change", finishProgressDrag);
-progressRange.addEventListener("pointerup", finishProgressDrag);
-progressRange.addEventListener("pointercancel", finishProgressDrag);
-
-yearForm.addEventListener("submit", e => {
-  e.preventDefault();
-  selectYear(yearInput.value, true);
-});
-
-playBtn.addEventListener("click", togglePlay);
-prevBtn.addEventListener("click", () => prevTrack(true));
-nextBtn.addEventListener("click", () => nextTrack(true));
-repeatBtn.addEventListener("click", () => setRepeatOne(!repeatOne));
-decadeLockBtn.addEventListener("click", () => setDecadeLock(!decadeLocked));
-shuffleBtn.addEventListener("click", () => setShuffle(!shuffleEnabled));
-catalogModeBtn.addEventListener("click", cycleCatalogMode);
-
-function scheduleAutomaticYearSelection(){
-  clearTimeout(yearInputTimer);
-  yearInputTimer = setTimeout(() => {
-    const raw = String(yearInput.value || "").trim();
-    if (!/^\d{4}$/.test(raw)) return;
-    const year = Number(raw);
-    if (year >= MIN_YEAR && year <= MAX_YEAR) selectYear(year, true);
-  }, 180);
-}
-
-yearInput.addEventListener("input", scheduleAutomaticYearSelection);
-yearInput.addEventListener("change", scheduleAutomaticYearSelection);
-
-yearPickerBtn.addEventListener("click", openYearPicker);
-yearPickerClose.addEventListener("click", () => yearPickerDialog.close());
-yearPickerConfirm.addEventListener("click", confirmYearPicker);
-yearPickerDialog.addEventListener("click", e => {
-  if (e.target === yearPickerDialog) yearPickerDialog.close();
-});
-yearPickerDialog.addEventListener("keydown", e => {
-  if (e.key === "Enter"){
-    e.preventDefault();
-    confirmYearPicker();
-  }
-});
-
-document.addEventListener("keydown", e => {
-  if (!playerStarted) return;
-  if (e.target === yearInput) return;
-  if (e.code === "Space"){
-    e.preventDefault();
-    togglePlay();
-  } else if (e.code === "ArrowLeft"){
-    prevTrack(true);
-  } else if (e.code === "ArrowRight"){
-    nextTrack(true);
-  }
-});
-
-playerCard.addEventListener("pointerdown", e => {
-  if (e.target.closest("button,input,a")) return;
-  if (e.pointerType === "mouse" && e.button !== 0) return;
-  swipePointerId = e.pointerId;
-  swipeStartX = e.clientX;
-  swipeStartY = e.clientY;
-});
-
-playerCard.addEventListener("pointerup", e => {
-  if (swipePointerId !== e.pointerId) return;
-  const dx = e.clientX - swipeStartX;
-  const dy = e.clientY - swipeStartY;
-  swipePointerId = null;
-
-  if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) <= Math.abs(dy) * 1.15) return;
-  userHasSwipedDirection = true;
-  if (dx < 0) nextTrack(true);
-  else prevTrack(true);
-});
-
-playerCard.addEventListener("pointercancel", e => {
-  if (swipePointerId === e.pointerId) swipePointerId = null;
-});
-
-function handlePlayerState(slot, event){
-  const slotPlayer = players[slot];
-
-  if (slot !== activePlayerIndex){
-    if (slot === warmBrazilPreload.slot && event.data === YT.PlayerState.CUED){
-      let activeId = "";
-      try { activeId = slotPlayer?.getVideoData?.()?.video_id || ""; } catch (_) {}
-      if (!activeId || activeId === warmBrazilPreload.videoId) warmBrazilPreload.ready = true;
+  if (!track.youtubeId){
+    const fallbackTrack = nearestPlayableTrack(track);
+    if (fallbackTrack && trackIdentity(fallbackTrack) !== requestedTrackKey && selectionToken === playbackSelectionSerial){
+      const wantedYear = Number(track.year);
+      if (decadeLocked) lockedDecade = trackLockAnchor(fallbackTrack);
+      rebuildQueueAroundTrack(fallbackTrack);
+      selectedTrackMustPlayFirstId = trackIdentity(fallbackTrack);
+      selectedTrackGuardAttempts = 0;
+      renderTrack();
+      setStatus(`Abrindo uma faixa disponível do catálogo ${catalogMode === "brazil" ? "brasileiro" : "ativo"} próxima de ${wantedYear}.`);
+      return activateCurrentTrack(Boolean(autoplay), 0, selectionToken);
     }
-    if (event.data === YT.PlayerState.PLAYING){
-      try { slotPlayer?.pauseVideo?.(); } catch (_) {}
-      try { slotPlayer?.mute?.(); } catch (_) {}
-    }
+    setStatus(`A faixa ${track.title} aguarda uma fonte reproduzível. Escolha outra entrada para continuar.`);
+    setPlayingUI(false);
     return;
   }
 
-  if (event.data === YT.PlayerState.PLAYING){
-    desiredPlaying = true;
-    setPlayingUI(true);
-    if (effectivePlaybackEngine() === "playlist"){
-      let activeId = "";
-      try { activeId = slotPlayer?.getVideoData?.()?.video_id || ""; } catch (_) {}
-      const selectedTrack = queue[currentIndex];
-      const wantedSelectionId = selectedTrackMustPlayFirstId;
-      const selectedYoutubeId = selectedTrack?.youtubeId || "";
+  expectedActiveVideoId = track.youtubeId;
+  activePlaybackSelectionSerial = selectionToken;
+  resolvePreloadWindowVideoIds();
 
-      if (wantedSelectionId && selectedYoutubeId && activeId && activeId !== selectedYoutubeId && selectedTrackGuardAttempts < 2){
-        selectedTrackGuardAttempts += 1;
-        try { slotPlayer?.playVideoAt?.(0); } catch (_) {}
-        return;
-      }
+  if (tryActivateWarmBrazilTrack(track, autoplay, startSeconds, selectionToken)) return;
 
-      if (wantedSelectionId && (!activeId || activeId === selectedYoutubeId)){
-        selectedTrackMustPlayFirstId = null;
-        selectedTrackGuardAttempts = 0;
-        if (activeId === expectedActiveVideoId) expectedActiveVideoId = null;
-      }
-      syncTrackFromActiveVideo();
-    } else if (selectedTrackMustPlayFirstId){
-      const selectedTrack = queue[currentIndex];
-      let activeId = "";
-      try { activeId = slotPlayer?.getVideoData?.()?.video_id || ""; } catch (_) {}
-      if (!selectedTrack?.youtubeId || !activeId || activeId === selectedTrack.youtubeId){
-        selectedTrackMustPlayFirstId = null;
-        selectedTrackGuardAttempts = 0;
-        if (activeId === expectedActiveVideoId) expectedActiveVideoId = null;
-      }
-    }
-  } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.CUED){
-    if (effectivePlaybackEngine() === "playlist") syncTrackFromActiveVideo();
-    if (!desiredPlaying) setPlayingUI(false);
-  } else if (event.data === YT.PlayerState.ENDED){
-    desiredPlaying = true;
-
-    if (warmStandaloneActive){
-      if (repeatOne){
-        try {
-          slotPlayer.seekTo?.(0, true);
-          slotPlayer.playVideo?.();
-        } catch (_) {}
-        return;
-      }
-      warmStandaloneActive = false;
-      advanceInPlaybackDirection(true);
-      return;
-    }
-
-    if (effectivePlaybackEngine() === "playlist"){
-      if (repeatOne){
-        try {
-          slotPlayer.seekTo?.(0, true);
-          slotPlayer.playVideo?.();
-        } catch (_) {}
-        return;
-      }
-      return;
-    }
-
-    if (repeatOne){
-      try {
-        slotPlayer.seekTo(0, true);
-        slotPlayer.playVideo();
-      } catch (_) {}
-    } else {
-      advanceInPlaybackDirection(true);
-    }
+  if (effectivePlaybackEngine() === "playlist"){
+    playlistActivateCurrentTrack(autoplay, startSeconds, selectionToken);
+  } else {
+    legacyActivateCurrentTrack(autoplay, startSeconds, selectionToken);
   }
-  updateProgressUI();
 }
 
-function handlePlayerError(slot, event){
-  if (slot !== activePlayerIndex){
-    if (slot === warmBrazilPreload.slot){
-      loadedVideoIds[slot] = null;
-      warmBrazilPreload = {referenceYear:null, trackKey:null, videoId:null, slot:null, ready:false};
-    }
+function rebuildActivePlaylistPreservingPosition(){
+  if (effectivePlaybackEngine() !== "playlist" || !player || activePlayerIndex === null) return;
+  let startSeconds = 0;
+  let autoplay = desiredPlaying;
+  try {
+    startSeconds = Math.max(0, Number(player.getCurrentTime?.()) || 0);
+    autoplay = player.getPlayerState?.() === YT.PlayerState.PLAYING || desiredPlaying;
+  } catch (_) {}
+  playlistActivateCurrentTrack(Boolean(autoplay), startSeconds, playbackSelectionSerial);
+}
+
+function syncTrackFromActiveVideo(){
+  if (effectivePlaybackEngine() !== "playlist" || !player || activePlayerIndex === null) return false;
+  let videoId = "";
+  try { videoId = player.getVideoData?.()?.video_id || ""; } catch (_) {}
+  if (!videoId) return false;
+  const selectedTrack = queue[currentIndex];
+  if (selectedTrackMustPlayFirstId){
+    const selectedKey = trackIdentity(selectedTrack);
+    const selectedVideoId = selectedTrack?.youtubeId || "";
+    if (selectedKey === selectedTrackMustPlayFirstId && (!selectedVideoId || videoId !== selectedVideoId)) return false;
+  }
+  if (expectedActiveVideoId && videoId !== expectedActiveVideoId) return false;
+  loadedVideoIds[activePlayerIndex] = videoId;
+  const located = queue.findIndex(track => track.youtubeId === videoId);
+  if (located < 0 || located === currentIndex) return located >= 0;
+  currentIndex = located;
+  renderTrack();
+  preloadArtworkAroundCurrent();
+  return true;
+}
+
+function formatPlaybackTime(seconds){
+  const total = Math.max(0, Math.floor(Number(seconds) || 0));
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
+  if (hours > 0) return `${hours}:${String(minutes).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
+  return `${minutes}:${String(secs).padStart(2,"0")}`;
+}
+
+function updateProgressUI(){
+  if (!player){
+    progressRange.disabled = true;
+    progressRange.max = "1";
+    progressRange.value = "0";
+    currentTimeLabel.textContent = "0:00";
+    durationLabel.textContent = "0:00";
     return;
   }
-  desiredPlaying = true;
-  setPlayingUI(false);
 
-  const failedTrack = queue[currentIndex];
-  const failedTrackKey = trackIdentity(failedTrack);
-  const failedId = failedTrack?.youtubeId || "";
-  const failureSelectionToken = playbackSelectionSerial;
+  if (effectivePlaybackEngine() === "playlist" && !document.hidden) syncTrackFromActiveVideo();
 
-  if (failedTrack && failedId && !recoveringVideoKeys.has(
+  let duration = 0;
+  let current = 0;
+  try {
+    duration = Number(player.getDuration?.()) || 0;
+    current = Number(player.getCurrentTime?.()) || 0;
+  } catch (_) {}
+
+  if (duration > 0){
+    progressRange.disabled = false;
+    progressRange.max = String(duration);
+    if (!progressDragging) progressRange.value = String(Math.min(duration, Math.max(0, current)));
+    const shown = progressDragging ? (Number(progressRange.value) || 0) : current;
+    progressRange.style.setProperty("--progress", `${Math.min(100, Math.max(0, shown / duration * 100))}%`);
+    durationLabel.textContent = formatPlaybackTime(duration);
+    if (!progressDragging) currentTimeLabel.textContent = formatPlaybackTime(current);
+  } else {
+    progressRange.disabled = true;
+    progressRange.max = "1";
+    if (!progressDragging) progressRange.value = "0";
+    progressRange.style.setProperty("--progress", "0%");
+    if (!progressDragging) currentTimeLabel.textContent = "0:00";
+    durationLabel.textContent = "0:00";
+  }
+}
+
+function selectIndex(index, autoplay = true){
+  if (!queue.length) return;
+  const targetIndex = wrappedQueueIndex(index);
+  interruptPlaybackForSelection();
+  currentIndex = targetIndex;
+  const selectedTrack = queue[currentIndex];
+  selectedTrackMustPlayFirstId = selectedTrack ? trackIdentity(selectedTrack) : null;
+  selectedTrackGuardAttempts = 0;
+  renderTrack();
+  activateCurrentTrack(Boolean(autoplay), 0);
+  if (catalogMode === "international" && selectedTrack){
+    requestWarmBrazilPreload(selectedTrack.year);
+  }
+}
+
+function selectYear(rawYear, autoplay = false){
+  const year = Number(rawYear);
