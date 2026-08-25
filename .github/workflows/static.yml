@@ -30,18 +30,25 @@ jobs:
         run: python tools/build.py
       - name: Validate generated JavaScript
         run: |
+          node --check _site/assets/entry.js
+          node --check _site/assets/catalog.js
           node --check _site/assets/js/app.js
           node --check _site/assets/js/services.js
           node --check _site/assets/js/player.js
           node --check _site/assets/js/bootstrap.js
-          node --check _site/assets/loader.js
       - name: Smoke test year search
         run: node tools/smoke_runtime.js
-      - name: Verify generated artifact
+      - name: Verify direct boot artifact
         run: |
           test -s _site/index.html
+          test -s _site/assets/catalog.js
           test -s _site/assets/catalog.json
+          test -s _site/assets/entry.js
           test -s _site/assets/styles.css
+          grep -q 'assets/entry.js?v=6.8.0' _site/index.html
+          grep -q 'assets/catalog.js?v=6.8.0' _site/index.html
+          grep -q 'assets/js/player.js?v=6.8.0' _site/index.html
+          ! grep -q 'assets/loader.js' _site/index.html
       - name: Setup Pages
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
