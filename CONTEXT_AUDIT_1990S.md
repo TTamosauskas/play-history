@@ -17,6 +17,7 @@ Como nos ciclos posteriores já auditados, `Música pop`, `MPB` e `Rock` ficam b
 - A v6.11.0 tinha 63 faixas dos anos 1990 em `MPB` e 58 em `Música pop` como primeiro contexto.
 - Apenas 16 primários anteriores foram considerados defensáveis e mantidos em essência: Depeche Mode — **Enjoy the Silence** (`Synth-pop`), Sepultura — **Arise** (`Thrash metal`), Legião Urbana — **Teatro dos Vampiros** (`Rock brasileiro`), Daniela Mercury — **O Canto da Cidade** (`Axé`), Sepultura — **Refuse/Resist** (`Thrash metal`), Itamar Assumpção — **Quem É Cover de Quem** (`Vanguarda paulista`), The Cranberries — **Zombie** (`Rock alternativo`), Mundo Livre S/A — **Livre Iniciativa** (`Manguebeat`), Cidade Negra — **Onde Você Mora?** (`Reggae`), Júpiter Maçã — **Lugar do Caralho** (`Rock psicodélico`), Paulinho da Viola — **Bebadosamba** (`Samba`), Daniela Mercury — **À Primeira Vista** (`Axé`), Titãs — **Pra Dizer Adeus** (`Rock brasileiro`), Mundo Livre S/A — **Meu Esquema** (`Manguebeat`), Otto — **Bob** (`Manguebeat`) e Cidade Negra — **A Estrada** (`Reggae`).
 - Faixa faltante, extra, duplicada, ano divergente, alvo incompleto ou contexto primário genérico proibido faz o build falhar.
+- Com este ciclo, o contrato cumulativo cobre 419 faixas de 1990 a 2026.
 
 ## Exemplos do critério
 
