@@ -1,4 +1,4 @@
-name: Build and deploy Play History
+name: Validate Play History
 
 on:
   pull_request:
@@ -9,10 +9,7 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# Keep deployments retryable: a stalled run must not block a newer build.
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,6 +24,7 @@ jobs:
         run: python tools/build.py
       - name: Validate generated JavaScript
         run: |
+          node --check assets/catalog-runtime.js
           node --check _site/assets/entry.js
           node --check _site/assets/catalog.js
           node --check _site/assets/js/app.js
@@ -35,34 +33,18 @@ jobs:
           node --check _site/assets/js/bootstrap.js
       - name: Smoke test year search
         run: node tools/smoke_runtime.js
-      - name: Verify direct boot artifact
+      - name: Verify curated build
         run: |
-          test -s _site/index.html
+          test -s index.html
+          test -s assets/catalog-runtime.js
           test -s _site/assets/catalog.js
           test -s _site/assets/catalog.json
           test -s _site/assets/entry.js
           test -s _site/assets/styles.css
-          grep -q 'assets/entry.js?v=' _site/index.html
-          grep -q 'assets/catalog.js?v=' _site/index.html
-          grep -q 'assets/js/player.js?v=' _site/index.html
-          ! grep -q 'assets/loader.js' _site/index.html
-      - name: Setup Pages
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        uses: actions/configure-pages@v5
-      - name: Upload Pages artifact
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './_site'
+          grep -q 'assets/catalog-runtime.js?v=' index.html
+          grep -q 'context_1980s_' assets/catalog-runtime.js
+          ! grep -q 'assets/loader.js' index.html
 
-  deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+# GitHub Pages is published from the main branch by the repository's
+# native Pages workflow. This workflow validates the generated player only,
+# avoiding a second deployment path competing with the branch-source site.
