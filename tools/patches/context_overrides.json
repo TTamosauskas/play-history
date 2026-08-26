@@ -9,6 +9,5 @@
   {"artist":"The Beatles","title":"Hey Jude","targets":[{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"},{"kind":"subgenre","pt":"Rock psicodélico","en":"Psychedelic rock"}]},
   {"artist":"The Beatles","title":"Come Together","targets":[{"kind":"subgenre","pt":"Blues rock","en":"Blues rock"},{"kind":"subgenre","pt":"Rock psicodélico","en":"Psychedelic rock"}]},
   {"artist":"The Beatles","title":"Let It Be","targets":[{"kind":"genre","pt":"Música gospel","en":"Gospel music"},{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"}]},
-  {"artist":"The Temptations","title":"My Girl","targets":[{"kind":"movement","pt":"Motown","en":"Motown"},{"kind":"genre","pt":"Soul music","en":"Soul music"}]},
-  {"artist":"Linkin Park","title":"Numb","targets":[{"kind":"subgenre","pt":"Nu metal","en":"Nu metal"},{"kind":"subgenre","pt":"Rock alternativo","en":"Alternative rock"}]}
+  {"artist":"The Temptations","title":"My Girl","targets":[{"kind":"movement","pt":"Motown","en":"Motown"},{"kind":"genre","pt":"Soul music","en":"Soul music"}]}
 ]
