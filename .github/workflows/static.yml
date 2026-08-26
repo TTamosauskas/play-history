@@ -45,9 +45,9 @@ jobs:
           test -s _site/assets/catalog.json
           test -s _site/assets/entry.js
           test -s _site/assets/styles.css
-          grep -q 'assets/entry.js?v=6.8.0' _site/index.html
-          grep -q 'assets/catalog.js?v=6.8.0' _site/index.html
-          grep -q 'assets/js/player.js?v=6.8.0' _site/index.html
+          grep -q 'assets/entry.js?v=' _site/index.html
+          grep -q 'assets/catalog.js?v=' _site/index.html
+          grep -q 'assets/js/player.js?v=' _site/index.html
           ! grep -q 'assets/loader.js' _site/index.html
       - name: Setup Pages
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

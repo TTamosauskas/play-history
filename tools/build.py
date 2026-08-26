@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
-VERSION='6.8.0'
+VERSION='6.8.1'
 
 def load_project():
     text=LEGACY.read_text(encoding='utf-8')
@@ -71,6 +71,12 @@ def build():
     patterns=load_patch('context_patterns.json')
     indices=load_patch('context_index_a.json')+load_patch('context_index_b.json')
     if len(indices)!=len(tracks): raise SystemExit('Índice de contexto incompatível')
+
+    override_rows=load_patch('context_overrides.json')
+    context_overrides={(x['artist'],x['title']):x['targets'] for x in override_rows}
+    if len(context_overrides)!=len(override_rows): raise SystemExit('Override de contexto duplicado')
+    applied_overrides=set()
+
     wiki_track=dict(load_patch('wiki_track.json'))
     wiki_pt=dict(load_patch('wiki_artist_pt.json'))
     wiki_en=dict(load_patch('wiki_artist_en.json'))
@@ -79,7 +85,14 @@ def build():
         youtube_id=t.get('youtubeId')
         if t.get('artist')=='Júpiter Maçã' and t.get('title')=='A Marchinha Psicótica de Dr. Soup':
             youtube_id='3dEeAXY7nTs'
-        targets=patterns[indices[i]]
+
+        context_key=(t.get('artist'),t.get('title'))
+        if context_key in context_overrides:
+            targets=context_overrides[context_key]
+            applied_overrides.add(context_key)
+        else:
+            targets=patterns[indices[i]]
+
         packed=[[x.get('kind'),x.get('pt'),x.get('en')] for x in targets]
         if len(packed)==1: packed=packed[0]
         row=[
@@ -92,12 +105,47 @@ def build():
         ]
         while row and row[-1] is None: row.pop()
         rows.append(row)
+
+    missing_overrides=set(context_overrides)-applied_overrides
+    if missing_overrides:
+        raise SystemExit(f'Overrides de contexto sem faixa correspondente: {sorted(missing_overrides)}')
+
     ids=[r[3] for r in rows if len(r)>3 and r[3]]
     if len(ids)!=len(set(ids)): raise SystemExit('youtubeId duplicado')
+
     def find(a,title): return next((r for r in rows if r[0]==a and r[1]==title),None)
+    def context_targets(row):
+        if not row or len(row)<=5 or not row[5]: return []
+        return [row[5]] if isinstance(row[5][0],str) else row[5]
+    def first_context(a,title):
+        targets=context_targets(find(a,title))
+        return targets[0][1] if targets else None
+
     black=find('Black Sabbath','Paranoid'); bee=find('Bee Gees',"Stayin' Alive")
-    if not black or not any(x[1]=='Heavy metal' for x in ([black[5]] if isinstance(black[5][0],str) else black[5])): raise SystemExit('Contexto Black Sabbath inválido')
-    if not bee or not any(x[1]=='Música disco' for x in ([bee[5]] if isinstance(bee[5][0],str) else bee[5])): raise SystemExit('Contexto Bee Gees inválido')
+    if not black or not any(x[1]=='Heavy metal' for x in context_targets(black)): raise SystemExit('Contexto Black Sabbath inválido')
+    if not bee or not any(x[1]=='Música disco' for x in context_targets(bee)): raise SystemExit('Contexto Bee Gees inválido')
+
+    expected_contexts={
+        ('The Beatles','I Want to Hold Your Hand'):'Invasão britânica',
+        ('The Beatles','Yesterday'):'Invasão britânica',
+        ('The Beatles','Help!'):'Invasão britânica',
+        ('The Beatles','In My Life'):'Invasão britânica',
+        ('The Beatles','Eleanor Rigby'):'Rock psicodélico',
+        ('The Beatles','A Day in the Life'):'Rock psicodélico',
+        ('The Beatles','All You Need Is Love'):'Rock psicodélico',
+        ('The Beatles','Hey Jude'):'Pop rock',
+        ('The Beatles','Come Together'):'Blues rock',
+        ('The Beatles','Let It Be'):'Música gospel',
+        ('The Temptations','My Girl'):'Motown',
+        ('Linkin Park','Numb'):'Nu metal',
+    }
+    for (artist,title),expected_context in expected_contexts.items():
+        actual=first_context(artist,title)
+        if actual!=expected_context:
+            raise SystemExit(f'Contexto inválido: {artist} — {title}: {actual!r} != {expected_context!r}')
+    if any(x[1]=='Música pop' for x in context_targets(find('Linkin Park','Numb'))):
+        raise SystemExit('Linkin Park não pode cair em Música pop')
+
     if OUT.exists(): shutil.rmtree(OUT)
     (OUT/'assets'/'js').mkdir(parents=True)
     shutil.copy2(ROOT/'index.html',OUT/'index.html')
