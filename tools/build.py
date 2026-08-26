@@ -6,10 +6,14 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
-VERSION='6.11.0'
+VERSION='6.12.0'
 GENERIC_AUDITED_PRIMARY={'Música pop','MPB','Rock'}
 ALLOWED_CONTEXT_KINDS={'genre','subgenre','movement','century','decade'}
 AUDIT_SPECS=[
+    {
+        'label':'1990s','start':1990,'end':1999,'count':159,
+        'files':[f'context_1990s_{year}.json' for year in range(1990,2000)],
+    },
     {
         'label':'2000s','start':2000,'end':2009,'count':107,
         'files':[f'context_2000s_{year}.json' for year in range(2000,2010)],
@@ -249,6 +253,15 @@ def build():
         ('Linkin Park','Numb'):'Nu metal',
         ('50 Cent','In da Club'):'Gangsta rap',
         ('The White Stripes','Seven Nation Army'):'Garage rock revival',
+        ('Nirvana','Smells Like Teen Spirit'):'Grunge',
+        ('Oasis','Wonderwall'):'Britpop',
+        ('Warren G feat. Nate Dogg','Regulate'):'G-funk',
+        ('2Pac feat. Dr. Dre','California Love'):'G-funk',
+        ('Raça Negra','Cheia de Manias'):'Pagode romântico',
+        ('Vários artistas','Rap da Felicidade'):'Funk carioca',
+        ('Angra','Carry On'):'Power metal',
+        ('Fernanda Abreu','Rio 40 Graus'):'Samba-funk',
+        ('Chico Science e Nação Zumbi','A Praieira'):'Manguebeat',
     }
     for (artist,title),expected_context in expected_contexts.items():
         actual=first_context(artist,title)
