@@ -6,10 +6,14 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
-VERSION='6.14.0'
+VERSION='6.15.0'
 GENERIC_AUDITED_PRIMARY={'Música pop','MPB','Rock'}
 ALLOWED_CONTEXT_KINDS={'genre','subgenre','movement','century','decade'}
 AUDIT_SPECS=[
+    {
+        'label':'1960s','start':1960,'end':1969,'count':132,
+        'files':[f'context_1960s_{year}.json' for year in range(1960,1970)],
+    },
     {
         'label':'1970s','start':1970,'end':1979,'count':261,
         'files':[f'context_1970s_{year}.json' for year in range(1970,1980)],
@@ -267,12 +271,12 @@ def build():
 
     expected_contexts={
         ('The Beatles','I Want to Hold Your Hand'):'Invasão britânica',
-        ('The Beatles','Yesterday'):'Invasão britânica',
+        ('The Beatles','Yesterday'):'Pop barroco',
         ('The Beatles','Help!'):'Invasão britânica',
-        ('The Beatles','In My Life'):'Invasão britânica',
-        ('The Beatles','Eleanor Rigby'):'Rock psicodélico',
+        ('The Beatles','In My Life'):'Pop barroco',
+        ('The Beatles','Eleanor Rigby'):'Pop barroco',
         ('The Beatles','A Day in the Life'):'Rock psicodélico',
-        ('The Beatles','All You Need Is Love'):'Rock psicodélico',
+        ('The Beatles','All You Need Is Love'):'Verão do Amor',
         ('The Beatles','Hey Jude'):'Pop rock',
         ('The Beatles','Come Together'):'Blues rock',
         ('The Beatles','Let It Be'):'Música gospel',
