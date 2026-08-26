@@ -1,0 +1,632 @@
+[
+  {
+    "year": 2020,
+    "artist": "Ariana Grande",
+    "title": "Positions",
+    "targets": [
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"},
+      {"kind": "subgenre", "pt": "Trap", "en": "Trap music"}
+    ],
+    "basis": "Pop-R&B estruturado sobre produção de trap; R&B é o contexto histórico mais informativo."
+  },
+  {
+    "year": 2020,
+    "artist": "BTS",
+    "title": "Dynamite",
+    "targets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"}
+    ],
+    "basis": "Single de K-pop explicitamente apresentado como disco-pop; a primeira chave preserva o fenômeno histórico coreano/global."
+  },
+  {
+    "year": 2020,
+    "artist": "Cardi B feat. Megan Thee Stallion",
+    "title": "WAP",
+    "targets": [
+      {"kind": "subgenre", "pt": "Dirty rap", "en": "Dirty rap"},
+      {"kind": "subgenre", "pt": "Trap", "en": "Trap music"}
+    ],
+    "basis": "Rap sexualmente explícito na linhagem dirty rap, com produção de trap."
+  },
+  {
+    "year": 2020,
+    "artist": "Doja Cat",
+    "title": "Say So",
+    "targets": [
+      {"kind": "subgenre", "pt": "Nu-disco", "en": "Nu-disco"},
+      {"kind": "genre", "pt": "Funk", "en": "Funk"}
+    ],
+    "basis": "Revival disco/funk contemporâneo, mais específico que hip hop genérico."
+  },
+  {
+    "year": 2020,
+    "artist": "Dua Lipa",
+    "title": "Levitating",
+    "targets": [
+      {"kind": "subgenre", "pt": "Nu-disco", "en": "Nu-disco"},
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"}
+    ],
+    "basis": "Faixa central do revival disco dos anos 2020, com linguagem nu-disco."
+  },
+  {
+    "year": 2020,
+    "artist": "Mateus Aleluia",
+    "title": "Olorum",
+    "targets": [
+      {"kind": "genre", "pt": "Música afro-brasileira", "en": "Afro-Brazilian music"},
+      {"kind": "genre", "pt": "Afoxé", "en": "Afoxê"}
+    ],
+    "basis": "A matriz afro-brasileira e litúrgica é mais útil historicamente que MPB como guarda-chuva."
+  },
+  {
+    "year": 2020,
+    "artist": "SZA",
+    "title": "Good Days",
+    "targets": [
+      {"kind": "subgenre", "pt": "R&B alternativo", "en": "Alternative R&B"},
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"}
+    ],
+    "basis": "R&B alternativo/atmosférico; evita reduzir a faixa ao R&B comercial genérico."
+  },
+  {
+    "year": 2020,
+    "artist": "Sepultura",
+    "title": "Isolation",
+    "targets": [
+      {"kind": "subgenre", "pt": "Thrash metal", "en": "Thrash metal"},
+      {"kind": "genre", "pt": "Heavy metal", "en": "Heavy metal music"}
+    ],
+    "basis": "Thrash metal, continuidade direta da linguagem histórica do Sepultura."
+  },
+  {
+    "year": 2020,
+    "artist": "The Weeknd",
+    "title": "Save Your Tears",
+    "targets": [
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"},
+      {"kind": "genre", "pt": "New wave", "en": "New wave music"}
+    ],
+    "basis": "Synth-pop de estética oitentista, com linhagem new wave."
+  },
+  {
+    "year": 2021,
+    "artist": "Adele",
+    "title": "Easy on Me",
+    "targets": [
+      {"kind": "genre", "pt": "Soul music", "en": "Soul music"},
+      {"kind": "subgenre", "pt": "Pop soul", "en": "Pop soul"}
+    ],
+    "basis": "Balada vocal de matriz soul; pop-soul funciona como segundo enquadramento."
+  },
+  {
+    "year": 2021,
+    "artist": "Doja Cat feat. SZA",
+    "title": "Kiss Me More",
+    "targets": [
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"},
+      {"kind": "subgenre", "pt": "Pop rap", "en": "Pop rap"}
+    ],
+    "basis": "Disco-pop com rap/R&B; disco explica melhor a linguagem rítmica da faixa."
+  },
+  {
+    "year": 2021,
+    "artist": "Israel & Rodolffo",
+    "title": "Batom de Cereja",
+    "targets": [
+      {"kind": "subgenre", "pt": "Sertanejo universitário", "en": "Sertanejo music"},
+      {"kind": "subgenre", "pt": "Pisadinha", "en": "Piseiro"}
+    ],
+    "basis": "Sertanejo universitário com elementos de pisadinha; MPB é historicamente inadequado."
+  },
+  {
+    "year": 2021,
+    "artist": "Lil Nas X",
+    "title": "Montero (Call Me by Your Name)",
+    "targets": [
+      {"kind": "subgenre", "pt": "Pop rap", "en": "Pop rap"},
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Híbrido de rap e electropop, dentro da tradição pop-rap."
+  },
+  {
+    "year": 2021,
+    "artist": "Lil Nas X & Jack Harlow",
+    "title": "Industry Baby",
+    "targets": [
+      {"kind": "subgenre", "pt": "Trap", "en": "Trap music"},
+      {"kind": "subgenre", "pt": "Pop rap", "en": "Pop rap"}
+    ],
+    "basis": "Trap/pop-rap, com fanfarra de metais sobre base hip hop contemporânea."
+  },
+  {
+    "year": 2021,
+    "artist": "Masked Wolf",
+    "title": "Astronaut in the Ocean",
+    "targets": [
+      {"kind": "subgenre", "pt": "Pop rap", "en": "Pop rap"},
+      {"kind": "subgenre", "pt": "Trap", "en": "Trap music"}
+    ],
+    "basis": "Pop-rap/trap; classificação mais precisa que pop."
+  },
+  {
+    "year": 2021,
+    "artist": "Olivia Rodrigo",
+    "title": "Drivers License",
+    "targets": [
+      {"kind": "subgenre", "pt": "Bedroom pop", "en": "Bedroom pop"},
+      {"kind": "subgenre", "pt": "Indie pop", "en": "Indie pop"}
+    ],
+    "basis": "Balada associada ao bedroom pop/indie pop, estética decisiva do pop jovem do início da década."
+  },
+  {
+    "year": 2021,
+    "artist": "Olivia Rodrigo",
+    "title": "Good 4 U",
+    "targets": [
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Revival pop-punk com linguagem pop-rock."
+  },
+  {
+    "year": 2021,
+    "artist": "The Kid LAROI & Justin Bieber",
+    "title": "Stay",
+    "targets": [
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"},
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Synth-pop/electropop acelerado com referência new wave."
+  },
+  {
+    "year": 2022,
+    "artist": "Bad Bunny",
+    "title": "Tití Me Preguntó",
+    "targets": [
+      {"kind": "genre", "pt": "Dembow", "en": "Dembow"},
+      {"kind": "subgenre", "pt": "Latin trap", "en": "Latin trap"}
+    ],
+    "basis": "Dembow dominicano em diálogo com Latin trap e bachata."
+  },
+  {
+    "year": 2022,
+    "artist": "Beyoncé",
+    "title": "Cuff It",
+    "targets": [
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"},
+      {"kind": "genre", "pt": "Funk", "en": "Funk"}
+    ],
+    "basis": "Disco-funk; a linguagem disco é central à faixa e ao projeto Renaissance."
+  },
+  {
+    "year": 2022,
+    "artist": "Burna Boy",
+    "title": "Last Last",
+    "targets": [
+      {"kind": "genre", "pt": "Afrobeats", "en": "Afrobeats"},
+      {"kind": "genre", "pt": "Afropop", "en": "African popular music"}
+    ],
+    "basis": "Afrobeats, importante para compreender a internacionalização da música pop africana nos anos 2020."
+  },
+  {
+    "year": 2022,
+    "artist": "Harry Styles",
+    "title": "As It Was",
+    "targets": [
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"},
+      {"kind": "genre", "pt": "New wave", "en": "New wave music"}
+    ],
+    "basis": "Synth-pop com forte referência new wave/anos 1980."
+  },
+  {
+    "year": 2022,
+    "artist": "Lizzo",
+    "title": "About Damn Time",
+    "targets": [
+      {"kind": "genre", "pt": "Funk", "en": "Funk"},
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"}
+    ],
+    "basis": "Disco-funk; funk explica a base rítmica e a linhagem setentista."
+  },
+  {
+    "year": 2022,
+    "artist": "Rema",
+    "title": "Calm Down",
+    "targets": [
+      {"kind": "genre", "pt": "Afrobeats", "en": "Afrobeats"},
+      {"kind": "genre", "pt": "Afropop", "en": "African popular music"}
+    ],
+    "basis": "Afrobeats/Afropop; caso central da expansão global do gênero."
+  },
+  {
+    "year": 2022,
+    "artist": "SZA",
+    "title": "Kill Bill",
+    "targets": [
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"},
+      {"kind": "subgenre", "pt": "Boom bap", "en": "Boom bap"}
+    ],
+    "basis": "R&B contemporâneo com desenho rítmico associado a boom bap."
+  },
+  {
+    "year": 2022,
+    "artist": "Sam Smith & Kim Petras",
+    "title": "Unholy",
+    "targets": [
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"},
+      {"kind": "subgenre", "pt": "Hyperpop", "en": "Hyperpop"}
+    ],
+    "basis": "Electropop com elementos de hyperpop e produção eletrônica maximalista."
+  },
+  {
+    "year": 2022,
+    "artist": "Steve Lacy",
+    "title": "Bad Habit",
+    "targets": [
+      {"kind": "subgenre", "pt": "R&B alternativo", "en": "Alternative R&B"},
+      {"kind": "subgenre", "pt": "Bedroom pop", "en": "Bedroom pop"}
+    ],
+    "basis": "R&B alternativo/lo-fi ligado à estética bedroom pop."
+  },
+  {
+    "year": 2022,
+    "artist": "Taylor Swift",
+    "title": "Anti-Hero",
+    "targets": [
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Synth-pop, com composição e instrumentação também ligadas ao pop-rock."
+  },
+  {
+    "year": 2023,
+    "artist": "Banda AL9",
+    "title": "Chama De Amor",
+    "targets": [
+      {"kind": "movement", "pt": "Jovem Guarda", "en": "Jovem Guarda"},
+      {"kind": "subgenre", "pt": "Power pop", "en": "Power pop"}
+    ],
+    "basis": "Canção explicitamente construída como homenagem à Jovem Guarda e ao rock dos anos 1950/60."
+  },
+  {
+    "year": 2023,
+    "artist": "Billie Eilish",
+    "title": "What Was I Made For?",
+    "targets": [
+      {"kind": "subgenre", "pt": "Chamber pop", "en": "Chamber pop"},
+      {"kind": "subgenre", "pt": "Balada", "en": "Ballad"}
+    ],
+    "basis": "Chamber pop/balada orquestral, contexto mais formativo que pop genérico."
+  },
+  {
+    "year": 2023,
+    "artist": "DENNIS & MC Kevin o Chris",
+    "title": "Tá OK",
+    "targets": [
+      {"kind": "genre", "pt": "Funk carioca", "en": "Funk carioca"},
+      {"kind": "genre", "pt": "Funk", "en": "Funk carioca"}
+    ],
+    "basis": "Funk carioca/baile funk, inclusive com referência deliberada à estética dos bailes dos anos 2000."
+  },
+  {
+    "year": 2023,
+    "artist": "Doja Cat",
+    "title": "Paint the Town Red",
+    "targets": [
+      {"kind": "subgenre", "pt": "Boom bap", "en": "Boom bap"},
+      {"kind": "genre", "pt": "Hip hop", "en": "Hip hop music"}
+    ],
+    "basis": "Retorno a uma linguagem de hip hop sampleado/boom-bap em Scarlet."
+  },
+  {
+    "year": 2023,
+    "artist": "Dua Lipa",
+    "title": "Dance the Night",
+    "targets": [
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"},
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"}
+    ],
+    "basis": "Disco contemporâneo dentro do revival iniciado no fim dos anos 2010."
+  },
+  {
+    "year": 2023,
+    "artist": "Eslabon Armado & Peso Pluma",
+    "title": "Ella Baila Sola",
+    "targets": [
+      {"kind": "subgenre", "pt": "Sierreño", "en": "Sierreño"},
+      {"kind": "genre", "pt": "Música regional mexicana", "en": "Regional Mexican music"}
+    ],
+    "basis": "Sierreño/regional mexicano, fundamental para o boom global dos corridos e música mexicana."
+  },
+  {
+    "year": 2023,
+    "artist": "Miley Cyrus",
+    "title": "Flowers",
+    "targets": [
+      {"kind": "genre", "pt": "Funk", "en": "Funk"},
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"}
+    ],
+    "basis": "Disco-funk com cordas e groove setentista."
+  },
+  {
+    "year": 2023,
+    "artist": "Olivia Rodrigo",
+    "title": "Vampire",
+    "targets": [
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"},
+      {"kind": "subgenre", "pt": "Gothic rock", "en": "Gothic rock"}
+    ],
+    "basis": "Pop-rock dramático com elementos góticos/sinfônicos."
+  },
+  {
+    "year": 2023,
+    "artist": "PRISCILLA, Vitor Kley",
+    "title": "Tudo Pah (Casa Filtr)",
+    "targets": [
+      {"kind": "genre", "pt": "B-pop", "en": "Brazilian pop music"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Pop brasileiro contemporâneo; B-pop evita confundir o repertório com MPB."
+  },
+  {
+    "year": 2023,
+    "artist": "Tate McRae",
+    "title": "Greedy",
+    "targets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"},
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"}
+    ],
+    "basis": "Dance-pop de matriz Y2K, inspirado por pop/R&B dançante dos anos 2000."
+  },
+  {
+    "year": 2023,
+    "artist": "Tyla",
+    "title": "Water",
+    "targets": [
+      {"kind": "genre", "pt": "Amapiano", "en": "Amapiano"},
+      {"kind": "genre", "pt": "Afrobeats", "en": "Afrobeats"}
+    ],
+    "basis": "Amapiano/popiano; o log drum e a circulação global sul-africana são o contexto histórico principal."
+  },
+  {
+    "year": 2023,
+    "artist": "Zach Bryan feat. Kacey Musgraves",
+    "title": "I Remember Everything",
+    "targets": [
+      {"kind": "genre", "pt": "Música country", "en": "Country music"},
+      {"kind": "subgenre", "pt": "Americana", "en": "Americana (music)"}
+    ],
+    "basis": "Country contemporâneo com enquadramento também possível em Americana."
+  },
+  {
+    "year": 2024,
+    "artist": "Benson Boone",
+    "title": "Beautiful Things",
+    "targets": [
+      {"kind": "subgenre", "pt": "Folk rock", "en": "Folk rock"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Folk-rock/pop-rock, com dinâmica de power ballad."
+  },
+  {
+    "year": 2024,
+    "artist": "Billie Eilish",
+    "title": "Birds of a Feather",
+    "targets": [
+      {"kind": "subgenre", "pt": "Power ballad", "en": "Power ballad"},
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"}
+    ],
+    "basis": "Power ballad contemporânea apoiada por produção de sintetizadores."
+  },
+  {
+    "year": 2024,
+    "artist": "Chappell Roan",
+    "title": "Good Luck, Babe!",
+    "targets": [
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"},
+      {"kind": "genre", "pt": "New wave", "en": "New wave music"}
+    ],
+    "basis": "Synth-pop oitentista/new wave, chave para entender a estética retro-pop da faixa."
+  },
+  {
+    "year": 2024,
+    "artist": "Hozier",
+    "title": "Too Sweet",
+    "targets": [
+      {"kind": "genre", "pt": "Soul music", "en": "Soul music"},
+      {"kind": "subgenre", "pt": "Funk rock", "en": "Funk rock"}
+    ],
+    "basis": "Retro-soul com groove de funk-rock; Indie rock é insuficiente para esta faixa."
+  },
+  {
+    "year": 2024,
+    "artist": "Kendrick Lamar",
+    "title": "Not Like Us",
+    "targets": [
+      {"kind": "subgenre", "pt": "Hip hop da Costa Oeste", "en": "West Coast hip hop"},
+      {"kind": "subgenre", "pt": "Hyphy", "en": "Hyphy"}
+    ],
+    "basis": "West Coast hip hop com forte estilização hyphy; contexto regional essencial à faixa e ao diss."
+  },
+  {
+    "year": 2024,
+    "artist": "Kendrick Lamar & SZA",
+    "title": "Luther",
+    "targets": [
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"},
+      {"kind": "genre", "pt": "Hip hop", "en": "Hip hop music"}
+    ],
+    "basis": "R&B contemporâneo em diálogo com hip hop e referências ao R&B dos anos 1980."
+  },
+  {
+    "year": 2024,
+    "artist": "Lady Gaga & Bruno Mars",
+    "title": "Die with a Smile",
+    "targets": [
+      {"kind": "subgenre", "pt": "Soft rock", "en": "Soft rock"},
+      {"kind": "subgenre", "pt": "Pop soul", "en": "Pop soul"}
+    ],
+    "basis": "Soft rock/pop-soul de estética setentista."
+  },
+  {
+    "year": 2024,
+    "artist": "Liniker",
+    "title": "CAJU",
+    "targets": [
+      {"kind": "genre", "pt": "Soul music", "en": "Soul music"},
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"}
+    ],
+    "basis": "Soul e R&B são matrizes explícitas do álbum, em fusão com tradições brasileiras."
+  },
+  {
+    "year": 2024,
+    "artist": "Os Garotin",
+    "title": "Calor do Momento",
+    "targets": [
+      {"kind": "genre", "pt": "Soul music", "en": "Soul music"},
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"}
+    ],
+    "basis": "Trio trabalha diretamente a linhagem soul/R&B brasileira de Tim Maia, Cassiano e Jorge Ben."
+  },
+  {
+    "year": 2024,
+    "artist": "Post Malone feat. Morgan Wallen",
+    "title": "I Had Some Help",
+    "targets": [
+      {"kind": "subgenre", "pt": "Country pop", "en": "Country pop"},
+      {"kind": "genre", "pt": "Música country", "en": "Country music"}
+    ],
+    "basis": "Country-pop, parte do crossover country dominante no meio da década."
+  },
+  {
+    "year": 2024,
+    "artist": "ROSÉ & Bruno Mars",
+    "title": "APT.",
+    "targets": [
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"},
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"}
+    ],
+    "basis": "Pop-rock com energia pop-punk/new wave, em contexto de crossover K-pop global."
+  },
+  {
+    "year": 2024,
+    "artist": "Sabrina Carpenter",
+    "title": "Espresso",
+    "targets": [
+      {"kind": "subgenre", "pt": "Nu-disco", "en": "Nu-disco"},
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"}
+    ],
+    "basis": "Nu-disco explícito; representa a continuidade do revival disco no pop dos anos 2020."
+  },
+  {
+    "year": 2024,
+    "artist": "Sabrina Carpenter",
+    "title": "Please Please Please",
+    "targets": [
+      {"kind": "subgenre", "pt": "Yacht rock", "en": "Yacht rock"},
+      {"kind": "subgenre", "pt": "Country pop", "en": "Country pop"}
+    ],
+    "basis": "Pastiche de yacht rock com country-pop, mais historicamente específico que pop."
+  },
+  {
+    "year": 2024,
+    "artist": "Shaboozey",
+    "title": "A Bar Song (Tipsy)",
+    "targets": [
+      {"kind": "subgenre", "pt": "Country rap", "en": "Country rap"},
+      {"kind": "subgenre", "pt": "Country pop", "en": "Country pop"}
+    ],
+    "basis": "Country-rap/country-pop, exemplo-chave da convergência entre hip hop e country."
+  },
+  {
+    "year": 2025,
+    "artist": "Alex Warren",
+    "title": "Ordinary",
+    "targets": [
+      {"kind": "subgenre", "pt": "Chamber pop", "en": "Chamber pop"},
+      {"kind": "subgenre", "pt": "Power ballad", "en": "Power ballad"}
+    ],
+    "basis": "Chamber pop em formato de power ballad."
+  },
+  {
+    "year": 2025,
+    "artist": "Cor dos Olhos",
+    "title": "Banho de Rosas",
+    "targets": [
+      {"kind": "subgenre", "pt": "Indie rock", "en": "Indie rock"},
+      {"kind": "genre", "pt": "Rock brasileiro", "en": "Brazilian rock"}
+    ],
+    "basis": "A banda se insere no indie rock brasileiro; MPB apaga a linguagem de guitarras do projeto."
+  },
+  {
+    "year": 2025,
+    "artist": "Ella Langley",
+    "title": "Choosin’ Texas",
+    "targets": [
+      {"kind": "genre", "pt": "Música country", "en": "Country music"},
+      {"kind": "subgenre", "pt": "Country pop", "en": "Country pop"}
+    ],
+    "basis": "Country contemporâneo, com acabamento de crossover."
+  },
+  {
+    "year": 2025,
+    "artist": "HUNTR/X",
+    "title": "Golden",
+    "targets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "K-pop/electropop; contexto industrial e cultural coreano é central ao fenômeno."
+  },
+  {
+    "year": 2025,
+    "artist": "Lady Gaga",
+    "title": "Abracadabra",
+    "targets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"},
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Dance-pop/electropop com referências house/techno."
+  },
+  {
+    "year": 2025,
+    "artist": "Sabrina Carpenter",
+    "title": "Manchild",
+    "targets": [
+      {"kind": "subgenre", "pt": "Country pop", "en": "Country pop"},
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"}
+    ],
+    "basis": "Country-pop com produção synth-pop/disco."
+  },
+  {
+    "year": 2026,
+    "artist": "Bruno Mars",
+    "title": "I Just Might",
+    "targets": [
+      {"kind": "subgenre", "pt": "Disco-pop", "en": "Disco-pop"},
+      {"kind": "subgenre", "pt": "Pop soul", "en": "Pop soul"}
+    ],
+    "basis": "Disco-pop/pop-soul com forte linhagem funk."
+  },
+  {
+    "year": 2026,
+    "artist": "Harry Styles",
+    "title": "Aperture",
+    "targets": [
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"},
+      {"kind": "subgenre", "pt": "Minimal techno", "en": "Minimal techno"}
+    ],
+    "basis": "Electropop eletrônico com referências explícitas a minimal techno."
+  },
+  {
+    "year": 2026,
+    "artist": "Jota.pê",
+    "title": "Até Outro Dia",
+    "targets": [
+      {"kind": "genre", "pt": "Reggae", "en": "Reggae"},
+      {"kind": "genre", "pt": "Música do Brasil", "en": "Music of Brazil"}
+    ],
+    "basis": "Reggae como ponto de partida, misturado a referências brasileiras, africanas e cabo-verdianas."
+  }
+]
