@@ -53,8 +53,21 @@ def patch_build() -> None:
     )
     if "'label':'1960s'" not in text:
         text = text.replace(marker, marker + spec, 1)
+
+    regression_updates = {
+        "('The Beatles','Yesterday'):'Invasão britânica'": "('The Beatles','Yesterday'):'Pop barroco'",
+        "('The Beatles','In My Life'):'Invasão britânica'": "('The Beatles','In My Life'):'Pop barroco'",
+        "('The Beatles','Eleanor Rigby'):'Rock psicodélico'": "('The Beatles','Eleanor Rigby'):'Pop barroco'",
+        "('The Beatles','All You Need Is Love'):'Rock psicodélico'": "('The Beatles','All You Need Is Love'):'Verão do Amor'",
+    }
+    for old, new in regression_updates.items():
+        text = text.replace(old, new, 1)
+
     if f"VERSION='{VERSION_NEW}'" not in text or "'label':'1960s'" not in text:
         raise SystemExit("build patch failed")
+    for expected in regression_updates.values():
+        if expected not in text:
+            raise SystemExit(f"regression patch failed: {expected}")
     path.write_text(text, encoding="utf-8")
 
 
