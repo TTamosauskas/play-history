@@ -20,8 +20,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Prepare 1960s release candidate
-        run: python tools/prepare_1960s_release.py
       - name: Validate 1960s Contexto audit
         run: python tools/audit_context_decade.py 1960 --validate-patches
       - name: Validate 1970s Contexto audit
@@ -47,19 +45,11 @@ jobs:
           test -s _site/assets/catalog.json
           test -s _site/assets/entry.js
           test -s _site/assets/styles.css
-          grep -q '6.15.0' index.html
+          grep -q 'assets/catalog-runtime.js?v=' index.html
           grep -q 'context_1960s_' assets/catalog-runtime.js
           grep -q 'context_1970s_' assets/catalog-runtime.js
           grep -q 'context_1980s_' assets/catalog-runtime.js
           ! grep -q 'assets/loader.js' index.html
-      - name: Upload 1960s release candidate
-        uses: actions/upload-artifact@v4
-        with:
-          name: 1960s-release-candidate
-          path: |
-            tools/build.py
-            assets/catalog-runtime.js
-            index.html
 
 # GitHub Pages is published from the main branch by the repository's
 # native Pages workflow. This workflow validates the generated player only,
