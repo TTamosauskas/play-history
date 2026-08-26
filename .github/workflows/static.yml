@@ -20,15 +20,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Export 1970s context inventory
-        run: python tools/audit_context_decade.py 1970 --csv /tmp/context_1970s_inventory.csv --markdown /tmp/context_1970s_inventory.md
-      - name: Upload 1970s context inventory
-        uses: actions/upload-artifact@v4
-        with:
-          name: context-1970s-inventory
-          path: |
-            /tmp/context_1970s_inventory.csv
-            /tmp/context_1970s_inventory.md
+      - name: Prepare 1970s release candidate
+        run: python tools/prepare_1970s_release.py
+      - name: Validate 1970s Contexto audit
+        run: python tools/audit_context_decade.py 1970 --validate-patches
       - name: Build modular site
         run: python tools/build.py
       - name: Validate generated JavaScript
@@ -51,8 +46,18 @@ jobs:
           test -s _site/assets/entry.js
           test -s _site/assets/styles.css
           grep -q 'assets/catalog-runtime.js?v=' index.html
+          grep -q 'context_1970s_' assets/catalog-runtime.js
           grep -q 'context_1980s_' assets/catalog-runtime.js
           ! grep -q 'assets/loader.js' index.html
+      - name: Upload 1970s release candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: 1970s-release-candidate
+          path: |
+            tools/build.py
+            assets/catalog-runtime.js
+            index.html
+            release_1970s_manifest.json
 
 # GitHub Pages is published from the main branch by the repository's
 # native Pages workflow. This workflow validates the generated player only,
