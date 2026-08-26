@@ -12,6 +12,7 @@ permissions:
   pages: write
   id-token: write
 
+# Keep deployments retryable: a stalled run must not block a newer build.
 jobs:
   build:
     runs-on: ubuntu-latest
