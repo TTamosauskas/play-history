@@ -6,10 +6,14 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
-VERSION='6.12.0'
+VERSION='6.13.0'
 GENERIC_AUDITED_PRIMARY={'Música pop','MPB','Rock'}
 ALLOWED_CONTEXT_KINDS={'genre','subgenre','movement','century','decade'}
 AUDIT_SPECS=[
+    {
+        'label':'1980s','start':1980,'end':1989,'count':185,
+        'files':[f'context_1980s_{year}.json' for year in range(1980,1990)],
+    },
     {
         'label':'1990s','start':1990,'end':1999,'count':159,
         'files':[f'context_1990s_{year}.json' for year in range(1990,2000)],
@@ -117,6 +121,10 @@ def load_audit_rows(spec):
     return load_patch(spec['file'])
 
 
+def track_identity(year,artist,title):
+    return (int(year),artist,title)
+
+
 def validate_audit(spec,tracks):
     label=spec['label']
     start=spec['start']
@@ -124,7 +132,7 @@ def validate_audit(spec,tracks):
     expected_count=spec['count']
     audit_rows=load_audit_rows(spec)
     expected={
-        (t.get('artist'),t.get('title')):int(t.get('year'))
+        track_identity(t.get('year'),t.get('artist'),t.get('title'))
         for t in tracks
         if start<=int(t.get('year'))<=end
     }
@@ -133,21 +141,18 @@ def validate_audit(spec,tracks):
 
     audit_map={}
     for item in audit_rows:
-        key=(item.get('artist'),item.get('title'))
+        key=track_identity(item.get('year'),item.get('artist'),item.get('title'))
         if key in audit_map:
             raise SystemExit(f'Faixa duplicada na auditoria {label}: {key}')
-        validate_context_targets(f'{key[0]} — {key[1]}',item.get('targets'))
+        validate_context_targets(f'{key[0]} · {key[1]} — {key[2]}',item.get('targets'))
         audit_map[key]=item
 
-    missing=set(expected)-set(audit_map)
-    extra=set(audit_map)-set(expected)
+    missing=expected-set(audit_map)
+    extra=set(audit_map)-expected
     if missing or extra:
         raise SystemExit(f'Auditoria {label} incompleta: faltam={sorted(missing)} extras={sorted(extra)}')
 
-    for key,expected_year in expected.items():
-        declared_year=int(audit_map[key].get('year'))
-        if declared_year!=expected_year:
-            raise SystemExit(f'Ano incorreto na auditoria {label}: {key}: {declared_year} != {expected_year}')
+    for key in expected:
         primary=audit_map[key]['targets'][0].get('pt')
         if primary in GENERIC_AUDITED_PRIMARY:
             raise SystemExit(f'Contexto primário genérico proibido na auditoria {label}: {key}: {primary}')
@@ -170,16 +175,24 @@ def build():
         audited_rows.extend(rows_for_audit)
         audit_maps[spec['label']]=audit_map
 
-    override_rows=legacy_override_rows+audited_rows
-    context_overrides={}
-    for item in override_rows:
+    legacy_overrides={}
+    for item in legacy_override_rows:
         key=(item.get('artist'),item.get('title'))
-        if key in context_overrides:
-            raise SystemExit(f'Override de contexto duplicado: {key}')
+        if key in legacy_overrides:
+            raise SystemExit(f'Override legado de contexto duplicado: {key}')
         validate_context_targets(f'{key[0]} — {key[1]}',item.get('targets'))
-        context_overrides[key]=item['targets']
-    applied_overrides=set()
+        legacy_overrides[key]=item['targets']
 
+    audited_overrides={}
+    for item in audited_rows:
+        key=track_identity(item.get('year'),item.get('artist'),item.get('title'))
+        if key in audited_overrides:
+            raise SystemExit(f'Override auditado de contexto duplicado: {key}')
+        validate_context_targets(f'{key[0]} · {key[1]} — {key[2]}',item.get('targets'))
+        audited_overrides[key]=item['targets']
+
+    applied_legacy=set()
+    applied_audited=set()
     wiki_track=dict(load_patch('wiki_track.json'))
     wiki_pt=dict(load_patch('wiki_artist_pt.json'))
     wiki_en=dict(load_patch('wiki_artist_en.json'))
@@ -189,10 +202,14 @@ def build():
         if t.get('artist')=='Júpiter Maçã' and t.get('title')=='A Marchinha Psicótica de Dr. Soup':
             youtube_id='3dEeAXY7nTs'
 
-        context_key=(t.get('artist'),t.get('title'))
-        if context_key in context_overrides:
-            targets=context_overrides[context_key]
-            applied_overrides.add(context_key)
+        exact_key=track_identity(t.get('year'),t.get('artist'),t.get('title'))
+        loose_key=(t.get('artist'),t.get('title'))
+        if exact_key in audited_overrides:
+            targets=audited_overrides[exact_key]
+            applied_audited.add(exact_key)
+        elif loose_key in legacy_overrides:
+            targets=legacy_overrides[loose_key]
+            applied_legacy.add(loose_key)
         else:
             targets=patterns[indices[i]]
 
@@ -211,24 +228,30 @@ def build():
             row.pop()
         rows.append(row)
 
-    missing_overrides=set(context_overrides)-applied_overrides
-    if missing_overrides:
-        raise SystemExit(f'Overrides de contexto sem faixa correspondente: {sorted(missing_overrides)}')
+    missing_audited=set(audited_overrides)-applied_audited
+    if missing_audited:
+        raise SystemExit(f'Overrides auditados sem faixa correspondente: {sorted(missing_audited)}')
+    # Overrides legados que foram absorvidos por uma auditoria completa podem ficar sem aplicação.
+    unexpected_legacy=(set(legacy_overrides)-applied_legacy)-{
+        (item.get('artist'),item.get('title')) for item in audited_rows
+    }
+    if unexpected_legacy:
+        raise SystemExit(f'Overrides legados sem faixa correspondente: {sorted(unexpected_legacy)}')
 
     ids=[r[3] for r in rows if len(r)>3 and r[3]]
     if len(ids)!=len(set(ids)):
         raise SystemExit('youtubeId duplicado')
 
-    def find(a,title):
-        return next((r for r in rows if r[0]==a and r[1]==title),None)
+    def find(a,title,year=None):
+        return next((r for r in rows if r[0]==a and r[1]==title and (year is None or int(r[2])==int(year))),None)
 
     def context_targets(row):
         if not row or len(row)<=5 or not row[5]:
             return []
         return [row[5]] if isinstance(row[5][0],str) else row[5]
 
-    def first_context(a,title):
-        targets=context_targets(find(a,title))
+    def first_context(a,title,year=None):
+        targets=context_targets(find(a,title,year))
         return targets[0][1] if targets else None
 
     black=find('Black Sabbath','Paranoid')
@@ -267,17 +290,38 @@ def build():
         actual=first_context(artist,title)
         if actual!=expected_context:
             raise SystemExit(f'Contexto inválido: {artist} — {title}: {actual!r} != {expected_context!r}')
+
+    expected_1980s={
+        (1980,'Bob Marley & The Wailers','Three Little Birds'):'Reggae',
+        (1980,'Judas Priest','Breaking the Law'):'Heavy metal',
+        (1980,'Motörhead','Ace of Spades'):'Speed metal',
+        (1982,'Robson Jorge e Lincoln Olivetti','Baila Comigo / Festa Brava'):'Boogie',
+        (1983,'Gang 90 & Absurdettes','Perdidos na Selva'):'New wave',
+        (1983,'Iron Maiden','The Trooper'):'Heavy metal',
+        (1985,'Legião Urbana','Será'):'Post-punk',
+        (1986,'Dorsal Atlântica','Joseph Mengele'):'Thrash metal',
+        (1987,'Olodum','Faraó Divindade do Egito'):'Samba-reggae',
+        (1987,'Sarajane','A Roda'):'Axé',
+        (1988,'N.W.A','Straight Outta Compton'):'Gangsta rap',
+        (1989,'Thaíde & DJ Hum','Homens da Lei'):'Hip hop brasileiro',
+        (1989,'vários artistas','Melô da Mulher Feia'):'Funk carioca',
+    }
+    for (year,artist,title),expected_context in expected_1980s.items():
+        actual=first_context(artist,title,year)
+        if actual!=expected_context:
+            raise SystemExit(f'Contexto 1980s inválido: {year} · {artist} — {title}: {actual!r} != {expected_context!r}')
+
     if any(x[1]=='Música pop' for x in context_targets(find('Linkin Park','Numb'))):
         raise SystemExit('Linkin Park não pode cair em Música pop')
 
     for label,audit_map in audit_maps.items():
-        for (artist,title),item in audit_map.items():
+        for (year,artist,title),item in audit_map.items():
             expected_primary=item['targets'][0]['pt']
-            actual=first_context(artist,title)
+            actual=first_context(artist,title,year)
             if actual!=expected_primary:
-                raise SystemExit(f'Auditoria {label} divergente: {artist} — {title}: {actual!r} != {expected_primary!r}')
+                raise SystemExit(f'Auditoria {label} divergente: {year} · {artist} — {title}: {actual!r} != {expected_primary!r}')
             if actual in GENERIC_AUDITED_PRIMARY:
-                raise SystemExit(f'Contexto primário genérico reapareceu em {label}: {artist} — {title}: {actual}')
+                raise SystemExit(f'Contexto primário genérico reapareceu em {label}: {year} · {artist} — {title}: {actual}')
 
     if OUT.exists():
         shutil.rmtree(OUT)

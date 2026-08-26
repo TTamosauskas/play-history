@@ -1,8 +1,9 @@
-/* Play History v6.12.0 — branch-safe catalog/bootstrap runtime. */
+/* Play History v6.13.0 — branch-safe catalog/bootstrap runtime. */
 (() => {
-  const VERSION = '6.12.0';
+  const VERSION = '6.13.0';
   const AUDIT_FILES = [
     'context_overrides.json',
+    ...Array.from({length: 10}, (_, i) => `context_1980s_${1980 + i}.json`),
     ...Array.from({length: 10}, (_, i) => `context_1990s_${1990 + i}.json`),
     ...Array.from({length: 10}, (_, i) => `context_2000s_${2000 + i}.json`),
     'context_2010s.json',
@@ -28,7 +29,8 @@
     if (!match) throw new Error('PROJECT não encontrado em source/legacy.html');
     return JSON.parse(match[1]);
   }
-  function key(artist, title){ return `${artist}\u0000${title}`; }
+  function looseKey(artist, title){ return `${artist}\u0000${title}`; }
+  function exactKey(year, artist, title){ return `${year}\u0000${artist}\u0000${title}`; }
   function normalizeTrack(track){
     const copy = {...track};
     if (copy.artist === 'Júpiter Maçã' && copy.title === 'A Marchinha Psicótica de Dr. Soup'){
@@ -40,15 +42,21 @@
     return copy;
   }
   function applyContexts(tracks, patchLists){
-    const overrides = new Map();
+    const looseOverrides = new Map();
+    const exactOverrides = new Map();
     for (const list of patchLists){
       for (const item of list){
         if (!item?.artist || !item?.title || !Array.isArray(item.targets) || !item.targets.length) continue;
-        overrides.set(key(item.artist, item.title), item.targets);
+        if (item.year !== undefined && item.year !== null){
+          exactOverrides.set(exactKey(Number(item.year), item.artist, item.title), item.targets);
+        } else {
+          looseOverrides.set(looseKey(item.artist, item.title), item.targets);
+        }
       }
     }
     for (const track of tracks){
-      const targets = overrides.get(key(track.artist, track.title));
+      const targets = exactOverrides.get(exactKey(Number(track.year), track.artist, track.title))
+        || looseOverrides.get(looseKey(track.artist, track.title));
       if (!targets) continue;
       track.contextWikiTargets = targets.map(target => ({kind:target.kind, pt:target.pt, en:target.en}));
       track.contextTermPt = track.contextWikiTargets[0]?.pt || '';
