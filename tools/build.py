@@ -6,11 +6,13 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
-VERSION='6.9.0'
-AUDIT_START=2020
-AUDIT_END=2026
+VERSION='6.10.0'
 GENERIC_AUDITED_PRIMARY={'Música pop','MPB','Rock'}
 ALLOWED_CONTEXT_KINDS={'genre','subgenre','movement','century','decade'}
+AUDIT_SPECS=[
+    {'label':'2010s','start':2010,'end':2019,'file':'context_2010s.json','count':90},
+    {'label':'2020s','start':2020,'end':2026,'file':'context_2020s.json','count':63},
+]
 
 
 def load_project():
@@ -97,6 +99,44 @@ def validate_context_targets(label,targets):
             raise SystemExit(f'Alvo de contexto incompleto: {label}: {target!r}')
 
 
+def validate_audit(spec,tracks):
+    label=spec['label']
+    start=spec['start']
+    end=spec['end']
+    expected_count=spec['count']
+    audit_rows=load_patch(spec['file'])
+    expected={
+        (t.get('artist'),t.get('title')):int(t.get('year'))
+        for t in tracks
+        if start<=int(t.get('year'))<=end
+    }
+    if len(expected)!=expected_count:
+        raise SystemExit(f'Quantidade inesperada no catálogo para {label}: {len(expected)} != {expected_count}')
+
+    audit_map={}
+    for item in audit_rows:
+        key=(item.get('artist'),item.get('title'))
+        if key in audit_map:
+            raise SystemExit(f'Faixa duplicada na auditoria {label}: {key}')
+        validate_context_targets(f'{key[0]} — {key[1]}',item.get('targets'))
+        audit_map[key]=item
+
+    missing=set(expected)-set(audit_map)
+    extra=set(audit_map)-set(expected)
+    if missing or extra:
+        raise SystemExit(f'Auditoria {label} incompleta: faltam={sorted(missing)} extras={sorted(extra)}')
+
+    for key,expected_year in expected.items():
+        declared_year=int(audit_map[key].get('year'))
+        if declared_year!=expected_year:
+            raise SystemExit(f'Ano incorreto na auditoria {label}: {key}: {declared_year} != {expected_year}')
+        primary=audit_map[key]['targets'][0].get('pt')
+        if primary in GENERIC_AUDITED_PRIMARY:
+            raise SystemExit(f'Contexto primário genérico proibido na auditoria {label}: {key}: {primary}')
+
+    return audit_rows,audit_map
+
+
 def build():
     tracks=load_project()
     patterns=load_patch('context_patterns.json')
@@ -105,36 +145,14 @@ def build():
         raise SystemExit('Índice de contexto incompatível')
 
     legacy_override_rows=load_patch('context_overrides.json')
-    audit_rows=load_patch('context_2020s.json')
+    audited_rows=[]
+    audit_maps={}
+    for spec in AUDIT_SPECS:
+        rows_for_audit,audit_map=validate_audit(spec,tracks)
+        audited_rows.extend(rows_for_audit)
+        audit_maps[spec['label']]=audit_map
 
-    expected_audit={
-        (t.get('artist'),t.get('title')):int(t.get('year'))
-        for t in tracks
-        if AUDIT_START<=int(t.get('year'))<=AUDIT_END
-    }
-    audit_map={}
-    for item in audit_rows:
-        key=(item.get('artist'),item.get('title'))
-        if key in audit_map:
-            raise SystemExit(f'Faixa duplicada na auditoria 2020s: {key}')
-        validate_context_targets(f'{key[0]} — {key[1]}',item.get('targets'))
-        audit_map[key]=item
-
-    audit_keys=set(audit_map)
-    expected_keys=set(expected_audit)
-    missing=expected_keys-audit_keys
-    extra=audit_keys-expected_keys
-    if missing or extra:
-        raise SystemExit(f'Auditoria 2020s incompleta: faltam={sorted(missing)} extras={sorted(extra)}')
-    for key,expected_year in expected_audit.items():
-        declared_year=int(audit_map[key].get('year'))
-        if declared_year!=expected_year:
-            raise SystemExit(f'Ano incorreto na auditoria 2020s: {key}: {declared_year} != {expected_year}')
-        primary=audit_map[key]['targets'][0].get('pt')
-        if primary in GENERIC_AUDITED_PRIMARY:
-            raise SystemExit(f'Contexto primário genérico proibido na auditoria 2020s: {key}: {primary}')
-
-    override_rows=legacy_override_rows+audit_rows
+    override_rows=legacy_override_rows+audited_rows
     context_overrides={}
     for item in override_rows:
         key=(item.get('artist'),item.get('title'))
@@ -223,15 +241,14 @@ def build():
     if any(x[1]=='Música pop' for x in context_targets(find('Linkin Park','Numb'))):
         raise SystemExit('Linkin Park não pode cair em Música pop')
 
-    # A auditoria da década é um contrato completo: cada faixa deve sair do
-    # catálogo com exatamente o contexto primário declarado no arquivo 2020s.
-    for (artist,title),item in audit_map.items():
-        expected_primary=item['targets'][0]['pt']
-        actual=first_context(artist,title)
-        if actual!=expected_primary:
-            raise SystemExit(f'Auditoria 2020s divergente: {artist} — {title}: {actual!r} != {expected_primary!r}')
-        if actual in GENERIC_AUDITED_PRIMARY:
-            raise SystemExit(f'Contexto primário genérico reapareceu: {artist} — {title}: {actual}')
+    for label,audit_map in audit_maps.items():
+        for (artist,title),item in audit_map.items():
+            expected_primary=item['targets'][0]['pt']
+            actual=first_context(artist,title)
+            if actual!=expected_primary:
+                raise SystemExit(f'Auditoria {label} divergente: {artist} — {title}: {actual!r} != {expected_primary!r}')
+            if actual in GENERIC_AUDITED_PRIMARY:
+                raise SystemExit(f'Contexto primário genérico reapareceu em {label}: {artist} — {title}: {actual}')
 
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -251,4 +268,5 @@ def build():
 
 if __name__=='__main__':
     rows=build()
-    print(f'OK: {len(rows)} faixas; auditoria {AUDIT_START}–{AUDIT_END}=63/63; site {VERSION} gerado em {OUT}')
+    audited='; '.join(f"{x['label']}={x['count']}/{x['count']}" for x in AUDIT_SPECS)
+    print(f'OK: {len(rows)} faixas; auditorias {audited}; site {VERSION} gerado em {OUT}')
