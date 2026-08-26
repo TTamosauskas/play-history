@@ -6,10 +6,14 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
-VERSION='6.10.0'
+VERSION='6.11.0'
 GENERIC_AUDITED_PRIMARY={'Música pop','MPB','Rock'}
 ALLOWED_CONTEXT_KINDS={'genre','subgenre','movement','century','decade'}
 AUDIT_SPECS=[
+    {
+        'label':'2000s','start':2000,'end':2009,'count':107,
+        'files':[f'context_2000s_{year}.json' for year in range(2000,2010)],
+    },
     {'label':'2010s','start':2010,'end':2019,'file':'context_2010s.json','count':90},
     {'label':'2020s','start':2020,'end':2026,'file':'context_2020s.json','count':63},
 ]
@@ -99,12 +103,22 @@ def validate_context_targets(label,targets):
             raise SystemExit(f'Alvo de contexto incompleto: {label}: {target!r}')
 
 
+def load_audit_rows(spec):
+    files=spec.get('files')
+    if files:
+        rows=[]
+        for name in files:
+            rows.extend(load_patch(name))
+        return rows
+    return load_patch(spec['file'])
+
+
 def validate_audit(spec,tracks):
     label=spec['label']
     start=spec['start']
     end=spec['end']
     expected_count=spec['count']
-    audit_rows=load_patch(spec['file'])
+    audit_rows=load_audit_rows(spec)
     expected={
         (t.get('artist'),t.get('title')):int(t.get('year'))
         for t in tracks
@@ -233,6 +247,8 @@ def build():
         ('The Beatles','Let It Be'):'Música gospel',
         ('The Temptations','My Girl'):'Motown',
         ('Linkin Park','Numb'):'Nu metal',
+        ('50 Cent','In da Club'):'Gangsta rap',
+        ('The White Stripes','Seven Nation Army'):'Garage rock revival',
     }
     for (artist,title),expected_context in expected_contexts.items():
         actual=first_context(artist,title)
