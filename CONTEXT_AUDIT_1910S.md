@@ -1,25 +1,27 @@
 # Contexto Audit — 1910s
 
-Status: inventory complete; curation in progress.
+Status: curation complete; release integration in progress.
 
 ## Inventory
 
 - Total catalog tracks: 61
-- Generic current primary: 54
-- Specific-but-reviewable current primary: 7
+- Generic current primary before curation: 54
+- Specific-but-reviewable current primary before curation: 7
 - Coverage by year: 1910=5, 1911=7, 1912=6, 1913=8, 1914=7, 1915=7, 1916=4, 1917=6, 1918=6, 1919=5
+- Distinct curated primary contexts: 28
+- Generic primaries after curation: 0
 
-## Editorial bar
+## Editorial result
 
-Every 1910–1919 track must receive an exact year+artist+title Contexto entry. The primary link must explain why the recording matters historically rather than collapse it into broad taxonomy such as Música popular, Jazz, Blues or Samba.
+The decade is covered by ten exact year+artist+title patch files. Primary targets separate ragtime song, Tin Pan Alley, vaudeville, parlor song, Irish-American repertory, operetta, barbershop, novelty song, dance crazes, Broadway, World War I patriotic and anti-war songs, early dance bands, jazz standards and Dixieland. Brazilian tracks are separated into modinha, tango brasileiro/choro, patriotic song, dobrado carnavalesco, batuque sertanejo, toada, valsa, cantiga nortista, samba urbano and carnival context.
 
-Priority contexts for this decade include ragtime and Tin Pan Alley; vaudeville and early musical theatre; quartet, tenor and sentimental-song culture in the acoustic-recording era; Irish-American popular song; World War I patriotic, military and anti-war repertoire; the transition from ragtime-era dance music to the first commercially recorded jazz; and the emergence of early jazz standards. Brazilian tracks require separation among the Casa Edison recording scene, choro, carnival song, sertanejo/sertão imagery, early urban popular song, the first commercially recorded samba and the pre-radio foundations of the recording industry.
+Notable historical anchors include Alexander's Ragtime Band as ragtime-song/Tin Pan Alley crossover; São João Debaixo d’Água in Pixinguinha's first 1911 recording session; Ó Abre Alas as early recorded carnival repertoire; Cabocla de Caxangá as batuque sertanejo; O Luar do Sertão as toada; I Didn't Raise My Boy to Be a Soldier as anti-war song; Pelo Telefone as the landmark first recorded samba; Tiger Rag in the first commercial jazz-recording wave; and Canção Militar (Capitão Caçula) as a Brazilian World War I patriotic recording.
 
 ## Acceptance criteria
 
-1. Ten per-year patch files cover all 61 identities exactly once.
-2. No primary target remains in the strict generic-primary set.
-3. Each row has a concise historical basis.
-4. `python tools/audit_context_decade.py 1910 --validate-patches` passes.
-5. 1910s is wired into `tools/build.py` and `assets/catalog-runtime.js` only after curation is complete.
-6. Existing 1920s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green.
+1. Ten per-year patch files cover all 61 identities exactly once. — complete
+2. No primary target remains in the strict generic-primary set. — complete
+3. Each row has a concise historical basis. — complete
+4. `python tools/audit_context_decade.py 1910 --validate-patches` passes. — pending CI gate
+5. 1910s is wired into `tools/build.py` and `assets/catalog-runtime.js` only after curation is complete. — release gate pending
+6. Existing 1920s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green. — regression gate pending
