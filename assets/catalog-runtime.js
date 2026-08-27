@@ -1,6 +1,7 @@
-/* Play History v6.22.0 — branch-safe catalog/bootstrap runtime. */
+/* Play History v6.23.0 — branch-safe catalog/bootstrap runtime. */
 (() => {
-  const VERSION = '6.22.0';
+  const VERSION = '6.23.0';
+  const ADDITIONS_FILE = 'additions_2020s.json';
   const AUDIT_FILES = [
     'context_overrides.json',
     ...Array.from({length: 10}, (_, i) => `context_1900s_${1900 + i}.json`),
@@ -49,6 +50,41 @@
     copy.youtubeQuery = `${copy.artist || ''} ${copy.title || ''}`.trim();
     return copy;
   }
+  function validateAdditions(baseTracks, additions){
+    if (!Array.isArray(additions) || additions.length !== 21){
+      throw new Error(`Pacote 2020s inválido: ${Array.isArray(additions) ? additions.length : 0} faixas`);
+    }
+    const youtubeIds = new Set(baseTracks.map(track => track.youtubeId).filter(Boolean));
+    const identities = new Set(baseTracks.map(track => exactKey(Number(track.year), track.artist, track.title)));
+    for (const track of additions){
+      const identity = exactKey(Number(track.year), track.artist, track.title);
+      if (!Number.isInteger(Number(track.year)) || Number(track.year) < 2020 || Number(track.year) > 2029){
+        throw new Error(`Ano inválido em adição: ${track.artist} — ${track.title}`);
+      }
+      if (!track.artist || !track.title || !track.albumTitle){
+        throw new Error(`Metadados obrigatórios ausentes em adição: ${track.artist || '?'} — ${track.title || '?'}`);
+      }
+      if (identities.has(identity)) throw new Error(`Faixa duplicada no catálogo: ${track.year} — ${track.artist} — ${track.title}`);
+      identities.add(identity);
+      if (!/^[A-Za-z0-9_-]{11}$/.test(String(track.youtubeId || ''))){
+        throw new Error(`YouTube ID inválido: ${track.artist} — ${track.title}`);
+      }
+      if (youtubeIds.has(track.youtubeId)) throw new Error(`YouTube ID duplicado: ${track.youtubeId}`);
+      youtubeIds.add(track.youtubeId);
+      if (!/^https:\/\/i\.ytimg\.com\/vi\/[A-Za-z0-9_-]{11}\/(?:hqdefault|maxresdefault)\.jpg$/.test(String(track.artworkUrl || ''))){
+        throw new Error(`Artwork inválido: ${track.artist} — ${track.title}`);
+      }
+      if (track.lyricsPolicy !== 'show_if_verified'){
+        throw new Error(`Política de letra inválida: ${track.artist} — ${track.title}`);
+      }
+      if (!Array.isArray(track.contextWikiTargets) || !track.contextWikiTargets.length){
+        throw new Error(`Contexto ausente: ${track.artist} — ${track.title}`);
+      }
+      for (const target of track.contextWikiTargets){
+        if (!target?.kind || !target?.en) throw new Error(`Alvo de contexto inválido: ${track.artist} — ${track.title}`);
+      }
+    }
+  }
   function applyContexts(tracks, patchLists){
     const looseOverrides = new Map();
     const exactOverrides = new Map();
@@ -96,13 +132,17 @@
   }
 
   async function boot(){
-    const [legacy, ...patchLists] = await Promise.all([
+    const [legacy, additions, ...patchLists] = await Promise.all([
       text('./source/legacy.html'),
+      json(`./tools/patches/${ADDITIONS_FILE}`),
       ...AUDIT_FILES.map(name => json(`./tools/patches/${name}`))
     ]);
     const project = projectFromLegacy(legacy);
-    const tracks = (project.tracks || []).map(normalizeTrack);
-    if (tracks.length !== 1726) throw new Error(`Catálogo incompleto: ${tracks.length}`);
+    const baseTracks = (project.tracks || []).map(normalizeTrack);
+    if (baseTracks.length !== 1726) throw new Error(`Catálogo histórico incompleto: ${baseTracks.length}`);
+    const addedTracks = additions.map(normalizeTrack);
+    validateAdditions(baseTracks, addedTracks);
+    const tracks = baseTracks.concat(addedTracks);
     applyContexts(tracks, patchLists);
     window.PLAY_HISTORY = {meta:{version:VERSION,totalTracks:tracks.length},catalog:tracks};
     for (const [group, count] of Object.entries(MODULE_PARTS)) await loadModule(group, count);
