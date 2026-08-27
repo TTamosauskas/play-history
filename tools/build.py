@@ -6,10 +6,14 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
-VERSION='6.16.0'
+VERSION='6.17.0'
 GENERIC_AUDITED_PRIMARY={'Música pop','MPB','Rock'}
 ALLOWED_CONTEXT_KINDS={'genre','subgenre','movement','century','decade'}
 AUDIT_SPECS=[
+    {
+        'label':'1940s','start':1940,'end':1949,'count':65,
+        'files':[f'context_1940s_{year}.json' for year in range(1940,1950)],
+    },
     {
         'label':'1950s','start':1950,'end':1959,'count':84,
         'files':[f'context_1950s_{year}.json' for year in range(1950,1960)],
