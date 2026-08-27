@@ -20,17 +20,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Export 1910s context inventory
-        run: |
-          mkdir -p /tmp/context-1910s-inventory
-          python tools/audit_context_decade.py 1910 \
-            --csv /tmp/context-1910s-inventory/context_1910s_inventory.csv \
-            --markdown /tmp/context-1910s-inventory/context_1910s_inventory.md
-      - name: Upload 1910s context inventory
-        uses: actions/upload-artifact@v4
-        with:
-          name: context-1910s-inventory
-          path: /tmp/context-1910s-inventory
+      - name: Validate 1910s Contexto audit
+        run: python tools/audit_context_decade.py 1910 --validate-patches
       - name: Validate 1920s Contexto audit
         run: python tools/audit_context_decade.py 1920 --validate-patches
       - name: Validate 1930s Contexto audit
