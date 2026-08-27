@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LEGACY = ROOT / "source" / "legacy.html"
 PATCHES = ROOT / "tools" / "patches"
 RUNTIME = ROOT / "assets" / "catalog-runtime.js"
-PACKAGE_RE = re.compile(r"^additions_(\d{4})s\.json$")
+PACKAGE_RE = re.compile(r"^additions_(\d{4})s(?:_[a-z0-9_-]+)?\.json$")
 YOUTUBE_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 ARTWORK_RE = re.compile(r"^https://i\.ytimg\.com/vi/([A-Za-z0-9_-]{11})/(?:hqdefault|maxresdefault)\.jpg$")
 ALLOWED_CONTEXT_KINDS = {"subgenre", "genre", "movement", "decade", "century"}
@@ -31,7 +31,7 @@ def identity(track):
 
 def addition_packages():
     packages = []
-    for path in sorted(PATCHES.glob("additions_*s.json")):
+    for path in sorted(PATCHES.glob("additions_*.json")):
         match = PACKAGE_RE.fullmatch(path.name)
         if not match:
             continue
@@ -40,13 +40,13 @@ def addition_packages():
             raise SystemExit(f"Pacote vazio ou inválido: {path.name}")
         packages.append((path, int(match.group(1)), tracks))
     if not packages:
-        raise SystemExit("Nenhum pacote additions_*s.json encontrado")
+        raise SystemExit("Nenhum pacote additions_*.json encontrado")
     return packages
 
 
 def validate_runtime_registration(packages):
     source = RUNTIME.read_text(encoding="utf-8")
-    registered = set(re.findall(r"['\"](additions_\d{4}s\.json)['\"]", source))
+    registered = set(re.findall(r"['\"](additions_\d{4}s(?:_[a-z0-9_-]+)?\.json)['\"]", source))
     available = {path.name for path, _, _ in packages}
     missing = available - registered
     stale = registered - available
