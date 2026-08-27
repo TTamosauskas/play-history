@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+      - name: Prepare 1910s release candidate
+        run: python tools/prepare_1910s_release.py
       - name: Validate 1910s Contexto audit
         run: python tools/audit_context_decade.py 1910 --validate-patches
       - name: Validate 1920s Contexto audit
@@ -55,7 +57,8 @@ jobs:
           test -s _site/assets/catalog.json
           test -s _site/assets/entry.js
           test -s _site/assets/styles.css
-          grep -q 'assets/catalog-runtime.js?v=6.19.0' index.html
+          grep -q 'assets/catalog-runtime.js?v=6.20.0' index.html
+          grep -q 'context_1910s_' assets/catalog-runtime.js
           grep -q 'context_1920s_' assets/catalog-runtime.js
           grep -q 'context_1930s_' assets/catalog-runtime.js
           grep -q 'context_1940s_' assets/catalog-runtime.js
@@ -64,6 +67,18 @@ jobs:
           grep -q 'context_1970s_' assets/catalog-runtime.js
           grep -q 'context_1980s_' assets/catalog-runtime.js
           ! grep -q 'assets/loader.js' index.html
+      - name: Promote validated 1910s release files
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/audit/')
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/build.py assets/catalog-runtime.js index.html
+          if git diff --cached --quiet; then
+            echo 'Release files already integrated.'
+          else
+            git commit -m 'Integrate 1910s Contexto audit in v6.20.0'
+            git push
+          fi
 
 # GitHub Pages is published from the main branch by the repository's
 # native Pages workflow. This workflow validates the generated player only,
