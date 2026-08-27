@@ -1,0 +1,827 @@
+[
+  {
+    "year": 1980,
+    "artist": "Iron Maiden",
+    "title": "Iron Maiden",
+    "youtubeId": "L3OHi_vw4jY",
+    "albumTitle": "Iron Maiden",
+    "artworkUrl": "https://i.ytimg.com/vi/L3OHi_vw4jY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Iron Maiden (song)",
+    "wikipediaArtistTermPt": "Iron Maiden",
+    "wikipediaArtistTermEn": "Iron Maiden",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Heavy metal",
+        "en": "Heavy metal"
+      },
+      {
+        "kind": "movement",
+        "pt": "New Wave of British Heavy Metal",
+        "en": "New Wave of British Heavy Metal"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1980,
+    "artist": "The Cure",
+    "title": "A Forest",
+    "youtubeId": "xik-y0xlpZ0",
+    "albumTitle": "Seventeen Seconds",
+    "artworkUrl": "https://i.ytimg.com/vi/xik-y0xlpZ0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "A Forest",
+    "wikipediaArtistTermPt": "The Cure",
+    "wikipediaArtistTermEn": "The Cure",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Rock gótico",
+        "en": "Gothic rock"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Post-punk",
+        "en": "Post-punk"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1981,
+    "artist": "Joan Jett & the Blackhearts",
+    "title": "I Love Rock 'n Roll",
+    "youtubeId": "wMsazR6Tnf8",
+    "albumTitle": "I Love Rock 'n Roll",
+    "artworkUrl": "https://i.ytimg.com/vi/wMsazR6Tnf8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "I Love Rock 'n' Roll",
+    "wikipediaArtistTermPt": "Joan Jett",
+    "wikipediaArtistTermEn": "Joan Jett",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Hard rock",
+        "en": "Hard rock"
+      },
+      {
+        "kind": "genre",
+        "pt": "Rock",
+        "en": "Rock music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1981,
+    "artist": "Kim Carnes",
+    "title": "Bette Davis Eyes",
+    "youtubeId": "EPOIS5taqA8",
+    "albumTitle": "Mistaken Identity",
+    "artworkUrl": "https://i.ytimg.com/vi/EPOIS5taqA8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bette Davis Eyes",
+    "wikipediaArtistTermPt": "Kim Carnes",
+    "wikipediaArtistTermEn": "Kim Carnes",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "New wave",
+        "en": "New wave music"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Pop rock",
+        "en": "Pop rock"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1982,
+    "artist": "Duran Duran",
+    "title": "Save a Prayer",
+    "youtubeId": "6Uxc9eFcZyM",
+    "albumTitle": "Rio",
+    "artworkUrl": "https://i.ytimg.com/vi/6Uxc9eFcZyM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Save a Prayer",
+    "wikipediaArtistTermPt": "Duran Duran",
+    "wikipediaArtistTermEn": "Duran Duran",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Synth-pop",
+        "en": "Synth-pop"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "New wave",
+        "en": "New wave music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1982,
+    "artist": "The Clash",
+    "title": "Rock the Casbah",
+    "youtubeId": "bJ9r8LMU9bQ",
+    "albumTitle": "Combat Rock",
+    "artworkUrl": "https://i.ytimg.com/vi/bJ9r8LMU9bQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Rock the Casbah",
+    "wikipediaArtistTermPt": "The Clash",
+    "wikipediaArtistTermEn": "The Clash",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "New wave",
+        "en": "New wave music"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Post-punk",
+        "en": "Post-punk"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1982,
+    "artist": "The Clash",
+    "title": "Should I Stay or Should I Go",
+    "youtubeId": "xMaE6toi4mk",
+    "albumTitle": "Combat Rock",
+    "artworkUrl": "https://i.ytimg.com/vi/xMaE6toi4mk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Should I Stay or Should I Go",
+    "wikipediaArtistTermPt": "The Clash",
+    "wikipediaArtistTermEn": "The Clash",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Punk rock",
+        "en": "Punk rock"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "New wave",
+        "en": "New wave music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1982,
+    "artist": "Prince",
+    "title": "Little Red Corvette",
+    "youtubeId": "v0KpfrJE4zw",
+    "albumTitle": "1999",
+    "artworkUrl": "https://i.ytimg.com/vi/v0KpfrJE4zw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Little Red Corvette",
+    "wikipediaArtistTermPt": "Prince (musician)",
+    "wikipediaArtistTermEn": "Prince (musician)",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Pop rock",
+        "en": "Pop rock"
+      },
+      {
+        "kind": "genre",
+        "pt": "Funk",
+        "en": "Funk"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1983,
+    "artist": "Bonnie Tyler",
+    "title": "Total Eclipse of the Heart",
+    "youtubeId": "lcOxhH8N3Bo",
+    "albumTitle": "Faster Than the Speed of Night",
+    "artworkUrl": "https://i.ytimg.com/vi/lcOxhH8N3Bo/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Total Eclipse of the Heart",
+    "wikipediaArtistTermPt": "Bonnie Tyler",
+    "wikipediaArtistTermEn": "Bonnie Tyler",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Power ballad",
+        "en": "Power ballad"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Pop rock",
+        "en": "Pop rock"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1983,
+    "artist": "Kiss",
+    "title": "Lick It Up",
+    "youtubeId": "Gcj34XixuYg",
+    "albumTitle": "Lick It Up",
+    "artworkUrl": "https://i.ytimg.com/vi/Gcj34XixuYg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Lick It Up (song)",
+    "wikipediaArtistTermPt": "Kiss (band)",
+    "wikipediaArtistTermEn": "Kiss (band)",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Glam metal",
+        "en": "Glam metal"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Hard rock",
+        "en": "Hard rock"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1983,
+    "artist": "Metallica",
+    "title": "Whiplash",
+    "youtubeId": "beWvPkYHaic",
+    "albumTitle": "Kill 'Em All",
+    "artworkUrl": "https://i.ytimg.com/vi/beWvPkYHaic/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Whiplash (Metallica song)",
+    "wikipediaArtistTermPt": "Metallica",
+    "wikipediaArtistTermEn": "Metallica",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Thrash metal",
+        "en": "Thrash metal"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Heavy metal",
+        "en": "Heavy metal"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1983,
+    "artist": "Twisted Sister",
+    "title": "You Can't Stop Rock 'n' Roll",
+    "youtubeId": "20IUkQKFt1U",
+    "albumTitle": "You Can't Stop Rock 'n' Roll",
+    "artworkUrl": "https://i.ytimg.com/vi/20IUkQKFt1U/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "You Can't Stop Rock 'n' Roll",
+    "wikipediaArtistTermPt": "Twisted Sister",
+    "wikipediaArtistTermEn": "Twisted Sister",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Heavy metal",
+        "en": "Heavy metal"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Glam metal",
+        "en": "Glam metal"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1983,
+    "artist": "U2",
+    "title": "Sunday Bloody Sunday",
+    "youtubeId": "ryde_5JlkSQ",
+    "albumTitle": "War",
+    "artworkUrl": "https://i.ytimg.com/vi/ryde_5JlkSQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Sunday Bloody Sunday",
+    "wikipediaArtistTermPt": "U2",
+    "wikipediaArtistTermEn": "U2",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Post-punk",
+        "en": "Post-punk"
+      },
+      {
+        "kind": "genre",
+        "pt": "Rock",
+        "en": "Rock music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1984,
+    "artist": "Alphaville",
+    "title": "Forever Young",
+    "youtubeId": "FQ5vkgYPuJY",
+    "albumTitle": "Forever Young",
+    "artworkUrl": "https://i.ytimg.com/vi/FQ5vkgYPuJY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Forever Young (Alphaville song)",
+    "wikipediaArtistTermPt": "Alphaville (band)",
+    "wikipediaArtistTermEn": "Alphaville (band)",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Synth-pop",
+        "en": "Synth-pop"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "New wave",
+        "en": "New wave music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1984,
+    "artist": "Phil Collins",
+    "title": "Against All Odds (Take a Look at Me Now)",
+    "youtubeId": "SWSQS06i7-w",
+    "albumTitle": "Against All Odds: Music from the Original Motion Picture",
+    "artworkUrl": "https://i.ytimg.com/vi/SWSQS06i7-w/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Against All Odds (Take a Look at Me Now)",
+    "wikipediaArtistTermPt": "Phil Collins",
+    "wikipediaArtistTermEn": "Phil Collins",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Pop rock",
+        "en": "Pop rock"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Soft rock",
+        "en": "Soft rock"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1984,
+    "artist": "The Smiths",
+    "title": "Heaven Knows I'm Miserable Now",
+    "youtubeId": "TjPhzgxe3L0",
+    "albumTitle": "Hatful of Hollow",
+    "artworkUrl": "https://i.ytimg.com/vi/TjPhzgxe3L0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Heaven Knows I'm Miserable Now",
+    "wikipediaArtistTermPt": "The Smiths",
+    "wikipediaArtistTermEn": "The Smiths",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Indie rock",
+        "en": "Indie rock"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Jangle pop",
+        "en": "Jangle pop"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1984,
+    "artist": "Twisted Sister",
+    "title": "We're Not Gonna Take It",
+    "youtubeId": "4xmckWVPRaI",
+    "albumTitle": "Stay Hungry",
+    "artworkUrl": "https://i.ytimg.com/vi/4xmckWVPRaI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "We're Not Gonna Take It (Twisted Sister song)",
+    "wikipediaArtistTermPt": "Twisted Sister",
+    "wikipediaArtistTermEn": "Twisted Sister",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Glam metal",
+        "en": "Glam metal"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Heavy metal",
+        "en": "Heavy metal"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1984,
+    "artist": "U2",
+    "title": "Pride (In the Name of Love)",
+    "youtubeId": "LHcP4MWABGY",
+    "albumTitle": "The Unforgettable Fire",
+    "artworkUrl": "https://i.ytimg.com/vi/LHcP4MWABGY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Pride (In the Name of Love)",
+    "wikipediaArtistTermPt": "U2",
+    "wikipediaArtistTermEn": "U2",
+    "contextWikiTargets": [
+      {
+        "kind": "genre",
+        "pt": "Rock",
+        "en": "Rock music"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Post-punk",
+        "en": "Post-punk"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1984,
+    "artist": "Van Halen",
+    "title": "Jump",
+    "youtubeId": "SwYN7mTi6HM",
+    "albumTitle": "1984",
+    "artworkUrl": "https://i.ytimg.com/vi/SwYN7mTi6HM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Jump (Van Halen song)",
+    "wikipediaArtistTermPt": "Van Halen",
+    "wikipediaArtistTermEn": "Van Halen",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Hard rock",
+        "en": "Hard rock"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Pop rock",
+        "en": "Pop rock"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1985,
+    "artist": "The Cult",
+    "title": "She Sells Sanctuary",
+    "youtubeId": "ZCOSPtyZAPA",
+    "albumTitle": "Love",
+    "artworkUrl": "https://i.ytimg.com/vi/ZCOSPtyZAPA/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "She Sells Sanctuary",
+    "wikipediaArtistTermPt": "The Cult",
+    "wikipediaArtistTermEn": "The Cult",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Rock gótico",
+        "en": "Gothic rock"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Post-punk",
+        "en": "Post-punk"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1985,
+    "artist": "The Cure",
+    "title": "In Between Days",
+    "youtubeId": "scif2vfg1ug",
+    "albumTitle": "The Head on the Door",
+    "artworkUrl": "https://i.ytimg.com/vi/scif2vfg1ug/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "In Between Days",
+    "wikipediaArtistTermPt": "The Cure",
+    "wikipediaArtistTermEn": "The Cure",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "New wave",
+        "en": "New wave music"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Post-punk",
+        "en": "Post-punk"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1985,
+    "artist": "The Smiths",
+    "title": "The Boy with the Thorn in His Side",
+    "youtubeId": "qdOHPjMzY8s",
+    "albumTitle": "The Queen Is Dead",
+    "artworkUrl": "https://i.ytimg.com/vi/qdOHPjMzY8s/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Boy with the Thorn in His Side",
+    "wikipediaArtistTermPt": "The Smiths",
+    "wikipediaArtistTermEn": "The Smiths",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Indie rock",
+        "en": "Indie rock"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Jangle pop",
+        "en": "Jangle pop"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1986,
+    "artist": "Beastie Boys",
+    "title": "(You Gotta) Fight for Your Right (To Party!)",
+    "youtubeId": "pYoN9OraOWM",
+    "albumTitle": "Licensed to Ill",
+    "artworkUrl": "https://i.ytimg.com/vi/pYoN9OraOWM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "(You Gotta) Fight for Your Right (To Party!)",
+    "wikipediaArtistTermPt": "Beastie Boys",
+    "wikipediaArtistTermEn": "Beastie Boys",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Rap rock",
+        "en": "Rap rock"
+      },
+      {
+        "kind": "genre",
+        "pt": "Hip hop",
+        "en": "Hip hop music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1986,
+    "artist": "Beastie Boys",
+    "title": "Time to Get Ill",
+    "youtubeId": "TQFWc4syEgM",
+    "albumTitle": "Licensed to Ill",
+    "artworkUrl": "https://i.ytimg.com/vi/TQFWc4syEgM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Licensed to Ill",
+    "wikipediaArtistTermPt": "Beastie Boys",
+    "wikipediaArtistTermEn": "Beastie Boys",
+    "contextWikiTargets": [
+      {
+        "kind": "genre",
+        "pt": "Hip hop",
+        "en": "Hip hop music"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Old-school hip hop",
+        "en": "Old-school hip hop"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1986,
+    "artist": "Bon Jovi",
+    "title": "You Give Love a Bad Name",
+    "youtubeId": "KrZHPOeOxQQ",
+    "albumTitle": "Slippery When Wet",
+    "artworkUrl": "https://i.ytimg.com/vi/KrZHPOeOxQQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "You Give Love a Bad Name",
+    "wikipediaArtistTermPt": "Bon Jovi",
+    "wikipediaArtistTermEn": "Bon Jovi",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Glam metal",
+        "en": "Glam metal"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Hard rock",
+        "en": "Hard rock"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1986,
+    "artist": "Madonna",
+    "title": "Papa Don't Preach",
+    "youtubeId": "G333Is7VPOg",
+    "albumTitle": "True Blue",
+    "artworkUrl": "https://i.ytimg.com/vi/G333Is7VPOg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Papa Don't Preach",
+    "wikipediaArtistTermPt": "Madonna",
+    "wikipediaArtistTermEn": "Madonna",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Dance-pop",
+        "en": "Dance-pop"
+      },
+      {
+        "kind": "genre",
+        "pt": "Pop",
+        "en": "Pop music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1986,
+    "artist": "New Order",
+    "title": "Bizarre Love Triangle",
+    "youtubeId": "tkOr12AQpnU",
+    "albumTitle": "Brotherhood",
+    "artworkUrl": "https://i.ytimg.com/vi/tkOr12AQpnU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bizarre Love Triangle",
+    "wikipediaArtistTermPt": "New Order",
+    "wikipediaArtistTermEn": "New Order",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Synth-pop",
+        "en": "Synth-pop"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "New wave",
+        "en": "New wave music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1987,
+    "artist": "U2",
+    "title": "I Still Haven't Found What I'm Looking For",
+    "youtubeId": "e3-5YC_oHjE",
+    "albumTitle": "The Joshua Tree",
+    "artworkUrl": "https://i.ytimg.com/vi/e3-5YC_oHjE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "I Still Haven't Found What I'm Looking For",
+    "wikipediaArtistTermPt": "U2",
+    "wikipediaArtistTermEn": "U2",
+    "contextWikiTargets": [
+      {
+        "kind": "genre",
+        "pt": "Rock",
+        "en": "Rock music"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Roots rock",
+        "en": "Roots rock"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1988,
+    "artist": "Pet Shop Boys",
+    "title": "Domino Dancing",
+    "youtubeId": "KXA_DYapGgc",
+    "albumTitle": "Introspective",
+    "artworkUrl": "https://i.ytimg.com/vi/KXA_DYapGgc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Domino Dancing",
+    "wikipediaArtistTermPt": "Pet Shop Boys",
+    "wikipediaArtistTermEn": "Pet Shop Boys",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Synth-pop",
+        "en": "Synth-pop"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Dance-pop",
+        "en": "Dance-pop"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1989,
+    "artist": "Pixies",
+    "title": "There Goes My Gun",
+    "youtubeId": "uKBJQ7gPM8k",
+    "albumTitle": "Doolittle",
+    "artworkUrl": "https://i.ytimg.com/vi/uKBJQ7gPM8k/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Doolittle (album)",
+    "wikipediaArtistTermPt": "Pixies (band)",
+    "wikipediaArtistTermEn": "Pixies (band)",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Rock alternativo",
+        "en": "Alternative rock"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Indie rock",
+        "en": "Indie rock"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1989,
+    "artist": "Aerosmith",
+    "title": "Janie's Got a Gun",
+    "youtubeId": "RqQn2ADZE1A",
+    "albumTitle": "Pump",
+    "artworkUrl": "https://i.ytimg.com/vi/RqQn2ADZE1A/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Janie's Got a Gun",
+    "wikipediaArtistTermPt": "Aerosmith",
+    "wikipediaArtistTermEn": "Aerosmith",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Hard rock",
+        "en": "Hard rock"
+      },
+      {
+        "kind": "genre",
+        "pt": "Rock",
+        "en": "Rock music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1989,
+    "artist": "Faith No More",
+    "title": "Epic",
+    "youtubeId": "ZG_k5CSYKhg",
+    "albumTitle": "The Real Thing",
+    "artworkUrl": "https://i.ytimg.com/vi/ZG_k5CSYKhg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Epic (Faith No More song)",
+    "wikipediaArtistTermPt": "Faith No More",
+    "wikipediaArtistTermEn": "Faith No More",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Funk metal",
+        "en": "Funk metal"
+      },
+      {
+        "kind": "subgenre",
+        "pt": "Metal alternativo",
+        "en": "Alternative metal"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1989,
+    "artist": "Nine Inch Nails",
+    "title": "Head Like a Hole",
+    "youtubeId": "ao-Sahfy7Hg",
+    "albumTitle": "Pretty Hate Machine",
+    "artworkUrl": "https://i.ytimg.com/vi/ao-Sahfy7Hg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Head Like a Hole",
+    "wikipediaArtistTermPt": "Nine Inch Nails",
+    "wikipediaArtistTermEn": "Nine Inch Nails",
+    "contextWikiTargets": [
+      {
+        "kind": "subgenre",
+        "pt": "Rock industrial",
+        "en": "Industrial rock"
+      },
+      {
+        "kind": "genre",
+        "pt": "Música industrial",
+        "en": "Industrial music"
+      }
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  }
+]
