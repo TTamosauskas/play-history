@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+      - name: Validate 1910s Contexto audit
+        run: python tools/audit_context_decade.py 1910 --validate-patches
       - name: Validate 1920s Contexto audit
         run: python tools/audit_context_decade.py 1920 --validate-patches
       - name: Validate 1930s Contexto audit
@@ -53,7 +55,8 @@ jobs:
           test -s _site/assets/catalog.json
           test -s _site/assets/entry.js
           test -s _site/assets/styles.css
-          grep -q 'assets/catalog-runtime.js?v=6.19.0' index.html
+          grep -q 'assets/catalog-runtime.js?v=6.20.0' index.html
+          grep -q 'context_1910s_' assets/catalog-runtime.js
           grep -q 'context_1920s_' assets/catalog-runtime.js
           grep -q 'context_1930s_' assets/catalog-runtime.js
           grep -q 'context_1940s_' assets/catalog-runtime.js
