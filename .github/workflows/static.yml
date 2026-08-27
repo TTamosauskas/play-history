@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -20,8 +20,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Prepare 1930s release candidate
-        run: python tools/prepare_1930s_release.py
       - name: Validate 1930s Contexto audit
         run: python tools/audit_context_decade.py 1930 --validate-patches
       - name: Validate 1940s Contexto audit
@@ -61,23 +59,6 @@ jobs:
           grep -q 'context_1970s_' assets/catalog-runtime.js
           grep -q 'context_1980s_' assets/catalog-runtime.js
           ! grep -q 'assets/loader.js' index.html
-      - name: Upload 1930s release candidate
-        uses: actions/upload-artifact@v4
-        with:
-          name: 1930s-release-candidate
-          path: |
-            tools/build.py
-            assets/catalog-runtime.js
-            index.html
-      - name: Promote validated 1930s release files
-        if: github.event_name == 'push' && github.ref == 'refs/heads/audit/1930s-context-inventory'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tools/build.py assets/catalog-runtime.js index.html
-          git diff --cached --quiet && exit 0
-          git commit -m "Integrate 1930s Contexto audit in v6.18.0"
-          git push origin HEAD:audit/1930s-context-inventory
 
 # GitHub Pages is published from the main branch by the repository's
 # native Pages workflow. This workflow validates the generated player only,
