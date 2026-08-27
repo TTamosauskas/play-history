@@ -1,8 +1,9 @@
-/* Play History v6.20.0 — branch-safe catalog/bootstrap runtime. */
+/* Play History v6.21.0 — branch-safe catalog/bootstrap runtime. */
 (() => {
-  const VERSION = '6.20.0';
+  const VERSION = '6.21.0';
   const AUDIT_FILES = [
     'context_overrides.json',
+    ...Array.from({length: 10}, (_, i) => `context_1900s_${1900 + i}.json`),
     ...Array.from({length: 10}, (_, i) => `context_1910s_${1910 + i}.json`),
     ...Array.from({length: 10}, (_, i) => `context_1920s_${1920 + i}.json`),
     ...Array.from({length: 10}, (_, i) => `context_1930s_${1930 + i}.json`),

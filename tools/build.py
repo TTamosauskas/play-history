@@ -6,10 +6,14 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 LEGACY=ROOT/'source'/'legacy.html'
 EXPECTED=(ROOT/'tools'/'base_signature.txt').read_text().strip()
-VERSION='6.20.0'
+VERSION='6.21.0'
 GENERIC_AUDITED_PRIMARY={'Música pop','MPB','Rock'}
 ALLOWED_CONTEXT_KINDS={'genre','subgenre','movement','century','decade'}
 AUDIT_SPECS=[
+    {
+        'label':'1900s','start':1900,'end':1909,'count':60,
+        'files':[f'context_1900s_{year}.json' for year in range(1900,1910)],
+    },
     {
         'label':'1910s','start':1910,'end':1919,'count':61,
         'files':[f'context_1910s_{year}.json' for year in range(1910,1920)],
