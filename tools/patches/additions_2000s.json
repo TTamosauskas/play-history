@@ -1,0 +1,852 @@
+[
+  {
+    "year": 2000,
+    "artist": "Britney Spears",
+    "title": "Oops!... I Did It Again",
+    "youtubeId": "CduA0TULnow",
+    "albumTitle": "Oops!... I Did It Again",
+    "artworkUrl": "https://i.ytimg.com/vi/CduA0TULnow/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Oops!... I Did It Again (song)",
+    "wikipediaArtistTermPt": "Britney Spears",
+    "wikipediaArtistTermEn": "Britney Spears",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Teen pop", "en": "Teen pop"},
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "Creed",
+    "title": "With Arms Wide Open",
+    "youtubeId": "99j0zLuNhi8",
+    "albumTitle": "Human Clay",
+    "artworkUrl": "https://i.ytimg.com/vi/99j0zLuNhi8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "With Arms Wide Open",
+    "wikipediaArtistTermPt": "Creed",
+    "wikipediaArtistTermEn": "Creed",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Post-grunge", "en": "Post-grunge"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "The Hives",
+    "title": "Hate to Say I Told You So",
+    "youtubeId": "Uz1Jwyxd4tE",
+    "albumTitle": "Veni Vidi Vicious",
+    "artworkUrl": "https://i.ytimg.com/vi/Uz1Jwyxd4tE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Hate to Say I Told You So",
+    "wikipediaArtistTermPt": "The Hives",
+    "wikipediaArtistTermEn": "The Hives",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "The Hives",
+    "title": "Main Offender",
+    "youtubeId": "C_Ue3PVB4tw",
+    "albumTitle": "Veni Vidi Vicious",
+    "artworkUrl": "https://i.ytimg.com/vi/C_Ue3PVB4tw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Main Offender (song)",
+    "wikipediaArtistTermPt": "The Hives",
+    "wikipediaArtistTermEn": "The Hives",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "The Hives",
+    "title": "Supply and Demand",
+    "youtubeId": "obr38f7ZQzo",
+    "albumTitle": "Veni Vidi Vicious",
+    "artworkUrl": "https://i.ytimg.com/vi/obr38f7ZQzo/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Supply and Demand The Hives",
+    "wikipediaArtistTermPt": "The Hives",
+    "wikipediaArtistTermEn": "The Hives",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "Linkin Park",
+    "title": "In the End",
+    "youtubeId": "eVTXPUF4Oz4",
+    "albumTitle": "Hybrid Theory",
+    "artworkUrl": "https://i.ytimg.com/vi/eVTXPUF4Oz4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "In the End (Linkin Park song)",
+    "wikipediaArtistTermPt": "Linkin Park",
+    "wikipediaArtistTermEn": "Linkin Park",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Rap rock", "en": "Rap rock"},
+      {"kind": "subgenre", "pt": "Nu metal", "en": "Nu metal"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "Linkin Park",
+    "title": "Papercut",
+    "youtubeId": "vjVkXlxsO8Q",
+    "albumTitle": "Hybrid Theory",
+    "artworkUrl": "https://i.ytimg.com/vi/vjVkXlxsO8Q/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Papercut (Linkin Park song)",
+    "wikipediaArtistTermPt": "Linkin Park",
+    "wikipediaArtistTermEn": "Linkin Park",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Nu metal", "en": "Nu metal"},
+      {"kind": "subgenre", "pt": "Rap rock", "en": "Rap rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "Papa Roach",
+    "title": "Last Resort",
+    "youtubeId": "j0lSpNtjPM8",
+    "albumTitle": "Infest",
+    "artworkUrl": "https://i.ytimg.com/vi/j0lSpNtjPM8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Last Resort (Papa Roach song)",
+    "wikipediaArtistTermPt": "Papa Roach",
+    "wikipediaArtistTermEn": "Papa Roach",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Nu metal", "en": "Nu metal"},
+      {"kind": "subgenre", "pt": "Rap metal", "en": "Rap metal"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "Radiohead",
+    "title": "Idioteque",
+    "youtubeId": "jX-fDKWGbRs",
+    "albumTitle": "Kid A",
+    "artworkUrl": "https://i.ytimg.com/vi/jX-fDKWGbRs/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Idioteque",
+    "wikipediaArtistTermPt": "Radiohead",
+    "wikipediaArtistTermEn": "Radiohead",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Art rock", "en": "Art rock"},
+      {"kind": "genre", "pt": "Música eletrônica", "en": "Electronic music"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "Radiohead",
+    "title": "Optimistic",
+    "youtubeId": "VJVPTO3Yyno",
+    "albumTitle": "Kid A",
+    "artworkUrl": "https://i.ytimg.com/vi/VJVPTO3Yyno/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Optimistic (Radiohead song)",
+    "wikipediaArtistTermPt": "Radiohead",
+    "wikipediaArtistTermEn": "Radiohead",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Art rock", "en": "Art rock"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Execução oficial de Radiohead no Meltdown de 2000; contexto alinhado à matriz art rock/alternativa da faixa."
+  },
+  {
+    "year": 2000,
+    "artist": "Shaggy feat. Rayvon",
+    "title": "Angel",
+    "youtubeId": "XWJrPzAUzAs",
+    "albumTitle": "Hot Shot",
+    "artworkUrl": "https://i.ytimg.com/vi/XWJrPzAUzAs/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Angel (Shaggy song)",
+    "wikipediaArtistTermPt": "Shaggy",
+    "wikipediaArtistTermEn": "Shaggy",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Reggae fusion", "en": "Reggae fusion"},
+      {"kind": "subgenre", "pt": "Dancehall", "en": "Dancehall"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2000,
+    "artist": "Shaggy feat. RikRok",
+    "title": "It Wasn't Me",
+    "youtubeId": "2g5Hz17C4is",
+    "albumTitle": "Hot Shot",
+    "artworkUrl": "https://i.ytimg.com/vi/2g5Hz17C4is/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "It Wasn't Me",
+    "wikipediaArtistTermPt": "Shaggy",
+    "wikipediaArtistTermEn": "Shaggy",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Reggae fusion", "en": "Reggae fusion"},
+      {"kind": "subgenre", "pt": "Dancehall", "en": "Dancehall"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "Afroman",
+    "title": "Because I Got High",
+    "youtubeId": "WeYsTmIzjkw",
+    "albumTitle": "The Good Times",
+    "artworkUrl": "https://i.ytimg.com/vi/WeYsTmIzjkw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Because I Got High",
+    "wikipediaArtistTermPt": "Afroman",
+    "wikipediaArtistTermEn": "Afroman",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Hip hop cômico", "en": "Comedy hip hop"},
+      {"kind": "genre", "pt": "Hip hop", "en": "Hip hop music"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "Andrew W.K.",
+    "title": "Party Hard",
+    "youtubeId": "WccfbPQNMbg",
+    "albumTitle": "I Get Wet",
+    "artworkUrl": "https://i.ytimg.com/vi/WccfbPQNMbg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Party Hard (Andrew W.K. song)",
+    "wikipediaArtistTermPt": "Andrew W.K.",
+    "wikipediaArtistTermEn": "Andrew W.K.",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Hard rock", "en": "Hard rock"},
+      {"kind": "subgenre", "pt": "Arena rock", "en": "Arena rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "Black Rebel Motorcycle Club",
+    "title": "Whatever Happened to My Rock 'n' Roll (Punk Song)",
+    "youtubeId": "MdvbTpe40fA",
+    "albumTitle": "B.R.M.C.",
+    "artworkUrl": "https://i.ytimg.com/vi/MdvbTpe40fA/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Black Rebel Motorcycle Club",
+    "wikipediaArtistTermPt": "Black Rebel Motorcycle Club",
+    "wikipediaArtistTermEn": "Black Rebel Motorcycle Club",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "Christina Aguilera, Lil' Kim, Mýa & Pink",
+    "title": "Lady Marmalade",
+    "youtubeId": "RQa7SvVCdZk",
+    "albumTitle": "Moulin Rouge! Music from Baz Luhrmann's Film",
+    "artworkUrl": "https://i.ytimg.com/vi/RQa7SvVCdZk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Lady Marmalade",
+    "wikipediaArtistTermPt": "Christina Aguilera",
+    "wikipediaArtistTermEn": "Christina Aguilera",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"},
+      {"kind": "genre", "pt": "Pop", "en": "Pop music"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "Creed",
+    "title": "My Sacrifice",
+    "youtubeId": "O-fyNgHdmLI",
+    "albumTitle": "Weathered",
+    "artworkUrl": "https://i.ytimg.com/vi/O-fyNgHdmLI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "My Sacrifice",
+    "wikipediaArtistTermPt": "Creed",
+    "wikipediaArtistTermEn": "Creed",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Post-grunge", "en": "Post-grunge"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "Gorillaz",
+    "title": "19-2000",
+    "youtubeId": "Tq7Ovshz1UI",
+    "albumTitle": "Gorillaz",
+    "artworkUrl": "https://i.ytimg.com/vi/Tq7Ovshz1UI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "19-2000",
+    "wikipediaArtistTermPt": "Gorillaz",
+    "wikipediaArtistTermEn": "Gorillaz",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Hip hop alternativo", "en": "Alternative hip hop"},
+      {"kind": "subgenre", "pt": "Trip hop", "en": "Trip hop"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "R.E.M.",
+    "title": "Imitation of Life",
+    "youtubeId": "0vqgdSsfqPs",
+    "albumTitle": "Reveal",
+    "artworkUrl": "https://i.ytimg.com/vi/0vqgdSsfqPs/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Imitation of Life (song)",
+    "wikipediaArtistTermPt": "R.E.M.",
+    "wikipediaArtistTermEn": "R.E.M.",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "Ryan Adams",
+    "title": "The Rescue Blues",
+    "youtubeId": "ulWV9aq2XAc",
+    "albumTitle": "Gold",
+    "artworkUrl": "https://i.ytimg.com/vi/ulWV9aq2XAc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Gold (Ryan Adams album)",
+    "wikipediaArtistTermPt": "Ryan Adams",
+    "wikipediaArtistTermEn": "Ryan Adams",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Country alternativo", "en": "Alternative country"},
+      {"kind": "genre", "pt": "Country", "en": "Country music"}
+    ],
+    "basis": "Execução auto-gerada pelo YouTube/UMG da gravação de Gold; contexto alinhado ao country alternativo."
+  },
+  {
+    "year": 2001,
+    "artist": "Slipknot",
+    "title": "The Heretic Anthem",
+    "youtubeId": "26PRhCJtgPQ",
+    "albumTitle": "Iowa",
+    "artworkUrl": "https://i.ytimg.com/vi/26PRhCJtgPQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Heretic Anthem",
+    "wikipediaArtistTermPt": "Slipknot",
+    "wikipediaArtistTermEn": "Slipknot",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Nu metal", "en": "Nu metal"},
+      {"kind": "subgenre", "pt": "Metal alternativo", "en": "Alternative metal"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "The Strokes",
+    "title": "Hard to Explain",
+    "youtubeId": "BXkm6h6uq0k",
+    "albumTitle": "Is This It",
+    "artworkUrl": "https://i.ytimg.com/vi/BXkm6h6uq0k/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Hard to Explain",
+    "wikipediaArtistTermPt": "The Strokes",
+    "wikipediaArtistTermEn": "The Strokes",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "The Strokes",
+    "title": "Last Nite",
+    "youtubeId": "TOypSnKFHrE",
+    "albumTitle": "Is This It",
+    "artworkUrl": "https://i.ytimg.com/vi/TOypSnKFHrE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Last Nite",
+    "wikipediaArtistTermPt": "The Strokes",
+    "wikipediaArtistTermEn": "The Strokes",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "The Strokes",
+    "title": "Someday",
+    "youtubeId": "knU9gRUWCno",
+    "albumTitle": "Is This It",
+    "artworkUrl": "https://i.ytimg.com/vi/knU9gRUWCno/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Someday (The Strokes song)",
+    "wikipediaArtistTermPt": "The Strokes",
+    "wikipediaArtistTermEn": "The Strokes",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "System of a Down",
+    "title": "Aerials",
+    "youtubeId": "L-iepu3EtyE",
+    "albumTitle": "Toxicity",
+    "artworkUrl": "https://i.ytimg.com/vi/L-iepu3EtyE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Aerials (song)",
+    "wikipediaArtistTermPt": "System of a Down",
+    "wikipediaArtistTermEn": "System of a Down",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Metal alternativo", "en": "Alternative metal"},
+      {"kind": "subgenre", "pt": "Nu metal", "en": "Nu metal"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "System of a Down",
+    "title": "Chop Suey!",
+    "youtubeId": "CSvFpBOe8eY",
+    "albumTitle": "Toxicity",
+    "artworkUrl": "https://i.ytimg.com/vi/CSvFpBOe8eY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Chop Suey!",
+    "wikipediaArtistTermPt": "System of a Down",
+    "wikipediaArtistTermEn": "System of a Down",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Metal alternativo", "en": "Alternative metal"},
+      {"kind": "subgenre", "pt": "Nu metal", "en": "Nu metal"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "Weezer",
+    "title": "Hash Pipe",
+    "youtubeId": "_9BGLtqqkVI",
+    "albumTitle": "Weezer (Green Album)",
+    "artworkUrl": "https://i.ytimg.com/vi/_9BGLtqqkVI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Hash Pipe",
+    "wikipediaArtistTermPt": "Weezer",
+    "wikipediaArtistTermEn": "Weezer",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"},
+      {"kind": "subgenre", "pt": "Power pop", "en": "Power pop"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2001,
+    "artist": "The White Stripes",
+    "title": "Fell in Love with a Girl",
+    "youtubeId": "fTH71AAxXmM",
+    "albumTitle": "White Blood Cells",
+    "artworkUrl": "https://i.ytimg.com/vi/fTH71AAxXmM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Fell in Love with a Girl",
+    "wikipediaArtistTermPt": "The White Stripes",
+    "wikipediaArtistTermEn": "The White Stripes",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2002,
+    "artist": "Queens of the Stone Age",
+    "title": "No One Knows",
+    "youtubeId": "s88r_q7oufE",
+    "albumTitle": "Songs for the Deaf",
+    "artworkUrl": "https://i.ytimg.com/vi/s88r_q7oufE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "No One Knows",
+    "wikipediaArtistTermPt": "Queens of the Stone Age",
+    "wikipediaArtistTermEn": "Queens of the Stone Age",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Stoner rock", "en": "Stoner rock"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2002,
+    "artist": "Simple Plan",
+    "title": "Perfect",
+    "youtubeId": "RUi54JTgL5s",
+    "albumTitle": "No Pads, No Helmets...Just Balls",
+    "artworkUrl": "https://i.ytimg.com/vi/RUi54JTgL5s/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Perfect (Simple Plan song)",
+    "wikipediaArtistTermPt": "Simple Plan",
+    "wikipediaArtistTermEn": "Simple Plan",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2002,
+    "artist": "The Vines",
+    "title": "Get Free",
+    "youtubeId": "asOvnGHwtDU",
+    "albumTitle": "Highly Evolved",
+    "artworkUrl": "https://i.ytimg.com/vi/asOvnGHwtDU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Get Free (The Vines song)",
+    "wikipediaArtistTermPt": "The Vines",
+    "wikipediaArtistTermEn": "The Vines",
+    "contextWikiTargets": [
+      {"kind": "movement", "pt": "Revival do garage rock", "en": "Garage rock revival"},
+      {"kind": "subgenre", "pt": "Garage rock", "en": "Garage rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2003,
+    "artist": "Beyoncé",
+    "title": "Naughty Girl",
+    "youtubeId": "RZuJ_OHBN78",
+    "albumTitle": "Dangerously in Love",
+    "artworkUrl": "https://i.ytimg.com/vi/RZuJ_OHBN78/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Naughty Girl (Beyoncé song)",
+    "wikipediaArtistTermPt": "Beyoncé",
+    "wikipediaArtistTermEn": "Beyoncé",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"},
+      {"kind": "genre", "pt": "Funk", "en": "Funk"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2003,
+    "artist": "Evanescence",
+    "title": "Bring Me to Life",
+    "youtubeId": "3YxaaGgTQYM",
+    "albumTitle": "Fallen",
+    "artworkUrl": "https://i.ytimg.com/vi/3YxaaGgTQYM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bring Me to Life",
+    "wikipediaArtistTermPt": "Evanescence",
+    "wikipediaArtistTermEn": "Evanescence",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Nu metal", "en": "Nu metal"},
+      {"kind": "subgenre", "pt": "Metal alternativo", "en": "Alternative metal"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2004,
+    "artist": "Good Charlotte",
+    "title": "Predictable",
+    "youtubeId": "js8pCCxcVuc",
+    "albumTitle": "The Chronicles of Life and Death",
+    "artworkUrl": "https://i.ytimg.com/vi/js8pCCxcVuc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Predictable (Good Charlotte song)",
+    "wikipediaArtistTermPt": "Good Charlotte",
+    "wikipediaArtistTermEn": "Good Charlotte",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2004,
+    "artist": "Green Day",
+    "title": "Wake Me Up When September Ends",
+    "youtubeId": "NU9JoFKlaZ0",
+    "albumTitle": "American Idiot",
+    "artworkUrl": "https://i.ytimg.com/vi/NU9JoFKlaZ0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Wake Me Up When September Ends",
+    "wikipediaArtistTermPt": "Green Day",
+    "wikipediaArtistTermEn": "Green Day",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2004,
+    "artist": "Simple Plan",
+    "title": "Welcome to My Life",
+    "youtubeId": "r0U0AlLVqpk",
+    "albumTitle": "Still Not Getting Any...",
+    "artworkUrl": "https://i.ytimg.com/vi/r0U0AlLVqpk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Welcome to My Life",
+    "wikipediaArtistTermPt": "Simple Plan",
+    "wikipediaArtistTermEn": "Simple Plan",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2004,
+    "artist": "The Black Eyed Peas",
+    "title": "Let's Get It Started",
+    "youtubeId": "IKqV7DB8Iwg",
+    "albumTitle": "Elephunk",
+    "artworkUrl": "https://i.ytimg.com/vi/IKqV7DB8Iwg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Let's Get It Started",
+    "wikipediaArtistTermPt": "The Black Eyed Peas",
+    "wikipediaArtistTermEn": "The Black Eyed Peas",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Hip hop", "en": "Hip hop music"},
+      {"kind": "genre", "pt": "Pop", "en": "Pop music"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2005,
+    "artist": "Panic! at the Disco",
+    "title": "I Write Sins Not Tragedies",
+    "youtubeId": "vc6vs-l5dkc",
+    "albumTitle": "A Fever You Can't Sweat Out",
+    "artworkUrl": "https://i.ytimg.com/vi/vc6vs-l5dkc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "I Write Sins Not Tragedies",
+    "wikipediaArtistTermPt": "Panic! at the Disco",
+    "wikipediaArtistTermEn": "Panic! at the Disco",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2005,
+    "artist": "The Black Eyed Peas",
+    "title": "My Humps",
+    "youtubeId": "iEe_eraFWWs",
+    "albumTitle": "Monkey Business",
+    "artworkUrl": "https://i.ytimg.com/vi/iEe_eraFWWs/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "My Humps",
+    "wikipediaArtistTermPt": "The Black Eyed Peas",
+    "wikipediaArtistTermEn": "The Black Eyed Peas",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Hip hop", "en": "Hip hop music"},
+      {"kind": "genre", "pt": "Pop", "en": "Pop music"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2005,
+    "artist": "Thirty Seconds to Mars",
+    "title": "The Kill",
+    "youtubeId": "8yvGCAvOAfM",
+    "albumTitle": "A Beautiful Lie",
+    "artworkUrl": "https://i.ytimg.com/vi/8yvGCAvOAfM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Kill (Thirty Seconds to Mars song)",
+    "wikipediaArtistTermPt": "Thirty Seconds to Mars",
+    "wikipediaArtistTermEn": "Thirty Seconds to Mars",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Emo", "en": "Emo"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2006,
+    "artist": "Corinne Bailey Rae",
+    "title": "Put Your Records On",
+    "youtubeId": "rjOhZZyn30k",
+    "albumTitle": "Corinne Bailey Rae",
+    "artworkUrl": "https://i.ytimg.com/vi/rjOhZZyn30k/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Put Your Records On",
+    "wikipediaArtistTermPt": "Corinne Bailey Rae",
+    "wikipediaArtistTermEn": "Corinne Bailey Rae",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Neo soul", "en": "Neo soul"},
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2006,
+    "artist": "Frank Sinatra Jr.",
+    "title": "You'll Never Know",
+    "youtubeId": "dMH9mmsDFo4",
+    "albumTitle": "That Face!",
+    "artworkUrl": "https://i.ytimg.com/vi/dMH9mmsDFo4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "You'll Never Know (song)",
+    "wikipediaArtistTermPt": "Frank Sinatra Jr.",
+    "wikipediaArtistTermEn": "Frank Sinatra Jr.",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Pop tradicional", "en": "Traditional pop music"},
+      {"kind": "subgenre", "pt": "Jazz vocal", "en": "Vocal jazz"}
+    ],
+    "basis": "Execução auto-gerada pelo YouTube com fornecimento da Warner/Rhino e fonograma de 2006."
+  },
+  {
+    "year": 2006,
+    "artist": "My Chemical Romance",
+    "title": "Welcome to the Black Parade",
+    "youtubeId": "RRKJiM9Njr8",
+    "albumTitle": "The Black Parade",
+    "artworkUrl": "https://i.ytimg.com/vi/RRKJiM9Njr8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Welcome to the Black Parade",
+    "wikipediaArtistTermPt": "My Chemical Romance",
+    "wikipediaArtistTermEn": "My Chemical Romance",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Emo", "en": "Emo"},
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2007,
+    "artist": "Fall Out Boy",
+    "title": "Thnks fr th Mmrs",
+    "youtubeId": "onzL0EM1pKY",
+    "albumTitle": "Infinity on High",
+    "artworkUrl": "https://i.ytimg.com/vi/onzL0EM1pKY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Thnks fr th Mmrs",
+    "wikipediaArtistTermPt": "Fall Out Boy",
+    "wikipediaArtistTermEn": "Fall Out Boy",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2007,
+    "artist": "Paramore",
+    "title": "Misery Business",
+    "youtubeId": "aCyGvGEtOwc",
+    "albumTitle": "Riot!",
+    "artworkUrl": "https://i.ytimg.com/vi/aCyGvGEtOwc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Misery Business",
+    "wikipediaArtistTermPt": "Paramore",
+    "wikipediaArtistTermEn": "Paramore",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"},
+      {"kind": "subgenre", "pt": "Rock alternativo", "en": "Alternative rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2007,
+    "artist": "Rihanna",
+    "title": "Don't Stop the Music",
+    "youtubeId": "yd8jh9QYfEs",
+    "albumTitle": "Good Girl Gone Bad",
+    "artworkUrl": "https://i.ytimg.com/vi/yd8jh9QYfEs/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Don't Stop the Music (Rihanna song)",
+    "wikipediaArtistTermPt": "Rihanna",
+    "wikipediaArtistTermEn": "Rihanna",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"},
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2008,
+    "artist": "Katy Perry",
+    "title": "Hot n Cold",
+    "youtubeId": "kTHNpusq654",
+    "albumTitle": "One of the Boys",
+    "artworkUrl": "https://i.ytimg.com/vi/kTHNpusq654/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Hot n Cold",
+    "wikipediaArtistTermPt": "Katy Perry",
+    "wikipediaArtistTermEn": "Katy Perry",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"},
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2008,
+    "artist": "Nickelback",
+    "title": "Never Gonna Be Alone",
+    "youtubeId": "Nt2kM0TsubU",
+    "albumTitle": "Dark Horse",
+    "artworkUrl": "https://i.ytimg.com/vi/Nt2kM0TsubU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Never Gonna Be Alone",
+    "wikipediaArtistTermPt": "Nickelback",
+    "wikipediaArtistTermEn": "Nickelback",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Post-grunge", "en": "Post-grunge"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  },
+  {
+    "year": 2009,
+    "artist": "David Guetta feat. Akon",
+    "title": "Sexy Bitch",
+    "youtubeId": "N9hazmsUxrM",
+    "albumTitle": "One Love",
+    "artworkUrl": "https://i.ytimg.com/vi/N9hazmsUxrM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Sexy Bitch",
+    "wikipediaArtistTermPt": "David Guetta",
+    "wikipediaArtistTermEn": "David Guetta",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Electro house", "en": "Electro house"},
+      {"kind": "genre", "pt": "Música eletrônica dançante", "en": "Electronic dance music"}
+    ],
+    "basis": "O vídeo oficial usa o título censurado Sexy Chick; o fonograma corresponde ao single Sexy Bitch do álbum One Love."
+  },
+  {
+    "year": 2009,
+    "artist": "Lady Gaga",
+    "title": "Paparazzi",
+    "youtubeId": "d2smz_1L2_0",
+    "albumTitle": "The Fame",
+    "artworkUrl": "https://i.ytimg.com/vi/d2smz_1L2_0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Paparazzi (Lady Gaga song)",
+    "wikipediaArtistTermPt": "Lady Gaga",
+    "wikipediaArtistTermEn": "Lady Gaga",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"},
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Contexto curatorial alinhado ao gênero/subgênero informado e à gravação selecionada."
+  }
+]
