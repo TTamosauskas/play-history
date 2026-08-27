@@ -1,6 +1,6 @@
 # Contexto Audit — 1910s
 
-Status: curation complete; release integration in progress.
+Status: complete in v6.20.0.
 
 ## Inventory
 
@@ -22,6 +22,6 @@ Notable historical anchors include Alexander's Ragtime Band as ragtime-song/Tin 
 1. Ten per-year patch files cover all 61 identities exactly once. — complete
 2. No primary target remains in the strict generic-primary set. — complete
 3. Each row has a concise historical basis. — complete
-4. `python tools/audit_context_decade.py 1910 --validate-patches` passes. — pending CI gate
-5. 1910s is wired into `tools/build.py` and `assets/catalog-runtime.js` only after curation is complete. — release gate pending
-6. Existing 1920s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green. — regression gate pending
+4. `python tools/audit_context_decade.py 1910 --validate-patches` passes. — complete
+5. 1910s is wired into `tools/build.py` and `assets/catalog-runtime.js` before 1920s. — complete
+6. Existing 1920s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green. — complete
