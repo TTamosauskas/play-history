@@ -1,25 +1,27 @@
 # Contexto Audit — 1950s
 
-Status: inventory complete; curation in progress.
+Status: complete in v6.16.0.
 
 ## Inventory
 
 - Total catalog tracks: 84
-- Generic current primary: 49
-- Specific-but-reviewable current primary: 35
+- Generic primary before curation: 49
+- Specific-but-reviewable primary before curation: 35
 - Coverage by year: 1950=10, 1951=7, 1952=4, 1953=4, 1954=7, 1955=10, 1956=10, 1957=11, 1958=9, 1959=12
+- Distinct curated primary contexts: 32
 
-## Editorial bar
+## Editorial result
 
-Every 1950–1959 track must receive an exact year+artist+title Contexto entry. The primary link must explain why the recording matters historically rather than collapse it into broad taxonomy such as Música popular, Música pop, Rock, Blues or Samba.
+All 84 tracks from 1950–1959 now have exact year+artist+title Contexto entries, explicit targets and a concise historical basis. The primary link is chosen to explain why the recording matters historically rather than collapse it into a broad taxonomy.
 
-Priority contexts for this decade include the emergence and crossover of rock and roll; rhythm and blues; doo-wop; rockabilly; Chicago/electric blues; gospel-to-soul transitions; country/honky-tonk; traditional pop and crooner culture; recording technology; baião, forró, choro and samba-canção; radio-era popular song; and the formation of bossa nova.
+The completed pass includes contexts such as traditional pop, country pop, the American folk revival, multitrack recording, samba-canção, choro, baião, xote, coco, doo-wop, jump blues, New Orleans R&B, honky-tonk, rockabilly, bossa nova, Chicano rock, Brazilian rock and samba-rock.
 
-## Acceptance criteria
+Primary labels considered too generic for this audit are Música popular, Música pop, Música popular brasileira, MPB, Rock, Jazz, Blues, Samba, Funk and Soul music. A broad genre can remain as a secondary target when historically useful, but not as the primary explanation.
 
-1. Ten per-year patch files cover all 84 identities exactly once.
-2. No primary target remains in the strict generic-primary set.
-3. Each row has a concise historical basis.
-4. `tools/audit_context_decade.py 1950 --validate-patches` passes.
-5. 1950s is wired into `tools/build.py` and `assets/catalog-runtime.js` only after curation is complete.
-6. Existing 1960s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green.
+## Validation
+
+```bash
+python tools/audit_context_decade.py 1950 --validate-patches
+```
+
+CI permanently validates the 1950s audit before the modular build, alongside the 1960s and 1970s regression audits. The v6.16.0 build also verifies that `context_1950s_` is loaded by the public runtime.
