@@ -1,0 +1,30 @@
+[
+  {
+    "year": 1963,
+    "artist": "Peggy Lee",
+    "title": "The Lady Is a Tramp",
+    "youtubeId": "n3Ig0OeJw30",
+    "albumTitle": "Mink Jazz",
+    "artworkUrl": "https://i.ytimg.com/vi/n3Ig0OeJw30/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Lady Is a Tramp",
+    "wikipediaArtistTermPt": "Peggy Lee",
+    "wikipediaArtistTermEn": "Peggy Lee",
+    "contextWikiTargets": [{"kind":"subgenre","pt":"Jazz vocal","en":"Vocal jazz"},{"kind":"genre","pt":"Pop tradicional","en":"Traditional pop"}],
+    "basis": "A lista original indicava 1957. A gravação selecionada de Peggy Lee pertence a Mink Jazz, publicado em 1963."
+  },
+  {
+    "year": 1966,
+    "artist": "George Jones",
+    "title": "Don't Be Angry",
+    "youtubeId": "C_kU1-Ej2Rk",
+    "albumTitle": "Love Bug",
+    "artworkUrl": "https://i.ytimg.com/vi/C_kU1-Ej2Rk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Don't Be Angry",
+    "wikipediaArtistTermPt": "George Jones",
+    "wikipediaArtistTermEn": "George Jones",
+    "contextWikiTargets": [{"kind":"genre","pt":"Country","en":"Country music"},{"kind":"subgenre","pt":"Honky-tonk","en":"Honky-tonk"}],
+    "basis": "A lista original indicava 1955. A gravação selecionada de George Jones foi publicada comercialmente em Love Bug, em 1966."
+  }
+]
