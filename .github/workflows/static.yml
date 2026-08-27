@@ -20,16 +20,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Export 1950s context inventory
-        run: |
-          python tools/audit_context_decade.py 1950 --csv context_1950s_inventory.csv --markdown context_1950s_inventory.md
-      - name: Upload 1950s context inventory
-        uses: actions/upload-artifact@v4
-        with:
-          name: context-1950s-inventory
-          path: |
-            context_1950s_inventory.csv
-            context_1950s_inventory.md
+      - name: Prepare 1950s release candidate
+        run: python tools/prepare_1950s_release.py
+      - name: Validate 1950s Contexto audit
+        run: python tools/audit_context_decade.py 1950 --validate-patches
       - name: Validate 1960s Contexto audit
         run: python tools/audit_context_decade.py 1960 --validate-patches
       - name: Validate 1970s Contexto audit
@@ -55,11 +49,20 @@ jobs:
           test -s _site/assets/catalog.json
           test -s _site/assets/entry.js
           test -s _site/assets/styles.css
-          grep -q 'assets/catalog-runtime.js?v=' index.html
+          grep -q 'assets/catalog-runtime.js?v=6.16.0' index.html
+          grep -q 'context_1950s_' assets/catalog-runtime.js
           grep -q 'context_1960s_' assets/catalog-runtime.js
           grep -q 'context_1970s_' assets/catalog-runtime.js
           grep -q 'context_1980s_' assets/catalog-runtime.js
           ! grep -q 'assets/loader.js' index.html
+      - name: Upload 1950s release candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: 1950s-release-candidate
+          path: |
+            tools/build.py
+            assets/catalog-runtime.js
+            index.html
 
 # GitHub Pages is published from the main branch by the repository's
 # native Pages workflow. This workflow validates the generated player only,
