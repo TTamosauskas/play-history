@@ -1,0 +1,350 @@
+[
+  {
+    "year": 2020,
+    "artist": "BLACKPINK",
+    "title": "How You Like That",
+    "youtubeId": "ioNng23DkIM",
+    "albumTitle": "The Album",
+    "artworkUrl": "https://i.ytimg.com/vi/ioNng23DkIM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "How You Like That",
+    "wikipediaArtistTermPt": "Blackpink",
+    "wikipediaArtistTermEn": "Blackpink",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"}
+    ],
+    "basis": "K-pop como contexto central da faixa e do fenômeno global do BLACKPINK."
+  },
+  {
+    "year": 2020,
+    "artist": "BLACKPINK & Selena Gomez",
+    "title": "Ice Cream",
+    "youtubeId": "vRXZj0DzXIA",
+    "albumTitle": "The Album",
+    "artworkUrl": "https://i.ytimg.com/vi/vRXZj0DzXIA/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Ice Cream (Blackpink and Selena Gomez song)",
+    "wikipediaArtistTermPt": "Blackpink",
+    "wikipediaArtistTermEn": "Blackpink",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Colaboração que cruza K-pop e pop internacional."
+  },
+  {
+    "year": 2020,
+    "artist": "BTS",
+    "title": "Life Goes On",
+    "youtubeId": "-5q5mZbe3V8",
+    "albumTitle": "BE",
+    "artworkUrl": "https://i.ytimg.com/vi/-5q5mZbe3V8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Life Goes On (BTS song)",
+    "wikipediaArtistTermPt": "BTS",
+    "wikipediaArtistTermEn": "BTS",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "subgenre", "pt": "Hip hop alternativo", "en": "Alternative hip hop"}
+    ],
+    "basis": "K-pop com linguagem de hip hop alternativo e produção introspectiva."
+  },
+  {
+    "year": 2020,
+    "artist": "Billie Eilish",
+    "title": "Therefore I Am",
+    "youtubeId": "RUQl6YcMalg",
+    "albumTitle": "Happier Than Ever",
+    "artworkUrl": "https://i.ytimg.com/vi/RUQl6YcMalg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Therefore I Am (song)",
+    "wikipediaArtistTermPt": "Billie Eilish",
+    "wikipediaArtistTermEn": "Billie Eilish",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Electropop minimalista como contexto de produção e linguagem."
+  },
+  {
+    "year": 2020,
+    "artist": "Glass Animals",
+    "title": "Heat Waves",
+    "youtubeId": "mRD0-GxqHVo",
+    "albumTitle": "Dreamland",
+    "artworkUrl": "https://i.ytimg.com/vi/mRD0-GxqHVo/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Heat Waves (song)",
+    "wikipediaArtistTermPt": "Glass Animals",
+    "wikipediaArtistTermEn": "Glass Animals",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Indie pop", "en": "Indie pop"}
+    ],
+    "basis": "Indie pop como chave principal para a estética de Dreamland."
+  },
+  {
+    "year": 2020,
+    "artist": "Joel Corry x MNEK",
+    "title": "Head & Heart",
+    "youtubeId": "CRuOOxF-ENQ",
+    "albumTitle": "Another Friday Night",
+    "artworkUrl": "https://i.ytimg.com/vi/CRuOOxF-ENQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Head & Heart (song)",
+    "wikipediaArtistTermPt": "Joel Corry",
+    "wikipediaArtistTermEn": "Joel Corry",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "House music", "en": "House music"}
+    ],
+    "basis": "House pop orientado à pista, com vocal de MNEK."
+  },
+  {
+    "year": 2020,
+    "artist": "Maluma",
+    "title": "Hawái",
+    "youtubeId": "pK060iUFWXg",
+    "albumTitle": "Papi Juancho",
+    "artworkUrl": "https://i.ytimg.com/vi/pK060iUFWXg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Hawái (song)",
+    "wikipediaArtistTermPt": "Maluma",
+    "wikipediaArtistTermEn": "Maluma",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Reggaeton", "en": "Reggaeton"}
+    ],
+    "basis": "Reggaeton contemporâneo como linguagem rítmica central."
+  },
+  {
+    "year": 2021,
+    "artist": "BTS",
+    "title": "Butter",
+    "youtubeId": "WMweEpGlu_U",
+    "albumTitle": "Butter",
+    "artworkUrl": "https://i.ytimg.com/vi/WMweEpGlu_U/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Butter (song)",
+    "wikipediaArtistTermPt": "BTS",
+    "wikipediaArtistTermEn": "BTS",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"}
+    ],
+    "basis": "K-pop e dance-pop com forte referência disco-funk."
+  },
+  {
+    "year": 2021,
+    "artist": "BTS",
+    "title": "Permission to Dance",
+    "youtubeId": "CuklIb9d3fI",
+    "albumTitle": "Butter",
+    "artworkUrl": "https://i.ytimg.com/vi/CuklIb9d3fI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Permission to Dance",
+    "wikipediaArtistTermPt": "BTS",
+    "wikipediaArtistTermEn": "BTS",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"},
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"}
+    ],
+    "basis": "Dance-pop de apelo global dentro do repertório K-pop do BTS."
+  },
+  {
+    "year": 2021,
+    "artist": "Bella Poarch",
+    "title": "Build a Bitch",
+    "youtubeId": "FLGCGc7sAUw",
+    "albumTitle": "Dolls",
+    "artworkUrl": "https://i.ytimg.com/vi/FLGCGc7sAUw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Build a Bitch",
+    "wikipediaArtistTermPt": "Bella Poarch",
+    "wikipediaArtistTermEn": "Bella Poarch",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dark pop", "en": "Dark pop"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Pop de estética sombria e eletrônica; dark pop oferece contexto mais específico."
+  },
+  {
+    "year": 2021,
+    "artist": "Coldplay x BTS",
+    "title": "My Universe",
+    "youtubeId": "3YqPKLZF_WU",
+    "albumTitle": "Music of the Spheres",
+    "artworkUrl": "https://i.ytimg.com/vi/3YqPKLZF_WU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "My Universe (song)",
+    "wikipediaArtistTermPt": "Coldplay",
+    "wikipediaArtistTermEn": "Coldplay",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Synth-pop e pop rock como ponte entre as linguagens de Coldplay e BTS."
+  },
+  {
+    "year": 2021,
+    "artist": "Måneskin",
+    "title": "I Wanna Be Your Slave",
+    "youtubeId": "yOb9Xaug35M",
+    "albumTitle": "Teatro d'ira: Vol. I",
+    "artworkUrl": "https://i.ytimg.com/vi/yOb9Xaug35M/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "I Wanna Be Your Slave",
+    "wikipediaArtistTermPt": "Måneskin",
+    "wikipediaArtistTermEn": "Måneskin",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Glam rock", "en": "Glam rock"}
+    ],
+    "basis": "Glam rock como eixo estético, performático e histórico."
+  },
+  {
+    "year": 2021,
+    "artist": "The Kiffness",
+    "title": "Big Billy",
+    "youtubeId": "FYwL5H4ZNok",
+    "albumTitle": "Cat Jams",
+    "artworkUrl": "https://i.ytimg.com/vi/FYwL5H4ZNok/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Kiffness",
+    "wikipediaArtistTermPt": "The Kiffness",
+    "wikipediaArtistTermEn": "The Kiffness",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Novelty song", "en": "Novelty song"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Novelty song descreve melhor a transformação humorística de material viral em canção pop."
+  },
+  {
+    "year": 2022,
+    "artist": "Lady Gaga",
+    "title": "Bloody Mary (Sped Up)",
+    "youtubeId": "234CBB8xH8k",
+    "albumTitle": "Bloody Mary",
+    "artworkUrl": "https://i.ytimg.com/vi/234CBB8xH8k/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bloody Mary (Lady Gaga song)",
+    "wikipediaArtistTermPt": "Lady Gaga",
+    "wikipediaArtistTermEn": "Lady Gaga",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Nightcore", "en": "Nightcore"},
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "A edição acelerada de 2022 é melhor contextualizada pela prática nightcore/sped-up; electropop descreve a matriz da faixa."
+  },
+  {
+    "year": 2022,
+    "artist": "Meghan Trainor",
+    "title": "Made You Look",
+    "youtubeId": "gPCCYMeXin0",
+    "albumTitle": "Takin' It Back",
+    "artworkUrl": "https://i.ytimg.com/vi/gPCCYMeXin0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Made You Look (Meghan Trainor song)",
+    "wikipediaArtistTermPt": "Meghan Trainor",
+    "wikipediaArtistTermEn": "Meghan Trainor",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Doo-wop", "en": "Doo-wop"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Pop contemporâneo com construção vocal e harmônica inspirada no doo-wop."
+  },
+  {
+    "year": 2023,
+    "artist": "Bring Me the Horizon",
+    "title": "LosT",
+    "youtubeId": "xv-70a6yXfM",
+    "albumTitle": "POST HUMAN: NeX GEn",
+    "artworkUrl": "https://i.ytimg.com/vi/xv-70a6yXfM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "LosT (song)",
+    "wikipediaArtistTermPt": "Bring Me the Horizon",
+    "wikipediaArtistTermEn": "Bring Me the Horizon",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Metal alternativo", "en": "Alternative metal"},
+      {"kind": "subgenre", "pt": "Pop punk", "en": "Pop-punk"}
+    ],
+    "basis": "Híbrido de metal alternativo e pop punk dentro da fase POST HUMAN."
+  },
+  {
+    "year": 2023,
+    "artist": "FIFTY FIFTY",
+    "title": "Cupid",
+    "youtubeId": "Qc7_zRjH808",
+    "albumTitle": "The Beginning: Cupid",
+    "artworkUrl": "https://i.ytimg.com/vi/Qc7_zRjH808/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Cupid (Fifty Fifty song)",
+    "wikipediaArtistTermPt": "Fifty Fifty",
+    "wikipediaArtistTermEn": "Fifty Fifty",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "subgenre", "pt": "Disco-pop", "en": "Disco-pop"}
+    ],
+    "basis": "K-pop com arranjo leve de disco-pop, chave útil para entender sua circulação global."
+  },
+  {
+    "year": 2023,
+    "artist": "IVE",
+    "title": "I AM",
+    "youtubeId": "6ZUIwj3FgUY",
+    "albumTitle": "I've IVE",
+    "artworkUrl": "https://i.ytimg.com/vi/6ZUIwj3FgUY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "I Am (Ive song)",
+    "wikipediaArtistTermPt": "Ive (grupo musical)",
+    "wikipediaArtistTermEn": "Ive (group)",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"}
+    ],
+    "basis": "K-pop como contexto principal da faixa e da produção de girl groups da quarta geração."
+  },
+  {
+    "year": 2023,
+    "artist": "Myles Smith",
+    "title": "Solo",
+    "youtubeId": "Bk8IQIv7MuQ",
+    "albumTitle": "Solo",
+    "artworkUrl": "https://i.ytimg.com/vi/Bk8IQIv7MuQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Myles Smith",
+    "wikipediaArtistTermPt": "Myles Smith",
+    "wikipediaArtistTermEn": "Myles Smith",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Folk-pop", "en": "Folk-pop"}
+    ],
+    "basis": "Folk-pop como linguagem acústica/pop central da gravação."
+  },
+  {
+    "year": 2023,
+    "artist": "NewJeans",
+    "title": "Super Shy",
+    "youtubeId": "ArmDp-zijuc",
+    "albumTitle": "Get Up",
+    "artworkUrl": "https://i.ytimg.com/vi/ArmDp-zijuc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Super Shy",
+    "wikipediaArtistTermPt": "NewJeans",
+    "wikipediaArtistTermEn": "NewJeans",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "subgenre", "pt": "UK garage", "en": "UK garage"}
+    ],
+    "basis": "K-pop com estrutura rítmica influenciada por UK garage."
+  },
+  {
+    "year": 2024,
+    "artist": "Eminem",
+    "title": "Houdini",
+    "youtubeId": "22tVWwmTie8",
+    "albumTitle": "The Death of Slim Shady (Coup de Grâce)",
+    "artworkUrl": "https://i.ytimg.com/vi/22tVWwmTie8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Houdini (Eminem song)",
+    "wikipediaArtistTermPt": "Eminem",
+    "wikipediaArtistTermEn": "Eminem",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Hip hop", "en": "Hip hop music"}
+    ],
+    "basis": "Hip hop como contexto principal, preservando a linhagem de rap humorístico e autocitação de Eminem."
+  }
+]
