@@ -1,25 +1,27 @@
 # Contexto Audit — 1900s
 
-Status: inventory complete; curation in progress.
+Status: curation complete; release integration in progress.
 
 ## Inventory
 
 - Total catalog tracks: 60
-- Generic current primary: 56
-- Specific-but-reviewable current primary: 4
+- Generic current primary before curation: 56
+- Specific-but-reviewable current primary before curation: 4
 - Coverage by year: 1900=6, 1901=4, 1902=7, 1903=6, 1904=6, 1905=8, 1906=7, 1907=5, 1908=5, 1909=6
+- Distinct curated primary contexts: 27
+- Generic primaries after curation: 0
 
-## Editorial bar
+## Editorial result
 
-Every 1900–1909 track must receive an exact year+artist+title Contexto entry. The primary link must explain why the recording matters historically rather than collapse it into broad taxonomy such as Música popular, Ragtime, Choro, Samba or Tango brasileiro when a more specific historical framing is available.
+The decade is covered by ten exact year+artist+title patch files. Primary targets separate Tin Pan Alley, parlor song, vaudeville, musical theatre, Broadway, operetta, barbershop, ragtime, old-time music, march/patriotic repertory, opera/aria, automobile and aviation modernity, the St. Louis World's Fair, baseball and the Ziegfeld Follies. Historically racialized commercial repertory is identified explicitly through coon song/minstrelsy and African-American musical-theatre contexts rather than hidden under generic labels.
 
-Priority contexts for this decade include the acoustic-recording era; Tin Pan Alley, vaudeville, Broadway and operetta; ragtime songs and early popular dance repertory; quartet, tenor, sentimental and novelty-song culture; march and patriotic repertory; songs about the automobile, airship and other markers of technological modernity; baseball and mass entertainment; opera on record and the Caruso recording boom; and historically accurate treatment of blackface/minstrelsy and racialized commercial repertory without presenting those traditions uncritically. Brazilian tracks require separation among Casa Edison and the first local recording industry, tango brasileiro, maxixe, choro, lundu, modinha, patriotic/civic song, carnival repertory, Santos-Dumont/aviation culture and the early careers of Bahiano, Eduardo das Neves, Patápio Silva and Ernesto Nazareth.
+Brazilian tracks are separated into tango brasileiro, choro, lundu, modinha, maxixe, valsa and the early recording industry. Notable anchors include Digo as an Ernesto Nazareth tango; Isto É Bom as lundu and landmark of Brazilian disc recording; Santos Dumont (A Conquista do Ar) as a marcha/dobrado about aviation; Primeiro Amor as a valsa in Patápio Silva's choro-era repertory; Casinha Pequenina as modinha; Gaúcho (Corta-Jaca) as maxixe/tango brasileiro; and Eduardo das Neves' repertory as part of the lundu, popular stage and early phonographic culture.
 
 ## Acceptance criteria
 
-1. Ten per-year patch files cover all 60 identities exactly once.
-2. No primary target remains in the strict generic-primary set.
-3. Each row has a concise historical basis.
-4. `python tools/audit_context_decade.py 1900 --validate-patches` passes.
-5. 1900s is wired into `tools/build.py` and `assets/catalog-runtime.js` only after curation is complete.
-6. Existing 1910s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green.
+1. Ten per-year patch files cover all 60 identities exactly once. — complete
+2. No primary target remains in the strict generic-primary set. — complete
+3. Each row has a concise historical basis. — complete
+4. `python tools/audit_context_decade.py 1900 --validate-patches` passes. — pending CI gate
+5. 1900s is wired into `tools/build.py` and `assets/catalog-runtime.js` only after curation is complete. — release gate pending
+6. Existing 1910s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green. — regression gate pending
