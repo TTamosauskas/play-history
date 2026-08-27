@@ -36,6 +36,8 @@ jobs:
         run: python tools/audit_context_decade.py 1960 --validate-patches
       - name: Validate 1970s Contexto audit
         run: python tools/audit_context_decade.py 1970 --validate-patches
+      - name: Validate curated 2020s additions
+        run: python tools/validate_additions.py
       - name: Build modular site
         run: python tools/build.py
       - name: Validate generated JavaScript
@@ -49,16 +51,19 @@ jobs:
           node --check _site/assets/js/bootstrap.js
       - name: Smoke test year search
         run: node tools/smoke_runtime.js
-      - name: Verify v6.22.0 player UX
+      - name: Verify v6.23.0 player UX
         run: |
           test -s index.html
           test -s assets/catalog-runtime.js
           test -s assets/source/services/09.part
+          test -s tools/patches/additions_2020s.json
+          test -s tools/validate_additions.py
           test -s _site/assets/catalog.js
           test -s _site/assets/catalog.json
           test -s _site/assets/entry.js
           test -s _site/assets/styles.css
-          grep -q 'assets/catalog-runtime.js?v=6.22.0' index.html
+          grep -q 'assets/catalog-runtime.js?v=6.23.0' index.html
+          grep -q 'additions_2020s.json' assets/catalog-runtime.js
           grep -q 'id="appreciationLink"' index.html
           ! grep -q 'id="infoLink"' index.html
           grep -q 'services: 9' assets/catalog-runtime.js
