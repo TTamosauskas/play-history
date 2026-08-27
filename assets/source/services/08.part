@@ -84,48 +84,74 @@ async function resolveLyrics(track){
   }
 }
 
-async function openAboutForTrack(track){
-  if (!track) return;
-  const token = openContextDialog("Sobre", track);
-  try {
-    const result = await resolveWikipediaSummary(track);
-    if (token !== contextRenderToken || !contextTrackIsCurrent(track)) return;
-    if (!result?.extract){
-      contextDialogKicker.textContent = "Sobre";
-      setContextMessage("Nenhum dos títulos enciclopédicos direcionados para a faixa ou o artista forneceu texto.");
-      setContextActions([]);
-      return;
-    }
-    contextDialogKicker.textContent = result.contextLabel || wikipediaContextLabel(result.contextKind);
-    contextDialogTitle.textContent = result.title || track.title;
-    setContextText(trimContextExcerpt(result.extract), "context-summary");
-    setContextActions([{label:wikipediaActionLabel(result.contextKind), url:result.url}]);
-  } catch (_) {
-    if (token !== contextRenderToken) return;
-    setContextMessage("A fonte de contexto está temporariamente indisponível.");
-    setContextActions([]);
+function appendContextSection(heading, result, fallbackMessage, actionLabel){
+  const section = document.createElement("section");
+  section.className = "context-section";
+
+  const title = document.createElement("h3");
+  title.className = "context-section-title";
+  title.textContent = heading;
+  section.appendChild(title);
+
+  if (result?.title || result?.contextLabel){
+    const meta = document.createElement("p");
+    meta.className = "context-section-meta";
+    meta.textContent = [result?.contextLabel, result?.title].filter(Boolean).join(" · ");
+    section.appendChild(meta);
   }
+
+  const copy = document.createElement("p");
+  copy.className = result?.extract ? "context-summary" : "context-message";
+  copy.textContent = result?.extract ? trimContextExcerpt(result.extract) : fallbackMessage;
+  section.appendChild(copy);
+
+  if (result?.url){
+    const link = document.createElement("a");
+    link.className = "context-action context-section-action";
+    link.href = result.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = actionLabel;
+    section.appendChild(link);
+  }
+
+  contextDialogBody.appendChild(section);
 }
 
 async function openCulturalContextForTrack(track){
   if (!track) return;
   const token = openContextDialog("Contexto", track);
   try {
-    const result = await resolveWikipediaCulturalContext(track);
+    const [culturalState, aboutState] = await Promise.allSettled([
+      resolveWikipediaCulturalContext(track),
+      resolveWikipediaSummary(track)
+    ]);
     if (token !== contextRenderToken || !contextTrackIsCurrent(track)) return;
-    if (!result?.extract){
-      contextDialogKicker.textContent = "Contexto";
-      setContextMessage("Nenhum dos títulos enciclopédicos direcionados para subgênero, gênero, movimento ou período forneceu texto.");
-      setContextActions([]);
-      return;
-    }
-    contextDialogKicker.textContent = result.contextLabel || wikipediaCulturalContextLabel(result.contextKind);
-    contextDialogTitle.textContent = result.title || track.contextTermPt || track.title;
-    setContextText(trimContextExcerpt(result.extract), "context-summary");
-    setContextActions([{label:wikipediaCulturalActionLabel(result.contextKind), url:result.url}]);
+
+    const cultural = culturalState.status === "fulfilled" ? culturalState.value : null;
+    const about = aboutState.status === "fulfilled" ? aboutState.value : null;
+
+    contextDialogKicker.textContent = "Contexto";
+    contextDialogTitle.textContent = track.title;
+    contextDialogSubtitle.textContent = `${track.artist} · ${track.year}`;
+    contextDialogBody.replaceChildren();
+    contextDialogActions.replaceChildren();
+
+    appendContextSection(
+      "Contexto",
+      cultural,
+      "Nenhum dos títulos enciclopédicos direcionados para subgênero, gênero, movimento ou período forneceu texto.",
+      cultural ? wikipediaCulturalActionLabel(cultural.contextKind) : "Wikipedia ↗"
+    );
+    appendContextSection(
+      "Sobre",
+      about,
+      "Nenhum dos títulos enciclopédicos direcionados para a faixa ou o artista forneceu texto.",
+      about ? wikipediaActionLabel(about.contextKind) : "Wikipedia ↗"
+    );
   } catch (_) {
     if (token !== contextRenderToken) return;
-    setContextMessage("A fonte enciclopédica de contexto está temporariamente indisponível.");
+    setContextMessage("As fontes enciclopédicas estão temporariamente indisponíveis.");
     setContextActions([]);
   }
 }

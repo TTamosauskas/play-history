@@ -580,6 +580,11 @@ button{color:inherit}
 .context-body{min-height:96px;overflow:auto;padding:18px 20px 20px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .context-loading,.context-message{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
 .context-summary{margin:0;white-space:pre-wrap;font-size:14px;line-height:1.62}
+.context-section{display:block}
+.context-section + .context-section{margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.context-section-title{margin:0 0 7px;font-size:15px;line-height:1.2;letter-spacing:-.01em}
+.context-section-meta{margin:0 0 10px;color:var(--muted);font-size:11px;line-height:1.35}
+.context-section-action{display:inline-flex;margin-top:12px}
 .context-lyrics{margin:0;white-space:pre-wrap;font-family:inherit;font-size:14px;line-height:1.72;color:var(--text)}
 .context-actions{display:flex;align-items:center;gap:16px;min-height:0;padding:0 20px 18px}
 .context-actions:empty{display:none}

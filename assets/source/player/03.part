@@ -41,11 +41,12 @@ function resolvePreloadWindowVideoIds(){
 
 function updateExternalLinks(track){
   const token = ++externalLinkRenderToken;
-  showTrackAction(infoLink);
   showTrackAction(contextLink);
   hideTrackLink(albumLink);
   if (shouldHideLyrics(track)) hideTrackAction(lyricsLink);
   else showTrackAction(lyricsLink);
+  appreciationLink.title = `Abrir guia de escuta profunda de ${track.title} no ChatGPT`;
+  showTrackLink(appreciationLink, appreciationUrl(track));
 
   // Prefer catalog metadata synchronously. This keeps album discovery from
   // competing with YouTube playback during the critical first seconds.

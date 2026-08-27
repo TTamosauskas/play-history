@@ -1,6 +1,6 @@
-/* Play History v6.21.0 — branch-safe catalog/bootstrap runtime. */
+/* Play History v6.22.0 — branch-safe catalog/bootstrap runtime. */
 (() => {
-  const VERSION = '6.21.0';
+  const VERSION = '6.22.0';
   const AUDIT_FILES = [
     'context_overrides.json',
     ...Array.from({length: 10}, (_, i) => `context_1900s_${1900 + i}.json`),
@@ -19,7 +19,7 @@
   ];
   const MODULE_PARTS = {
     app: 4,
-    services: 8,
+    services: 9,
     player: 8,
     bootstrap: 1
   };
