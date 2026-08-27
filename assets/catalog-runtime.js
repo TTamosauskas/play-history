@@ -1,7 +1,8 @@
-/* Play History v6.27.0 — branch-safe catalog/bootstrap runtime. */
+/* Play History v6.28.0 — branch-safe catalog/bootstrap runtime. */
 (() => {
-  const VERSION = '6.27.0';
+  const VERSION = '6.28.0';
   const ADDITION_FILES = [
+    'additions_1970s.json',
     'additions_1980s.json',
     'additions_1990s.json',
     'additions_1990s_research.json',
