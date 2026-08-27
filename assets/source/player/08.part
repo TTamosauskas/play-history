@@ -162,16 +162,3 @@ function handleAutoplayBlocked(slot){
   setPlayingUI(false);
   setStatus("O navegador bloqueou a reprodução automática com áudio. Toque em play para liberar a reprodução.");
 }
-
-infoLink.addEventListener("click", () => openAboutForTrack(currentTrack()));
-contextLink.addEventListener("click", () => openCulturalContextForTrack(currentTrack()));
-lyricsLink.addEventListener("click", () => openLyricsForTrack(currentTrack()));
-contextDialogClose.addEventListener("click", () => contextDialog.close());
-contextDialog.addEventListener("close", () => {
-  contextRenderToken += 1;
-  contextDialogBody.replaceChildren();
-  contextDialogActions.replaceChildren();
-});
-contextDialog.addEventListener("click", event => {
-  if (event.target === contextDialog) contextDialog.close();
-});

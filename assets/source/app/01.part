@@ -28,10 +28,10 @@ const repeatBtn = document.getElementById("repeatBtn");
 const decadeLockBtn = document.getElementById("decadeLockBtn");
 const shuffleBtn = document.getElementById("shuffleBtn");
 const catalogModeBtn = document.getElementById("catalogModeBtn");
-const infoLink = document.getElementById("infoLink");
 const contextLink = document.getElementById("contextLink");
 const albumLink = document.getElementById("albumLink");
 const lyricsLink = document.getElementById("lyricsLink");
+const appreciationLink = document.getElementById("appreciationLink");
 const contextDialog = document.getElementById("contextDialog");
 const contextDialogClose = document.getElementById("contextDialogClose");
 const contextDialogKicker = document.getElementById("contextDialogKicker");
@@ -146,9 +146,9 @@ const INVIDIOUS_SEARCH_ENDPOINTS = [
   "https://yt.chocolatemoo53.com/api/v1/search",
   "https://invidious.tiekoetter.com/api/v1/search"
 ];
-const YOUTUBE_RESOLUTION_STORAGE_PREFIX = "player-musical-yt-v47:";
+const YOUTUBE_RESOLUTION_STORAGE_PREFIX = "player-musical-yt-v48:";
 const LYRICS_ID_STORAGE_PREFIX = "player-musical-lrclib-v1:";
-const LRCLIB_CLIENT_HEADER = "Player Musical 800-2026 v6.7.0 (https://ttamosauskas.github.io/play-history/)";
+const LRCLIB_CLIENT_HEADER = "Player Musical 800-2026 v6.22.0 (https://ttamosauskas.github.io/play-history/)";
 let externalLinkRenderToken = 0;
 let contextRenderToken = 0;
 let yearInputTimer = null;

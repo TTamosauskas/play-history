@@ -174,6 +174,31 @@ function renderArtwork(track){
 
     artImg.onload = () => {
       if (token !== artworkRenderToken) return;
+      const source = String(artImg.currentSrc || artImg.src || "");
+      const youtubeUnavailablePlaceholder = /(?:^|\/)i\.ytimg\.com\//i.test(source)
+        && artImg.naturalWidth <= 160
+        && artImg.naturalHeight <= 120;
+      if (youtubeUnavailablePlaceholder){
+        art.classList.remove("has-image");
+        // maxresdefault may be absent even for a healthy upload. Treat the ID as
+        // failed only when hqdefault also returns YouTube's 120x90 placeholder.
+        const definitiveYoutubeFailure = /\/hqdefault\.jpg(?:$|[?#])/i.test(source);
+        const failedId = definitiveYoutubeFailure ? track.youtubeId : null;
+        if (failedId && !failedYoutubeIds.has(failedId)){
+          failedYoutubeIds.add(failedId);
+          clearCachedYoutubeIdForTrack(track);
+          artworkCache.delete(trackIdentity(track));
+          if (typeof recoverTrackVideo === "function"){
+            recoverTrackVideo(track, failedId).then(replacementId => {
+              if (token !== artworkRenderToken || !replacementId) return;
+              artworkCache.delete(trackIdentity(track));
+              renderArtwork(track);
+            }).catch(() => {});
+          }
+        }
+        loadNextCandidate();
+        return;
+      }
       art.classList.add("has-image");
     };
     artImg.onerror = () => {
