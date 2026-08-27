@@ -1,0 +1,722 @@
+[
+  {
+    "year": 2010,
+    "artist": "Bruno Mars",
+    "title": "The Lazy Song",
+    "youtubeId": "fLexgOxsZu0",
+    "albumTitle": "Doo-Wops & Hooligans",
+    "artworkUrl": "https://i.ytimg.com/vi/fLexgOxsZu0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Lazy Song",
+    "wikipediaArtistTermPt": "Bruno Mars",
+    "wikipediaArtistTermEn": "Bruno Mars",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Reggae-pop", "en": "Reggae fusion"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Curadoria 2010s: Reggae-pop / Música pop."
+  },
+  {
+    "year": 2010,
+    "artist": "CeeLo Green",
+    "title": "Fuck You",
+    "youtubeId": "pc0mxOXbWIU",
+    "albumTitle": "The Lady Killer",
+    "artworkUrl": "https://i.ytimg.com/vi/pc0mxOXbWIU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Fuck You! (CeeLo Green song)",
+    "wikipediaArtistTermPt": "CeeLo Green",
+    "wikipediaArtistTermEn": "CeeLo Green",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Soul music", "en": "Soul music"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Curadoria 2010s: Soul music / Música pop."
+  },
+  {
+    "year": 2010,
+    "artist": "David Guetta feat. Rihanna",
+    "title": "Who's That Chick?",
+    "youtubeId": "BOdmf4N5aPE",
+    "albumTitle": "One More Love",
+    "artworkUrl": "https://i.ytimg.com/vi/BOdmf4N5aPE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Who's That Chick?",
+    "wikipediaArtistTermPt": "David Guetta",
+    "wikipediaArtistTermEn": "David Guetta",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"},
+      {"kind": "genre", "pt": "Música eletrônica de dança", "en": "Electronic dance music"}
+    ],
+    "basis": "Curadoria 2010s: Dance-pop / Música eletrônica de dança."
+  },
+  {
+    "year": 2010,
+    "artist": "Flo Rida feat. David Guetta",
+    "title": "Club Can't Handle Me",
+    "youtubeId": "SgM3r8xKfGE",
+    "albumTitle": "Only One Flo (Part 1)",
+    "artworkUrl": "https://i.ytimg.com/vi/SgM3r8xKfGE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Club Can't Handle Me",
+    "wikipediaArtistTermPt": "Flo Rida",
+    "wikipediaArtistTermEn": "Flo Rida",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"},
+      {"kind": "genre", "pt": "Música eletrônica de dança", "en": "Electronic dance music"}
+    ],
+    "basis": "Curadoria 2010s: Dance-pop / Música eletrônica de dança."
+  },
+  {
+    "year": 2010,
+    "artist": "Justin Bieber feat. Ludacris",
+    "title": "Baby",
+    "youtubeId": "kffacxfA7G4",
+    "albumTitle": "My World 2.0",
+    "artworkUrl": "https://i.ytimg.com/vi/kffacxfA7G4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Baby (Justin Bieber song)",
+    "wikipediaArtistTermPt": "Justin Bieber",
+    "wikipediaArtistTermEn": "Justin Bieber",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Teen pop", "en": "Teen pop"},
+      {"kind": "subgenre", "pt": "Pop rap", "en": "Pop rap"}
+    ],
+    "basis": "Curadoria 2010s: Teen pop / Pop rap."
+  },
+  {
+    "year": 2010,
+    "artist": "Katy Perry",
+    "title": "Firework",
+    "youtubeId": "QGJuMBdaqIw",
+    "albumTitle": "Teenage Dream",
+    "artworkUrl": "https://i.ytimg.com/vi/QGJuMBdaqIw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Firework (song)",
+    "wikipediaArtistTermPt": "Katy Perry",
+    "wikipediaArtistTermEn": "Katy Perry",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"}
+    ],
+    "basis": "Curadoria 2010s: Dance-pop."
+  },
+  {
+    "year": 2010,
+    "artist": "Katy Perry feat. Snoop Dogg",
+    "title": "California Gurls",
+    "youtubeId": "F57P9C4SAW4",
+    "albumTitle": "Teenage Dream",
+    "artworkUrl": "https://i.ytimg.com/vi/F57P9C4SAW4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "California Gurls",
+    "wikipediaArtistTermPt": "Katy Perry",
+    "wikipediaArtistTermEn": "Katy Perry",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Curadoria 2010s: Electropop."
+  },
+  {
+    "year": 2010,
+    "artist": "Skrillex",
+    "title": "Kill Everybody",
+    "youtubeId": "F21aifX0lZY",
+    "albumTitle": "Scary Monsters and Nice Sprites",
+    "artworkUrl": "https://i.ytimg.com/vi/F21aifX0lZY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Kill Everybody",
+    "wikipediaArtistTermPt": "Skrillex",
+    "wikipediaArtistTermEn": "Skrillex",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dubstep", "en": "Dubstep"}
+    ],
+    "basis": "Curadoria 2010s: Dubstep."
+  },
+  {
+    "year": 2010,
+    "artist": "Skrillex",
+    "title": "Scary Monsters and Nice Sprites",
+    "youtubeId": "WSeNSzJ2-Jw",
+    "albumTitle": "Scary Monsters and Nice Sprites",
+    "artworkUrl": "https://i.ytimg.com/vi/WSeNSzJ2-Jw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Scary Monsters and Nice Sprites",
+    "wikipediaArtistTermPt": "Skrillex",
+    "wikipediaArtistTermEn": "Skrillex",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dubstep", "en": "Dubstep"}
+    ],
+    "basis": "Curadoria 2010s: Dubstep."
+  },
+  {
+    "year": 2010,
+    "artist": "Tony Igy",
+    "title": "Astronomia",
+    "youtubeId": "VlLkvvRCSWk",
+    "albumTitle": "Astronomia",
+    "artworkUrl": "https://i.ytimg.com/vi/VlLkvvRCSWk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Astronomia (song)",
+    "wikipediaArtistTermPt": "Tony Igy",
+    "wikipediaArtistTermEn": "Tony Igy",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Progressive house", "en": "Progressive house"},
+      {"kind": "subgenre", "pt": "Electro house", "en": "Electro house"}
+    ],
+    "basis": "Curadoria 2010s: Progressive house / Electro house."
+  },
+  {
+    "year": 2010,
+    "artist": "Usher feat. Pitbull",
+    "title": "DJ Got Us Fallin' in Love",
+    "youtubeId": "C-dvTjK_07c",
+    "albumTitle": "Versus",
+    "artworkUrl": "https://i.ytimg.com/vi/C-dvTjK_07c/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "DJ Got Us Fallin' in Love",
+    "wikipediaArtistTermPt": "Usher",
+    "wikipediaArtistTermEn": "Usher",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dance-pop", "en": "Dance-pop"}
+    ],
+    "basis": "Curadoria 2010s: Dance-pop."
+  },
+  {
+    "year": 2011,
+    "artist": "Avicii",
+    "title": "Levels",
+    "youtubeId": "_ovdm2yX4MA",
+    "albumTitle": "Levels",
+    "artworkUrl": "https://i.ytimg.com/vi/_ovdm2yX4MA/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Levels (Avicii song)",
+    "wikipediaArtistTermPt": "Avicii",
+    "wikipediaArtistTermEn": "Avicii",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Progressive house", "en": "Progressive house"}
+    ],
+    "basis": "Curadoria 2010s: Progressive house."
+  },
+  {
+    "year": 2011,
+    "artist": "Calvin Harris",
+    "title": "Feel So Close",
+    "youtubeId": "dGghkjpNCQ8",
+    "albumTitle": "18 Months",
+    "artworkUrl": "https://i.ytimg.com/vi/dGghkjpNCQ8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Feel So Close",
+    "wikipediaArtistTermPt": "Calvin Harris",
+    "wikipediaArtistTermEn": "Calvin Harris",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Electro house", "en": "Electro house"}
+    ],
+    "basis": "Curadoria 2010s: Electro house."
+  },
+  {
+    "year": 2011,
+    "artist": "Hot Chelle Rae",
+    "title": "Tonight Tonight",
+    "youtubeId": "QzlNFcT2aOE",
+    "albumTitle": "Whatever",
+    "artworkUrl": "https://i.ytimg.com/vi/QzlNFcT2aOE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Tonight Tonight (Hot Chelle Rae song)",
+    "wikipediaArtistTermPt": "Hot Chelle Rae",
+    "wikipediaArtistTermEn": "Hot Chelle Rae",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Curadoria 2010s: Pop rock."
+  },
+  {
+    "year": 2011,
+    "artist": "Jessie J feat. B.o.B",
+    "title": "Price Tag",
+    "youtubeId": "qMxX-QOV9tI",
+    "albumTitle": "Who You Are",
+    "artworkUrl": "https://i.ytimg.com/vi/qMxX-QOV9tI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Price Tag",
+    "wikipediaArtistTermPt": "Jessie J",
+    "wikipediaArtistTermEn": "Jessie J",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"},
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"}
+    ],
+    "basis": "Curadoria 2010s: Música pop / R&B contemporâneo."
+  },
+  {
+    "year": 2011,
+    "artist": "One Direction",
+    "title": "What Makes You Beautiful",
+    "youtubeId": "QJO3ROT-A4E",
+    "albumTitle": "Up All Night",
+    "artworkUrl": "https://i.ytimg.com/vi/QJO3ROT-A4E/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "What Makes You Beautiful",
+    "wikipediaArtistTermPt": "One Direction",
+    "wikipediaArtistTermEn": "One Direction",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Teen pop", "en": "Teen pop"}
+    ],
+    "basis": "Curadoria 2010s: Teen pop."
+  },
+  {
+    "year": 2011,
+    "artist": "Skrillex",
+    "title": "Bangarang",
+    "youtubeId": "YJVmu6yttiw",
+    "albumTitle": "Bangarang",
+    "artworkUrl": "https://i.ytimg.com/vi/YJVmu6yttiw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bangarang (song)",
+    "wikipediaArtistTermPt": "Skrillex",
+    "wikipediaArtistTermEn": "Skrillex",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Dubstep", "en": "Dubstep"}
+    ],
+    "basis": "Curadoria 2010s: Dubstep."
+  },
+  {
+    "year": 2011,
+    "artist": "fun. feat. Janelle Monáe",
+    "title": "We Are Young",
+    "youtubeId": "Sv6dMFF_yts",
+    "albumTitle": "Some Nights",
+    "artworkUrl": "https://i.ytimg.com/vi/Sv6dMFF_yts/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "We Are Young",
+    "wikipediaArtistTermPt": "fun.",
+    "wikipediaArtistTermEn": "fun.",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Indie pop", "en": "Indie pop"}
+    ],
+    "basis": "Curadoria 2010s: Indie pop."
+  },
+  {
+    "year": 2012,
+    "artist": "Baauer",
+    "title": "Harlem Shake",
+    "youtubeId": "qV0LHCHf-pE",
+    "albumTitle": "Harlem Shake",
+    "artworkUrl": "https://i.ytimg.com/vi/qV0LHCHf-pE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Harlem Shake (song)",
+    "wikipediaArtistTermPt": "Baauer",
+    "wikipediaArtistTermEn": "Baauer",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Trap", "en": "Trap music"},
+      {"kind": "genre", "pt": "Bass music", "en": "Bass music"}
+    ],
+    "basis": "Curadoria 2010s: Trap / Bass music."
+  },
+  {
+    "year": 2012,
+    "artist": "Olly Murs feat. Flo Rida",
+    "title": "Troublemaker",
+    "youtubeId": "4aQDOUbErNg",
+    "albumTitle": "Right Place Right Time",
+    "artworkUrl": "https://i.ytimg.com/vi/4aQDOUbErNg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Troublemaker (Olly Murs song)",
+    "wikipediaArtistTermPt": "Olly Murs",
+    "wikipediaArtistTermEn": "Olly Murs",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Curadoria 2010s: Música pop."
+  },
+  {
+    "year": 2012,
+    "artist": "P!nk feat. Nate Ruess",
+    "title": "Just Give Me a Reason",
+    "youtubeId": "OpQFFLBMEPI",
+    "albumTitle": "The Truth About Love",
+    "artworkUrl": "https://i.ytimg.com/vi/OpQFFLBMEPI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Just Give Me a Reason",
+    "wikipediaArtistTermPt": "Pink (cantora)",
+    "wikipediaArtistTermEn": "Pink (singer)",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ],
+    "basis": "Curadoria 2010s: Pop rock."
+  },
+  {
+    "year": 2012,
+    "artist": "Swedish House Mafia feat. John Martin",
+    "title": "Don't You Worry Child",
+    "youtubeId": "1y6smkh6c-0",
+    "albumTitle": "Until Now",
+    "artworkUrl": "https://i.ytimg.com/vi/1y6smkh6c-0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Don't You Worry Child",
+    "wikipediaArtistTermPt": "Swedish House Mafia",
+    "wikipediaArtistTermEn": "Swedish House Mafia",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Progressive house", "en": "Progressive house"}
+    ],
+    "basis": "Curadoria 2010s: Progressive house."
+  },
+  {
+    "year": 2013,
+    "artist": "Bastille",
+    "title": "Pompeii",
+    "youtubeId": "F90Cw4l-8NY",
+    "albumTitle": "Bad Blood",
+    "artworkUrl": "https://i.ytimg.com/vi/F90Cw4l-8NY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Pompeii (Bastille song)",
+    "wikipediaArtistTermPt": "Bastille",
+    "wikipediaArtistTermEn": "Bastille (band)",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Indie pop", "en": "Indie pop"}
+    ],
+    "basis": "Curadoria 2010s: Indie pop."
+  },
+  {
+    "year": 2013,
+    "artist": "DJ Snake & Lil Jon",
+    "title": "Turn Down for What",
+    "youtubeId": "HMUDVMiITOU",
+    "albumTitle": "Turn Down for What",
+    "artworkUrl": "https://i.ytimg.com/vi/HMUDVMiITOU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Turn Down for What",
+    "wikipediaArtistTermPt": "DJ Snake",
+    "wikipediaArtistTermEn": "DJ Snake",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Trap", "en": "Trap music"}
+    ],
+    "basis": "Curadoria 2010s: Trap."
+  },
+  {
+    "year": 2013,
+    "artist": "Karmin",
+    "title": "Acapella",
+    "youtubeId": "KJWJfRAGnHc",
+    "albumTitle": "Pulses",
+    "artworkUrl": "https://i.ytimg.com/vi/KJWJfRAGnHc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Acapella (Karmin song)",
+    "wikipediaArtistTermPt": "Karmin",
+    "wikipediaArtistTermEn": "Karmin",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Curadoria 2010s: Música pop."
+  },
+  {
+    "year": 2013,
+    "artist": "Robin Thicke feat. T.I. & Pharrell",
+    "title": "Blurred Lines",
+    "youtubeId": "yyDUC1LUXSU",
+    "albumTitle": "Blurred Lines",
+    "artworkUrl": "https://i.ytimg.com/vi/yyDUC1LUXSU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Blurred Lines",
+    "wikipediaArtistTermPt": "Robin Thicke",
+    "wikipediaArtistTermEn": "Robin Thicke",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"},
+      {"kind": "genre", "pt": "Funk", "en": "Funk"}
+    ],
+    "basis": "Curadoria 2010s: R&B contemporâneo / Funk."
+  },
+  {
+    "year": 2013,
+    "artist": "Ylvis",
+    "title": "The Fox (What Does the Fox Say?)",
+    "youtubeId": "jofNR_WkoCE",
+    "albumTitle": "The Fox (What Does the Fox Say?)",
+    "artworkUrl": "https://i.ytimg.com/vi/jofNR_WkoCE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Fox (What Does the Fox Say?)",
+    "wikipediaArtistTermPt": "Ylvis",
+    "wikipediaArtistTermEn": "Ylvis",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Novelty song", "en": "Novelty song"},
+      {"kind": "genre", "pt": "Música eletrônica de dança", "en": "Electronic dance music"}
+    ],
+    "basis": "Curadoria 2010s: Novelty song / Música eletrônica de dança."
+  },
+  {
+    "year": 2014,
+    "artist": "Jason Derulo feat. Snoop Dogg",
+    "title": "Wiggle",
+    "youtubeId": "hiP14ED28CA",
+    "albumTitle": "Talk Dirty",
+    "artworkUrl": "https://i.ytimg.com/vi/hiP14ED28CA/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Wiggle (song)",
+    "wikipediaArtistTermPt": "Jason Derulo",
+    "wikipediaArtistTermEn": "Jason Derulo",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop rap", "en": "Pop rap"}
+    ],
+    "basis": "Curadoria 2010s: Pop rap."
+  },
+  {
+    "year": 2014,
+    "artist": "Jessie J, Ariana Grande & Nicki Minaj",
+    "title": "Bang Bang",
+    "youtubeId": "0HDdjwpPM3Y",
+    "albumTitle": "Sweet Talker",
+    "artworkUrl": "https://i.ytimg.com/vi/0HDdjwpPM3Y/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bang Bang (Jessie J, Ariana Grande and Nicki Minaj song)",
+    "wikipediaArtistTermPt": "Jessie J",
+    "wikipediaArtistTermEn": "Jessie J",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Curadoria 2010s: Música pop."
+  },
+  {
+    "year": 2015,
+    "artist": "Charlie Puth feat. Meghan Trainor",
+    "title": "Marvin Gaye",
+    "youtubeId": "igNVdlXhKcI",
+    "albumTitle": "Nine Track Mind",
+    "artworkUrl": "https://i.ytimg.com/vi/igNVdlXhKcI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Marvin Gaye (song)",
+    "wikipediaArtistTermPt": "Charlie Puth",
+    "wikipediaArtistTermEn": "Charlie Puth",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop soul", "en": "Pop soul"}
+    ],
+    "basis": "Curadoria 2010s: Pop soul."
+  },
+  {
+    "year": 2015,
+    "artist": "Justin Bieber",
+    "title": "Love Yourself",
+    "youtubeId": "oyEuk8j8imI",
+    "albumTitle": "Purpose",
+    "artworkUrl": "https://i.ytimg.com/vi/oyEuk8j8imI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Love Yourself",
+    "wikipediaArtistTermPt": "Justin Bieber",
+    "wikipediaArtistTermEn": "Justin Bieber",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Música acústica", "en": "Acoustic music"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Curadoria 2010s: Música acústica / Música pop."
+  },
+  {
+    "year": 2015,
+    "artist": "Justin Bieber",
+    "title": "What Do You Mean?",
+    "youtubeId": "DK_0jXPuIr0",
+    "albumTitle": "Purpose",
+    "artworkUrl": "https://i.ytimg.com/vi/DK_0jXPuIr0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "What Do You Mean?",
+    "wikipediaArtistTermPt": "Justin Bieber",
+    "wikipediaArtistTermEn": "Justin Bieber",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Tropical house", "en": "Tropical house"}
+    ],
+    "basis": "Curadoria 2010s: Tropical house."
+  },
+  {
+    "year": 2015,
+    "artist": "Silentó",
+    "title": "Watch Me (Whip/Nae Nae)",
+    "youtubeId": "vjW8wmF5VWc",
+    "albumTitle": "Watch Me (Whip / Nae Nae)",
+    "artworkUrl": "https://i.ytimg.com/vi/vjW8wmF5VWc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Watch Me (Whip/Nae Nae)",
+    "wikipediaArtistTermPt": "Silentó",
+    "wikipediaArtistTermEn": "Silentó",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Hip hop", "en": "Hip hop music"},
+      {"kind": "genre", "pt": "Dance music", "en": "Dance music"}
+    ],
+    "basis": "Curadoria 2010s: Hip hop / Dance music."
+  },
+  {
+    "year": 2015,
+    "artist": "Wiz Khalifa feat. Charlie Puth",
+    "title": "See You Again",
+    "youtubeId": "RgKAFK5djSk",
+    "albumTitle": "Furious 7: Original Motion Picture Soundtrack",
+    "artworkUrl": "https://i.ytimg.com/vi/RgKAFK5djSk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "See You Again (Wiz Khalifa song)",
+    "wikipediaArtistTermPt": "Wiz Khalifa",
+    "wikipediaArtistTermEn": "Wiz Khalifa",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Pop rap", "en": "Pop rap"}
+    ],
+    "basis": "Curadoria 2010s: Pop rap."
+  },
+  {
+    "year": 2016,
+    "artist": "Ariana Grande feat. Nicki Minaj",
+    "title": "Side to Side",
+    "youtubeId": "SXiSVQZLje8",
+    "albumTitle": "Dangerous Woman",
+    "artworkUrl": "https://i.ytimg.com/vi/SXiSVQZLje8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Side to Side",
+    "wikipediaArtistTermPt": "Ariana Grande",
+    "wikipediaArtistTermEn": "Ariana Grande",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Reggae-pop", "en": "Reggae fusion"}
+    ],
+    "basis": "Curadoria 2010s: Reggae-pop."
+  },
+  {
+    "year": 2016,
+    "artist": "Pinkfong",
+    "title": "Baby Shark",
+    "youtubeId": "XqZsoesa55w",
+    "albumTitle": "Pinkfong Animal Songs",
+    "artworkUrl": "https://i.ytimg.com/vi/XqZsoesa55w/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Baby Shark",
+    "wikipediaArtistTermPt": "Pinkfong",
+    "wikipediaArtistTermEn": "Pinkfong",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Música infantil", "en": "Children's music"}
+    ],
+    "basis": "Curadoria 2010s: Música infantil."
+  },
+  {
+    "year": 2016,
+    "artist": "Radiohead",
+    "title": "True Love Waits",
+    "youtubeId": "02nS2EC35go",
+    "albumTitle": "A Moon Shaped Pool",
+    "artworkUrl": "https://i.ytimg.com/vi/02nS2EC35go/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "True Love Waits",
+    "wikipediaArtistTermPt": "Radiohead",
+    "wikipediaArtistTermEn": "Radiohead",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Art rock", "en": "Art rock"}
+    ],
+    "basis": "Curadoria 2010s: Art rock."
+  },
+  {
+    "year": 2016,
+    "artist": "The Weeknd feat. Daft Punk",
+    "title": "I Feel It Coming",
+    "youtubeId": "qFLhGq0060w",
+    "albumTitle": "Starboy",
+    "artworkUrl": "https://i.ytimg.com/vi/qFLhGq0060w/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "I Feel It Coming",
+    "wikipediaArtistTermPt": "The Weeknd",
+    "wikipediaArtistTermEn": "The Weeknd",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "R&B contemporâneo", "en": "Contemporary R&B"},
+      {"kind": "genre", "pt": "Música disco", "en": "Disco"}
+    ],
+    "basis": "Curadoria 2010s: R&B contemporâneo / Música disco."
+  },
+  {
+    "year": 2017,
+    "artist": "BTS",
+    "title": "DNA",
+    "youtubeId": "MBdVXkSdhwU",
+    "albumTitle": "Love Yourself: Her",
+    "artworkUrl": "https://i.ytimg.com/vi/MBdVXkSdhwU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "DNA (BTS song)",
+    "wikipediaArtistTermPt": "BTS",
+    "wikipediaArtistTermEn": "BTS",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "genre", "pt": "Música eletrônica de dança", "en": "Electronic dance music"}
+    ],
+    "basis": "Curadoria 2010s: K-pop / Música eletrônica de dança."
+  },
+  {
+    "year": 2017,
+    "artist": "BTS",
+    "title": "MIC Drop (Steve Aoki Remix)",
+    "youtubeId": "kTlv5_Bs8aw",
+    "albumTitle": "MIC Drop (Steve Aoki Remix)",
+    "artworkUrl": "https://i.ytimg.com/vi/kTlv5_Bs8aw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "MIC Drop",
+    "wikipediaArtistTermPt": "BTS",
+    "wikipediaArtistTermEn": "BTS",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "K-pop", "en": "K-pop"},
+      {"kind": "genre", "pt": "Hip hop", "en": "Hip hop music"}
+    ],
+    "basis": "Curadoria 2010s: K-pop / Hip hop."
+  },
+  {
+    "year": 2017,
+    "artist": "Ed Sheeran",
+    "title": "Perfect",
+    "youtubeId": "2Vv-BfVoq4g",
+    "albumTitle": "÷",
+    "artworkUrl": "https://i.ytimg.com/vi/2Vv-BfVoq4g/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Perfect (Ed Sheeran song)",
+    "wikipediaArtistTermPt": "Ed Sheeran",
+    "wikipediaArtistTermEn": "Ed Sheeran",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Balada", "en": "Ballad"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Curadoria 2010s: Balada / Música pop."
+  },
+  {
+    "year": 2018,
+    "artist": "Maroon 5 feat. Cardi B",
+    "title": "Girls Like You",
+    "youtubeId": "aJOTlE1K90k",
+    "albumTitle": "Red Pill Blues",
+    "artworkUrl": "https://i.ytimg.com/vi/aJOTlE1K90k/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Girls Like You",
+    "wikipediaArtistTermPt": "Maroon 5",
+    "wikipediaArtistTermEn": "Maroon 5",
+    "contextWikiTargets": [
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ],
+    "basis": "Curadoria 2010s: Música pop."
+  },
+  {
+    "year": 2019,
+    "artist": "Taylor Swift",
+    "title": "Cruel Summer",
+    "youtubeId": "ic8j13piAhQ",
+    "albumTitle": "Lover",
+    "artworkUrl": "https://i.ytimg.com/vi/ic8j13piAhQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Cruel Summer (Taylor Swift song)",
+    "wikipediaArtistTermPt": "Taylor Swift",
+    "wikipediaArtistTermEn": "Taylor Swift",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Synth-pop", "en": "Synth-pop"}
+    ],
+    "basis": "Curadoria 2010s: Synth-pop."
+  },
+  {
+    "year": 2019,
+    "artist": "Tones and I",
+    "title": "Dance Monkey",
+    "youtubeId": "q0hyYWKXF0Q",
+    "albumTitle": "The Kids Are Coming",
+    "artworkUrl": "https://i.ytimg.com/vi/q0hyYWKXF0Q/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Dance Monkey",
+    "wikipediaArtistTermPt": "Tones and I",
+    "wikipediaArtistTermEn": "Tones and I",
+    "contextWikiTargets": [
+      {"kind": "subgenre", "pt": "Electropop", "en": "Electropop"}
+    ],
+    "basis": "Curadoria 2010s: Electropop."
+  }
+]
