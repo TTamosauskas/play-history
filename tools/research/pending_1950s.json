@@ -1,0 +1,47 @@
+[
+  {
+    "seedYear": 1958,
+    "resolvedYear": 1958,
+    "artist": "Cootie Williams",
+    "title": "Swingin' Down the Lane",
+    "albumTitle": "Cootie Williams in Hi-Fi",
+    "status": "awaiting_exact_youtube_id",
+    "evidence": "Catálogo e discografia situam a gravação e a publicação em 1958; a mídia exata no YouTube ainda carece de identificação defensável."
+  },
+  {
+    "seedYear": 1954,
+    "resolvedYear": 1963,
+    "artist": "Milt Buckner",
+    "title": "Why Don't You Do Right?",
+    "albumTitle": "The New World of Milt Buckner",
+    "status": "awaiting_exact_youtube_id",
+    "evidence": "Sessão de 26 de novembro de 1962; primeira publicação comercial identificada em 1963. A execução exata no YouTube permanece sem identificação segura."
+  },
+  {
+    "seedYear": 1953,
+    "resolvedYear": 1970,
+    "artist": "Peggy Lee",
+    "title": "The Thrill Is Gone (From Yesterday's Kiss)",
+    "albumTitle": "Bridge Over Troubled Water",
+    "status": "awaiting_exact_youtube_id",
+    "evidence": "A gravação selecionada pertence às sessões e à edição de Bridge Over Troubled Water, de 1970; falta um YouTube ID exato verificável."
+  },
+  {
+    "seedYear": 1959,
+    "resolvedYear": 1966,
+    "artist": "Johnny Gibbs & His Orchestra",
+    "title": "Mack the Knife",
+    "albumTitle": "Down Memory Lane",
+    "status": "awaiting_exact_youtube_id",
+    "evidence": "A edição comercial selecionada foi situada em 1966; falta uma execução exata e verificável no YouTube."
+  },
+  {
+    "seedYear": 1957,
+    "resolvedYear": 1990,
+    "artist": "Wild Bill Davison, Jim Beebe, Barney Bigard, Art Hodes, Eddie Condon, Gene Schroeder & Eddie Phyfe",
+    "title": "Tin Roof Blues",
+    "albumTitle": "Stars of Jazz, Vol. 1",
+    "status": "awaiting_exact_youtube_id",
+    "evidence": "A gravação do conjunto all-star foi associada à edição comercial Stars of Jazz, Vol. 1, de 1990; o YouTube exato ainda carece de evidência suficiente."
+  }
+]
