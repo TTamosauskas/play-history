@@ -1,0 +1,609 @@
+[
+  {
+    "year": 1970,
+    "artist": "Alice Cooper",
+    "title": "I'm Eighteen",
+    "youtubeId": "m5ZL94cdiuU",
+    "albumTitle": "Love It to Death",
+    "artworkUrl": "https://i.ytimg.com/vi/m5ZL94cdiuU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "I'm Eighteen",
+    "wikipediaArtistTermPt": "Alice Cooper",
+    "wikipediaArtistTermEn": "Alice Cooper",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Hard rock","en":"Hard rock"},
+      {"kind":"subgenre","pt":"Garage rock","en":"Garage rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1970,
+    "artist": "Black Sabbath",
+    "title": "Iron Man",
+    "youtubeId": "abPZE62Jcng",
+    "albumTitle": "Paranoid",
+    "artworkUrl": "https://i.ytimg.com/vi/abPZE62Jcng/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Iron Man (song)",
+    "wikipediaArtistTermPt": "Black Sabbath",
+    "wikipediaArtistTermEn": "Black Sabbath",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Heavy metal","en":"Heavy metal"},
+      {"kind":"subgenre","pt":"Doom metal","en":"Doom metal"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1970,
+    "artist": "Black Sabbath",
+    "title": "N.I.B.",
+    "youtubeId": "l6ApPlp_uOc",
+    "albumTitle": "Black Sabbath",
+    "artworkUrl": "https://i.ytimg.com/vi/l6ApPlp_uOc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "N.I.B.",
+    "wikipediaArtistTermPt": "Black Sabbath",
+    "wikipediaArtistTermEn": "Black Sabbath",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Heavy metal","en":"Heavy metal"},
+      {"kind":"subgenre","pt":"Doom metal","en":"Doom metal"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1970,
+    "artist": "Santana",
+    "title": "Black Magic Woman",
+    "youtubeId": "9wT1s96JIb0",
+    "albumTitle": "Abraxas",
+    "artworkUrl": "https://i.ytimg.com/vi/9wT1s96JIb0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Black Magic Woman",
+    "wikipediaArtistTermPt": "Santana (band)",
+    "wikipediaArtistTermEn": "Santana (band)",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Rock latino","en":"Latin rock"},
+      {"kind":"subgenre","pt":"Blues rock","en":"Blues rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1970,
+    "artist": "T. Rex",
+    "title": "Ride a White Swan",
+    "youtubeId": "OG7ZU7PdGpk",
+    "albumTitle": "T. Rex",
+    "artworkUrl": "https://i.ytimg.com/vi/OG7ZU7PdGpk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Ride a White Swan",
+    "wikipediaArtistTermPt": "T. Rex",
+    "wikipediaArtistTermEn": "T. Rex",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Glam rock","en":"Glam rock"},
+      {"kind":"genre","pt":"Rock","en":"Rock music"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1971,
+    "artist": "Janis Joplin",
+    "title": "Me and Bobby McGee",
+    "youtubeId": "5Cg-j0X09Ag",
+    "albumTitle": "Pearl",
+    "artworkUrl": "https://i.ytimg.com/vi/5Cg-j0X09Ag/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Me and Bobby McGee",
+    "wikipediaArtistTermPt": "Janis Joplin",
+    "wikipediaArtistTermEn": "Janis Joplin",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Blues rock","en":"Blues rock"},
+      {"kind":"subgenre","pt":"Country rock","en":"Country rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1971,
+    "artist": "Led Zeppelin",
+    "title": "Rock and Roll",
+    "youtubeId": "D2lSwosw9xY",
+    "albumTitle": "Led Zeppelin IV",
+    "artworkUrl": "https://i.ytimg.com/vi/D2lSwosw9xY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Rock and Roll (Led Zeppelin song)",
+    "wikipediaArtistTermPt": "Led Zeppelin",
+    "wikipediaArtistTermEn": "Led Zeppelin",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Hard rock","en":"Hard rock"},
+      {"kind":"genre","pt":"Rock and roll","en":"Rock and roll"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1971,
+    "artist": "The Rolling Stones",
+    "title": "Brown Sugar",
+    "youtubeId": "Bar7SzNLnY0",
+    "albumTitle": "Sticky Fingers",
+    "artworkUrl": "https://i.ytimg.com/vi/Bar7SzNLnY0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Brown Sugar (Rolling Stones song)",
+    "wikipediaArtistTermPt": "The Rolling Stones",
+    "wikipediaArtistTermEn": "The Rolling Stones",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Blues rock","en":"Blues rock"},
+      {"kind":"genre","pt":"Rock and roll","en":"Rock and roll"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1971,
+    "artist": "The Rolling Stones",
+    "title": "Bitch",
+    "youtubeId": "jmISU2ZfUyc",
+    "albumTitle": "Sticky Fingers",
+    "artworkUrl": "https://i.ytimg.com/vi/jmISU2ZfUyc/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bitch (Rolling Stones song)",
+    "wikipediaArtistTermPt": "The Rolling Stones",
+    "wikipediaArtistTermEn": "The Rolling Stones",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Blues rock","en":"Blues rock"},
+      {"kind":"subgenre","pt":"Hard rock","en":"Hard rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1971,
+    "artist": "The Who",
+    "title": "Baba O'Riley",
+    "youtubeId": "QRTNm6GLJYI",
+    "albumTitle": "Who's Next",
+    "artworkUrl": "https://i.ytimg.com/vi/QRTNm6GLJYI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Baba O'Riley",
+    "wikipediaArtistTermPt": "The Who",
+    "wikipediaArtistTermEn": "The Who",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Hard rock","en":"Hard rock"},
+      {"kind":"subgenre","pt":"Progressive rock","en":"Progressive rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1972,
+    "artist": "Deep Purple",
+    "title": "Highway Star",
+    "youtubeId": "LBoHGatV5aQ",
+    "albumTitle": "Machine Head",
+    "artworkUrl": "https://i.ytimg.com/vi/LBoHGatV5aQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Highway Star",
+    "wikipediaArtistTermPt": "Deep Purple",
+    "wikipediaArtistTermEn": "Deep Purple",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Hard rock","en":"Hard rock"},
+      {"kind":"subgenre","pt":"Heavy metal","en":"Heavy metal"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1973,
+    "artist": "New York Dolls",
+    "title": "Bad Girl",
+    "youtubeId": "rFcT1q-_AcM",
+    "albumTitle": "New York Dolls",
+    "artworkUrl": "https://i.ytimg.com/vi/rFcT1q-_AcM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "New York Dolls (album)",
+    "wikipediaArtistTermPt": "New York Dolls",
+    "wikipediaArtistTermEn": "New York Dolls",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Glam rock","en":"Glam rock"},
+      {"kind":"subgenre","pt":"Proto-punk","en":"Proto-punk"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1973,
+    "artist": "Pink Floyd",
+    "title": "Money",
+    "youtubeId": "-0kcet4aPpQ",
+    "albumTitle": "The Dark Side of the Moon",
+    "artworkUrl": "https://i.ytimg.com/vi/-0kcet4aPpQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Money (Pink Floyd song)",
+    "wikipediaArtistTermPt": "Pink Floyd",
+    "wikipediaArtistTermEn": "Pink Floyd",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Progressive rock","en":"Progressive rock"},
+      {"kind":"subgenre","pt":"Blues rock","en":"Blues rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1974,
+    "artist": "Kraftwerk",
+    "title": "Autobahn",
+    "youtubeId": "vkOZNJYAZ7c",
+    "albumTitle": "Autobahn",
+    "artworkUrl": "https://i.ytimg.com/vi/vkOZNJYAZ7c/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Autobahn (song)",
+    "wikipediaArtistTermPt": "Kraftwerk",
+    "wikipediaArtistTermEn": "Kraftwerk",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Música eletrônica","en":"Electronic music"},
+      {"kind":"genre","pt":"Krautrock","en":"Krautrock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1974,
+    "artist": "Neil Sedaka",
+    "title": "Laughter in the Rain",
+    "youtubeId": "85yRvExHpRw",
+    "albumTitle": "Sedaka's Back",
+    "artworkUrl": "https://i.ytimg.com/vi/85yRvExHpRw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Laughter in the Rain",
+    "wikipediaArtistTermPt": "Neil Sedaka",
+    "wikipediaArtistTermEn": "Neil Sedaka",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Pop","en":"Pop music"},
+      {"kind":"subgenre","pt":"Soft rock","en":"Soft rock"}
+    ],
+    "basis": "Crédito corrigido de Neil Sekada para Neil Sedaka; ano e gravação definidos por pesquisa."
+  },
+  {
+    "year": 1975,
+    "artist": "Aerosmith",
+    "title": "Walk This Way",
+    "youtubeId": "4c8O2n1Gfto",
+    "albumTitle": "Toys in the Attic",
+    "artworkUrl": "https://i.ytimg.com/vi/4c8O2n1Gfto/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Walk This Way",
+    "wikipediaArtistTermPt": "Aerosmith",
+    "wikipediaArtistTermEn": "Aerosmith",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Hard rock","en":"Hard rock"},
+      {"kind":"subgenre","pt":"Funk rock","en":"Funk rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1975,
+    "artist": "Bruce Springsteen",
+    "title": "Jungleland",
+    "youtubeId": "l6IwxpL-ZDk",
+    "albumTitle": "Born to Run",
+    "artworkUrl": "https://i.ytimg.com/vi/l6IwxpL-ZDk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Jungleland",
+    "wikipediaArtistTermPt": "Bruce Springsteen",
+    "wikipediaArtistTermEn": "Bruce Springsteen",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Heartland rock","en":"Heartland rock"},
+      {"kind":"genre","pt":"Rock","en":"Rock music"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1975,
+    "artist": "Kiss",
+    "title": "Rock and Roll All Nite",
+    "youtubeId": "vpdw3NSkaLY",
+    "albumTitle": "Dressed to Kill",
+    "artworkUrl": "https://i.ytimg.com/vi/vpdw3NSkaLY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Rock and Roll All Nite",
+    "wikipediaArtistTermPt": "Kiss (band)",
+    "wikipediaArtistTermEn": "Kiss (band)",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Hard rock","en":"Hard rock"},
+      {"kind":"subgenre","pt":"Arena rock","en":"Arena rock"}
+    ],
+    "basis": "Gravação de estúdio de Dressed to Kill, publicada em 1975, selecionada em vez da versão ao vivo posterior."
+  },
+  {
+    "year": 1975,
+    "artist": "Patti Smith",
+    "title": "Gloria",
+    "youtubeId": "bPO0bTaWcFQ",
+    "albumTitle": "Horses",
+    "artworkUrl": "https://i.ytimg.com/vi/bPO0bTaWcFQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Horses (album)",
+    "wikipediaArtistTermPt": "Patti Smith",
+    "wikipediaArtistTermEn": "Patti Smith",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Art rock","en":"Art rock"},
+      {"kind":"subgenre","pt":"Proto-punk","en":"Proto-punk"}
+    ],
+    "basis": "Gravação de Horses, lançada em 1975; mídia oficial selecionada para a versão curada."
+  },
+  {
+    "year": 1975,
+    "artist": "Peter Frampton",
+    "title": "Show Me the Way",
+    "youtubeId": "Qh4zqMMaRlA",
+    "albumTitle": "Frampton",
+    "artworkUrl": "https://i.ytimg.com/vi/Qh4zqMMaRlA/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Show Me the Way (Peter Frampton song)",
+    "wikipediaArtistTermPt": "Peter Frampton",
+    "wikipediaArtistTermEn": "Peter Frampton",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Arena rock","en":"Arena rock"},
+      {"kind":"subgenre","pt":"Soft rock","en":"Soft rock"}
+    ],
+    "basis": "Gravação de estúdio de Frampton, publicada em 1975, selecionada em vez da versão ao vivo de 1976."
+  },
+  {
+    "year": 1976,
+    "artist": "Ramones",
+    "title": "Let's Dance",
+    "youtubeId": "W3rynG8PF0I",
+    "albumTitle": "Ramones",
+    "artworkUrl": "https://i.ytimg.com/vi/W3rynG8PF0I/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Ramones (album)",
+    "wikipediaArtistTermPt": "Ramones",
+    "wikipediaArtistTermEn": "Ramones",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"},
+      {"kind":"genre","pt":"Rock and roll","en":"Rock and roll"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1976,
+    "artist": "Sex Pistols",
+    "title": "Anarchy in the U.K.",
+    "youtubeId": "q31WY0Aobro",
+    "albumTitle": "Never Mind the Bollocks, Here's the Sex Pistols",
+    "artworkUrl": "https://i.ytimg.com/vi/q31WY0Aobro/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Anarchy in the U.K.",
+    "wikipediaArtistTermPt": "Sex Pistols",
+    "wikipediaArtistTermEn": "Sex Pistols",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"}
+    ],
+    "basis": "Primeira publicação comercial como single em 1976; álbum posterior mantido para navegação."
+  },
+  {
+    "year": 1976,
+    "artist": "The Damned",
+    "title": "New Rose",
+    "youtubeId": "ug3RfquyZl0",
+    "albumTitle": "Damned Damned Damned",
+    "artworkUrl": "https://i.ytimg.com/vi/ug3RfquyZl0/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "New Rose",
+    "wikipediaArtistTermPt": "The Damned (band)",
+    "wikipediaArtistTermEn": "The Damned (band)",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"}
+    ],
+    "basis": "Primeira publicação comercial como single em 1976; mídia remasterizada preserva a gravação original."
+  },
+  {
+    "year": 1977,
+    "artist": "Eric Clapton",
+    "title": "Wonderful Tonight",
+    "youtubeId": "b78RfUCw_fU",
+    "albumTitle": "Slowhand",
+    "artworkUrl": "https://i.ytimg.com/vi/b78RfUCw_fU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Wonderful Tonight",
+    "wikipediaArtistTermPt": "Eric Clapton",
+    "wikipediaArtistTermEn": "Eric Clapton",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Soft rock","en":"Soft rock"},
+      {"kind":"subgenre","pt":"Blues rock","en":"Blues rock"}
+    ],
+    "basis": "Fonograma de Slowhand, publicado em 1977, selecionado em vez de execuções ao vivo posteriores."
+  },
+  {
+    "year": 1977,
+    "artist": "Ramones",
+    "title": "Sheena Is a Punk Rocker",
+    "youtubeId": "yCW7Aw8ugOI",
+    "albumTitle": "Rocket to Russia",
+    "artworkUrl": "https://i.ytimg.com/vi/yCW7Aw8ugOI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Sheena Is a Punk Rocker",
+    "wikipediaArtistTermPt": "Ramones",
+    "wikipediaArtistTermEn": "Ramones",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"},
+      {"kind":"subgenre","pt":"Pop-punk","en":"Pop-punk"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1977,
+    "artist": "Sex Pistols",
+    "title": "Pretty Vacant",
+    "youtubeId": "R6GDdKrQ8EI",
+    "albumTitle": "Never Mind the Bollocks, Here's the Sex Pistols",
+    "artworkUrl": "https://i.ytimg.com/vi/R6GDdKrQ8EI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Pretty Vacant",
+    "wikipediaArtistTermPt": "Sex Pistols",
+    "wikipediaArtistTermEn": "Sex Pistols",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1977,
+    "artist": "Sex Pistols",
+    "title": "Seventeen",
+    "youtubeId": "S-iO0R7hi8c",
+    "albumTitle": "Never Mind the Bollocks, Here's the Sex Pistols",
+    "artworkUrl": "https://i.ytimg.com/vi/S-iO0R7hi8c/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Never Mind the Bollocks, Here's the Sex Pistols",
+    "wikipediaArtistTermPt": "Sex Pistols",
+    "wikipediaArtistTermEn": "Sex Pistols",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"}
+    ],
+    "basis": "Faixa do álbum de 1977; mídia oficial remasterizada preserva a gravação do álbum."
+  },
+  {
+    "year": 1977,
+    "artist": "Bee Gees",
+    "title": "Night Fever",
+    "youtubeId": "-ihs-vT9T3Q",
+    "albumTitle": "Saturday Night Fever",
+    "artworkUrl": "https://i.ytimg.com/vi/-ihs-vT9T3Q/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Night Fever",
+    "wikipediaArtistTermPt": "Bee Gees",
+    "wikipediaArtistTermEn": "Bee Gees",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Disco","en":"Disco"},
+      {"kind":"genre","pt":"Pop","en":"Pop music"}
+    ],
+    "basis": "Ano corrigido de 1978 para 1977: a gravação já integrava a trilha Saturday Night Fever publicada em 1977."
+  },
+  {
+    "year": 1978,
+    "artist": "Blondie",
+    "title": "One Way or Another",
+    "youtubeId": "_zBwRDEFMRY",
+    "albumTitle": "Parallel Lines",
+    "artworkUrl": "https://i.ytimg.com/vi/_zBwRDEFMRY/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "One Way or Another",
+    "wikipediaArtistTermPt": "Blondie (band)",
+    "wikipediaArtistTermEn": "Blondie (band)",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"New wave","en":"New wave music"},
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"}
+    ],
+    "basis": "Título normalizado; primeira publicação da gravação em Parallel Lines, de 1978."
+  },
+  {
+    "year": 1978,
+    "artist": "Elvis Costello & The Attractions",
+    "title": "Radio, Radio",
+    "youtubeId": "eifljYPFW-E",
+    "albumTitle": "This Year's Model",
+    "artworkUrl": "https://i.ytimg.com/vi/eifljYPFW-E/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Radio Radio",
+    "wikipediaArtistTermPt": "Elvis Costello",
+    "wikipediaArtistTermEn": "Elvis Costello",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"New wave","en":"New wave music"},
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"}
+    ],
+    "basis": "Crédito canônico com The Attractions; vídeo oficial identificado como fonograma de 1978."
+  },
+  {
+    "year": 1978,
+    "artist": "Motörhead",
+    "title": "Louie Louie",
+    "youtubeId": "iMwRUKKGbYU",
+    "albumTitle": "Louie Louie",
+    "artworkUrl": "https://i.ytimg.com/vi/iMwRUKKGbYU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Louie Louie",
+    "wikipediaArtistTermPt": "Motörhead",
+    "wikipediaArtistTermEn": "Motörhead",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Hard rock","en":"Hard rock"},
+      {"kind":"subgenre","pt":"Heavy metal","en":"Heavy metal"}
+    ],
+    "basis": "Crédito normalizado para Motörhead; fonograma ℗1978 e primeira edição comercial como single em 1978."
+  },
+  {
+    "year": 1978,
+    "artist": "The Clash",
+    "title": "Tommy Gun",
+    "youtubeId": "bFHEuKkTa5k",
+    "albumTitle": "Give 'Em Enough Rope",
+    "artworkUrl": "https://i.ytimg.com/vi/bFHEuKkTa5k/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Tommy Gun (song)",
+    "wikipediaArtistTermPt": "The Clash",
+    "wikipediaArtistTermEn": "The Clash",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"}
+    ],
+    "basis": "Ano, crédito e gravação definidos por pesquisa; mídia selecionada corresponde à gravação curada."
+  },
+  {
+    "year": 1978,
+    "artist": "The Cure",
+    "title": "Killing an Arab",
+    "youtubeId": "ZMqPlQgHww8",
+    "albumTitle": "Killing an Arab",
+    "artworkUrl": "https://i.ytimg.com/vi/ZMqPlQgHww8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Killing an Arab",
+    "wikipediaArtistTermPt": "The Cure",
+    "wikipediaArtistTermEn": "The Cure",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Post-punk","en":"Post-punk"},
+      {"kind":"subgenre","pt":"New wave","en":"New wave music"}
+    ],
+    "basis": "Primeiro single do The Cure, publicado em dezembro de 1978; vídeo oficial selecionado."
+  },
+  {
+    "year": 1979,
+    "artist": "Bauhaus",
+    "title": "Bela Lugosi's Dead",
+    "youtubeId": "Yy9h2q_dr9k",
+    "albumTitle": "Bela Lugosi's Dead",
+    "artworkUrl": "https://i.ytimg.com/vi/Yy9h2q_dr9k/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bela Lugosi's Dead",
+    "wikipediaArtistTermPt": "Bauhaus (band)",
+    "wikipediaArtistTermEn": "Bauhaus (band)",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Rock gótico","en":"Gothic rock"},
+      {"kind":"subgenre","pt":"Post-punk","en":"Post-punk"}
+    ],
+    "basis": "Gravação histórica do single de 1979, disponibilizada pelo canal oficial em The Bela Session."
+  },
+  {
+    "year": 1979,
+    "artist": "Ramones",
+    "title": "Rock 'n' Roll High School",
+    "youtubeId": "oz7KYUkdlvE",
+    "albumTitle": "Rock 'n' Roll High School (Music from the Original Motion Picture Soundtrack)",
+    "artworkUrl": "https://i.ytimg.com/vi/oz7KYUkdlvE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Rock 'n' Roll High School (song)",
+    "wikipediaArtistTermPt": "Ramones",
+    "wikipediaArtistTermEn": "Ramones",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Punk rock","en":"Punk rock"},
+      {"kind":"genre","pt":"Rock and roll","en":"Rock and roll"}
+    ],
+    "basis": "Mantida em 1979 pela primeira publicação ligada ao filme e à trilha, anterior ao álbum End of the Century de 1980."
+  },
+  {
+    "year": 1979,
+    "artist": "The Cure",
+    "title": "Boys Don't Cry",
+    "youtubeId": "4KLVnmChtIE",
+    "albumTitle": "Boys Don't Cry",
+    "artworkUrl": "https://i.ytimg.com/vi/4KLVnmChtIE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Boys Don't Cry (The Cure song)",
+    "wikipediaArtistTermPt": "The Cure",
+    "wikipediaArtistTermEn": "The Cure",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Post-punk","en":"Post-punk"},
+      {"kind":"subgenre","pt":"New wave","en":"New wave music"}
+    ],
+    "basis": "Áudio oficial com fonograma ℗1979, escolhido em vez do videoclipe associado à regravação de 1986."
+  }
+]
