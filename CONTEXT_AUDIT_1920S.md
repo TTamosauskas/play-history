@@ -1,6 +1,6 @@
 # Contexto Audit — 1920s
 
-Status: curation complete; release integration in progress.
+Status: complete in v6.19.0.
 
 ## Inventory
 
@@ -20,6 +20,6 @@ The decade is covered by ten exact year+artist+title patch files. Primary target
 1. Ten per-year patch files cover all 62 identities exactly once. — complete
 2. No primary target remains in the strict generic-primary set. — complete
 3. Each row has a concise historical basis. — complete
-4. `python tools/audit_context_decade.py 1920 --validate-patches` passes. — CI gate enabled
-5. 1920s is wired into `tools/build.py` and `assets/catalog-runtime.js` only after curation is complete. — release gate in progress
-6. Existing 1930s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green. — regression gate enabled
+4. `python tools/audit_context_decade.py 1920 --validate-patches` passes. — complete
+5. 1920s is wired into `tools/build.py` and `assets/catalog-runtime.js` before 1930s. — complete
+6. Existing 1930s+ audits, modular build, JavaScript checks, smoke test and curated-build verification remain green. — complete
