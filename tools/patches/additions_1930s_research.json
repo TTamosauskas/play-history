@@ -1,0 +1,19 @@
+[
+  {
+    "year": 1934,
+    "artist": "Earl Hines and His Orchestra",
+    "title": "Sweet Georgia Brown",
+    "youtubeId": "pTADQJvSZKI",
+    "albumTitle": "That's a Plenty / Sweet Georgia Brown",
+    "artworkUrl": "https://i.ytimg.com/vi/pTADQJvSZKI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Sweet Georgia Brown",
+    "wikipediaArtistTermPt": "Earl Hines",
+    "wikipediaArtistTermEn": "Earl Hines",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Swing","en":"Swing music"},
+      {"kind":"genre","pt":"Jazz","en":"Jazz"}
+    ],
+    "basis": "A lista recebida indicava 1940. A gravação de Earl Hines foi registrada em 12 de setembro de 1934 e publicada pela Decca 182; a mídia selecionada é uma transferência identificada do 78 original."
+  }
+]
