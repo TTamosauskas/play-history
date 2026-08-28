@@ -96,5 +96,54 @@
       {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
     ],
     "basis": "A cronologia fornecida fixa 1903. O título foi normalizado a partir da forma truncada recebida; a mídia corresponde a Weeping Willow e funciona como execução representativa posterior."
+  },
+  {
+    "year": 1907,
+    "artist": "Scott Joplin & Louis Chauvin",
+    "title": "Heliotrope Bouquet",
+    "youtubeId": "ORSYkCvy2kM",
+    "albumTitle": "Heliotrope Bouquet — representative later performance",
+    "artworkUrl": "https://i.ytimg.com/vi/ORSYkCvy2kM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Heliotrope Bouquet",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1907. O crédito foi normalizado para Scott Joplin & Louis Chauvin, coautores documentados da obra. A mídia é uma interpretação posterior da composição; 1907 permanece como ano do catálogo."
+  },
+  {
+    "year": 1908,
+    "artist": "Scott Joplin",
+    "title": "Pine Apple Rag",
+    "youtubeId": "k-qKEmxTXn8",
+    "albumTitle": "Pine Apple Rag, 1908 — representative later recording",
+    "artworkUrl": "https://i.ytimg.com/vi/k-qKEmxTXn8/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Pine Apple Rag",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1908, ano de publicação de Pine Apple Rag. A mídia selecionada é uma gravação posterior da mesma composição disponibilizada no YouTube; o catálogo preserva 1908."
+  },
+  {
+    "year": 1909,
+    "artist": "Ada Jones with Victor Light Opera Company",
+    "title": "The Yama Yama Man",
+    "youtubeId": "aWjKcTerNr4",
+    "albumTitle": "The Yama Yama Man — 1909 historical recording",
+    "artworkUrl": "https://i.ytimg.com/vi/aWjKcTerNr4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Yama Yama Man",
+    "wikipediaArtistTermPt": "Ada Jones",
+    "wikipediaArtistTermEn": "Ada Jones",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Teatro musical","en":"Musical theatre"},
+      {"kind":"movement","pt":"Vaudeville","en":"Vaudeville"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1909. O crédito foi normalizado para Ada Jones with Victor Light Opera Company, formação documentada na sessão Victor de 11 de maio de 1909. A mídia selecionada representa essa gravação histórica."
   }
 ]
