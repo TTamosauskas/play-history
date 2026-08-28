@@ -1,7 +1,8 @@
-/* Play History v6.33.0 — branch-safe catalog/bootstrap runtime. */
+/* Play History v6.34.0 — branch-safe catalog/bootstrap runtime. */
 (() => {
-  const VERSION = '6.33.0';
+  const VERSION = '6.34.0';
   const ADDITION_FILES = [
+    'additions_1910s.json',
     'additions_1920s.json',
     'additions_1930s_a.json',
     'additions_1930s_b.json',
@@ -68,6 +69,18 @@
       copy.youtubeId = '3dEeAXY7nTs';
       copy.youtubeUrl = 'https://www.youtube.com/watch?v=3dEeAXY7nTs';
       copy.youtubeMusicUrl = 'https://music.youtube.com/watch?v=3dEeAXY7nTs';
+    }
+    if (Number(copy.year) === 1910 && copy.artist === 'Arthur Collins & Byron G. Harlan' && copy.title === 'Stop That Rag'){
+      copy.youtubeId = 'CdRA8BdJQ0k';
+      copy.artworkUrl = 'https://i.ytimg.com/vi/CdRA8BdJQ0k/hqdefault.jpg';
+      copy.youtubeUrl = 'https://www.youtube.com/watch?v=CdRA8BdJQ0k';
+      copy.youtubeMusicUrl = 'https://music.youtube.com/watch?v=CdRA8BdJQ0k';
+    }
+    if (Number(copy.year) === 1911 && copy.artist === 'Sophie Tucker' && copy.title === 'Nobody Loves a Fat Girl'){
+      copy.youtubeId = '3heCSPJrO70';
+      copy.artworkUrl = 'https://i.ytimg.com/vi/3heCSPJrO70/hqdefault.jpg';
+      copy.youtubeUrl = 'https://www.youtube.com/watch?v=3heCSPJrO70';
+      copy.youtubeMusicUrl = 'https://music.youtube.com/watch?v=3heCSPJrO70';
     }
     copy.youtubeQuery = `${copy.artist || ''} ${copy.title || ''}`.trim();
     return copy;
@@ -181,6 +194,10 @@
     const project = projectFromLegacy(legacy);
     const baseTracks = (project.tracks || []).map(normalizeTrack);
     if (baseTracks.length !== 1726) throw new Error(`Catálogo histórico incompleto: ${baseTracks.length}`);
+    const baseIdentities = new Set(baseTracks.map(track => exactKey(Number(track.year), track.artist, track.title)));
+    for (const pkg of additionPackages){
+      pkg.tracks = pkg.tracks.filter(track => !baseIdentities.has(exactKey(Number(track.year), track.artist, track.title)));
+    }
     validateAdditionPackages(baseTracks, additionPackages);
     const addedTracks = additionPackages.flatMap(pkg => pkg.tracks);
     const tracks = baseTracks.concat(addedTracks);

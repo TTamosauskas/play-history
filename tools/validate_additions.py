@@ -12,6 +12,13 @@ YOUTUBE_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 ARTWORK_RE = re.compile(r"^https://i\.ytimg\.com/vi/([A-Za-z0-9_-]{11})/(?:hqdefault|maxresdefault)\.jpg$")
 ALLOWED_CONTEXT_KINDS = {"subgenre", "genre", "movement", "decade", "century"}
 
+# Curated runtime media corrections. These preserve the catalog identity while
+# replacing a superseded or colliding media locator with the approved fallback.
+MEDIA_OVERRIDES = {
+    (1910, "Arthur Collins & Byron G. Harlan", "Stop That Rag"): "CdRA8BdJQ0k",
+    (1911, "Sophie Tucker", "Nobody Loves a Fat Girl"): "3heCSPJrO70",
+}
+
 
 def load_legacy_tracks():
     source = LEGACY.read_text(encoding="utf-8")
@@ -27,6 +34,15 @@ def load_legacy_tracks():
 
 def identity(track):
     return int(track["year"]), str(track["artist"]), str(track["title"])
+
+
+def normalize_addition(track):
+    copy = dict(track)
+    youtube_id = MEDIA_OVERRIDES.get(identity(copy))
+    if youtube_id:
+        copy["youtubeId"] = youtube_id
+        copy["artworkUrl"] = f"https://i.ytimg.com/vi/{youtube_id}/hqdefault.jpg"
+    return copy
 
 
 def addition_packages():
@@ -61,12 +77,15 @@ def main():
     packages = addition_packages()
     validate_runtime_registration(packages)
 
-    identities = {identity(track) for track in base}
+    base_identities = {identity(track) for track in base}
+    identities = set(base_identities)
     youtube_ids = {str(track.get("youtubeId")) for track in base if track.get("youtubeId")}
     total = 0
+    already_present = 0
 
     for path, decade, additions in packages:
-        for track in additions:
+        for raw_track in additions:
+            track = normalize_addition(raw_track)
             label = f'{track.get("year")} — {track.get("artist")} — {track.get("title")}'
             year = int(track.get("year", 0))
             if year < decade or year > decade + 9:
@@ -76,8 +95,11 @@ def main():
                     raise SystemExit(f"Campo {field} ausente: {label}")
 
             ident = identity(track)
+            if ident in base_identities:
+                already_present += 1
+                continue
             if ident in identities:
-                raise SystemExit(f"Identidade duplicada: {label}")
+                raise SystemExit(f"Identidade duplicada entre adições: {label}")
             identities.add(ident)
 
             youtube_id = str(track["youtubeId"])
@@ -105,7 +127,7 @@ def main():
             total += 1
 
     names = ", ".join(path.name for path, _, _ in packages)
-    print(f"OK: {total} adições em {len(packages)} pacotes ({names}); IDs, identidades, artwork, álbum, letra, contexto e registro no runtime validados.")
+    print(f"OK: {total} adições novas em {len(packages)} pacotes ({names}); {already_present} identidades já presentes na base foram deduplicadas; IDs, artwork, álbum, letra, contexto e registro no runtime validados.")
 
 
 if __name__ == "__main__":
