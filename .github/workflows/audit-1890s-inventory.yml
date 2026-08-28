@@ -1,0 +1,32 @@
+name: Build 1890s Context Inventory
+
+on:
+  push:
+    branches: ["audit/context-1890s"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Generate 1890s inventory
+        run: |
+          python tools/audit_context_decade.py 1890 --include-additions \
+            --markdown CONTEXT_INVENTORY_1890S.md \
+            --csv CONTEXT_INVENTORY_1890S.csv
+      - name: Upload inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: context-inventory-1890s
+          path: |
+            CONTEXT_INVENTORY_1890S.md
+            CONTEXT_INVENTORY_1890S.csv
