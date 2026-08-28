@@ -1,5 +1,33 @@
 [
   {
+    "year": 1981,
+    "artist": "Guilherme Arantes",
+    "title": "Planeta Água",
+    "youtubeId": "sMgCgImKCKw",
+    "albumTitle": "Planeta Água",
+    "artworkUrl": "https://i.ytimg.com/vi/sMgCgImKCKw/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Planeta Água",
+    "wikipediaArtistTermPt": "Guilherme Arantes",
+    "wikipediaArtistTermEn": "Guilherme Arantes",
+    "contextWikiTargets": [{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"},{"kind":"genre","pt":"Música pop","en":"Pop music"}],
+    "basis": "A discografia do artista documenta o compacto WEA/Elektra de 1981 e sua participação no Festival MPB-Shell 81; a mídia escolhida é o videoclipe colaborativo publicado no canal oficial de Guilherme Arantes."
+  },
+  {
+    "year": 1981,
+    "artist": "Guilherme Arantes",
+    "title": "Deixa Chover",
+    "youtubeId": "NUFQRHsskLU",
+    "albumTitle": "Deixa Chover",
+    "artworkUrl": "https://i.ytimg.com/vi/NUFQRHsskLU/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Discografia de Guilherme Arantes",
+    "wikipediaArtistTermPt": "Guilherme Arantes",
+    "wikipediaArtistTermEn": "Guilherme Arantes",
+    "contextWikiTargets": [{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"},{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"}],
+    "basis": "A discografia do artista e a biografia do AllMusic situam a gravação e o lançamento em 1981, quando a faixa entrou na trilha de Baila Comigo; a mídia escolhida é a publicação do canal oficial de Guilherme Arantes."
+  },
+  {
     "year": 1983,
     "artist": "Gerry Mulligan Trio",
     "title": "'S Wonderful",
@@ -12,5 +40,33 @@
     "wikipediaArtistTermEn": "Gerry Mulligan",
     "contextWikiTargets": [{"kind":"subgenre","pt":"Cool jazz","en":"Cool jazz"},{"kind":"genre","pt":"Jazz","en":"Jazz"}],
     "basis": "A sessão do trio é de 10 de junho de 1952; a discografia consultada situa a primeira edição comercial selecionada no conjunto Mosaic MR5-102, de 1983."
+  },
+  {
+    "year": 1985,
+    "artist": "Guilherme Arantes",
+    "title": "Cheia de Charme",
+    "youtubeId": "u1bObyCEG8U",
+    "albumTitle": "Despertar",
+    "artworkUrl": "https://i.ytimg.com/vi/u1bObyCEG8U/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Despertar (álbum de Guilherme Arantes)",
+    "wikipediaArtistTermPt": "Guilherme Arantes",
+    "wikipediaArtistTermEn": "Guilherme Arantes",
+    "contextWikiTargets": [{"kind":"genre","pt":"Música pop","en":"Pop music"},{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"}],
+    "basis": "A faixa abre Despertar, álbum lançado pela CBS em 1985; a mídia escolhida é a publicação oficial da Sony Music no canal de Guilherme Arantes, com lançamento identificado em 1985."
+  },
+  {
+    "year": 1987,
+    "artist": "Guilherme Arantes",
+    "title": "Um Dia, um Adeus",
+    "youtubeId": "zSxr9zfZN1o",
+    "albumTitle": "Guilherme Arantes",
+    "artworkUrl": "https://i.ytimg.com/vi/zSxr9zfZN1o/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Um Dia, Um Adeus",
+    "wikipediaArtistTermPt": "Guilherme Arantes",
+    "wikipediaArtistTermEn": "Guilherme Arantes",
+    "contextWikiTargets": [{"kind":"genre","pt":"Música pop","en":"Pop music"},{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"}],
+    "basis": "A canção integra o álbum epônimo de 1987 e aparece na discografia daquele ano; a mídia escolhida é a publicação oficial da Sony Music no canal de Guilherme Arantes, com lançamento identificado em 1987."
   }
 ]
