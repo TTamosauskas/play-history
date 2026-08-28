@@ -1,0 +1,34 @@
+name: Research YouTube candidates
+
+on:
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install yt-dlp
+        run: python -m pip install --disable-pip-version-check -q yt-dlp
+      - name: Search pending recordings
+        shell: bash
+        run: |
+          set +e
+          queries=(
+            "Cootie Williams Swingin' Down the Lane Cootie Williams in Hi-Fi"
+            "Milt Buckner Why Don't You Do Right The New World of Milt Buckner"
+            "Peggy Lee The Thrill Is Gone From Yesterday's Kiss Bridge Over Troubled Water"
+            "Johnny Gibbs His Orchestra Mack the Knife Down Memory Lane"
+            "Wild Bill Davison Jim Beebe Barney Bigard Art Hodes Eddie Condon Gene Schroeder Eddie Phyfe Tin Roof Blues Stars of Jazz Vol 1"
+          )
+          for q in "${queries[@]}"; do
+            echo "===== QUERY: $q ====="
+            yt-dlp "ytsearch10:$q" --skip-download --ignore-errors --no-warnings --print '%(id)s | %(title)s | %(uploader)s | %(duration_string)s' || true
+          done
