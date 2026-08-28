@@ -3,6 +3,7 @@
   const VERSION = '6.30.0';
   const ADDITION_FILES = [
     'additions_1950s.json',
+    'additions_1950s_research.json',
     'additions_1960s.json',
     'additions_1960s_research.json',
     'additions_1970s.json',
