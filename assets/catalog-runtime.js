@@ -1,6 +1,6 @@
-/* Play History v6.38.0 — branch-safe catalog/bootstrap runtime. */
+/* Play History v6.39.0 — branch-safe catalog/bootstrap runtime. */
 (() => {
-  const VERSION = '6.38.0';
+  const VERSION = '6.39.0';
   const ADDITION_FILES = [
     'additions_1720s.json',
     'additions_1810s.json',
@@ -68,6 +68,17 @@
   }
   function looseKey(artist, title){ return `${artist}\u0000${title}`; }
   function exactKey(year, artist, title){ return `${year}\u0000${artist}\u0000${title}`; }
+  const EXCLUDED_TRACKS = new Set([
+    exactKey(2025, 'Ella Langley', 'Choosin’ Texas'),
+    exactKey(2024, 'Kendrick Lamar & SZA', 'Luther'),
+    exactKey(2024, 'Post Malone feat. Morgan Wallen', 'I Had Some Help'),
+    exactKey(2023, 'Bring Me the Horizon', 'LosT'),
+    exactKey(2023, 'Zach Bryan feat. Kacey Musgraves', 'I Remember Everything'),
+    exactKey(2022, 'Burna Boy', 'Last Last'),
+    exactKey(2022, 'Bad Bunny', 'Tití Me Preguntó'),
+    exactKey(2022, 'Lizzo', 'About Damn Time'),
+    exactKey(2022, 'Sam Smith & Kim Petras', 'Unholy')
+  ]);
   function normalizeTrack(track){
     const copy = {...track};
     if (copy.artist === 'Júpiter Maçã' && copy.title === 'A Marchinha Psicótica de Dr. Soup'){
@@ -205,7 +216,12 @@
     }
     validateAdditionPackages(baseTracks, additionPackages);
     const addedTracks = additionPackages.flatMap(pkg => pkg.tracks);
-    const tracks = baseTracks.concat(addedTracks);
+    const mergedTracks = baseTracks.concat(addedTracks);
+    const tracks = mergedTracks.filter(track => !EXCLUDED_TRACKS.has(exactKey(Number(track.year), track.artist, track.title)));
+    const removedCount = mergedTracks.length - tracks.length;
+    if (removedCount !== EXCLUDED_TRACKS.size){
+      throw new Error(`Exclusões de catálogo incompletas: ${removedCount}/${EXCLUDED_TRACKS.size}`);
+    }
     applyContexts(tracks, patchLists);
     window.PLAY_HISTORY = {meta:{version:VERSION,totalTracks:tracks.length},catalog:tracks};
     for (const [group, count] of Object.entries(MODULE_PARTS)) await loadModule(group, count);
