@@ -1,0 +1,150 @@
+#!/usr/bin/env python3
+"""Build editorial Contexto work packages with a minimum number of tracks.
+
+A sparse decade is grouped with adjacent decades until the package reaches the
+requested minimum. Pre-1900 research defaults to moving backward in time, which
+matches the editorial rollout after the 1890s pilot.
+"""
+from __future__ import annotations
+
+import argparse
+import csv
+from collections import Counter
+from pathlib import Path
+
+from audit_context_decade import iter_decade_rows
+
+
+def resolve_package(anchor: int, minimum: int, include_additions: bool, direction: str):
+    start = anchor
+    end = anchor + 9
+    previous_count = -1
+
+    for _ in range(220):
+        rows = iter_decade_rows(start, end, include_additions)
+        if len(rows) >= minimum:
+            return start, end, rows
+
+        if len(rows) == previous_count and (start <= 0 or end >= 2999):
+            break
+        previous_count = len(rows)
+
+        if direction == "backward":
+            start -= 10
+            if start < 0:
+                start = 0
+        else:
+            end += 10
+            if end > 2999:
+                end = 2999
+
+    raise SystemExit(
+        f"Catálogo insuficiente para formar pacote de {minimum} faixas a partir de {anchor}s."
+    )
+
+
+def package_label(start: int, end: int) -> str:
+    if start == end - 9 and start % 10 == 0:
+        return f"{start}s"
+    return f"{start}–{end}"
+
+
+def write_csv(rows, output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fields = [
+        "year", "artist", "title", "source", "status", "issue", "specificity",
+        "primary_kind", "primary_pt", "primary_en",
+    ]
+    with output.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow({field: row.get(field, "") for field in fields})
+
+
+def write_markdown(rows, output: Path, start: int, end: int, minimum: int) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    by_status = Counter(row["status"] for row in rows)
+    by_year = Counter(row["year"] for row in rows)
+    by_specificity = Counter(row["specificity"] for row in rows)
+    decades = list(range((start // 10) * 10, (end // 10) * 10 + 1, 10))
+    decade_counts = {
+        decade: sum(1 for row in rows if decade <= int(row["year"]) <= decade + 9)
+        for decade in decades
+    }
+
+    lines = [
+        f"# Contexto research package — {package_label(start, end)}",
+        "",
+        f"Minimum target: {minimum} tracks",
+        f"Actual tracks: {len(rows)}",
+        f"Range: {start}–{end}",
+        "",
+        "Decade counts: " + ", ".join(
+            f"{decade}s={count}" for decade, count in decade_counts.items()
+        ),
+        "",
+        "Status counts: " + ", ".join(
+            f"{name}={count}" for name, count in sorted(by_status.items())
+        ),
+        "",
+        "Specificity counts: " + ", ".join(
+            f"L{level}={by_specificity[level]}" for level in sorted(by_specificity)
+        ),
+        "",
+        "Year counts: " + ", ".join(
+            f"{year}={by_year[year]}" for year in sorted(by_year)
+        ),
+        "",
+        "| Year | Artist | Title | Current primary | Kind | Specificity | Source | Status | Issue |",
+        "| --- | --- | --- | --- | --- | ---: | --- | --- | --- |",
+    ]
+    for row in rows:
+        lines.append(
+            f"| {row['year']} | {row['artist']} | {row['title']} | "
+            f"{row['primary_pt']} | {row['primary_kind']} | {row['specificity']} | "
+            f"{row['source']} | {row['status']} | {row['issue']} |"
+        )
+    output.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Group sparse Contexto decades into editorial packages."
+    )
+    parser.add_argument("anchor", type=int, help="Anchor decade, e.g. 1890")
+    parser.add_argument("--min-tracks", type=int, default=50, help="Minimum package size")
+    parser.add_argument(
+        "--direction", choices=("backward", "forward"), default="backward",
+        help="Direction used to add adjacent decades",
+    )
+    parser.add_argument("--include-additions", action="store_true")
+    parser.add_argument("--csv", type=Path)
+    parser.add_argument("--markdown", type=Path)
+    args = parser.parse_args()
+
+    if args.anchor % 10 != 0:
+        raise SystemExit("Use o início da década, por exemplo 1890.")
+    if args.min_tracks < 1:
+        raise SystemExit("--min-tracks deve ser maior que zero.")
+
+    start, end, rows = resolve_package(
+        args.anchor, args.min_tracks, args.include_additions, args.direction
+    )
+    label = package_label(start, end)
+
+    if args.csv:
+        write_csv(rows, args.csv)
+    if args.markdown:
+        write_markdown(rows, args.markdown, start, end, args.min_tracks)
+
+    by_decade = Counter((int(row["year"]) // 10) * 10 for row in rows)
+    print(f"package={label} tracks={len(rows)} minimum={args.min_tracks}")
+    print("by_decade: " + ", ".join(
+        f"{decade}s={by_decade[decade]}" for decade in sorted(by_decade)
+    ))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
