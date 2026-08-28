@@ -76,6 +76,12 @@
       copy.youtubeUrl = 'https://www.youtube.com/watch?v=CdRA8BdJQ0k';
       copy.youtubeMusicUrl = 'https://music.youtube.com/watch?v=CdRA8BdJQ0k';
     }
+    if (Number(copy.year) === 1911 && copy.artist === 'Sophie Tucker' && copy.title === 'Nobody Loves a Fat Girl'){
+      copy.youtubeId = '3heCSPJrO70';
+      copy.artworkUrl = 'https://i.ytimg.com/vi/3heCSPJrO70/hqdefault.jpg';
+      copy.youtubeUrl = 'https://www.youtube.com/watch?v=3heCSPJrO70';
+      copy.youtubeMusicUrl = 'https://music.youtube.com/watch?v=3heCSPJrO70';
+    }
     copy.youtubeQuery = `${copy.artist || ''} ${copy.title || ''}`.trim();
     return copy;
   }
