@@ -1,0 +1,19 @@
+[
+  {
+    "year": 1810,
+    "artist": "Gioachino Rossini",
+    "title": "Alleluia",
+    "youtubeId": "2Nd8SxyAlcQ",
+    "albumTitle": "Intégrale de la Musique Sacrée Inédite — representative later recording",
+    "artworkUrl": "https://i.ytimg.com/vi/2Nd8SxyAlcQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Alleluia",
+    "wikipediaArtistTermPt": "Gioachino Rossini",
+    "wikipediaArtistTermEn": "Gioachino Rossini",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Música sacra","en":"Sacred music"},
+      {"kind":"movement","pt":"Classicismo (música)","en":"Classical period (music)"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1810. A pesquisa situa esta pequena peça coral sacra em 1808, enquanto a mídia selecionada é uma gravação posterior da Orquestra e Coro Filarmônico de Praga sob Edoardo Brizio; o catálogo preserva 1810 por instrução editorial explícita."
+  }
+]
