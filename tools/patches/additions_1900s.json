@@ -98,6 +98,40 @@
     "basis": "A cronologia fornecida fixa 1903. O título foi normalizado a partir da forma truncada recebida; a mídia corresponde a Weeping Willow e funciona como execução representativa posterior."
   },
   {
+    "year": 1906,
+    "artist": "Arthur Collins & Byron G. Harlan",
+    "title": "Arrah Wanna",
+    "youtubeId": "m8gr7KEuZeM",
+    "albumTitle": "Arrah Wanna — 1906 historical recording",
+    "artworkUrl": "https://i.ytimg.com/vi/m8gr7KEuZeM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Arrah Wanna",
+    "wikipediaArtistTermPt": "Arthur Collins",
+    "wikipediaArtistTermEn": "Arthur Collins (singer)",
+    "contextWikiTargets": [
+      {"kind":"movement","pt":"Vaudeville","en":"Vaudeville"},
+      {"kind":"subgenre","pt":"Música irlando-americana","en":"Irish-American music"}
+    ],
+    "basis": "A cronologia editorial recebida fixa 1906. A Library of Congress documenta Collins & Harlan na matriz Victor E-4043, gravada em 14 de novembro de 1906; a mídia selecionada apresenta essa gravação histórica e preserva o ano solicitado."
+  },
+  {
+    "year": 1907,
+    "artist": "Arthur Collins & Byron G. Harlan",
+    "title": "Bake Dat Chicken Pie",
+    "youtubeId": "XIopyLEIbPM",
+    "albumTitle": "Bake Dat Chicken Pie — 1907 historical recording",
+    "artworkUrl": "https://i.ytimg.com/vi/XIopyLEIbPM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Bake Dat Chicken Pie",
+    "wikipediaArtistTermPt": "Arthur Collins",
+    "wikipediaArtistTermEn": "Arthur Collins (singer)",
+    "contextWikiTargets": [
+      {"kind":"movement","pt":"Minstrel show","en":"Minstrel show"},
+      {"kind":"movement","pt":"Vaudeville","en":"Vaudeville"}
+    ],
+    "basis": "A cronologia editorial recebida fixa 1907. O Smithsonian documenta Bake Dat Chicken Pie por Collins & Harlan como gravação de 1907, e a mídia selecionada é um upload da gravação histórica; o contexto racializado do repertório é tratado como categoria histórica."
+  },
+  {
     "year": 1907,
     "artist": "Billy Murray",
     "title": "Honey Boy",
