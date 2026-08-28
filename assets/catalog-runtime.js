@@ -32,6 +32,8 @@
   ];
   const AUDIT_FILES = [
     'context_overrides.json',
+    'context_pre1900_1810_1899.json',
+    'context_pre1900_1720_1809.json',
     ...Array.from({length: 10}, (_, i) => `context_1900s_${1900 + i}.json`),
     ...Array.from({length: 10}, (_, i) => `context_1910s_${1910 + i}.json`),
     ...Array.from({length: 10}, (_, i) => `context_1920s_${1920 + i}.json`),
