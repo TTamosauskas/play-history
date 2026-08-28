@@ -1,4 +1,4 @@
-name: Build 1890s Context Inventory
+name: Build Pre-1900 Context Package
 
 on:
   push:
@@ -18,15 +18,18 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Generate 1890s inventory
+      - name: Generate minimum-50 package from the 1890s backward
         run: |
-          python tools/audit_context_decade.py 1890 --include-additions \
-            --markdown CONTEXT_INVENTORY_1890S.md \
-            --csv CONTEXT_INVENTORY_1890S.csv
-      - name: Upload inventory
+          python tools/audit_context_package.py 1890 \
+            --min-tracks 50 \
+            --direction backward \
+            --include-additions \
+            --markdown CONTEXT_PACKAGE_PRE1900.md \
+            --csv CONTEXT_PACKAGE_PRE1900.csv
+      - name: Upload package inventory
         uses: actions/upload-artifact@v4
         with:
-          name: context-inventory-1890s
+          name: context-package-pre1900
           path: |
-            CONTEXT_INVENTORY_1890S.md
-            CONTEXT_INVENTORY_1890S.csv
+            CONTEXT_PACKAGE_PRE1900.md
+            CONTEXT_PACKAGE_PRE1900.csv
