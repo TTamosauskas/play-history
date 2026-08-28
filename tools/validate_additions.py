@@ -77,9 +77,11 @@ def main():
     packages = addition_packages()
     validate_runtime_registration(packages)
 
-    identities = {identity(track) for track in base}
+    base_identities = {identity(track) for track in base}
+    identities = set(base_identities)
     youtube_ids = {str(track.get("youtubeId")) for track in base if track.get("youtubeId")}
     total = 0
+    already_present = 0
 
     for path, decade, additions in packages:
         for raw_track in additions:
@@ -93,8 +95,11 @@ def main():
                     raise SystemExit(f"Campo {field} ausente: {label}")
 
             ident = identity(track)
+            if ident in base_identities:
+                already_present += 1
+                continue
             if ident in identities:
-                raise SystemExit(f"Identidade duplicada: {label}")
+                raise SystemExit(f"Identidade duplicada entre adições: {label}")
             identities.add(ident)
 
             youtube_id = str(track["youtubeId"])
@@ -122,7 +127,7 @@ def main():
             total += 1
 
     names = ", ".join(path.name for path, _, _ in packages)
-    print(f"OK: {total} adições em {len(packages)} pacotes ({names}); IDs, identidades, artwork, álbum, letra, contexto e registro no runtime validados.")
+    print(f"OK: {total} adições novas em {len(packages)} pacotes ({names}); {already_present} identidades já presentes na base foram deduplicadas; IDs, artwork, álbum, letra, contexto e registro no runtime validados.")
 
 
 if __name__ == "__main__":
