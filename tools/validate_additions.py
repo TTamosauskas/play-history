@@ -16,6 +16,7 @@ ALLOWED_CONTEXT_KINDS = {"subgenre", "genre", "movement", "decade", "century"}
 # replacing a superseded or colliding media locator with the approved fallback.
 MEDIA_OVERRIDES = {
     (1910, "Arthur Collins & Byron G. Harlan", "Stop That Rag"): "CdRA8BdJQ0k",
+    (1911, "Sophie Tucker", "Nobody Loves a Fat Girl"): "3heCSPJrO70",
 }
 
 
