@@ -2,7 +2,7 @@ name: Build Pre-1900 Context Package
 
 on:
   push:
-    branches: ["audit/context-pre1900-04"]
+    branches: ["audit/context-pre1900-05"]
   workflow_dispatch:
 
 permissions:
@@ -18,9 +18,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Validate curated minimum-50 package from the 1580s backward
+      - name: Validate curated minimum-50 package from the 1380s backward
         run: |
-          python tools/audit_context_package.py 1580 \
+          python tools/audit_context_package.py 1380 \
             --min-tracks 50 \
             --direction backward \
             --include-additions \
@@ -30,7 +30,7 @@ jobs:
       - name: Upload package inventory
         uses: actions/upload-artifact@v4
         with:
-          name: context-package-pre1900-04
+          name: context-package-pre1900-05
           path: |
             CONTEXT_PACKAGE_PRE1900.md
             CONTEXT_PACKAGE_PRE1900.csv
