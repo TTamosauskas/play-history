@@ -70,6 +70,12 @@
       copy.youtubeUrl = 'https://www.youtube.com/watch?v=3dEeAXY7nTs';
       copy.youtubeMusicUrl = 'https://music.youtube.com/watch?v=3dEeAXY7nTs';
     }
+    if (Number(copy.year) === 1910 && copy.artist === 'Arthur Collins & Byron G. Harlan' && copy.title === 'Stop That Rag'){
+      copy.youtubeId = 'CdRA8BdJQ0k';
+      copy.artworkUrl = 'https://i.ytimg.com/vi/CdRA8BdJQ0k/hqdefault.jpg';
+      copy.youtubeUrl = 'https://www.youtube.com/watch?v=CdRA8BdJQ0k';
+      copy.youtubeMusicUrl = 'https://music.youtube.com/watch?v=CdRA8BdJQ0k';
+    }
     copy.youtubeQuery = `${copy.artist || ''} ${copy.title || ''}`.trim();
     return copy;
   }
