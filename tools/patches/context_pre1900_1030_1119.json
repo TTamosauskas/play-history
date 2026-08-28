@@ -1,0 +1,86 @@
+[
+  {
+    "year": 1030,
+    "artist": "Hermannus Contractus",
+    "title": "Alma Redemptoris Mater",
+    "targets": [{"kind": "subgenre", "pt": "Antífona mariana", "en": "Marian antiphon"}],
+    "basis": "Alma Redemptoris Mater integra o grupo tradicional de antífonas marianas; o subgênero é historicamente específico."
+  },
+  {
+    "year": 1040,
+    "artist": "Hermannus Contractus",
+    "title": "Salve Regina",
+    "targets": [{"kind": "subgenre", "pt": "Antífona mariana", "en": "Marian antiphon"}],
+    "basis": "Salve Regina é uma das antífonas marianas tradicionais; a função litúrgica fornece contexto preciso."
+  },
+  {
+    "year": 1050,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Ave maris stella",
+    "targets": [{"kind": "genre", "pt": "Hino", "en": "Hymn"}],
+    "basis": "Ave maris stella é um hino mariano latino do ofício; hino descreve diretamente sua forma."
+  },
+  {
+    "year": 1050,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "In paradisum",
+    "targets": [{"kind": "genre", "pt": "Antífona", "en": "Antiphon"}],
+    "basis": "In paradisum é uma antífona do rito de exéquias; antífona identifica sua forma e uso."
+  },
+  {
+    "year": 1060,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Asperges me",
+    "targets": [{"kind": "subgenre", "pt": "Antífona de aspersão", "en": "Antiphon"}],
+    "basis": "Asperges me é a antífona que acompanha a aspersão com água benta fora do tempo pascal; a função ritual é específica."
+  },
+  {
+    "year": 1060,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Vidi aquam",
+    "targets": [{"kind": "subgenre", "pt": "Antífona de aspersão", "en": "Antiphon"}],
+    "basis": "Vidi aquam é a antífona de aspersão do tempo pascal; a função ritual fornece contexto imediato."
+  },
+  {
+    "year": 1070,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Christus factus est",
+    "targets": [{"kind": "genre", "pt": "Gradual", "en": "Gradual"}],
+    "basis": "Christus factus est é transmitido no Graduale Romanum como gradual; a forma do Proprium da Missa é a classificação direta."
+  },
+  {
+    "year": 1080,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Gloria in excelsis Deo",
+    "targets": [{"kind": "genre", "pt": "Hino", "en": "Hymn"}],
+    "basis": "Gloria in excelsis Deo é o grande hino do Ordinário da Missa; hino descreve sua natureza textual e musical."
+  },
+  {
+    "year": 1080,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Kyrie Cunctipotens Genitor Deus",
+    "targets": [{"kind": "subgenre", "pt": "Kyrie tropado", "en": "Troped Kyrie"}],
+    "basis": "Cunctipotens Genitor Deus é um Kyrie tropado medieval; a presença do tropo define sua prática composicional."
+  },
+  {
+    "year": 1090,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Alleluia: Nativitas gloriose virginis Mariae",
+    "targets": [{"kind": "subgenre", "pt": "Aleluia", "en": "Alleluia"}],
+    "basis": "O incipit identifica um Alleluia para a Natividade de Maria; a forma litúrgica fornece o Contexto primário."
+  },
+  {
+    "year": 1100,
+    "artist": "Anônimo, Codex Calixtinus",
+    "title": "Congaudeant catholici",
+    "targets": [{"kind": "genre", "pt": "Conductus", "en": "Conductus"}],
+    "basis": "Congaudeant catholici é catalogado no repertório do Codex Calixtinus como conductus; a forma polifônica é historicamente específica."
+  },
+  {
+    "year": 1100,
+    "artist": "Anônimo, Escola de São Marcial",
+    "title": "Ad superni regis decus",
+    "targets": [{"kind": "subgenre", "pt": "Tropo do Benedicamus", "en": "Benedicamus trope"}],
+    "basis": "Ad superni regis decus é transmitido como tropo do Benedicamus no repertório de Santiago; a função do tropo define a peça."
+  }
+]
