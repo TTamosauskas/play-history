@@ -1,0 +1,100 @@
+[
+  {
+    "year": 1900,
+    "artist": "Nikolai Rimsky-Korsakov",
+    "title": "Flight of the Bumblebee",
+    "youtubeId": "ym5QGKQN0I4",
+    "albumTitle": "Flight of the Bumblebee — representative later performance",
+    "artworkUrl": "https://i.ytimg.com/vi/ym5QGKQN0I4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Flight of the Bumblebee",
+    "wikipediaArtistTermPt": "Nikolai Rimsky-Korsakov",
+    "wikipediaArtistTermEn": "Nikolai Rimsky-Korsakov",
+    "contextWikiTargets": [
+      {"kind":"movement","pt":"Romantismo na música","en":"Romantic music"},
+      {"kind":"genre","pt":"Música orquestral","en":"Orchestra"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1900 para a obra. A mídia disponível é uma interpretação posterior e representativa; o ano permanece 1900 para preservar a sequência histórica solicitada."
+  },
+  {
+    "year": 1901,
+    "artist": "Sir Edward Elgar",
+    "title": "Pomp and Circumstance March No.1",
+    "youtubeId": "moL4MkJ-aLk",
+    "albumTitle": "Pomp and Circumstance March No. 1 — representative later performance",
+    "artworkUrl": "https://i.ytimg.com/vi/moL4MkJ-aLk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Pomp and Circumstance Marches",
+    "wikipediaArtistTermPt": "Edward Elgar",
+    "wikipediaArtistTermEn": "Edward Elgar",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Marcha (música)","en":"March (music)"},
+      {"kind":"movement","pt":"Romantismo na música","en":"Romantic music"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1901, correspondente à obra e à sua entrada histórica. A mídia usada é uma execução posterior; 1901 permanece como ano do catálogo."
+  },
+  {
+    "year": 1902,
+    "artist": "Scott Joplin",
+    "title": "A Breeze From Alabama",
+    "youtubeId": "nXe43xnOEf4",
+    "albumTitle": "A Breeze From Alabama — representative performance",
+    "artworkUrl": "https://i.ytimg.com/vi/nXe43xnOEf4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "A Breeze from Alabama",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1902. A fonte de mídia consultada cataloga a peça entre os rags publicados de Joplin e apresenta uma execução representativa; o ano do catálogo segue a lista recebida."
+  },
+  {
+    "year": 1902,
+    "artist": "Scott Joplin",
+    "title": "Elite Syncopations",
+    "youtubeId": "l_dZWHm7I78",
+    "albumTitle": "Elite Syncopations — representative performance",
+    "artworkUrl": "https://i.ytimg.com/vi/l_dZWHm7I78/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Elite Syncopations",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A peça é situada em 1902 na cronologia fornecida e na referência de repertório consultada. A mídia é uma execução posterior usada para representar a obra."
+  },
+  {
+    "year": 1902,
+    "artist": "Scott Joplin",
+    "title": "The Entertainer",
+    "youtubeId": "t9gzZJ344Co",
+    "albumTitle": "The Entertainer — representative performance",
+    "artworkUrl": "https://i.ytimg.com/vi/t9gzZJ344Co/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Entertainer (rag)",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1902, ano histórico da obra. A mídia é uma execução posterior; o catálogo conserva 1902 e explicita o caráter representativo da gravação."
+  },
+  {
+    "year": 1903,
+    "artist": "Scott Joplin",
+    "title": "Weeping Willow -- A Ragtime Tw",
+    "youtubeId": "4Kh7wh5ranI",
+    "albumTitle": "Weeping Willow — representative performance",
+    "artworkUrl": "https://i.ytimg.com/vi/4Kh7wh5ranI/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Weeping Willow (rag)",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia fornecida fixa 1903. O título do catálogo preserva literalmente a forma recebida, inclusive a abreviação final; a mídia corresponde a Weeping Willow e funciona como execução representativa posterior."
+  }
+]
