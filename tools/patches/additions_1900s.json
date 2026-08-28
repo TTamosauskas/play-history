@@ -12,14 +12,14 @@
     "wikipediaArtistTermEn": "Nikolai Rimsky-Korsakov",
     "contextWikiTargets": [
       {"kind":"movement","pt":"Romantismo na música","en":"Romantic music"},
-      {"kind":"genre","pt":"Música orquestral","en":"Orchestra"}
+      {"kind":"genre","pt":"Música clássica","en":"Classical music"}
     ],
     "basis": "A cronologia editorial fornecida fixa 1900 para a obra. A mídia disponível é uma interpretação posterior e representativa; o ano permanece 1900 para preservar a sequência histórica solicitada."
   },
   {
     "year": 1901,
-    "artist": "Sir Edward Elgar",
-    "title": "Pomp and Circumstance March No.1",
+    "artist": "Edward Elgar",
+    "title": "Pomp and Circumstance March No. 1",
     "youtubeId": "moL4MkJ-aLk",
     "albumTitle": "Pomp and Circumstance March No. 1 — representative later performance",
     "artworkUrl": "https://i.ytimg.com/vi/moL4MkJ-aLk/hqdefault.jpg",
@@ -84,7 +84,7 @@
   {
     "year": 1903,
     "artist": "Scott Joplin",
-    "title": "Weeping Willow -- A Ragtime Tw",
+    "title": "Weeping Willow",
     "youtubeId": "4Kh7wh5ranI",
     "albumTitle": "Weeping Willow — representative performance",
     "artworkUrl": "https://i.ytimg.com/vi/4Kh7wh5ranI/hqdefault.jpg",
@@ -95,6 +95,6 @@
     "contextWikiTargets": [
       {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
     ],
-    "basis": "A cronologia fornecida fixa 1903. O título do catálogo preserva literalmente a forma recebida, inclusive a abreviação final; a mídia corresponde a Weeping Willow e funciona como execução representativa posterior."
+    "basis": "A cronologia fornecida fixa 1903. O título foi normalizado a partir da forma truncada recebida; a mídia corresponde a Weeping Willow e funciona como execução representativa posterior."
   }
 ]
