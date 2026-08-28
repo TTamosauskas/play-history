@@ -40,5 +40,19 @@
     "wikipediaArtistTermEn": "Wild Bill Davison",
     "contextWikiTargets": [{"kind":"subgenre","pt":"Dixieland","en":"Dixieland jazz"},{"kind":"genre","pt":"Jazz tradicional","en":"Traditional jazz"}],
     "basis": "A apresentação foi gravada em High Point em 1972 com Wild Bill Davison, Jim Beebe, Barney Bigard, Art Hodes, Eddie Condon, Rail Wilson e Hillard Brown; a discografia Jazzology situa o LP original Greatest Stars of Jazz – Volume I em 1972. A mídia escolhida é o resultado Wild Bill Davison - Topic para Tin Roof Blues."
+  },
+  {
+    "year": 1976,
+    "artist": "Guilherme Arantes",
+    "title": "Meu Mundo e Nada Mais",
+    "youtubeId": "WXjFwg-457U",
+    "albumTitle": "Guilherme Arantes",
+    "artworkUrl": "https://i.ytimg.com/vi/WXjFwg-457U/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Meu Mundo e Nada Mais",
+    "wikipediaArtistTermPt": "Guilherme Arantes",
+    "wikipediaArtistTermEn": "Guilherme Arantes",
+    "contextWikiTargets": [{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"},{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"}],
+    "basis": "O site do artista e a discografia de referência situam a faixa no álbum de estreia de 1976; a mídia escolhida é a publicação do canal oficial de Guilherme Arantes, identificada com copyright de 1976."
   }
 ]
