@@ -18,12 +18,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Generate next minimum-50 package from the 1580s backward
+      - name: Validate curated minimum-50 package from the 1580s backward
         run: |
           python tools/audit_context_package.py 1580 \
             --min-tracks 50 \
             --direction backward \
             --include-additions \
+            --require-specificity 2 \
             --markdown CONTEXT_PACKAGE_PRE1900.md \
             --csv CONTEXT_PACKAGE_PRE1900.csv
       - name: Upload package inventory
