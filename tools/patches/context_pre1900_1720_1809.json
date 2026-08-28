@@ -1,0 +1,552 @@
+[
+  {
+    "year": 1720,
+    "artist": "Antonio Vivaldi",
+    "title": "Sinfonia in E Major, RV 132: I. Allegro",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Sinfonia"},
+      {"kind": "movement", "pt": "Música barroca", "en": "Baroque music"}
+    ],
+    "basis": "A obra é uma sinfonia instrumental italiana; a forma sinfonia explica diretamente o repertório orquestral ouvido, deixando Barroco como enquadramento histórico."
+  },
+  {
+    "year": 1721,
+    "artist": "Johann Sebastian Bach",
+    "title": "Brandenburg Concerto No. 3",
+    "targets": [
+      {"kind": "subgenre", "pt": "Concerto grosso", "en": "Concerto grosso"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "O terceiro Concerto de Brandemburgo contrapõe grupos de cordas dentro da tradição do concerto grosso; essa tipologia explica a escrita concertante com maior precisão que o rótulo Barroco."
+  },
+  {
+    "year": 1722,
+    "artist": "Johann Sebastian Bach",
+    "title": "The Well-Tempered Clavier: Prelude and Fugue No. 1 in C Major",
+    "targets": [
+      {"kind": "genre", "pt": "Prelúdio e fuga", "en": "Prelude and fugue"},
+      {"kind": "genre", "pt": "Fuga (música)", "en": "Fugue"}
+    ],
+    "basis": "A faixa reúne explicitamente um prelúdio e uma fuga do Cravo Bem-Temperado; a combinação formal passa a ser o primeiro Contexto e a fuga detalha sua técnica contrapontística."
+  },
+  {
+    "year": 1722,
+    "artist": "Tomaso Albinoni",
+    "title": "Oboe Concerto in D Minor, Op. 9 No. 2",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para oboé", "en": "Oboe concerto"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "O Op. 9 nº 2 é um concerto para oboé e conjunto instrumental; a instrumentação solista e a forma concertante constituem a informação musical central."
+  },
+  {
+    "year": 1723,
+    "artist": "Johann Sebastian Bach",
+    "title": "Magnificat",
+    "targets": [
+      {"kind": "genre", "pt": "Magnificat", "en": "Magnificat"},
+      {"kind": "genre", "pt": "Música sacra", "en": "Sacred music"}
+    ],
+    "basis": "A obra é uma grande configuração musical do cântico Magnificat para solistas, coro e orquestra; a tradição específica do Magnificat é mais informativa que o período barroco."
+  },
+  {
+    "year": 1724,
+    "artist": "Johann Sebastian Bach",
+    "title": "St. John Passion",
+    "targets": [
+      {"kind": "genre", "pt": "Paixão (música)", "en": "Passion (music)"},
+      {"kind": "genre", "pt": "Oratório", "en": "Oratorio"}
+    ],
+    "basis": "A Paixão segundo São João pertence à tradição litúrgico-dramática da Passion, narrando musicalmente a Paixão de Cristo com recitativos, árias, coros e corais."
+  },
+  {
+    "year": 1725,
+    "artist": "Antonio Vivaldi",
+    "title": "The Four Seasons",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para violino", "en": "Violin concerto"},
+      {"kind": "genre", "pt": "Música programática", "en": "Program music"}
+    ],
+    "basis": "As Quatro Estações são um ciclo de quatro concertos para violino com conteúdo programático associado a sonetos; concerto para violino define a forma e música programática explica a narrativa extramusical."
+  },
+  {
+    "year": 1727,
+    "artist": "Georg Friedrich Händel",
+    "title": "Zadok the Priest",
+    "targets": [
+      {"kind": "genre", "pt": "Hino", "en": "Anthem"},
+      {"kind": "genre", "pt": "Música de coroação", "en": "Coronation music"}
+    ],
+    "basis": "Zadok the Priest é um anthem composto para a coroação britânica de 1727 e permanece ligado ao rito de unção; hino/anthem define sua forma vocal e música de coroação sua função histórica."
+  },
+  {
+    "year": 1727,
+    "artist": "Johann Sebastian Bach",
+    "title": "St. Matthew Passion",
+    "targets": [
+      {"kind": "genre", "pt": "Paixão (música)", "en": "Passion (music)"},
+      {"kind": "genre", "pt": "Oratório", "en": "Oratorio"}
+    ],
+    "basis": "A Paixão segundo São Mateus é uma obra da tradição da Passion, estruturada em narrativa evangélica, corais, árias e grandes números corais."
+  },
+  {
+    "year": 1733,
+    "artist": "Georg Philipp Telemann",
+    "title": "Tafelmusik",
+    "targets": [
+      {"kind": "genre", "pt": "Tafelmusik", "en": "Tafelmusik"},
+      {"kind": "genre", "pt": "Música de câmara", "en": "Chamber music"}
+    ],
+    "basis": "O próprio título identifica a coleção com a tradição Tafelmusik, música destinada a banquetes e ocasiões sociais; o termo histórico oferece contexto mais específico que Barroco."
+  },
+  {
+    "year": 1733,
+    "artist": "Jean-Philippe Rameau",
+    "title": "Hippolyte et Aricie",
+    "targets": [
+      {"kind": "subgenre", "pt": "Tragédie en musique", "en": "Tragédie en musique"},
+      {"kind": "genre", "pt": "Ópera francesa", "en": "French opera"}
+    ],
+    "basis": "A Bibliothèque nationale de France classifica Hippolyte et Aricie como tragédie lyrique/tragedie en musique em prólogo e cinco atos; esse subgênero francês passa a definir o Contexto."
+  },
+  {
+    "year": 1734,
+    "artist": "Johann Sebastian Bach",
+    "title": "Christmas Oratorio",
+    "targets": [
+      {"kind": "genre", "pt": "Oratório", "en": "Oratorio"},
+      {"kind": "genre", "pt": "Música sacra", "en": "Sacred music"}
+    ],
+    "basis": "O Weihnachtsoratorium é um ciclo sacro de seis cantatas conhecido e apresentado como Oratório de Natal; oratório oferece ao usuário a categoria estrutural central."
+  },
+  {
+    "year": 1735,
+    "artist": "Jean-Philippe Rameau",
+    "title": "Les Indes galantes",
+    "targets": [
+      {"kind": "subgenre", "pt": "Opéra-ballet", "en": "Opéra-ballet"},
+      {"kind": "genre", "pt": "Ópera francesa", "en": "French opera"}
+    ],
+    "basis": "O catálogo da BnF registra Les Indes galantes explicitamente como opéra-ballet; o subgênero explica a estrutura em prólogo e entrées e a importância autônoma da dança."
+  },
+  {
+    "year": 1736,
+    "artist": "Giovanni Battista Pergolesi",
+    "title": "Stabat Mater",
+    "targets": [
+      {"kind": "genre", "pt": "Stabat Mater", "en": "Stabat Mater"},
+      {"kind": "genre", "pt": "Música sacra", "en": "Sacred music"}
+    ],
+    "basis": "A composição é uma configuração musical da sequência latina Stabat Mater para vozes e instrumentos; a tradição específica do texto e de suas configurações musicais supera o rótulo Barroco."
+  },
+  {
+    "year": 1738,
+    "artist": "Domenico Scarlatti",
+    "title": "Sonata in D Minor, K. 141",
+    "targets": [
+      {"kind": "genre", "pt": "Sonata para teclado", "en": "Keyboard sonata"},
+      {"kind": "genre", "pt": "Sonata", "en": "Sonata"}
+    ],
+    "basis": "K. 141 é uma das sonatas de teclado em movimento único de Scarlatti; sonata para teclado descreve diretamente forma, meio instrumental e tradição composicional."
+  },
+  {
+    "year": 1739,
+    "artist": "Georg Friedrich Händel",
+    "title": "Israel in Egypt",
+    "targets": [
+      {"kind": "genre", "pt": "Oratório", "en": "Oratorio"},
+      {"kind": "genre", "pt": "Música coral", "en": "Choral music"}
+    ],
+    "basis": "Israel in Egypt é um oratório inglês de Händel, excepcionalmente centrado em grandes coros; oratório define o gênero e música coral acrescenta sua característica estrutural dominante."
+  },
+  {
+    "year": 1741,
+    "artist": "Georg Friedrich Händel",
+    "title": "Messiah: Hallelujah",
+    "targets": [
+      {"kind": "genre", "pt": "Coro (música)", "en": "Chorus (music)"},
+      {"kind": "genre", "pt": "Oratório", "en": "Oratorio"}
+    ],
+    "basis": "Hallelujah é um número coral do oratório Messiah; coro descreve o tipo de peça efetivamente ouvido, enquanto oratório situa sua arquitetura maior."
+  },
+  {
+    "year": 1741,
+    "artist": "Johann Sebastian Bach",
+    "title": "Goldberg Variations",
+    "targets": [
+      {"kind": "genre", "pt": "Variação (música)", "en": "Variation (music)"},
+      {"kind": "genre", "pt": "Música para teclado", "en": "Keyboard music"}
+    ],
+    "basis": "As Goldberg Variations consistem em uma ária seguida por trinta variações e retorno da ária; variação é o princípio formal que organiza toda a obra."
+  },
+  {
+    "year": 1747,
+    "artist": "Johann Sebastian Bach",
+    "title": "The Musical Offering",
+    "targets": [
+      {"kind": "genre", "pt": "Ricercar", "en": "Ricercar"},
+      {"kind": "genre", "pt": "Cânone (música)", "en": "Canon (music)"}
+    ],
+    "basis": "A Oferenda Musical organiza o tema real em ricercares, cânones e uma sonata em trio; ricercar e cânone introduzem as formas contrapontísticas centrais da coleção."
+  },
+  {
+    "year": 1749,
+    "artist": "Georg Friedrich Händel",
+    "title": "Music for the Royal Fireworks",
+    "targets": [
+      {"kind": "genre", "pt": "Suíte (música)", "en": "Suite (music)"},
+      {"kind": "genre", "pt": "Música cerimonial", "en": "Ceremonial music"}
+    ],
+    "basis": "Music for the Royal Fireworks é uma sequência orquestral de abertura e movimentos de dança composta para uma celebração pública; suíte descreve sua organização e música cerimonial sua função."
+  },
+  {
+    "year": 1749,
+    "artist": "Johann Sebastian Bach",
+    "title": "The Art of Fugue",
+    "targets": [
+      {"kind": "genre", "pt": "Fuga (música)", "en": "Fugue"},
+      {"kind": "genre", "pt": "Contraponto", "en": "Counterpoint"}
+    ],
+    "basis": "A Arte da Fuga explora sistematicamente fugas e cânones derivados de um mesmo tema; fuga é a forma principal e contraponto explica a técnica que estrutura o ciclo."
+  },
+  {
+    "year": 1756,
+    "artist": "Carl Philipp Emanuel Bach",
+    "title": "Symphony in E Minor, Wq. 178",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Empfindsamer Stil", "en": "Empfindsamkeit"}
+    ],
+    "basis": "Wq. 178 é uma sinfonia orquestral; sinfonia fornece a forma imediata e o Empfindsamer Stil contextualiza a linguagem expressiva associada a C. P. E. Bach."
+  },
+  {
+    "year": 1762,
+    "artist": "Christoph Willibald Gluck",
+    "title": "Orfeo ed Euridice: Che farò senza Euridice",
+    "targets": [
+      {"kind": "genre", "pt": "Ária", "en": "Aria"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "Che farò senza Euridice é a ária de Orfeo no terceiro ato; ária identifica a forma vocal da faixa e a ópera fornece seu contexto dramático."
+  },
+  {
+    "year": 1764,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Symphony No. 1 in E-flat Major",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "A primeira sinfonia de Mozart é uma obra orquestral em vários movimentos; sinfonia passa a ser o Contexto primário e Classicismo permanece como moldura histórica."
+  },
+  {
+    "year": 1771,
+    "artist": "Luigi Boccherini",
+    "title": "String Quintet in E Major, Op. 11 No. 5: Minuet",
+    "targets": [
+      {"kind": "genre", "pt": "Minueto", "en": "Minuet"},
+      {"kind": "genre", "pt": "Quinteto de cordas", "en": "String quintet"}
+    ],
+    "basis": "A faixa é o célebre minueto do Quinteto de Cordas Op. 11 nº 5; minueto descreve diretamente dança, métrica e função do movimento, seguido pela formação camerística."
+  },
+  {
+    "year": 1772,
+    "artist": "Joseph Haydn",
+    "title": "Symphony No. 45 “Farewell”",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Sturm und Drang", "en": "Sturm und Drang"}
+    ],
+    "basis": "A Sinfonia nº 45 pertence ao repertório sinfônico de Haydn e é frequentemente associada ao período Sturm und Drang; a forma sinfonia permanece como primeiro contexto."
+  },
+  {
+    "year": 1773,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Symphony No. 25 in G Minor",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Sturm und Drang", "en": "Sturm und Drang"}
+    ],
+    "basis": "A Sinfonia nº 25 é uma sinfonia em sol menor frequentemente relacionada ao clima expressivo Sturm und Drang; sinfonia descreve a forma e o movimento histórico complementa."
+  },
+  {
+    "year": 1775,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Violin Concerto No. 5 “Turkish”",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para violino", "en": "Violin concerto"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "K. 219 é um concerto para violino solo e orquestra; a categoria instrumental específica explica imediatamente a relação entre solista e conjunto."
+  },
+  {
+    "year": 1777,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Piano Concerto No. 9 “Jeunehomme”",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para piano", "en": "Piano concerto"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "K. 271 é um concerto para piano e orquestra; concerto para piano é a forma/instrumentação que melhor contextualiza a obra."
+  },
+  {
+    "year": 1778,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Symphony No. 31 “Paris”",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "A Sinfonia Paris é uma obra orquestral em três movimentos; sinfonia fornece a classificação formal principal e o Classicismo fica como enquadramento."
+  },
+  {
+    "year": 1779,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Sinfonia Concertante in E-flat Major, K. 364",
+    "targets": [
+      {"kind": "subgenre", "pt": "Sinfonia concertante", "en": "Sinfonia concertante"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "K. 364 é explicitamente uma sinfonia concertante para violino, viola e orquestra; o subgênero híbrido entre sinfonia e concerto é a informação mais específica."
+  },
+  {
+    "year": 1781,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Idomeneo",
+    "targets": [
+      {"kind": "subgenre", "pt": "Opera seria", "en": "Opera seria"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "O Metropolitan Opera e o Mozarteum tratam Idomeneo como um dos principais exemplos tardios de opera seria de Mozart; o subgênero substitui o rótulo cronológico genérico."
+  },
+  {
+    "year": 1782,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Die Entführung aus dem Serail",
+    "targets": [
+      {"kind": "subgenre", "pt": "Singspiel", "en": "Singspiel"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "O catálogo Köchel do Mozarteum identifica Die Entführung aus dem Serail como Singspiel em três atos, gênero alemão com números musicais e diálogo falado."
+  },
+  {
+    "year": 1783,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Great Mass in C Minor",
+    "targets": [
+      {"kind": "genre", "pt": "Missa (música)", "en": "Mass (music)"},
+      {"kind": "genre", "pt": "Música sacra", "en": "Sacred music"}
+    ],
+    "basis": "A Grande Missa em dó menor configura seções do ordinário da missa para solistas, coro e orquestra; missa é a forma litúrgico-musical específica."
+  },
+  {
+    "year": 1784,
+    "artist": "Antonio Salieri",
+    "title": "Les Danaïdes",
+    "targets": [
+      {"kind": "subgenre", "pt": "Tragédie lyrique", "en": "Tragédie en musique"},
+      {"kind": "genre", "pt": "Ópera francesa", "en": "French opera"}
+    ],
+    "basis": "A Bibliothèque nationale de France descreve Les Danaïdes como tragédie lyrique em cinco atos; esse gênero operístico francês é o contexto histórico-formal mais preciso."
+  },
+  {
+    "year": 1785,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Piano Concerto No. 20 in D Minor",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para piano", "en": "Piano concerto"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "K. 466 é um concerto para piano e orquestra; a forma concertante e o protagonismo do piano definem o contexto musical imediato."
+  },
+  {
+    "year": 1785,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Piano Concerto No. 21 in C Major",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para piano", "en": "Piano concerto"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "K. 467 é um concerto para piano e orquestra; concerto para piano oferece ao usuário a categoria formal e instrumental específica."
+  },
+  {
+    "year": 1786,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "The Marriage of Figaro",
+    "targets": [
+      {"kind": "subgenre", "pt": "Ópera bufa", "en": "Opera buffa"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "Le nozze di Figaro pertence à tradição italiana da opera buffa, com forte escrita de conjuntos e dramaturgia cômica; o subgênero explica melhor a obra que Classicismo."
+  },
+  {
+    "year": 1787,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Don Giovanni",
+    "targets": [
+      {"kind": "subgenre", "pt": "Dramma giocoso", "en": "Dramma giocoso"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "A página de título e o Metropolitan Opera registram Don Giovanni como dramma giocoso, categoria que combina elementos sérios e cômicos; esse rótulo histórico é o contexto mais específico."
+  },
+  {
+    "year": 1787,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Eine kleine Nachtmusik",
+    "targets": [
+      {"kind": "genre", "pt": "Serenata", "en": "Serenade"},
+      {"kind": "genre", "pt": "Música de câmara", "en": "Chamber music"}
+    ],
+    "basis": "K. 525 foi intitulada Eine kleine Nachtmusik e pertence à tradição da serenata instrumental; serenata é mais informativa que o período clássico."
+  },
+  {
+    "year": 1788,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Symphony No. 40 in G Minor",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "K. 550 é uma sinfonia orquestral em quatro movimentos; sinfonia passa a ser a categoria principal, com Classicismo apenas como contexto histórico."
+  },
+  {
+    "year": 1788,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Symphony No. 41 “Jupiter”",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "K. 551 é a última sinfonia de Mozart; sinfonia oferece a classificação formal imediata e contextualiza melhor a escuta que um rótulo de período."
+  },
+  {
+    "year": 1789,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Clarinet Quintet in A Major",
+    "targets": [
+      {"kind": "genre", "pt": "Quinteto para clarinete", "en": "Clarinet quintet"},
+      {"kind": "genre", "pt": "Música de câmara", "en": "Chamber music"}
+    ],
+    "basis": "K. 581 é um quinteto para clarinete e quarteto de cordas; a formação específica explica imediatamente timbre, escrita de conjunto e tradição camerística."
+  },
+  {
+    "year": 1790,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Così fan tutte",
+    "targets": [
+      {"kind": "subgenre", "pt": "Ópera bufa", "en": "Opera buffa"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "Così fan tutte é uma opera buffa italiana de Mozart e Da Ponte; o subgênero cômico passa a ser o primeiro Contexto."
+  },
+  {
+    "year": 1791,
+    "artist": "Joseph Haydn",
+    "title": "Symphony No. 94 “Surprise”",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "A Sinfonia nº 94 é uma das Sinfonias de Londres de Haydn; a forma sinfonia deve orientar o Contexto antes do período histórico."
+  },
+  {
+    "year": 1791,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Clarinet Concerto in A Major",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para clarinete", "en": "Clarinet concerto"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "K. 622 é um concerto para clarinete solo e orquestra; concerto para clarinete fornece a classificação instrumental específica."
+  },
+  {
+    "year": 1791,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "Requiem in D Minor",
+    "targets": [
+      {"kind": "genre", "pt": "Réquiem", "en": "Requiem"},
+      {"kind": "genre", "pt": "Missa (música)", "en": "Mass (music)"}
+    ],
+    "basis": "K. 626 é uma missa de réquiem baseada no texto litúrgico pelos mortos; réquiem é a categoria específica e missa situa a forma litúrgica maior."
+  },
+  {
+    "year": 1791,
+    "artist": "Wolfgang Amadeus Mozart",
+    "title": "The Magic Flute",
+    "targets": [
+      {"kind": "subgenre", "pt": "Singspiel", "en": "Singspiel"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "Die Zauberflöte combina números musicais com diálogo falado e pertence ao Singspiel alemão; o subgênero oferece contexto mais específico que Classicismo."
+  },
+  {
+    "year": 1792,
+    "artist": "Domenico Cimarosa",
+    "title": "Il matrimonio segreto",
+    "targets": [
+      {"kind": "subgenre", "pt": "Ópera bufa", "en": "Opera buffa"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "O Teatro La Fenice descreve Il matrimonio segreto como uma das grandes opere buffe do século XVIII; opera buffa é o contexto histórico e estilístico preciso."
+  },
+  {
+    "year": 1794,
+    "artist": "Joseph Haydn",
+    "title": "Symphony No. 100 “Military”",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "A Sinfonia nº 100 é uma Sinfonia de Londres em quatro movimentos; sinfonia define a forma e Classicismo entra apenas como contexto histórico."
+  },
+  {
+    "year": 1795,
+    "artist": "Joseph Haydn",
+    "title": "Symphony No. 104 “London”",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "A Sinfonia nº 104 é a última sinfonia de Haydn; a forma sinfonia fornece o primeiro nível de entendimento da obra."
+  },
+  {
+    "year": 1796,
+    "artist": "Joseph Haydn",
+    "title": "Trumpet Concerto in E-flat Major",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para trompete", "en": "Trumpet concerto"},
+      {"kind": "genre", "pt": "Concerto", "en": "Concerto"}
+    ],
+    "basis": "O concerto de Haydn foi escrito para trompete solista e orquestra; concerto para trompete é a categoria instrumental e formal específica."
+  },
+  {
+    "year": 1797,
+    "artist": "Joseph Haydn",
+    "title": "String Quartet, Op. 76 No. 3 “Emperor”",
+    "targets": [
+      {"kind": "genre", "pt": "Quarteto de cordas", "en": "String quartet"},
+      {"kind": "genre", "pt": "Música de câmara", "en": "Chamber music"}
+    ],
+    "basis": "Op. 76 nº 3 é um quarteto de cordas para dois violinos, viola e violoncelo; a formação e o gênero camerístico são o contexto musical direto."
+  },
+  {
+    "year": 1798,
+    "artist": "Joseph Haydn",
+    "title": "The Creation",
+    "targets": [
+      {"kind": "genre", "pt": "Oratório", "en": "Oratorio"},
+      {"kind": "genre", "pt": "Música coral", "en": "Choral music"}
+    ],
+    "basis": "A Criação é um oratório para solistas, coro e orquestra baseado na narrativa bíblica da criação; oratório é a forma específica que organiza a obra."
+  },
+  {
+    "year": 1798,
+    "artist": "Ludwig van Beethoven",
+    "title": "Piano Sonata No. 8 “Pathétique”",
+    "targets": [
+      {"kind": "genre", "pt": "Sonata para piano", "en": "Piano sonata"},
+      {"kind": "genre", "pt": "Sonata", "en": "Sonata"}
+    ],
+    "basis": "Op. 13 é uma sonata para piano solo em três movimentos; sonata para piano descreve forma e meio instrumental com maior precisão que Classicismo."
+  }
+]

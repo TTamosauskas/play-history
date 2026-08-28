@@ -9,10 +9,13 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 from collections import Counter
 from pathlib import Path
 
-from audit_context_decade import iter_decade_rows
+from audit_context_decade import iter_decade_rows, row_quality, specificity_level
+
+PATCH_DIR = Path(__file__).resolve().parent / "patches"
 
 
 def resolve_package(anchor: int, minimum: int, include_additions: bool, direction: str):
@@ -47,6 +50,62 @@ def package_label(start: int, end: int) -> str:
     if start == end - 9 and start % 10 == 0:
         return f"{start}s"
     return f"{start}–{end}"
+
+
+def curated_package_overrides(start: int, end: int):
+    overrides = {}
+    for path in sorted(PATCH_DIR.glob("context_pre1900_*.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(data, list):
+            raise SystemExit(f"Pacote de Contexto inválido: {path.name}")
+        for item in data:
+            try:
+                year = int(item.get("year"))
+            except (TypeError, ValueError):
+                raise SystemExit(f"Ano inválido em {path.name}: {item!r}")
+            if year < start or year > end:
+                continue
+            key = (year, item.get("artist"), item.get("title"))
+            targets = item.get("targets")
+            if not key[1] or not key[2] or not isinstance(targets, list) or not targets:
+                raise SystemExit(f"Entrada incompleta em {path.name}: {item!r}")
+            if key in overrides:
+                raise SystemExit(f"Contexto de pacote duplicado: {key}")
+            overrides[key] = (targets, path.name)
+    return overrides
+
+
+def apply_curated_package(rows, start: int, end: int):
+    overrides = curated_package_overrides(start, end)
+    if not overrides:
+        return rows
+
+    row_keys = {(int(row["year"]), row["artist"], row["title"]) for row in rows}
+    missing = set(overrides) - row_keys
+    if missing:
+        raise SystemExit(f"Overrides de pacote sem faixa correspondente: {sorted(missing)}")
+
+    curated = []
+    for row in rows:
+        copy = dict(row)
+        key = (int(copy["year"]), copy["artist"], copy["title"])
+        override = overrides.get(key)
+        if override:
+            targets, source_file = override
+            primary = targets[0]
+            status, issue = row_quality(targets, historical_specificity=True)
+            copy.update(
+                targets=targets,
+                source=f"package:{source_file}",
+                status=status,
+                issue=issue,
+                specificity=specificity_level(targets),
+                primary_kind=primary.get("kind", ""),
+                primary_pt=primary.get("pt", ""),
+                primary_en=primary.get("en", ""),
+            )
+        curated.append(copy)
+    return curated
 
 
 def validate_specificity(rows, required_level: int) -> None:
@@ -155,6 +214,7 @@ def main() -> int:
     start, end, rows = resolve_package(
         args.anchor, args.min_tracks, args.include_additions, args.direction
     )
+    rows = apply_curated_package(rows, start, end)
     label = package_label(start, end)
 
     if args.require_specificity is not None:
