@@ -1,0 +1,156 @@
+[
+  {
+    "year": 1120,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "O admirabile commercium",
+    "targets": [{"kind": "genre", "pt": "Antífona", "en": "Antiphon"}],
+    "basis": "O admirabile commercium é uma antífona do ciclo natalino; antífona identifica sua forma litúrgica."
+  },
+  {
+    "year": 1125,
+    "artist": "Guiraut de Bornelh",
+    "title": "Reis glorios",
+    "targets": [{"kind": "subgenre", "pt": "Alba", "en": "Alba (poetry)"}],
+    "basis": "Reis glorios é uma alba trovadoresca de Guiraut de Bornelh; alba define seu subgênero lírico-musical."
+  },
+  {
+    "year": 1130,
+    "artist": "Bernart de Ventadorn",
+    "title": "Can vei la lauzeta mover",
+    "targets": [{"kind": "genre", "pt": "Canso", "en": "Canso (song)"}],
+    "basis": "Can vei la lauzeta mover é uma canso de Bernart de Ventadorn; canso identifica a forma lírica trovadoresca."
+  },
+  {
+    "year": 1135,
+    "artist": "Bernart de Ventadorn",
+    "title": "Can vei la flor",
+    "targets": [{"kind": "genre", "pt": "Canso", "en": "Canso (song)"}],
+    "basis": "Can vei la flor integra as cansos de Bernart de Ventadorn; canso fornece a forma poético-musical específica."
+  },
+  {
+    "year": 1140,
+    "artist": "Hildegard von Bingen",
+    "title": "O frondens virga",
+    "targets": [{"kind": "subgenre", "pt": "Antífona", "en": "Antiphon"}],
+    "basis": "O frondens virga é catalogada no repertório de Hildegard como antífona; a forma litúrgica define a obra."
+  },
+  {
+    "year": 1140,
+    "artist": "Hildegard von Bingen",
+    "title": "O viridissima virga",
+    "targets": [{"kind": "subgenre", "pt": "Antífona", "en": "Antiphon"}],
+    "basis": "O viridissima virga é transmitida como antífona mariana no repertório de Hildegard; antífona fornece contexto formal."
+  },
+  {
+    "year": 1145,
+    "artist": "Hildegard von Bingen",
+    "title": "Columba aspexit",
+    "targets": [{"kind": "genre", "pt": "Sequência", "en": "Sequence (music)"}],
+    "basis": "Columba aspexit é uma sequência de Hildegard; sequência identifica sua forma litúrgica extensa."
+  },
+  {
+    "year": 1145,
+    "artist": "Hildegard von Bingen",
+    "title": "O rubor sanguinis",
+    "targets": [{"kind": "subgenre", "pt": "Antífona", "en": "Antiphon"}],
+    "basis": "O rubor sanguinis é catalogada como antífona no repertório de Hildegard; a forma oferece contexto direto."
+  },
+  {
+    "year": 1150,
+    "artist": "Anônimo, Codex Calixtinus",
+    "title": "Dum pater familias",
+    "targets": [{"kind": "subgenre", "pt": "Canção de peregrinação", "en": "Pilgrim song"}],
+    "basis": "Dum pater familias é um canto de peregrinos associado a Santiago de Compostela e ao Codex Calixtinus; a função de peregrinação é específica."
+  },
+  {
+    "year": 1150,
+    "artist": "Anônimo, Codex Calixtinus",
+    "title": "Vox nostra resonet",
+    "targets": [{"kind": "subgenre", "pt": "Hino polifônico", "en": "Hymn"}],
+    "basis": "Vox nostra resonet é descrito como hino polifônico a duas vozes no Codex Calixtinus; a combinação de forma e textura define a peça."
+  },
+  {
+    "year": 1150,
+    "artist": "Hildegard von Bingen",
+    "title": "O ignis Spiritus Paracliti",
+    "targets": [{"kind": "genre", "pt": "Sequência", "en": "Sequence (music)"}],
+    "basis": "O ignis Spiritus Paracliti é uma sequência de Hildegard dedicada ao Espírito Santo; sequência identifica a forma."
+  },
+  {
+    "year": 1150,
+    "artist": "Hildegard von Bingen",
+    "title": "O vis aeternitatis",
+    "targets": [{"kind": "genre", "pt": "Responsório", "en": "Responsory"}],
+    "basis": "O vis aeternitatis é catalogado como responsório no repertório de Hildegard; responsório fornece sua função formal."
+  },
+  {
+    "year": 1150,
+    "artist": "Hildegard von Bingen",
+    "title": "Ordo Virtutum",
+    "targets": [{"kind": "subgenre", "pt": "Drama litúrgico", "en": "Liturgical drama"}],
+    "basis": "Ordo Virtutum é um drama musical sacro de Hildegard; drama litúrgico fornece o contexto performativo mais específico."
+  },
+  {
+    "year": 1160,
+    "artist": "Hildegard von Bingen",
+    "title": "O Jerusalem",
+    "targets": [{"kind": "genre", "pt": "Sequência", "en": "Sequence (music)"}],
+    "basis": "O Jerusalem é uma sequência de Hildegard; sequência identifica sua forma litúrgico-poética."
+  },
+  {
+    "year": 1160,
+    "artist": "Hildegard von Bingen",
+    "title": "O nobilissima viriditas",
+    "targets": [{"kind": "genre", "pt": "Responsório", "en": "Responsory"}],
+    "basis": "O nobilissima viriditas é catalogado como responsório no repertório de Hildegard; a forma litúrgica é específica."
+  },
+  {
+    "year": 1165,
+    "artist": "Comtessa de Dia",
+    "title": "A chantar m’er de so qu’ieu non volria",
+    "targets": [{"kind": "genre", "pt": "Canso", "en": "Canso (song)"}],
+    "basis": "A chantar m’er de so qu’ieu non volria é uma canso da Comtessa de Dia; canso identifica a forma trovadoresca."
+  },
+  {
+    "year": 1170,
+    "artist": "Walther von der Vogelweide",
+    "title": "Palästinalied",
+    "targets": [{"kind": "subgenre", "pt": "Canção de cruzada", "en": "Crusade song"}],
+    "basis": "Palästinalied é uma canção de cruzada de Walther von der Vogelweide; o subgênero relaciona diretamente texto e função histórica."
+  },
+  {
+    "year": 1175,
+    "artist": "Jaufré Rudel",
+    "title": "Lanquan li jorn",
+    "targets": [{"kind": "genre", "pt": "Canso", "en": "Canso (song)"}],
+    "basis": "Lanquan li jorn é classificada no repertório trovadoresco como canso de Jaufré Rudel; canso define sua forma lírica."
+  },
+  {
+    "year": 1180,
+    "artist": "Léonin",
+    "title": "Alleluia Pascha nostrum",
+    "targets": [{"kind": "subgenre", "pt": "Organum duplum", "en": "Organum"}],
+    "basis": "A versão de Léonin de Alleluia Pascha nostrum é um organum a duas vozes do repertório de Notre-Dame; organum duplum identifica sua textura."
+  },
+  {
+    "year": 1185,
+    "artist": "Léonin",
+    "title": "Viderunt omnes",
+    "targets": [{"kind": "subgenre", "pt": "Organum duplum", "en": "Organum"}],
+    "basis": "Viderunt omnes de Léonin é um organum duplum do Magnus liber organi; a textura a duas vozes fornece a classificação específica."
+  },
+  {
+    "year": 1190,
+    "artist": "Léonin",
+    "title": "Haec dies",
+    "targets": [{"kind": "subgenre", "pt": "Organum duplum", "en": "Organum"}],
+    "basis": "Haec dies de Léonin é documentado como organum duplum; a técnica e o número de vozes definem seu contexto."
+  },
+  {
+    "year": 1195,
+    "artist": "Léonin",
+    "title": "Judea et Jerusalem",
+    "targets": [{"kind": "subgenre", "pt": "Organum duplum", "en": "Organum"}],
+    "basis": "Judea et Jerusalem aparece na tradição do Magnus liber como organum em duplo; organum duplum oferece a classificação técnica específica."
+  }
+]
