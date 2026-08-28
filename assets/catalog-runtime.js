@@ -194,6 +194,10 @@
     const project = projectFromLegacy(legacy);
     const baseTracks = (project.tracks || []).map(normalizeTrack);
     if (baseTracks.length !== 1726) throw new Error(`Catálogo histórico incompleto: ${baseTracks.length}`);
+    const baseIdentities = new Set(baseTracks.map(track => exactKey(Number(track.year), track.artist, track.title)));
+    for (const pkg of additionPackages){
+      pkg.tracks = pkg.tracks.filter(track => !baseIdentities.has(exactKey(Number(track.year), track.artist, track.title)));
+    }
     validateAdditionPackages(baseTracks, additionPackages);
     const addedTracks = additionPackages.flatMap(pkg => pkg.tracks);
     const tracks = baseTracks.concat(addedTracks);
