@@ -1,6 +1,6 @@
-# Auditoria de Contexto — piloto pré-1900
+# Auditoria de Contexto — pacote 1810–1899
 
-Status: piloto em andamento.
+Status: pesquisa em andamento.
 
 ## Objetivo
 
@@ -8,11 +8,15 @@ Levar o repertório anterior a 1900 ao mesmo nível de especificidade editorial 
 
 ## Unidade de trabalho
 
-A pesquisa passa a ser feita em pacotes de pelo menos 50 faixas. Quando uma década tiver menos de 50 músicas, décadas adjacentes são incorporadas até o pacote atingir o mínimo. Como a frente pré-1900 avança para trás a partir dos anos 1890, o agrupamento desta etapa acrescenta décadas anteriores.
+A pesquisa passa a ser feita em pacotes de pelo menos 50 faixas. Quando uma década tiver menos de 50 músicas, décadas adjacentes são incorporadas até o pacote atingir o mínimo. Como a frente pré-1900 avança para trás a partir dos anos 1890, o agrupamento acrescenta décadas anteriores.
+
+O primeiro agrupamento automático resolveu o intervalo **1810–1899**, com **56 faixas**. A distribuição é: 1810s=7, 1820s=3, 1830s=6, 1840s=8, 1850s=4, 1860s=3, 1870s=7, 1880s=4 e 1890s=14.
+
+O diagnóstico inicial do pacote mostra 51 faixas em especificidade nível 1, duas em nível 2 e três em nível 3. Isso significa que a maior parte do lote ainda usa movimento histórico amplo como primeiro Contexto e precisa de pesquisa por forma, gênero específico ou tradição.
 
 O limite de 50 define a unidade editorial de pesquisa e revisão. Os arquivos canônicos podem continuar segmentados por ano/década para preservar rastreabilidade, enquanto inventário, pesquisa, revisão e aceite acontecem por pacote.
 
-O comando do piloto é:
+O comando do pacote é:
 
 `python tools/audit_context_package.py 1890 --min-tracks 50 --direction backward --include-additions`
 
@@ -55,4 +59,4 @@ Library of Congress, IMSLP, RISM, catálogos de bibliotecas, MusicBrainz como ap
 
 ## Próximas etapas
 
-Resolver automaticamente o primeiro pacote de pelo menos 50 faixas a partir dos anos 1890, revisar todas as identidades desse intervalo, criar a curadoria canônica por ano/década, conectar o intervalo ao pipeline de auditoria e bloquear regressões para contextos de baixa especificidade.
+Pesquisar e revisar as 56 identidades de 1810–1899 como um único lote editorial, criar a curadoria canônica por ano/década, conectar o intervalo ao pipeline de auditoria e bloquear regressões para contextos de baixa especificidade. O próximo pacote só começa depois do aceite deste lote.
