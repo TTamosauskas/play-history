@@ -1,13 +1,591 @@
 [
-  {"artist":"The Beatles","title":"I Want to Hold Your Hand","targets":[{"kind":"movement","pt":"Invasão britânica","en":"British Invasion"},{"kind":"genre","pt":"Rock and roll","en":"Rock and roll"}]},
-  {"artist":"The Beatles","title":"Yesterday","targets":[{"kind":"movement","pt":"Invasão britânica","en":"British Invasion"},{"kind":"genre","pt":"Música pop","en":"Pop music"}]},
-  {"artist":"The Beatles","title":"Help!","targets":[{"kind":"movement","pt":"Invasão britânica","en":"British Invasion"},{"kind":"genre","pt":"Rock","en":"Rock music"}]},
-  {"artist":"The Beatles","title":"In My Life","targets":[{"kind":"movement","pt":"Invasão britânica","en":"British Invasion"},{"kind":"genre","pt":"Rock","en":"Rock music"}]},
-  {"artist":"The Beatles","title":"Eleanor Rigby","targets":[{"kind":"subgenre","pt":"Rock psicodélico","en":"Psychedelic rock"},{"kind":"movement","pt":"Invasão britânica","en":"British Invasion"}]},
-  {"artist":"The Beatles","title":"A Day in the Life","targets":[{"kind":"subgenre","pt":"Rock psicodélico","en":"Psychedelic rock"},{"kind":"movement","pt":"Invasão britânica","en":"British Invasion"}]},
-  {"artist":"The Beatles","title":"All You Need Is Love","targets":[{"kind":"subgenre","pt":"Rock psicodélico","en":"Psychedelic rock"},{"kind":"movement","pt":"Invasão britânica","en":"British Invasion"}]},
-  {"artist":"The Beatles","title":"Hey Jude","targets":[{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"},{"kind":"subgenre","pt":"Rock psicodélico","en":"Psychedelic rock"}]},
-  {"artist":"The Beatles","title":"Come Together","targets":[{"kind":"subgenre","pt":"Blues rock","en":"Blues rock"},{"kind":"subgenre","pt":"Rock psicodélico","en":"Psychedelic rock"}]},
-  {"artist":"The Beatles","title":"Let It Be","targets":[{"kind":"genre","pt":"Música gospel","en":"Gospel music"},{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"}]},
-  {"artist":"The Temptations","title":"My Girl","targets":[{"kind":"movement","pt":"Motown","en":"Motown"},{"kind":"genre","pt":"Soul music","en":"Soul music"}]}
+  {
+    "artist": "The Beatles",
+    "title": "I Want to Hold Your Hand",
+    "targets": [
+      {"kind": "movement", "pt": "Invasão britânica", "en": "British Invasion"},
+      {"kind": "genre", "pt": "Rock and roll", "en": "Rock and roll"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "Yesterday",
+    "targets": [
+      {"kind": "movement", "pt": "Invasão britânica", "en": "British Invasion"},
+      {"kind": "genre", "pt": "Música pop", "en": "Pop music"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "Help!",
+    "targets": [
+      {"kind": "movement", "pt": "Invasão britânica", "en": "British Invasion"},
+      {"kind": "genre", "pt": "Rock", "en": "Rock music"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "In My Life",
+    "targets": [
+      {"kind": "movement", "pt": "Invasão britânica", "en": "British Invasion"},
+      {"kind": "genre", "pt": "Rock", "en": "Rock music"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "Eleanor Rigby",
+    "targets": [
+      {"kind": "subgenre", "pt": "Rock psicodélico", "en": "Psychedelic rock"},
+      {"kind": "movement", "pt": "Invasão britânica", "en": "British Invasion"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "A Day in the Life",
+    "targets": [
+      {"kind": "subgenre", "pt": "Rock psicodélico", "en": "Psychedelic rock"},
+      {"kind": "movement", "pt": "Invasão britânica", "en": "British Invasion"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "All You Need Is Love",
+    "targets": [
+      {"kind": "subgenre", "pt": "Rock psicodélico", "en": "Psychedelic rock"},
+      {"kind": "movement", "pt": "Invasão britânica", "en": "British Invasion"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "Hey Jude",
+    "targets": [
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"},
+      {"kind": "subgenre", "pt": "Rock psicodélico", "en": "Psychedelic rock"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "Come Together",
+    "targets": [
+      {"kind": "subgenre", "pt": "Blues rock", "en": "Blues rock"},
+      {"kind": "subgenre", "pt": "Rock psicodélico", "en": "Psychedelic rock"}
+    ]
+  },
+  {
+    "artist": "The Beatles",
+    "title": "Let It Be",
+    "targets": [
+      {"kind": "genre", "pt": "Música gospel", "en": "Gospel music"},
+      {"kind": "subgenre", "pt": "Pop rock", "en": "Pop rock"}
+    ]
+  },
+  {
+    "artist": "The Temptations",
+    "title": "My Girl",
+    "targets": [
+      {"kind": "movement", "pt": "Motown", "en": "Motown"},
+      {"kind": "genre", "pt": "Soul music", "en": "Soul music"}
+    ]
+  },
+  {
+    "year": 1811,
+    "artist": "Carl Maria von Weber",
+    "title": "Clarinet Concerto No. 2 in E-flat Major, Op. 74",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para clarinete", "en": "Clarinet concerto"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "A própria obra é um concerto para clarinete e orquestra; usar a forma instrumental como primeiro contexto explica diretamente a escrita solista e substitui o rótulo cronológico amplo de Classicismo."
+  },
+  {
+    "year": 1812,
+    "artist": "Carl Maria von Weber",
+    "title": "Piano Concerto No. 2 in E-flat Major, Op. 32",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para piano", "en": "Piano concerto"},
+      {"kind": "movement", "pt": "Classicismo (música)", "en": "Classical period (music)"}
+    ],
+    "basis": "A identidade da obra é a de concerto para piano e orquestra. O contexto primário passa a explicar a forma concertante, enquanto o Classicismo permanece apenas como enquadramento histórico."
+  },
+  {
+    "year": 1813,
+    "artist": "Luigi Cherubini",
+    "title": "Les Abencérages: Overture",
+    "targets": [
+      {"kind": "genre", "pt": "Abertura (música)", "en": "Overture"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "A faixa é a abertura orquestral da ópera Les Abencérages. Abertura descreve a função e a forma da peça com muito mais precisão que o período clássico."
+  },
+  {
+    "year": 1816,
+    "artist": "Gioachino Rossini",
+    "title": "The Barber of Seville: Largo al factotum",
+    "targets": [
+      {"kind": "subgenre", "pt": "Cavatina", "en": "Cavatina"},
+      {"kind": "genre", "pt": "Ópera bufa", "en": "Opera buffa"}
+    ],
+    "basis": "O Metropolitan Opera identifica Largo al factotum como a cavatina de Figaro. Cavatina é a forma vocal específica; ópera bufa situa o número dentro do gênero dramático de Il barbiere di Siviglia."
+  },
+  {
+    "year": 1817,
+    "artist": "Niccolò Paganini",
+    "title": "Violin Concerto No. 1 in D Major, Op. 6",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para violino", "en": "Violin concerto"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "O título e a catalogação da obra a definem como concerto para violino. A forma concertante é o dado musical central e o Romantismo fica como camada histórica secundária."
+  },
+  {
+    "year": 1819,
+    "artist": "Franz Schubert",
+    "title": "Piano Quintet in A Major “Trout”: Andantino",
+    "targets": [
+      {"kind": "genre", "pt": "Tema e variações", "en": "Theme and variations"},
+      {"kind": "genre", "pt": "Quinteto com piano", "en": "Piano quintet"}
+    ],
+    "basis": "O quarto movimento do Trout Quintet é explicitamente construído como tema e variações sobre o Lied Die Forelle; MusicBrainz e a análise da obra registram Thema con variazioni. Essa forma passa a ser o contexto primário."
+  },
+  {
+    "year": 1823,
+    "artist": "Henry Bishop",
+    "title": "Home, Sweet Home",
+    "targets": [
+      {"kind": "subgenre", "pt": "Parlor song", "en": "Parlor song"},
+      {"kind": "genre", "pt": "Canção", "en": "Song"}
+    ],
+    "basis": "Embora tenha surgido no espetáculo Clari, Home, Sweet Home tornou-se um paradigma da canção doméstica oitocentista; a própria coleção de música de salão da Library of Congress usa a obra como eixo. Parlor song explica melhor sua circulação cultural que Romantismo."
+  },
+  {
+    "year": 1824,
+    "artist": "Ludwig van Beethoven",
+    "title": "Symphony No. 9",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "A obra é uma sinfonia em quatro movimentos para orquestra, solistas e coro. Sinfonia é a categoria formal imediata; Romantismo permanece como contexto histórico complementar."
+  },
+  {
+    "year": 1827,
+    "artist": "Vincenzo Bellini",
+    "title": "Il Pirata: Overture",
+    "targets": [
+      {"kind": "genre", "pt": "Abertura (música)", "en": "Overture"},
+      {"kind": "movement", "pt": "Bel canto", "en": "Bel canto"}
+    ],
+    "basis": "A faixa é a abertura de Il pirata. A forma de abertura deve vir primeiro; bel canto acrescenta a tradição operística em que Bellini e a obra se inserem."
+  },
+  {
+    "year": 1830,
+    "artist": "Hector Berlioz",
+    "title": "Symphonie fantastique",
+    "targets": [
+      {"kind": "genre", "pt": "Música programática", "en": "Program music"},
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"}
+    ],
+    "basis": "Symphonie fantastique é um caso fundador de sinfonia programática: sua narrativa extramusical e a idée fixe estruturam o percurso dramático. Música programática é mais explicativa que um simples rótulo de Romantismo."
+  },
+  {
+    "year": 1831,
+    "artist": "Frédéric Chopin",
+    "title": "Mazurka in B-flat Major, Op. 7 No. 1",
+    "targets": [
+      {"kind": "genre", "pt": "Mazurca", "en": "Mazurka"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "A obra pertence explicitamente ao gênero mazurca, reelaborado por Chopin a partir de danças polonesas. A forma/gênero específico passa ao primeiro plano."
+  },
+  {
+    "year": 1832,
+    "artist": "Frédéric Chopin",
+    "title": "Nocturne in E-flat Major, Op. 9 No. 2",
+    "targets": [
+      {"kind": "genre", "pt": "Noturno (música)", "en": "Nocturne"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "A peça é um noturno para piano, gênero lírico noturno central na produção de Chopin. O gênero específico é mais informativo que Romantismo."
+  },
+  {
+    "year": 1835,
+    "artist": "Frédéric Chopin",
+    "title": "Ballade No. 1 in G Minor, Op. 23",
+    "targets": [
+      {"kind": "genre", "pt": "Balada (música clássica)", "en": "Ballade (classical music)"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "Chopin intitulou a obra Ballade e ajudou a consolidar a balada instrumental como gênero pianístico autônomo. A classificação pela forma substitui o período histórico como contexto principal."
+  },
+  {
+    "year": 1837,
+    "artist": "Frédéric Chopin",
+    "title": "Marche funèbre",
+    "targets": [
+      {"kind": "genre", "pt": "Marcha fúnebre", "en": "Funeral march"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "Marche funèbre é, por definição e função musical, uma marcha fúnebre. Esse gênero específico explica ritmo, caráter e uso cultural com maior precisão que Romantismo."
+  },
+  {
+    "year": 1841,
+    "artist": "Richard Wagner",
+    "title": "Der fliegende Holländer: Overture",
+    "targets": [
+      {"kind": "genre", "pt": "Abertura (música)", "en": "Overture"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "A faixa é a abertura orquestral de Der fliegende Holländer. Abertura descreve a função musical exata, deixando o Romantismo como enquadramento secundário."
+  },
+  {
+    "year": 1844,
+    "artist": "Felix Mendelssohn",
+    "title": "Violin Concerto in E Minor, Op. 64",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para violino", "en": "Violin concerto"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "A obra é um concerto para violino e orquestra. A forma concertante é o contexto principal e substitui o rótulo histórico amplo."
+  },
+  {
+    "year": 1845,
+    "artist": "Richard Wagner",
+    "title": "Tannhäuser: Overture",
+    "targets": [
+      {"kind": "genre", "pt": "Abertura (música)", "en": "Overture"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "A seleção é a abertura de Tannhäuser, peça orquestral que antecipa materiais da ópera. A forma de abertura é a classificação primária pertinente."
+  },
+  {
+    "year": 1845,
+    "artist": "Robert Schumann",
+    "title": "Piano Concerto in A Minor, Op. 54",
+    "targets": [
+      {"kind": "genre", "pt": "Concerto para piano", "en": "Piano concerto"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "O Op. 54 é um concerto para piano e orquestra. A forma musical específica passa a orientar o Contexto, com o Romantismo apenas como pano de fundo."
+  },
+  {
+    "year": 1847,
+    "artist": "Franz Liszt",
+    "title": "Hungarian Rhapsody No. 2",
+    "targets": [
+      {"kind": "genre", "pt": "Rapsódia (música)", "en": "Rhapsody (music)"},
+      {"kind": "movement", "pt": "Nacionalismo musical", "en": "Musical nationalism"}
+    ],
+    "basis": "A obra pertence ao ciclo das Rapsódias Húngaras e usa a rapsódia como forma livre de caráter nacional. Rapsódia é o gênero imediato; nacionalismo musical acrescenta a dimensão estética."
+  },
+  {
+    "year": 1848,
+    "artist": "Johann Strauss I",
+    "title": "Radetzky March",
+    "targets": [
+      {"kind": "genre", "pt": "Marcha (música)", "en": "March (music)"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "Radetzky March é uma marcha orquestral de caráter militar e cerimonial. A forma marcha fornece contexto direto de ritmo, função e tradição performática."
+  },
+  {
+    "year": 1848,
+    "artist": "Richard Wagner",
+    "title": "Lohengrin: March",
+    "targets": [
+      {"kind": "genre", "pt": "Marcha (música)", "en": "March (music)"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "A seleção é um número em forma de marcha extraído de Lohengrin. Marcha explica a organização musical do trecho; ópera situa sua origem dramática."
+  },
+  {
+    "year": 1848,
+    "artist": "Richard Wagner",
+    "title": "Lohengrin: Prelude",
+    "targets": [
+      {"kind": "genre", "pt": "Prelúdio (música)", "en": "Prelude (music)"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "A faixa é o prelúdio orquestral de Lohengrin. Prelúdio descreve a função e a forma do número com precisão maior que o período romântico."
+  },
+  {
+    "year": 1851,
+    "artist": "Giuseppe Verdi",
+    "title": "Rigoletto: La donna è mobile",
+    "targets": [
+      {"kind": "genre", "pt": "Ária", "en": "Aria"},
+      {"kind": "movement", "pt": "Bel canto", "en": "Bel canto"}
+    ],
+    "basis": "La donna è mobile é a ária do Duque no terceiro ato de Rigoletto. Ária é a forma vocal específica; bel canto complementa o contexto de tradição vocal italiana."
+  },
+  {
+    "year": 1851,
+    "artist": "Saverio Mercadante",
+    "title": "Medea: Sono figli miei",
+    "targets": [
+      {"kind": "genre", "pt": "Ária", "en": "Aria"},
+      {"kind": "movement", "pt": "Bel canto", "en": "Bel canto"}
+    ],
+    "basis": "Sono figli miei é um número solístico operístico de Medea. Ária fornece o contexto formal imediato, enquanto bel canto situa a linguagem vocal italiana de Mercadante."
+  },
+  {
+    "year": 1856,
+    "artist": "Richard Wagner",
+    "title": "Ride of the Valkyries",
+    "targets": [
+      {"kind": "genre", "pt": "Musikdrama", "en": "Musikdrama"},
+      {"kind": "genre", "pt": "Prelúdio (música)", "en": "Prelude (music)"}
+    ],
+    "basis": "Ride of the Valkyries é o nome popular do prelúdio da primeira cena do terceiro ato de Die Walküre, parte do ciclo de music dramas de Wagner. O contexto prioriza o Musikdrama e mantém a função de prelúdio como segunda camada."
+  },
+  {
+    "year": 1858,
+    "artist": "Jacques Offenbach",
+    "title": "Orpheus in the Underworld: Overture",
+    "targets": [
+      {"kind": "genre", "pt": "Abertura (música)", "en": "Overture"},
+      {"kind": "subgenre", "pt": "Opereta", "en": "Operetta"}
+    ],
+    "basis": "A faixa é a abertura de Orphée aux enfers, obra-chave da opereta de Offenbach. Abertura explica a peça ouvida; opereta fornece o subgênero teatral específico."
+  },
+  {
+    "year": 1861,
+    "artist": "William Steffe",
+    "title": "Battle Hymn of the Republic",
+    "targets": [
+      {"kind": "genre", "pt": "Hino", "en": "Hymn"},
+      {"kind": "genre", "pt": "Canção patriótica", "en": "Patriotic song"}
+    ],
+    "basis": "Battle Hymn of the Republic funciona historicamente como hino e canção patriótica norte-americana. Hino é mais específico para sua forma e uso coletivo que Romantismo."
+  },
+  {
+    "year": 1863,
+    "artist": "Franz Liszt",
+    "title": "Légende No. 2: St. François de Paule marchant sur les flots",
+    "targets": [
+      {"kind": "genre", "pt": "Música programática", "en": "Program music"},
+      {"kind": "genre", "pt": "Música para piano", "en": "Piano music"}
+    ],
+    "basis": "A segunda Légende de Liszt é uma peça pianística programática que representa o episódio de São Francisco de Paula caminhando sobre as águas. Música programática explica diretamente sua concepção narrativa."
+  },
+  {
+    "year": 1867,
+    "artist": "Giuseppe Verdi",
+    "title": "Don Carlos: O don fatale",
+    "targets": [
+      {"kind": "genre", "pt": "Ária", "en": "Aria"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "O don fatale é a grande ária de Eboli em Don Carlos. Ária é o contexto formal da faixa e substitui o período romântico como primeira informação."
+  },
+  {
+    "year": 1870,
+    "artist": "Antônio Carlos Gomes",
+    "title": "Il Guarany: Sinfonia",
+    "targets": [
+      {"kind": "genre", "pt": "Abertura (música)", "en": "Overture"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "Música Brasilis, OSESP e Naxos catalogam a Sinfonia/Protofonia de Il Guarany como abertura da ópera. A classificação passa portanto de Romantismo para Abertura, com Ópera como enquadramento."
+  },
+  {
+    "year": 1874,
+    "artist": "Bedřich Smetana",
+    "title": "Vltava (The Moldau)",
+    "targets": [
+      {"kind": "genre", "pt": "Poema sinfônico", "en": "Symphonic poem"},
+      {"kind": "movement", "pt": "Nacionalismo musical", "en": "Musical nationalism"}
+    ],
+    "basis": "Vltava é um poema sinfônico do ciclo Má vlast, construído para representar musicalmente o curso do rio. Poema sinfônico é a forma programática específica; nacionalismo musical entra como contexto estético."
+  },
+  {
+    "year": 1874,
+    "artist": "Modest Mussorgsky",
+    "title": "Pictures at an Exhibition",
+    "targets": [
+      {"kind": "genre", "pt": "Suíte (música)", "en": "Suite (music)"},
+      {"kind": "genre", "pt": "Música programática", "en": "Program music"}
+    ],
+    "basis": "Pictures at an Exhibition é um ciclo/suíte de peças programáticas inspiradas em obras visuais. Suíte descreve a organização formal e música programática explica o princípio extramusical."
+  },
+  {
+    "year": 1875,
+    "artist": "Edvard Grieg",
+    "title": "In the Hall of the Mountain King",
+    "targets": [
+      {"kind": "genre", "pt": "Música incidental", "en": "Incidental music"},
+      {"kind": "genre", "pt": "Suíte (música)", "en": "Suite (music)"}
+    ],
+    "basis": "Grieg compôs In the Hall of the Mountain King como música incidental para Peer Gynt; depois a peça foi extraída para a primeira suíte. A origem como música incidental é o contexto histórico-formal mais direto."
+  },
+  {
+    "year": 1875,
+    "artist": "Georges Bizet",
+    "title": "Carmen: Overture",
+    "targets": [
+      {"kind": "genre", "pt": "Abertura (música)", "en": "Overture"},
+      {"kind": "subgenre", "pt": "Opéra comique", "en": "Opéra comique"}
+    ],
+    "basis": "A seleção é a abertura de Carmen. Abertura descreve a função musical imediata, enquanto opéra comique situa o gênero teatral original da obra."
+  },
+  {
+    "year": 1876,
+    "artist": "Johannes Brahms",
+    "title": "Symphony No. 1 in C Minor, Op. 68",
+    "targets": [
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"},
+      {"kind": "movement", "pt": "Música do romantismo", "en": "Romantic music"}
+    ],
+    "basis": "A obra é uma sinfonia em quatro movimentos. Sinfonia fornece a categoria formal específica; o Romantismo permanece como camada histórica."
+  },
+  {
+    "year": 1876,
+    "artist": "Piotr Ilitch Tchaikovsky",
+    "title": "Marche Slave, Op. 31",
+    "targets": [
+      {"kind": "genre", "pt": "Marcha (música)", "en": "March (music)"},
+      {"kind": "movement", "pt": "Nacionalismo musical", "en": "Musical nationalism"}
+    ],
+    "basis": "Marche Slave é uma marcha de concerto construída com material sérvio e russo. Marcha é a forma principal; nacionalismo musical contextualiza o uso programático de temas nacionais."
+  },
+  {
+    "year": 1880,
+    "artist": "Piotr Ilitch Tchaikovsky",
+    "title": "1812 Overture",
+    "targets": [
+      {"kind": "subgenre", "pt": "Abertura de concerto", "en": "Concert overture"},
+      {"kind": "genre", "pt": "Música programática", "en": "Program music"}
+    ],
+    "basis": "A obra é catalogada como concert overture e foi escrita como peça autônoma comemorativa, distinta de uma abertura teatral. Abertura de concerto é portanto o contexto mais específico, com música programática como complemento."
+  },
+  {
+    "year": 1882,
+    "artist": "Richard Wagner",
+    "title": "Parsifal",
+    "targets": [
+      {"kind": "genre", "pt": "Musikdrama", "en": "Musikdrama"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "Parsifal é classificado como music drama/Bühnenweihfestspiel em três atos e representa a síntese dramático-musical tardia de Wagner. Musikdrama é mais preciso que Romantismo."
+  },
+  {
+    "year": 1888,
+    "artist": "Nikolai Rimsky-Korsakov",
+    "title": "Scheherazade, Op. 35",
+    "targets": [
+      {"kind": "genre", "pt": "Suíte (música)", "en": "Suite (music)"},
+      {"kind": "genre", "pt": "Música programática", "en": "Program music"}
+    ],
+    "basis": "A Boston Symphony Orchestra e a catalogação da obra a descrevem como symphonic suite baseada nas Mil e Uma Noites. Suíte é a forma estável de destino enciclopédico; música programática explica sua dimensão narrativa."
+  },
+  {
+    "year": 1888,
+    "artist": "Pierre De Geyter",
+    "title": "L’Internationale",
+    "targets": [
+      {"kind": "subgenre", "pt": "Canção revolucionária", "en": "Revolutionary song"},
+      {"kind": "genre", "pt": "Hino", "en": "Anthem"}
+    ],
+    "basis": "L’Internationale tornou-se hino internacional de movimentos socialistas e é citada como um dos exemplos centrais de revolutionary song. Canção revolucionária explica melhor sua função político-musical que Romantismo."
+  },
+  {
+    "year": 1890,
+    "artist": "David Braham",
+    "title": "Maggie Murphy’s Home",
+    "targets": [
+      {"kind": "subgenre", "pt": "Parlor song", "en": "Parlor song"},
+      {"kind": "movement", "pt": "Vaudeville", "en": "Vaudeville"}
+    ],
+    "basis": "A partitura de 1890 de Harrigan e Braham é uma canção estrófica com refrão para voz e piano, centrada na vida doméstica; esse perfil se alinha à parlor song, e a obra também ganhou circulação no vaudeville."
+  },
+  {
+    "year": 1891,
+    "artist": "Claude Debussy",
+    "title": "Deux Arabesques No. 1",
+    "targets": [
+      {"kind": "genre", "pt": "Arabesque (música clássica)", "en": "Arabesque (classical music)"},
+      {"kind": "movement", "pt": "Impressionismo na música", "en": "Impressionism in music"}
+    ],
+    "basis": "Deux Arabesques é explicitamente um par de arabescos para piano, e a Arabesque No. 1 é um exemplo canônico dessa forma ornamental. Arabesque passa a ser o contexto primário; impressionismo aparece apenas como linguagem emergente."
+  },
+  {
+    "year": 1891,
+    "artist": "George W. Johnson",
+    "title": "The Laughing Song",
+    "targets": [
+      {"kind": "subgenre", "pt": "Coon song", "en": "Coon song"},
+      {"kind": "movement", "pt": "Vaudeville", "en": "Vaudeville"}
+    ],
+    "basis": "A Library of Congress cataloga a gravação como humorous song, enquanto o projeto acadêmico Hearing the Americas a classifica diretamente como coon song e a relaciona à minstrelsy racializada. O termo é usado aqui de forma histórica e crítica, com vaudeville como circuito performático."
+  },
+  {
+    "year": 1892,
+    "artist": "Piotr Ilitch Tchaikovsky",
+    "title": "Arabian Dance",
+    "targets": [
+      {"kind": "genre", "pt": "Dança de caráter", "en": "Character dance"},
+      {"kind": "genre", "pt": "Balé", "en": "Ballet"}
+    ],
+    "basis": "Arabian Dance é um dos números de dança de caráter de O Quebra-Nozes, concebido como estilização de uma dança nacional dentro do balé. Dança de caráter é mais específica que Romantismo."
+  },
+  {
+    "year": 1892,
+    "artist": "Piotr Ilitch Tchaikovsky",
+    "title": "Waltz of the Flowers",
+    "targets": [
+      {"kind": "genre", "pt": "Valsa", "en": "Waltz"},
+      {"kind": "genre", "pt": "Balé", "en": "Ballet"}
+    ],
+    "basis": "Waltz of the Flowers é uma valsa de O Quebra-Nozes. Valsa descreve diretamente forma, métrica e função do número; balé fornece o contexto cênico."
+  },
+  {
+    "year": 1893,
+    "artist": "Antonín Dvořák",
+    "title": "Symphony No. 9 “From the New World”: III. Scherzo",
+    "targets": [
+      {"kind": "genre", "pt": "Scherzo", "en": "Scherzo"},
+      {"kind": "genre", "pt": "Sinfonia", "en": "Symphony"}
+    ],
+    "basis": "O terceiro movimento da Sinfonia nº 9 é explicitamente um Scherzo. O Contexto passa a explicar a forma do movimento e mantém Sinfonia como estrutura maior."
+  },
+  {
+    "year": 1896,
+    "artist": "Giacomo Puccini",
+    "title": "La bohème: Che gelida manina",
+    "targets": [
+      {"kind": "genre", "pt": "Ária", "en": "Aria"},
+      {"kind": "genre", "pt": "Ópera", "en": "Opera"}
+    ],
+    "basis": "Che gelida manina é a ária de tenor de Rodolfo no primeiro ato de La bohème. Ária é a forma vocal específica e substitui o rótulo genérico de Romantismo."
+  },
+  {
+    "year": 1896,
+    "artist": "John Philip Sousa",
+    "title": "The Stars and Stripes Forever",
+    "targets": [
+      {"kind": "genre", "pt": "Marcha (música)", "en": "March (music)"},
+      {"kind": "genre", "pt": "Canção patriótica", "en": "Patriotic song"}
+    ],
+    "basis": "A Library of Congress cataloga a partitura como march e registra The Stars and Stripes Forever como a marcha nacional dos Estados Unidos. Marcha é o contexto musical primário; canção patriótica complementa sua função cívica."
+  },
+  {
+    "year": 1896,
+    "artist": "Richard Strauss",
+    "title": "Also sprach Zarathustra",
+    "targets": [
+      {"kind": "genre", "pt": "Poema sinfônico", "en": "Symphonic poem"},
+      {"kind": "genre", "pt": "Música programática", "en": "Program music"}
+    ],
+    "basis": "A Berliner Philharmoniker e a catalogação da obra identificam Also sprach Zarathustra como symphonic/tone poem inspirado em Nietzsche. Poema sinfônico é a forma específica; música programática explica a relação extramusical."
+  },
+  {
+    "year": 1899,
+    "artist": "Joseph E. Howard",
+    "title": "Hello! Ma Baby",
+    "targets": [
+      {"kind": "subgenre", "pt": "Coon song", "en": "Coon song"},
+      {"kind": "movement", "pt": "Tin Pan Alley", "en": "Tin Pan Alley"},
+      {"kind": "genre", "pt": "Ragtime", "en": "Ragtime"}
+    ],
+    "basis": "Hello! Ma Baby foi publicada em 1899 como canção de Tin Pan Alley e sua edição original pertence ao repertório racializado então chamado coon song; a classificação é mantida com enquadramento histórico crítico, seguida por Tin Pan Alley e Ragtime."
+  }
 ]
