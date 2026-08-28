@@ -1,0 +1,12 @@
+/* Play History v6.39.0 — responsive artwork sizing. */
+.art{
+  width:min(100%,430px,44dvh);
+}
+
+@media (min-width:431px) and (max-height:720px){
+  .art{width:min(100%,430px,42dvh)}
+}
+
+@media (min-width:431px) and (max-height:620px){
+  .art{width:min(100%,430px,40dvh)}
+}
