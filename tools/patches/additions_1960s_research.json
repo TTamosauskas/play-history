@@ -1,0 +1,58 @@
+[
+  {
+    "year": 1963,
+    "artist": "Peggy Lee",
+    "title": "The Lady Is a Tramp",
+    "youtubeId": "n3Ig0OeJw30",
+    "albumTitle": "Mink Jazz",
+    "artworkUrl": "https://i.ytimg.com/vi/n3Ig0OeJw30/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "The Lady Is a Tramp",
+    "wikipediaArtistTermPt": "Peggy Lee",
+    "wikipediaArtistTermEn": "Peggy Lee",
+    "contextWikiTargets": [{"kind":"subgenre","pt":"Jazz vocal","en":"Vocal jazz"},{"kind":"genre","pt":"Pop tradicional","en":"Traditional pop"}],
+    "basis": "A lista original indicava 1957. A gravação selecionada de Peggy Lee pertence a Mink Jazz, publicado em 1963."
+  },
+  {
+    "year": 1963,
+    "artist": "Milt Buckner",
+    "title": "Why Don't You Do Right?",
+    "youtubeId": "kI787nlomUM",
+    "albumTitle": "The New World of Milt Buckner",
+    "artworkUrl": "https://i.ytimg.com/vi/kI787nlomUM/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Why Don't You Do Right?",
+    "wikipediaArtistTermPt": "Milt Buckner",
+    "wikipediaArtistTermEn": "Milt Buckner",
+    "contextWikiTargets": [{"kind":"genre","pt":"Rhythm and blues","en":"Rhythm and blues"},{"kind":"genre","pt":"Jazz","en":"Jazz"}],
+    "basis": "A sessão é de 26 de novembro de 1962 e a edição Bethlehem foi publicada em 1963; a mídia escolhida é o remaster do canal Milt Buckner - Topic."
+  },
+  {
+    "year": 1966,
+    "artist": "George Jones",
+    "title": "Don't Be Angry",
+    "youtubeId": "C_kU1-Ej2Rk",
+    "albumTitle": "Love Bug",
+    "artworkUrl": "https://i.ytimg.com/vi/C_kU1-Ej2Rk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Don't Be Angry",
+    "wikipediaArtistTermPt": "George Jones",
+    "wikipediaArtistTermEn": "George Jones",
+    "contextWikiTargets": [{"kind":"genre","pt":"Country","en":"Country music"},{"kind":"subgenre","pt":"Honky-tonk","en":"Honky-tonk"}],
+    "basis": "A lista original indicava 1955. A gravação selecionada de George Jones foi publicada comercialmente em Love Bug, em 1966."
+  },
+  {
+    "year": 1966,
+    "artist": "Johnny Gibbs & His Orchestra",
+    "title": "Mack the Knife",
+    "youtubeId": "1KpGx9UZjkk",
+    "albumTitle": "Down Memory Lane",
+    "artworkUrl": "https://i.ytimg.com/vi/1KpGx9UZjkk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Mack the Knife",
+    "wikipediaArtistTermPt": "Johnny Gibbs",
+    "wikipediaArtistTermEn": "Johnny Gibbs",
+    "contextWikiTargets": [{"kind":"genre","pt":"Easy listening","en":"Easy listening"},{"kind":"genre","pt":"Big band","en":"Big band"}],
+    "basis": "Reader's Digest Down Memory Lane, RDS 6150, credita Mack the Knife a Johnny Gibbs And His Orchestra e foi publicado em 1966; a mídia selecionada corresponde à execução de Johnny Gibbs."
+  }
+]
