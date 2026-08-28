@@ -58,6 +58,7 @@ jobs:
           test -s assets/source/services/09.part
           test -s tools/patches/additions_1930s_research.json
           test -s tools/patches/additions_1940s.json
+          test -s tools/patches/additions_1940s_research.json
           test -s tools/patches/additions_1950s.json
           test -s tools/patches/additions_1950s_research.json
           test -s tools/patches/additions_1960s.json
@@ -79,6 +80,7 @@ jobs:
           grep -q 'assets/catalog-runtime.js?v=6.31.0' index.html
           grep -q 'additions_1930s_research.json' assets/catalog-runtime.js
           grep -q 'additions_1940s.json' assets/catalog-runtime.js
+          grep -q 'additions_1940s_research.json' assets/catalog-runtime.js
           grep -q 'additions_1950s.json' assets/catalog-runtime.js
           grep -q 'additions_1950s_research.json' assets/catalog-runtime.js
           grep -q 'additions_1960s.json' assets/catalog-runtime.js

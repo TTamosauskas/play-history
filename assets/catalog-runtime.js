@@ -4,6 +4,7 @@
   const ADDITION_FILES = [
     'additions_1930s_research.json',
     'additions_1940s.json',
+    'additions_1940s_research.json',
     'additions_1950s.json',
     'additions_1950s_research.json',
     'additions_1960s.json',

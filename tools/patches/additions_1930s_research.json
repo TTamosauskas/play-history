@@ -15,5 +15,22 @@
       {"kind":"genre","pt":"Jazz","en":"Jazz"}
     ],
     "basis": "A lista recebida indicava 1940. A gravação de Earl Hines foi registrada em 12 de setembro de 1934 e publicada pela Decca 182; a mídia selecionada é uma transferência identificada do 78 original."
+  },
+  {
+    "year": 1939,
+    "artist": "Slim Gaillard and Slam Stewart",
+    "title": "In a Shanty in Old Shanty Town",
+    "youtubeId": "HtJ4CI4iUkg",
+    "albumTitle": "In a Shanty in Old Shanty Town - 1939 recording",
+    "artworkUrl": "https://i.ytimg.com/vi/HtJ4CI4iUkg/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "In a Shanty in Old Shanty Town",
+    "wikipediaArtistTermPt": "Slim Gaillard",
+    "wikipediaArtistTermEn": "Slim Gaillard",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Jazz","en":"Jazz"},
+      {"kind":"subgenre","pt":"Scat","en":"Scat singing"}
+    ],
+    "basis": "A lista recebida indicava 1940. A performance de Slim Gaillard e Slam Stewart pertence à sessão dos Royal Rhythm Boys de 23 de outubro de 1939; a cronologia foi reposicionada para 1939."
   }
 ]
