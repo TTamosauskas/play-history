@@ -3,7 +3,9 @@
 
 A sparse decade is grouped with adjacent decades until the package reaches the
 requested minimum. Pre-1900 research defaults to moving backward in time, which
-matches the editorial rollout after the 1890s pilot.
+matches the editorial rollout after the 1890s pilot. The terminal catalog slice
+can optionally be emitted as a partial package when fewer than the requested
+minimum tracks remain.
 """
 from __future__ import annotations
 
@@ -18,28 +20,33 @@ from audit_context_decade import iter_decade_rows, row_quality, specificity_leve
 PATCH_DIR = Path(__file__).resolve().parent / "patches"
 
 
-def resolve_package(anchor: int, minimum: int, include_additions: bool, direction: str):
+def resolve_package(
+    anchor: int,
+    minimum: int,
+    include_additions: bool,
+    direction: str,
+    allow_partial: bool = False,
+):
     start = anchor
     end = anchor + 9
-    previous_count = -1
 
     for _ in range(220):
         rows = iter_decade_rows(start, end, include_additions)
         if len(rows) >= minimum:
             return start, end, rows
 
-        if len(rows) == previous_count and (start <= 0 or end >= 2999):
+        at_boundary = (direction == "backward" and start <= 0) or (
+            direction == "forward" and end >= 2999
+        )
+        if at_boundary:
+            if allow_partial and rows:
+                return start, end, rows
             break
-        previous_count = len(rows)
 
         if direction == "backward":
-            start -= 10
-            if start < 0:
-                start = 0
+            start = max(0, start - 10)
         else:
-            end += 10
-            if end > 2999:
-                end = 2999
+            end = min(2999, end + 10)
 
     raise SystemExit(
         f"Catálogo insuficiente para formar pacote de {minimum} faixas a partir de {anchor}s."
@@ -197,6 +204,11 @@ def main() -> int:
     )
     parser.add_argument("--include-additions", action="store_true")
     parser.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help="Emit the terminal catalog slice when fewer than --min-tracks remain",
+    )
+    parser.add_argument(
         "--require-specificity",
         type=int,
         choices=(0, 1, 2, 3),
@@ -212,7 +224,11 @@ def main() -> int:
         raise SystemExit("--min-tracks deve ser maior que zero.")
 
     start, end, rows = resolve_package(
-        args.anchor, args.min_tracks, args.include_additions, args.direction
+        args.anchor,
+        args.min_tracks,
+        args.include_additions,
+        args.direction,
+        args.allow_partial,
     )
     rows = apply_curated_package(rows, start, end)
     label = package_label(start, end)

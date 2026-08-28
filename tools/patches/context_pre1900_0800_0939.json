@@ -1,0 +1,142 @@
+[
+  {
+    "year": 800,
+    "artist": "Teodulfo de Orléans",
+    "title": "Gloria laus et honor",
+    "targets": [{"kind": "genre", "pt": "Hino", "en": "Hymn"}],
+    "basis": "Gloria laus et honor é o hino latino de Teodulfo usado na liturgia do Domingo de Ramos; hino identifica sua forma poético-litúrgica."
+  },
+  {
+    "year": 820,
+    "artist": "Rábano Mauro, atribuição tradicional",
+    "title": "Veni Creator Spiritus",
+    "targets": [{"kind": "genre", "pt": "Hino", "en": "Hymn"}],
+    "basis": "Veni Creator Spiritus é um hino latino do século IX tradicionalmente atribuído a Rábano Mauro; hino define sua forma."
+  },
+  {
+    "year": 830,
+    "artist": "Anônimo, tradição carolíngia",
+    "title": "Laudes regiae: Christus vincit",
+    "targets": [{"kind": "subgenre", "pt": "Laudes regiae", "en": "Laudes regiae"}],
+    "basis": "Christus vincit integra as Laudes regiae, conjunto de aclamações litúrgico-políticas da tradição carolíngia; a própria forma fornece o contexto específico."
+  },
+  {
+    "year": 840,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Hodie Christus natus est",
+    "targets": [{"kind": "genre", "pt": "Antífona", "en": "Antiphon"}],
+    "basis": "Hodie Christus natus est circula no ofício natalino como antífona; antífona identifica sua forma litúrgica."
+  },
+  {
+    "year": 850,
+    "artist": "Anônimo, tradição litúrgica",
+    "title": "Puer natus in Bethlehem",
+    "targets": [{"kind": "genre", "pt": "Hino", "en": "Hymn"}],
+    "basis": "Puer natus in Bethlehem é um hino latino natalino; hino oferece uma classificação formal direta."
+  },
+  {
+    "year": 850,
+    "artist": "Venâncio Fortunato, tradição litúrgica",
+    "title": "Quem terra, pontus, aethera",
+    "targets": [{"kind": "genre", "pt": "Hino", "en": "Hymn"}],
+    "basis": "Quem terra, pontus, aethera pertence à tradição dos hinos latinos marianos associada a Venâncio Fortunato; hino define sua forma."
+  },
+  {
+    "year": 860,
+    "artist": "Venâncio Fortunato, tradição litúrgica",
+    "title": "Vexilla regis prodeunt",
+    "targets": [{"kind": "genre", "pt": "Hino", "en": "Hymn"}],
+    "basis": "Vexilla regis prodeunt é o hino de Venâncio Fortunato em honra da Santa Cruz; hino identifica sua forma litúrgico-poética."
+  },
+  {
+    "year": 870,
+    "artist": "Anônimo, tradição pascal",
+    "title": "Exsultet iam angelica turba",
+    "targets": [{"kind": "subgenre", "pt": "Proclamação Pascal", "en": "Exsultet"}],
+    "basis": "Exsultet iam angelica turba abre a Proclamação Pascal cantada na Vigília; Exsultet define sua função e forma específicas."
+  },
+  {
+    "year": 880,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Kyrie eleison: Lux et origo",
+    "targets": [{"kind": "subgenre", "pt": "Kyrie", "en": "Kyrie"}],
+    "basis": "Lux et origo é um Kyrie do Ordinário gregoriano; Kyrie identifica diretamente a seção litúrgica."
+  },
+  {
+    "year": 880,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Sanctus XVIII",
+    "targets": [{"kind": "genre", "pt": "Sanctus", "en": "Sanctus"}],
+    "basis": "Sanctus XVIII é uma configuração gregoriana do Sanctus do Ordinário da Missa; Sanctus é a forma litúrgica imediata."
+  },
+  {
+    "year": 890,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Agnus Dei XVIII",
+    "targets": [{"kind": "genre", "pt": "Agnus Dei", "en": "Agnus Dei"}],
+    "basis": "Agnus Dei XVIII é uma configuração gregoriana do Agnus Dei do Ordinário; a seção litúrgica oferece o contexto específico."
+  },
+  {
+    "year": 890,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Introitus: Requiem aeternam",
+    "targets": [{"kind": "subgenre", "pt": "Intróito", "en": "Introit"}],
+    "basis": "Requiem aeternam é o intróito da Missa dos Defuntos; intróito define sua função no Proprium da Missa."
+  },
+  {
+    "year": 895,
+    "artist": "Anônimo, tradição mariana",
+    "title": "Sub tuum praesidium",
+    "targets": [{"kind": "subgenre", "pt": "Antífona mariana", "en": "Marian antiphon"}],
+    "basis": "Sub tuum praesidium é uma das mais antigas orações marianas cantadas e circula como antífona mariana; o subgênero explicita sua função devocional."
+  },
+  {
+    "year": 900,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Ecce pulchra es",
+    "targets": [{"kind": "genre", "pt": "Antífona", "en": "Antiphon"}],
+    "basis": "Ecce pulchra es é transmitida no repertório gregoriano como antífona sobre texto do Cântico dos Cânticos; antífona identifica sua forma."
+  },
+  {
+    "year": 900,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Kyrie Orbis Factor",
+    "targets": [{"kind": "subgenre", "pt": "Kyrie", "en": "Kyrie"}],
+    "basis": "Orbis Factor é um Kyrie do Ordinário gregoriano; Kyrie fornece a categoria litúrgica específica."
+  },
+  {
+    "year": 900,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "O Antiphons: O Emmanuel",
+    "targets": [{"kind": "subgenre", "pt": "Antífona do Ó", "en": "O Antiphons"}],
+    "basis": "O Emmanuel integra as Grandes Antífonas do Ó do Advento; o ciclo litúrgico específico define a peça."
+  },
+  {
+    "year": 900,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "O Antiphons: O Sapientia",
+    "targets": [{"kind": "subgenre", "pt": "Antífona do Ó", "en": "O Antiphons"}],
+    "basis": "O Sapientia abre o ciclo das Grandes Antífonas do Ó do Advento; o subgênero identifica sua função no ofício."
+  },
+  {
+    "year": 910,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Alleluia Justus ut palma",
+    "targets": [{"kind": "subgenre", "pt": "Aleluia", "en": "Alleluia"}],
+    "basis": "Justus ut palma é um Alleluia do Proprium gregoriano; a forma litúrgica fornece o Contexto primário."
+  },
+  {
+    "year": 920,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Introitus: Gaudeamus omnes",
+    "targets": [{"kind": "subgenre", "pt": "Intróito", "en": "Introit"}],
+    "basis": "Gaudeamus omnes é um intróito gregoriano usado em festas de santos; intróito identifica sua posição e função na Missa."
+  },
+  {
+    "year": 930,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Graduale: Haec dies",
+    "targets": [{"kind": "subgenre", "pt": "Gradual", "en": "Gradual"}],
+    "basis": "Haec dies é um gradual do repertório pascal gregoriano; gradual define sua forma e posição no Proprium da Missa."
+  }
+]
