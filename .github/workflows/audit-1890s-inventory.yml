@@ -18,13 +18,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Generate terminal pre-1900 package from the 930s backward
+      - name: Validate terminal pre-1900 package from the 930s backward
         run: |
           python tools/audit_context_package.py 930 \
             --min-tracks 50 \
             --direction backward \
             --include-additions \
             --allow-partial \
+            --require-specificity 2 \
             --markdown CONTEXT_PACKAGE_PRE1900.md \
             --csv CONTEXT_PACKAGE_PRE1900.csv
       - name: Upload package inventory
