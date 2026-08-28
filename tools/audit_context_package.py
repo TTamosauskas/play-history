@@ -49,6 +49,24 @@ def package_label(start: int, end: int) -> str:
     return f"{start}–{end}"
 
 
+def validate_specificity(rows, required_level: int) -> None:
+    weak = [
+        row for row in rows
+        if int(row.get("specificity", -1)) < required_level
+    ]
+    if weak:
+        preview = "; ".join(
+            f"{row['year']} · {row['artist']} — {row['title']} "
+            f"(L{row.get('specificity', -1)}: {row.get('primary_pt', '')})"
+            for row in weak[:12]
+        )
+        suffix = "" if len(weak) <= 12 else f"; +{len(weak) - 12} outras"
+        raise SystemExit(
+            f"Pacote abaixo da especificidade mínima L{required_level}: "
+            f"{len(weak)} faixas. {preview}{suffix}"
+        )
+
+
 def write_csv(rows, output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     fields = [
@@ -119,6 +137,12 @@ def main() -> int:
         help="Direction used to add adjacent decades",
     )
     parser.add_argument("--include-additions", action="store_true")
+    parser.add_argument(
+        "--require-specificity",
+        type=int,
+        choices=(0, 1, 2, 3),
+        help="Fail when any track has specificity below this level",
+    )
     parser.add_argument("--csv", type=Path)
     parser.add_argument("--markdown", type=Path)
     args = parser.parse_args()
@@ -133,15 +157,22 @@ def main() -> int:
     )
     label = package_label(start, end)
 
+    if args.require_specificity is not None:
+        validate_specificity(rows, args.require_specificity)
+
     if args.csv:
         write_csv(rows, args.csv)
     if args.markdown:
         write_markdown(rows, args.markdown, start, end, args.min_tracks)
 
     by_decade = Counter((int(row["year"]) // 10) * 10 for row in rows)
+    by_specificity = Counter(int(row.get("specificity", -1)) for row in rows)
     print(f"package={label} tracks={len(rows)} minimum={args.min_tracks}")
     print("by_decade: " + ", ".join(
         f"{decade}s={by_decade[decade]}" for decade in sorted(by_decade)
+    ))
+    print("by_specificity: " + ", ".join(
+        f"L{level}={by_specificity[level]}" for level in sorted(by_specificity)
     ))
     return 0
 
