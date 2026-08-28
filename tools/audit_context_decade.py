@@ -6,6 +6,10 @@ This tool reads the canonical legacy catalog, applies the same context precedenc
 used by the player/build pipeline, and emits an audit inventory for a decade.
 It is intentionally strict: a decade should only enter tools/build.py AUDIT_SPECS
 after every track has an explicit, historically informative target.
+
+For pre-1900 research, --include-additions folds the curated additions package for
+the decade into the inventory and the specificity score distinguishes musical
+form/subgenre from broad movement/period labels.
 """
 from __future__ import annotations
 
@@ -35,6 +39,15 @@ GENERIC_PRIMARY = {
     "Soul music",
 }
 LOW_INFORMATION_KINDS = {"century", "decade"}
+SPECIFICITY_LEVELS = {
+    "form": 3,
+    "subgenre": 3,
+    "genre": 2,
+    "tradition": 2,
+    "movement": 1,
+    "century": 0,
+    "decade": 0,
+}
 
 
 def load_json(path: Path) -> Any:
@@ -51,6 +64,24 @@ def load_project() -> list[dict[str, Any]]:
     if not isinstance(tracks, list) or not tracks:
         raise SystemExit("Catálogo vazio ou inválido em source/legacy.html")
     return tracks
+
+
+def addition_tracks(start: int, end: int) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for path in sorted(PATCH_DIR.glob("additions_*.json")):
+        data = load_json(path)
+        if not isinstance(data, list):
+            continue
+        for track in data:
+            try:
+                year = int(track.get("year"))
+            except (TypeError, ValueError):
+                continue
+            if start <= year <= end:
+                copy = dict(track)
+                copy["_audit_targets"] = copy.get("contextWikiTargets") or []
+                rows.append(copy)
+    return rows
 
 
 def patch_files() -> list[Path]:
@@ -98,7 +129,7 @@ def base_pattern_targets(track_index: int) -> list[dict[str, Any]]:
     return patterns[int(indices[track_index])]
 
 
-def current_targets(track: dict[str, Any], track_index: int, exact: dict, loose: dict) -> tuple[list[dict[str, Any]], str]:
+def current_targets(track: dict[str, Any], track_index: int | None, exact: dict, loose: dict) -> tuple[list[dict[str, Any]], str]:
     year = int(track.get("year"))
     artist = track.get("artist") or ""
     title = track.get("title") or ""
@@ -109,52 +140,82 @@ def current_targets(track: dict[str, Any], track_index: int, exact: dict, loose:
         return exact[exact_key], "audited"
     if loose_key in loose:
         return loose[loose_key], "legacy_override"
+    if track_index is None:
+        return track.get("_audit_targets") or track.get("contextWikiTargets") or [], "addition"
     return base_pattern_targets(track_index), "pattern"
 
 
-def row_quality(targets: list[dict[str, Any]]) -> tuple[str, str]:
+def specificity_level(targets: list[dict[str, Any]]) -> int:
+    primary = targets[0] if targets else {}
+    return SPECIFICITY_LEVELS.get(str(primary.get("kind") or "").strip(), -1)
+
+
+def row_quality(targets: list[dict[str, Any]], historical_specificity: bool = False) -> tuple[str, str]:
     primary = targets[0] if targets else {}
     pt = str(primary.get("pt") or "").strip()
     kind = str(primary.get("kind") or "").strip()
+    level = specificity_level(targets)
     if not pt:
         return "missing", "sem contexto primário"
     if pt in GENERIC_PRIMARY:
         return "generic", f"primário genérico: {pt}"
     if kind in LOW_INFORMATION_KINDS:
         return "low_information", f"tipo fraco: {kind}"
+    if historical_specificity and level < 2:
+        return "underspecified", f"especificidade histórica baixa: {kind or '?'} (nível {level})"
     return "review", "revisar historicamente"
 
 
-def iter_decade_rows(start: int, end: int) -> list[dict[str, Any]]:
-    tracks = load_project()
+def iter_decade_rows(start: int, end: int, include_additions: bool = False) -> list[dict[str, Any]]:
+    base_tracks = load_project()
     exact, loose = build_override_maps()
+    historical_specificity = end < 1900
     rows: list[dict[str, Any]] = []
-    for index, track in enumerate(tracks):
+    identities: set[tuple[int, str, str]] = set()
+
+    def append_track(track: dict[str, Any], track_index: int | None) -> None:
+        year = int(track.get("year"))
+        artist = track.get("artist") or ""
+        title = track.get("title") or ""
+        identity = (year, artist, title)
+        if identity in identities:
+            return
+        targets, source = current_targets(track, track_index, exact, loose)
+        status, issue = row_quality(targets, historical_specificity)
+        primary = targets[0] if targets else {}
+        rows.append(
+            {
+                "year": year,
+                "artist": artist,
+                "title": title,
+                "source": source,
+                "status": status,
+                "issue": issue,
+                "specificity": specificity_level(targets),
+                "primary_kind": primary.get("kind", ""),
+                "primary_pt": primary.get("pt", ""),
+                "primary_en": primary.get("en", ""),
+                "targets": targets,
+            }
+        )
+        identities.add(identity)
+
+    for index, track in enumerate(base_tracks):
         year = int(track.get("year"))
         if start <= year <= end:
-            targets, source = current_targets(track, index, exact, loose)
-            status, issue = row_quality(targets)
-            primary = targets[0] if targets else {}
-            rows.append(
-                {
-                    "year": year,
-                    "artist": track.get("artist") or "",
-                    "title": track.get("title") or "",
-                    "source": source,
-                    "status": status,
-                    "issue": issue,
-                    "primary_kind": primary.get("kind", ""),
-                    "primary_pt": primary.get("pt", ""),
-                    "primary_en": primary.get("en", ""),
-                    "targets": targets,
-                }
-            )
+            append_track(track, index)
+
+    if include_additions:
+        for track in addition_tracks(start, end):
+            append_track(track, None)
+
+    rows.sort(key=lambda row: (row["year"], row["artist"], row["title"]))
     return rows
 
 
 def write_csv(rows: list[dict[str, Any]], output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
-    fields = ["year", "artist", "title", "source", "status", "issue", "primary_kind", "primary_pt", "primary_en"]
+    fields = ["year", "artist", "title", "source", "status", "issue", "specificity", "primary_kind", "primary_pt", "primary_en"]
     with output.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
@@ -166,6 +227,7 @@ def write_markdown(rows: list[dict[str, Any]], output: Path, label: str) -> None
     output.parent.mkdir(parents=True, exist_ok=True)
     by_status = Counter(row["status"] for row in rows)
     by_year = Counter(row["year"] for row in rows)
+    by_specificity = Counter(row["specificity"] for row in rows)
     lines = [
         f"# Contexto audit inventory — {label}",
         "",
@@ -173,15 +235,18 @@ def write_markdown(rows: list[dict[str, Any]], output: Path, label: str) -> None
         "",
         "Status counts: " + ", ".join(f"{name}={count}" for name, count in sorted(by_status.items())),
         "",
+        "Specificity counts: " + ", ".join(f"L{level}={by_specificity[level]}" for level in sorted(by_specificity)),
+        "",
         "Year counts: " + ", ".join(f"{year}={by_year[year]}" for year in sorted(by_year)),
         "",
-        "| Year | Artist | Title | Current primary | Source | Status | Issue |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
+        "| Year | Artist | Title | Current primary | Kind | Specificity | Source | Status | Issue |",
+        "| --- | --- | --- | --- | --- | ---: | --- | --- | --- |",
     ]
     for row in rows:
         lines.append(
             f"| {row['year']} | {row['artist']} | {row['title']} | "
-            f"{row['primary_pt']} | {row['source']} | {row['status']} | {row['issue']} |"
+            f"{row['primary_pt']} | {row['primary_kind']} | {row['specificity']} | "
+            f"{row['source']} | {row['status']} | {row['issue']} |"
         )
     output.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -200,7 +265,7 @@ def write_skeleton(rows: list[dict[str, Any]], decade: int, patch_dir: Path) -> 
                     "artist": row["artist"],
                     "title": row["title"],
                     "targets": row["targets"],
-                    "basis": "TODO: substituir por justificativa histórica específica; evitar primário genérico.",
+                    "basis": "TODO: justificar forma/subgênero/tradição com fonte histórica específica.",
                 }
             )
         path = patch_dir / f"context_{decade}s_{year}.json"
@@ -211,6 +276,7 @@ def write_skeleton(rows: list[dict[str, Any]], decade: int, patch_dir: Path) -> 
 def validate_patch_coverage(rows: list[dict[str, Any]], decade: int) -> int:
     expected = {(row["year"], row["artist"], row["title"]) for row in rows}
     actual: dict[tuple[int, str, str], dict[str, Any]] = {}
+    historical_specificity = decade < 1900
 
     for year in range(decade, decade + 10):
         path = PATCH_DIR / f"context_{decade}s_{year}.json"
@@ -226,8 +292,8 @@ def validate_patch_coverage(rows: list[dict[str, Any]], decade: int) -> int:
             if not isinstance(targets, list) or not targets:
                 print(f"empty targets: {key}", file=sys.stderr)
                 return 1
-            status, issue = row_quality(targets)
-            if status in {"missing", "generic", "low_information"}:
+            status, issue = row_quality(targets, historical_specificity)
+            if status in {"missing", "generic", "low_information", "underspecified"}:
                 print(f"weak primary target: {key}: {issue}", file=sys.stderr)
                 return 1
             actual[key] = item
@@ -245,6 +311,7 @@ def main() -> int:
     parser.add_argument("decade", type=int, help="Decade start, e.g. 1970")
     parser.add_argument("--csv", type=Path, help="Write inventory CSV")
     parser.add_argument("--markdown", type=Path, help="Write inventory Markdown")
+    parser.add_argument("--include-additions", action="store_true", help="Include additions_<decade>s*.json in the runtime inventory")
     parser.add_argument("--write-skeleton", action="store_true", help="Write context_<decade>s_<year>.json skeleton files")
     parser.add_argument("--validate-patches", action="store_true", help="Validate curated per-year files for this decade")
     args = parser.parse_args()
@@ -253,7 +320,7 @@ def main() -> int:
         raise SystemExit("Use o início da década, por exemplo 1970.")
     start = args.decade
     end = args.decade + 9
-    rows = iter_decade_rows(start, end)
+    rows = iter_decade_rows(start, end, args.include_additions)
     if not rows:
         raise SystemExit(f"Nenhuma faixa encontrada entre {start} e {end}.")
 
@@ -269,9 +336,11 @@ def main() -> int:
 
     by_status = Counter(row["status"] for row in rows)
     by_year = Counter(row["year"] for row in rows)
+    by_specificity = Counter(row["specificity"] for row in rows)
     print(f"{label}: {len(rows)} tracks")
     print("by_year: " + ", ".join(f"{year}={by_year[year]}" for year in sorted(by_year)))
     print("by_status: " + ", ".join(f"{name}={count}" for name, count in sorted(by_status.items())))
+    print("by_specificity: " + ", ".join(f"L{level}={by_specificity[level]}" for level in sorted(by_specificity)))
     return 0
 
 
