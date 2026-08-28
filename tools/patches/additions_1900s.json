@@ -99,6 +99,22 @@
   },
   {
     "year": 1907,
+    "artist": "Billy Murray",
+    "title": "Honey Boy",
+    "youtubeId": "BxUotsFG2DQ",
+    "albumTitle": "Honey Boy — 1907 historical recording",
+    "artworkUrl": "https://i.ytimg.com/vi/BxUotsFG2DQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Honey Boy",
+    "wikipediaArtistTermPt": "Billy Murray (cantor)",
+    "wikipediaArtistTermEn": "Billy Murray (singer)",
+    "contextWikiTargets": [
+      {"kind":"movement","pt":"Tin Pan Alley","en":"Tin Pan Alley"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1907. A mídia selecionada identifica Honey Boy por Billy Murray e a apresenta como gravação de 1907, permitindo representar diretamente o fonograma pedido."
+  },
+  {
+    "year": 1907,
     "artist": "Scott Joplin & Louis Chauvin",
     "title": "Heliotrope Bouquet",
     "youtubeId": "ORSYkCvy2kM",
