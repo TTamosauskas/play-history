@@ -11,9 +11,10 @@
     "wikipediaArtistTermPt": "Scott Joplin",
     "wikipediaArtistTermEn": "Scott Joplin",
     "contextWikiTargets": [
-      {"kind":"subgenre","pt":"Parlor song","en":"Parlor song"}
+      {"kind":"subgenre","pt":"Parlor song","en":"Parlor song"},
+      {"kind":"genre","pt":"Valsa","en":"Waltz"}
     ],
-    "basis": "A cronologia editorial fornecida fixa 1895, ano associado à primeira publicação da canção. A mídia selecionada é um áudio posterior disponibilizado no canal Topic de Scott Joplin; 1895 permanece como ano do catálogo."
+    "basis": "Publicada em 1895 para voz e piano, a primeira obra publicada conhecida de Joplin pertence ao repertório de canção de salão sentimental anterior ao ragtime maduro; fontes especializadas também a descrevem como uma sentimental waltz/waltz song. Parlor song permanece como alvo enciclopédico mais específico e estável, com valsa como linhagem complementar."
   },
   {
     "year": 1896,
@@ -30,7 +31,7 @@
       {"kind":"genre","pt":"Marcha (música)","en":"March (music)"},
       {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
     ],
-    "basis": "A cronologia editorial fornecida fixa 1896, compatível com a publicação histórica da marcha. A mídia é uma interpretação posterior de Combination March; o ano do catálogo permanece 1896."
+    "basis": "IMSLP cataloga Combination March como marcha para piano, publicada em 1896. A escrita antecipa procedimentos que Joplin desenvolveria no ragtime, mas a forma da obra continua sendo marcha; por isso Marcha é o contexto primário e Ragtime funciona como linhagem de transição complementar."
   },
   {
     "year": 1899,
@@ -44,10 +45,11 @@
     "wikipediaArtistTermPt": "Arthur Collins",
     "wikipediaArtistTermEn": "Arthur Collins (singer)",
     "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Coon song","en":"Coon song"},
       {"kind":"movement","pt":"Tin Pan Alley","en":"Tin Pan Alley"},
       {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
     ],
-    "basis": "A cronologia editorial fornecida fixa 1899. A mídia selecionada reproduz a gravação histórica de Arthur Collins, primeiro intérprete fonográfico conhecido da canção no mesmo ano."
+    "basis": "A gravação de 1899 circulou historicamente dentro do repertório conhecido pelo termo racializado coon song: a própria gravação de época é anunciada dessa forma, e a canção usa caricaturas e dialeto hoje reconhecidos como racistas. O rótulo aparece aqui como categoria histórica crítica, seguido por Tin Pan Alley e Ragtime para situar sua indústria e linguagem musical."
   },
   {
     "year": 1899,
@@ -61,8 +63,9 @@
     "wikipediaArtistTermPt": "Scott Joplin",
     "wikipediaArtistTermEn": "Scott Joplin",
     "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Classic rag","en":"Classic rag"},
       {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
     ],
-    "basis": "A cronologia editorial fornecida fixa 1899, ano da publicação histórica de Maple Leaf Rag. A mídia selecionada é um áudio posterior do canal Topic de Scott Joplin; o catálogo preserva 1899."
+    "basis": "A Library of Congress usa Maple Leaf Rag como exemplo central de classic rag, forma estrutural do ragtime instrumental associada a Joplin e à escola do Missouri. Classic rag é portanto mais informativo como primeiro contexto; Ragtime permanece como gênero de enquadramento."
   }
 ]

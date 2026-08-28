@@ -1,0 +1,36 @@
+name: Build Pre-1900 Context Package
+
+on:
+  push:
+    branches: ["audit/context-1890s"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate and generate minimum-50 package from the 1890s backward
+        run: |
+          python tools/audit_context_package.py 1890 \
+            --min-tracks 50 \
+            --direction backward \
+            --include-additions \
+            --require-specificity 2 \
+            --markdown CONTEXT_PACKAGE_PRE1900.md \
+            --csv CONTEXT_PACKAGE_PRE1900.csv
+      - name: Upload package inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: context-package-pre1900
+          path: |
+            CONTEXT_PACKAGE_PRE1900.md
+            CONTEXT_PACKAGE_PRE1900.csv

@@ -11,9 +11,10 @@
     "wikipediaArtistTermPt": "Frédéric Chopin",
     "wikipediaArtistTermEn": "Frédéric Chopin",
     "contextWikiTargets": [
-      {"kind":"movement","pt":"Romantismo na música","en":"Romantic music"},
-      {"kind":"genre","pt":"Marcha fúnebre","en":"Funeral march"}
+      {"kind":"genre","pt":"Marcha fúnebre","en":"Funeral march"},
+      {"kind":"genre","pt":"Sonata para piano","en":"Piano sonata"},
+      {"kind":"movement","pt":"Romantismo na música","en":"Romantic music"}
     ],
-    "basis": "A cronologia editorial fornecida fixa 1839 para a Sonata nº 2. A mídia selecionada é um áudio posterior e exato do movimento Funeral March disponibilizado no canal Topic de Frédéric Chopin; 1839 permanece como ano do catálogo conforme a sequência histórica solicitada."
+    "basis": "O movimento é a célebre Marche funèbre da Sonata para piano nº 2. Marcha fúnebre descreve diretamente forma, caráter e tradição de uso; sonata para piano situa a estrutura maior e o Romantismo fica como enquadramento histórico."
   }
 ]
