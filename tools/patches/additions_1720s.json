@@ -1,0 +1,18 @@
+[
+  {
+    "year": 1720,
+    "artist": "Antonio Vivaldi",
+    "title": "Sinfonia in E Major, RV 132: I. Allegro",
+    "youtubeId": "C41oLW8786s",
+    "albumTitle": "Vivaldi, A.: 4 Seasons (The) / Sinfonias, RV 112, 132, 149 and 169",
+    "artworkUrl": "https://i.ytimg.com/vi/C41oLW8786s/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "RV 132",
+    "wikipediaArtistTermPt": "Antonio Vivaldi",
+    "wikipediaArtistTermEn": "Antonio Vivaldi",
+    "contextWikiTargets": [
+      {"kind":"movement","pt":"Música barroca","en":"Baroque music"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1720 para a obra. A mídia selecionada é a gravação posterior de Budapest Strings, regida por Karoly Botvay, lançada em 1996; 1720 permanece como ano do catálogo para preservar a sequência histórica solicitada."
+  }
+]
