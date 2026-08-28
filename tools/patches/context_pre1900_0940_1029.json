@@ -1,0 +1,210 @@
+[
+  {
+    "year": 940,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Offertorium: Ave Maria",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Ofertório",
+        "en": "Offertory"
+      }
+    ],
+    "basis": "O próprio incipit cataloga a peça como ofertório; a função do Proprium da Missa fornece o Contexto primário."
+  },
+  {
+    "year": 950,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Communio: Lux aeterna",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Antífona de comunhão",
+        "en": "Communion antiphon"
+      }
+    ],
+    "basis": "Lux aeterna é a antífona de comunhão da liturgia dos defuntos; Communio descreve diretamente sua função litúrgica."
+  },
+  {
+    "year": 950,
+    "artist": "Anônimo, tradição latina",
+    "title": "Te Deum laudamus",
+    "targets": [
+      {
+        "kind": "genre",
+        "pt": "Hino",
+        "en": "Hymn"
+      }
+    ],
+    "basis": "Te Deum laudamus é um hino latino de louvor usado no ofício; hino fornece uma categoria formal mais informativa que o período."
+  },
+  {
+    "year": 960,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Ubi caritas",
+    "targets": [
+      {
+        "kind": "genre",
+        "pt": "Antífona",
+        "en": "Antiphon"
+      }
+    ],
+    "basis": "Ubi caritas circula no repertório litúrgico como antífona associada à Quinta-feira Santa; antífona identifica sua função musical."
+  },
+  {
+    "year": 960,
+    "artist": "Anônimo, tradição litúrgica",
+    "title": "Media vita in morte sumus",
+    "targets": [
+      {
+        "kind": "genre",
+        "pt": "Antífona",
+        "en": "Antiphon"
+      }
+    ],
+    "basis": "Media vita in morte sumus é transmitida em fontes litúrgicas como antífona; a forma substitui o rótulo cronológico amplo."
+  },
+  {
+    "year": 970,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Rorate caeli",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Prosa do Advento",
+        "en": "Advent Prose"
+      }
+    ],
+    "basis": "Rorate caeli é conhecido como Advent Prose, canto de texto isaiano usado no Advento; a função sazonal oferece contexto específico."
+  },
+  {
+    "year": 970,
+    "artist": "Anônimo, tradição moçárabe/gregoriana",
+    "title": "Attende Domine",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Canto quaresmal",
+        "en": "Lenten chant"
+      }
+    ],
+    "basis": "Attende Domine pertence ao repertório devocional quaresmal em cantochão; a função quaresmal fornece contexto histórico-musical direto."
+  },
+  {
+    "year": 990,
+    "artist": "Anônimo, tradição mariana",
+    "title": "Ave Regina caelorum",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Antífona mariana",
+        "en": "Marian antiphon"
+      }
+    ],
+    "basis": "Ave Regina caelorum é uma das antífonas marianas tradicionais da Liturgia das Horas; o subgênero define sua função."
+  },
+  {
+    "year": 995,
+    "artist": "Anônimo, tradição mariana",
+    "title": "Regina caeli",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Antífona mariana",
+        "en": "Marian antiphon"
+      }
+    ],
+    "basis": "Regina caeli é uma antífona mariana própria do tempo pascal; o subgênero identifica sua função litúrgica."
+  },
+  {
+    "year": 1000,
+    "artist": "Anônimo, Winchester Troper",
+    "title": "Alleluia: Pascha nostrum - Epulemur",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Aleluia",
+        "en": "Alleluia"
+      }
+    ],
+    "basis": "O Winchester Troper identifica Pascha nostrum/Epulemur como versos de Alleluia; a forma litúrgica oferece o contexto primário."
+  },
+  {
+    "year": 1000,
+    "artist": "Anônimo, Winchester Troper",
+    "title": "Firmetur manus tua",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Antífona processional",
+        "en": "Processional antiphon"
+      }
+    ],
+    "basis": "O Winchester Troper transmite Firmetur manus tua como antífona de procissão; a função processional é a categoria mais específica."
+  },
+  {
+    "year": 1000,
+    "artist": "Anônimo, drama litúrgico",
+    "title": "Quem quaeritis - Resurrexi",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Drama litúrgico",
+        "en": "Liturgical drama"
+      }
+    ],
+    "basis": "O diálogo Quem quaeritis é núcleo do drama litúrgico pascal e aparece ligado ao intróito Resurrexi; drama litúrgico descreve sua função performativa."
+  },
+  {
+    "year": 1000,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Kyrie fons bonitatis",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Kyrie tropado",
+        "en": "Troped Kyrie"
+      }
+    ],
+    "basis": "Kyrie fons bonitatis é um Kyrie com tropos textuais; Kyrie tropado identifica a prática composicional e litúrgica."
+  },
+  {
+    "year": 1010,
+    "artist": "Anônimo, Winchester Troper",
+    "title": "Postquam factus homo",
+    "targets": [
+      {
+        "kind": "subgenre",
+        "pt": "Tropo de intróito",
+        "en": "Introit trope"
+      }
+    ],
+    "basis": "O Winchester Troper registra Postquam factus homo como tropo do intróito Resurrexi; tropo de intróito é a classificação específica."
+  },
+  {
+    "year": 1020,
+    "artist": "Wipo de Borgonha",
+    "title": "Victimae paschali laudes",
+    "targets": [
+      {
+        "kind": "genre",
+        "pt": "Sequência",
+        "en": "Sequence (music)"
+      }
+    ],
+    "basis": "Victimae paschali laudes é a sequência pascal atribuída a Wipo; sequência define sua forma litúrgico-poética."
+  },
+  {
+    "year": 1025,
+    "artist": "Anônimo, tradição gregoriana",
+    "title": "Ut queant laxis",
+    "targets": [
+      {
+        "kind": "genre",
+        "pt": "Hino",
+        "en": "Hymn"
+      }
+    ],
+    "basis": "Ut queant laxis é um hino latino a São João Batista; hino identifica sua forma e função litúrgica."
+  }
+]
