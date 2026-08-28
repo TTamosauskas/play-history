@@ -1,4 +1,4 @@
-# Auditoria de Contexto — anos 1890
+# Auditoria de Contexto — piloto pré-1900
 
 Status: piloto em andamento.
 
@@ -6,7 +6,17 @@ Status: piloto em andamento.
 
 Levar o repertório anterior a 1900 ao mesmo nível de especificidade editorial já aplicado ao século XX e XXI. O primeiro alvo de `Contexto` deve apontar para a forma, subgênero ou tradição musical que melhor explica a obra; gênero amplo e movimento histórico entram como camadas complementares.
 
-## Regra de precedência do piloto
+## Unidade de trabalho
+
+A pesquisa passa a ser feita em pacotes de pelo menos 50 faixas. Quando uma década tiver menos de 50 músicas, décadas adjacentes são incorporadas até o pacote atingir o mínimo. Como a frente pré-1900 avança para trás a partir dos anos 1890, o agrupamento desta etapa acrescenta décadas anteriores.
+
+O limite de 50 define a unidade editorial de pesquisa e revisão. Os arquivos canônicos podem continuar segmentados por ano/década para preservar rastreabilidade, enquanto inventário, pesquisa, revisão e aceite acontecem por pacote.
+
+O comando do piloto é:
+
+`python tools/audit_context_package.py 1890 --min-tracks 50 --direction backward --include-additions`
+
+## Regra de precedência
 
 1. forma ou subgênero específico;
 2. gênero ou tradição musical;
@@ -19,43 +29,30 @@ A classificação permanece por obra/faixa. O repertório erudito usa forma musi
 
 ### Scott Joplin — Please Say You Will (1895)
 
-Contexto atual: `Parlor song`.
-
-Direção: manter `Parlor song` como alvo primário e acrescentar `Waltz` como alvo complementar quando houver artigo enciclopédico adequado. A obra é uma canção para voz e piano de 1895; fontes especializadas a descrevem como uma das canções sentimentais/valsa de Joplin anteriores ao ragtime maduro.
+Contexto: `Parlor song` → `Waltz`. A obra é uma canção para voz e piano de 1895 e a classificação preserva a tradição de parlor song antes do contexto formal complementar.
 
 ### Scott Joplin — Combination March (1896)
 
-Contexto atual: `Marcha (música)` → `Ragtime`.
-
-Direção: tratar `Marcha` como forma principal; `Ragtime` permanece como contexto de transição estilística, e não como substituto da forma da obra. O catálogo deve distinguir forma musical de movimento/período.
+Contexto: `Marcha (música)` → `Ragtime`. A marcha funciona como forma principal e o ragtime como contexto de transição estilística.
 
 ### Arthur Collins — Hello! Ma Baby (1899)
 
-Contexto atual: `Tin Pan Alley` → `Ragtime`.
-
-Direção: pesquisar e testar `Coon song` como subgênero histórico primário, com `Tin Pan Alley` e `Ragtime` como contexto complementar. A terminologia é historicamente ofensiva e deve ser apresentada de maneira explicitamente histórica e crítica, seguindo o padrão já usado na auditoria dos anos 1900 para repertório racializado.
+Contexto: `Coon song` → `Tin Pan Alley` → `Ragtime`. A terminologia racializada é registrada como categoria histórica e exige enquadramento crítico explícito.
 
 ### Scott Joplin — Maple Leaf Rag (1899)
 
-Contexto atual: `Ragtime`.
-
-Direção: elevar para `Classic rag`/`classic piano rag` quando existir destino enciclopédico estável; `Ragtime` permanece como fallback. A Library of Congress usa `Maple Leaf Rag` como exemplo central da forma classic rag.
+Contexto: `Classic rag` → `Ragtime`. A especificidade formal passa a preceder o gênero amplo.
 
 ## Critério de especificidade
 
-O piloto usará quatro níveis: nível 3 = `form` ou `subgenre`; nível 2 = `genre` ou `tradition`; nível 1 = `movement`; nível 0 = `century` ou `decade`.
+O piloto usa quatro níveis: nível 3 = `form` ou `subgenre`; nível 2 = `genre` ou `tradition`; nível 1 = `movement`; nível 0 = `century` ou `decade`.
 
 Cada faixa anterior a 1900 deve atingir pelo menos nível 2. Obras com forma/subgênero documentalmente identificável devem atingir nível 3.
 
-## Fontes de controle do piloto
+## Fontes de controle
 
-- Library of Congress — coleção Ragtime / Classic Rag e registros históricos de áudio;
-- IMSLP — forma, instrumentação, publicação e catálogo de obras;
-- RISM e catálogos de bibliotecas para repertório erudito quando aplicável;
-- MusicBrainz como apoio de identidade de obra/gravação;
-- literatura musicológica e fontes históricas digitalizadas para terminologia de gênero/subgênero;
-- Wikipédia como destino do painel `Contexto`, e não como única autoridade de classificação.
+Library of Congress, IMSLP, RISM, catálogos de bibliotecas, MusicBrainz como apoio de identidade, literatura musicológica e fontes históricas digitalizadas formam a base de pesquisa. A Wikipédia permanece como destino do painel `Contexto`, enquanto a classificação editorial nasce de fontes mais fortes e específicas para cada período.
 
 ## Próximas etapas
 
-Gerar inventário completo 1890–1899 da base legada, revisar cada identidade, criar shards anuais `context_1890s_<ano>.json`, adicionar a década aos `AUDIT_SPECS`, validar cobertura exata e bloquear regressões para contextos de baixa especificidade.
+Resolver automaticamente o primeiro pacote de pelo menos 50 faixas a partir dos anos 1890, revisar todas as identidades desse intervalo, criar a curadoria canônica por ano/década, conectar o intervalo ao pipeline de auditoria e bloquear regressões para contextos de baixa especificidade.
