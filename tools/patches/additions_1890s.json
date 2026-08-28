@@ -1,0 +1,68 @@
+[
+  {
+    "year": 1895,
+    "artist": "Scott Joplin",
+    "title": "Please Say You Will",
+    "youtubeId": "5eYf3E9vyBE",
+    "albumTitle": "The Entertainer - The Very Best Of Scott Joplin",
+    "artworkUrl": "https://i.ytimg.com/vi/5eYf3E9vyBE/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Please Say You Will",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"subgenre","pt":"Parlor song","en":"Parlor song"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1895, ano associado à primeira publicação da canção. A mídia selecionada é um áudio posterior disponibilizado no canal Topic de Scott Joplin; 1895 permanece como ano do catálogo."
+  },
+  {
+    "year": 1896,
+    "artist": "Scott Joplin",
+    "title": "Combination March",
+    "youtubeId": "82oHAaaZcjs",
+    "albumTitle": "Combination March — representative later performance",
+    "artworkUrl": "https://i.ytimg.com/vi/82oHAaaZcjs/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Combination March",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Marcha (música)","en":"March (music)"},
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1896, compatível com a publicação histórica da marcha. A mídia é uma interpretação posterior de Combination March; o ano do catálogo permanece 1896."
+  },
+  {
+    "year": 1899,
+    "artist": "Arthur Collins",
+    "title": "Hello! Ma Baby",
+    "youtubeId": "-Q6kG2r41lQ",
+    "albumTitle": "Hello! Ma Baby — 1899 historical recording",
+    "artworkUrl": "https://i.ytimg.com/vi/-Q6kG2r41lQ/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Hello! Ma Baby",
+    "wikipediaArtistTermPt": "Arthur Collins",
+    "wikipediaArtistTermEn": "Arthur Collins (singer)",
+    "contextWikiTargets": [
+      {"kind":"movement","pt":"Tin Pan Alley","en":"Tin Pan Alley"},
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1899. A mídia selecionada reproduz a gravação histórica de Arthur Collins, primeiro intérprete fonográfico conhecido da canção no mesmo ano."
+  },
+  {
+    "year": 1899,
+    "artist": "Scott Joplin",
+    "title": "Maple Leaf Rag",
+    "youtubeId": "ZYqy7pBqbw4",
+    "albumTitle": "Ragtime With Scott Joplin",
+    "artworkUrl": "https://i.ytimg.com/vi/ZYqy7pBqbw4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Maple Leaf Rag",
+    "wikipediaArtistTermPt": "Scott Joplin",
+    "wikipediaArtistTermEn": "Scott Joplin",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1899, ano da publicação histórica de Maple Leaf Rag. A mídia selecionada é um áudio posterior do canal Topic de Scott Joplin; o catálogo preserva 1899."
+  }
+]
