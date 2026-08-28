@@ -180,6 +180,22 @@
     "basis": "A cronologia editorial fornecida fixa 1908, ano de publicação de Pine Apple Rag. A mídia selecionada é uma gravação posterior da mesma composição disponibilizada no YouTube; o catálogo preserva 1908."
   },
   {
+    "year": 1908,
+    "artist": "American Symphony Orchestra (West Orange, N.J.)",
+    "title": "Black and White Rag",
+    "youtubeId": "kffg-uIopO4",
+    "albumTitle": "Black and White Rag — representative later performance",
+    "artworkUrl": "https://i.ytimg.com/vi/kffg-uIopO4/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Black and White Rag",
+    "wikipediaArtistTermPt": "George Botsford",
+    "wikipediaArtistTermEn": "George Botsford",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1908 e o crédito histórico recebido permanece no catálogo. A mídia é uma execução posterior da composição Black and White Rag de George Botsford, aceita como representação direta da obra."
+  },
+  {
     "year": 1909,
     "artist": "Ada Jones with Victor Light Opera Company",
     "title": "The Yama Yama Man",
@@ -195,5 +211,37 @@
       {"kind":"movement","pt":"Vaudeville","en":"Vaudeville"}
     ],
     "basis": "A cronologia editorial fornecida fixa 1909. O crédito foi normalizado para Ada Jones with Victor Light Opera Company, formação documentada na sessão Victor de 11 de maio de 1909. A mídia selecionada representa essa gravação histórica."
+  },
+  {
+    "year": 1909,
+    "artist": "Albert Benzler and Fred Van Eps",
+    "title": "Gondolier and Temptation Rag",
+    "youtubeId": "ZCkKkP-7hmk",
+    "albumTitle": "Temptation Rag — representative performance for the 1909 medley",
+    "artworkUrl": "https://i.ytimg.com/vi/ZCkKkP-7hmk/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Temptation Rag",
+    "wikipediaArtistTermPt": "Henry Lodge",
+    "wikipediaArtistTermEn": "Henry Lodge (composer)",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial fornecida fixa 1909 para o medley atribuído a Albert Benzler e Fred Van Eps. A mídia selecionada executa Temptation Rag, componente nominal da faixa, e funciona como representação musical do registro solicitado."
+  },
+  {
+    "year": 1909,
+    "artist": "American Symphony Orchestra (West Orange, N.J.)",
+    "title": "Yankiana Rag",
+    "youtubeId": "gGL5Mjoq48o",
+    "albumTitle": "Yankiana Rag — representative 1909 recording",
+    "artworkUrl": "https://i.ytimg.com/vi/gGL5Mjoq48o/hqdefault.jpg",
+    "lyricsPolicy": "show_if_verified",
+    "wikipediaTrackTerm": "Oh! That Yankiana Rag",
+    "wikipediaArtistTermPt": "Melville Gideon",
+    "wikipediaArtistTermEn": "Melville Gideon",
+    "contextWikiTargets": [
+      {"kind":"genre","pt":"Ragtime","en":"Ragtime"}
+    ],
+    "basis": "A cronologia editorial recebida fixa 1909. A mídia é uma gravação de 1909 de Yankiana Rag por Billy Murray, preservada no Wikimedia Commons a partir do YouTube; o intérprete difere do crédito histórico recebido, mas a obra executada é a mesma."
   }
 ]
