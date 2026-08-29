@@ -25,6 +25,15 @@
   function loadProgressiveEnhancements(){
     if (enhancementsRequested) return;
     enhancementsRequested = true;
+
+    if (!document.querySelector('link[data-play-history-enhancements="translation"]')){
+      const style = document.createElement("link");
+      style.rel = "stylesheet";
+      style.href = "./assets/translation.css?v=6.40.0";
+      style.dataset.playHistoryEnhancements = "translation";
+      document.head.appendChild(style);
+    }
+
     const script = document.createElement("script");
     script.src = "./assets/source/services/10.part?v=6.40.0";
     script.async = true;
