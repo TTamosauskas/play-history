@@ -1,0 +1,313 @@
+
+/* Progressive translation controls for international lyrics and English Wikipedia fallbacks. */
+const baseFetchDirectedWikipediaSummary = fetchDirectedWikipediaSummary;
+fetchDirectedWikipediaSummary = async function(lang, title, kind, labeler){
+  const result = await baseFetchDirectedWikipediaSummary(lang, title, kind, labeler);
+  return result ? {...result, sourceLang:String(lang || "").toLowerCase()} : result;
+};
+
+function inferredWikipediaAboutKind(track, target){
+  const title = String(target?.title || "").trim();
+  const normalized = normalizeSearchText(title);
+  const artistPt = normalizeSearchText(track?.wikipediaArtistTermPt || track?.artist || "");
+  const artistEn = normalizeSearchText(track?.wikipediaArtistTermEn || track?.artist || "");
+  if (normalized && (normalized === artistPt || normalized === artistEn)) return "artist";
+  if (/^discografia\s+de\b/.test(normalized) || /^discography\s+of\b/.test(normalized)) return "discography";
+  if (/\balbum\b/.test(normalized) || /\balbum\s+de\b/.test(normalized) || /\balbum\s+by\b/.test(normalized)) return "album";
+  return target?.kind || "track";
+}
+
+const baseDirectedAboutTargets = directedAboutTargets;
+directedAboutTargets = function(track){
+  return baseDirectedAboutTargets(track).map(target => ({
+    ...target,
+    kind: target?.kind === "track" ? inferredWikipediaAboutKind(track, target) : target?.kind
+  }));
+};
+
+const baseWikipediaContextLabel = wikipediaContextLabel;
+wikipediaContextLabel = function(kind){
+  if (kind === "album") return "Sobre o álbum";
+  if (kind === "discography") return "Discografia";
+  return baseWikipediaContextLabel(kind);
+};
+
+const baseWikipediaActionLabel = wikipediaActionLabel;
+wikipediaActionLabel = function(kind){
+  if (kind === "album") return "Wikipedia — álbum ↗";
+  if (kind === "discography") return "Wikipedia — discografia ↗";
+  return baseWikipediaActionLabel(kind);
+};
+
+function browserTranslatorSupported(){
+  return typeof globalThis.Translator?.availability === "function"
+    && typeof globalThis.Translator?.create === "function";
+}
+
+function normalizedTranslationLanguage(value){
+  return String(value || "").trim().toLowerCase().replace(/_/g, "-").split("-")[0];
+}
+
+function heuristicTranslationLanguage(text){
+  const raw = String(text || "");
+  if (/[\u3040-\u30ff]/.test(raw)) return "ja";
+  if (/[\uac00-\ud7af]/.test(raw)) return "ko";
+  if (/[\u0400-\u04ff]/.test(raw)) return "ru";
+  if (/[\u4e00-\u9fff]/.test(raw)) return "zh";
+
+  const words = raw.toLowerCase()
+    .replace(/[^a-zà-ÿ]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 500);
+  const sets = {
+    pt:new Set(["que","de","e","o","a","os","as","do","da","dos","das","em","um","uma","eu","você","voce","meu","minha","para","com","por","mais"]),
+    en:new Set(["the","and","to","of","in","you","i","is","it","that","for","on","my","me","we","your","with","love","be","are"]),
+    es:new Set(["que","de","y","el","la","los","las","en","un","una","yo","tu","para","con","por","mi","como","es"]),
+    fr:new Set(["le","la","les","de","des","et","je","tu","un","une","que","pour","avec","mon","ma","est","dans"]),
+    it:new Set(["il","lo","la","i","gli","di","e","che","io","tu","un","una","per","con","mio","mia","è"]),
+    de:new Set(["der","die","das","und","ich","du","ein","eine","ist","zu","mit","mein","meine","für","den","dem"])
+  };
+  let best = {lang:"en", score:0};
+  for (const [lang, set] of Object.entries(sets)){
+    let score = 0;
+    for (const word of words) if (set.has(word)) score += 1;
+    if (score > best.score) best = {lang, score};
+  }
+  return best.score >= 2 ? best.lang : "en";
+}
+
+function translationDetectorCandidates(text){
+  const guessed = heuristicTranslationLanguage(text);
+  const latin = ["en","pt","es","fr","it","de"];
+  if (["ja","ko","ru","zh"].includes(guessed)) return [guessed,"en","pt"];
+  return [guessed, ...latin.filter(lang => lang !== guessed)];
+}
+
+async function detectTranslationLanguage(text, progress){
+  const fallback = heuristicTranslationLanguage(text);
+  if (typeof globalThis.LanguageDetector?.availability !== "function"
+      || typeof globalThis.LanguageDetector?.create !== "function") return fallback;
+
+  const expectedInputLanguages = translationDetectorCandidates(text);
+  try {
+    const availability = await globalThis.LanguageDetector.availability({expectedInputLanguages});
+    if (availability === "unavailable") return fallback;
+    const options = {expectedInputLanguages};
+    if (availability !== "available"){
+      options.monitor = monitor => monitor.addEventListener("downloadprogress", event => {
+        if (typeof progress === "function") progress(Math.round(Number(event.loaded || 0) * 100), "detector");
+      });
+    }
+    const detector = await globalThis.LanguageDetector.create(options);
+    try {
+      const results = await detector.detect(String(text || "").slice(0, 5000));
+      const best = Array.isArray(results)
+        ? results.find(item => item?.detectedLanguage && item.detectedLanguage !== "und")
+        : null;
+      return normalizedTranslationLanguage(best?.detectedLanguage) || fallback;
+    } finally {
+      try { detector.destroy(); } catch (_) {}
+    }
+  } catch (_) {
+    return fallback;
+  }
+}
+
+async function createBrowserTranslator(sourceLanguage, progress){
+  const source = normalizedTranslationLanguage(sourceLanguage);
+  if (!source || source === "pt") throw new Error("SOURCE_ALREADY_PORTUGUESE");
+  const config = {sourceLanguage:source, targetLanguage:"pt"};
+  const availability = await globalThis.Translator.availability(config);
+  if (!availability || availability === "unavailable") throw new Error("TRANSLATION_UNAVAILABLE");
+  const options = {...config};
+  if (availability !== "available"){
+    options.monitor = monitor => monitor.addEventListener("downloadprogress", event => {
+      if (typeof progress === "function") progress(Math.round(Number(event.loaded || 0) * 100), "translator");
+    });
+  }
+  return globalThis.Translator.create(options);
+}
+
+function translationChunks(text, maxLength = 1600){
+  const lines = String(text || "").split("\n");
+  const chunks = [];
+  let current = "";
+  for (const line of lines){
+    const next = current ? `${current}\n${line}` : line;
+    if (next.length <= maxLength){
+      current = next;
+      continue;
+    }
+    if (current) chunks.push(current);
+    if (line.length <= maxLength){
+      current = line;
+      continue;
+    }
+    for (let i = 0; i < line.length; i += maxLength) chunks.push(line.slice(i, i + maxLength));
+    current = "";
+  }
+  if (current) chunks.push(current);
+  return chunks.length ? chunks : [String(text || "")];
+}
+
+async function translateBrowserText(text, sourceLanguage, progress){
+  const translator = await createBrowserTranslator(sourceLanguage, progress);
+  try {
+    const chunks = translationChunks(text);
+    const translated = [];
+    for (let i = 0; i < chunks.length; i += 1){
+      if (typeof progress === "function") progress(Math.round((i / Math.max(1, chunks.length)) * 100), "translate");
+      translated.push(await translator.translate(chunks[i]));
+    }
+    if (typeof progress === "function") progress(100, "translate");
+    return translated.join("\n").trim();
+  } finally {
+    try { translator.destroy(); } catch (_) {}
+  }
+}
+
+function appendTranslationControl(parent, copyNode, originalText, sourceLanguage){
+  if (!browserTranslatorSupported() || !parent || !copyNode || !String(originalText || "").trim()) return null;
+
+  const row = document.createElement("div");
+  row.className = "context-translate-row";
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "context-translate";
+  button.textContent = "Traduzir";
+  button.setAttribute("aria-label", "Traduzir para português");
+  const status = document.createElement("span");
+  status.className = "context-translate-status";
+  status.setAttribute("aria-live", "polite");
+  row.append(button, status);
+  parent.appendChild(row);
+
+  let translatedText = "";
+  let showingTranslation = false;
+  button.addEventListener("click", async () => {
+    if (showingTranslation){
+      copyNode.textContent = originalText;
+      showingTranslation = false;
+      button.textContent = "Traduzir";
+      status.textContent = "";
+      return;
+    }
+    if (translatedText){
+      copyNode.textContent = translatedText;
+      showingTranslation = true;
+      button.textContent = "Original";
+      status.textContent = "";
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Traduzindo…";
+    status.textContent = "";
+    try {
+      const progress = (percent, phase) => {
+        if (phase === "detector") status.textContent = `Identificando idioma ${percent}%`;
+        else if (phase === "translator") status.textContent = `Preparando tradução ${percent}%`;
+        else status.textContent = percent < 100 ? `Traduzindo ${percent}%` : "";
+      };
+      const source = normalizedTranslationLanguage(sourceLanguage)
+        || await detectTranslationLanguage(originalText, progress);
+      if (source === "pt"){
+        row.remove();
+        return;
+      }
+      translatedText = await translateBrowserText(originalText, source, progress);
+      if (!translatedText) throw new Error("EMPTY_TRANSLATION");
+      copyNode.textContent = translatedText;
+      showingTranslation = true;
+      button.textContent = "Original";
+      status.textContent = "";
+    } catch (_) {
+      button.textContent = "Traduzir";
+      status.textContent = "Tradução automática indisponível neste navegador ou idioma.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+  return row;
+}
+
+appendContextSection = function(heading, result, fallbackMessage, actionLabel){
+  const section = document.createElement("section");
+  section.className = "context-section";
+
+  const title = document.createElement("h3");
+  title.className = "context-section-title";
+  title.textContent = heading;
+  section.appendChild(title);
+
+  if (result?.title || result?.contextLabel){
+    const meta = document.createElement("p");
+    meta.className = "context-section-meta";
+    meta.textContent = [result?.contextLabel, result?.title].filter(Boolean).join(" · ");
+    section.appendChild(meta);
+  }
+
+  const copy = document.createElement("p");
+  copy.className = result?.extract ? "context-summary" : "context-message";
+  const visibleText = result?.extract ? trimContextExcerpt(result.extract) : fallbackMessage;
+  copy.textContent = visibleText;
+  if (result?.extract && normalizedTranslationLanguage(result?.sourceLang) === "en"){
+    appendTranslationControl(section, copy, visibleText, "en");
+  }
+  section.appendChild(copy);
+
+  if (result?.url){
+    const link = document.createElement("a");
+    link.className = "context-action context-section-action";
+    link.href = result.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = actionLabel;
+    section.appendChild(link);
+  }
+
+  contextDialogBody.appendChild(section);
+};
+
+function renderLyricsWithTranslation(track, lyrics){
+  contextDialogBody.replaceChildren();
+  const section = document.createElement("section");
+  section.className = "context-section context-lyrics-section";
+  const copy = document.createElement("pre");
+  copy.className = "context-lyrics";
+  copy.textContent = lyrics;
+  if (track?.catalogSource !== "brazil") appendTranslationControl(section, copy, lyrics, null);
+  section.appendChild(copy);
+  contextDialogBody.appendChild(section);
+}
+
+openLyricsForTrack = async function(track){
+  if (!track) return;
+  if (shouldHideLyrics(track)) return;
+  const token = openContextDialog("Letra", track);
+  try {
+    const result = await resolveLyrics(track);
+    if (token !== contextRenderToken || !contextTrackIsCurrent(track)) return;
+    if (result?.instrumental){
+      hideTrackAction(lyricsLink);
+      setContextMessage("Faixa instrumental.");
+      setContextActions([]);
+      return;
+    }
+    const lyrics = lyricsTextFromRecord(result);
+    if (!lyrics){
+      setContextMessage("Letra indisponível nesta fonte.");
+      setContextActions([{label:"Buscar letra no Google ↗", url:googleLyricsSearchUrl(track)}]);
+      return;
+    }
+    renderLyricsWithTranslation(track, lyrics);
+    setContextActions([{label:"LRCLIB ↗", url:"https://lrclib.net"}]);
+  } catch (error) {
+    if (token !== contextRenderToken) return;
+    const rateLimited = String(error?.message || "") === "LRCLIB_RATE_LIMIT";
+    setContextMessage(rateLimited ? "O serviço de letras está ocupado neste momento." : "A fonte de letras está temporariamente indisponível.");
+    setContextActions([{label:"Buscar letra no Google ↗", url:googleLyricsSearchUrl(track)}]);
+  }
+};
