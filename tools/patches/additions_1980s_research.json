@@ -5,13 +5,13 @@
     "title": "Planeta Água",
     "youtubeId": "sMgCgImKCKw",
     "albumTitle": "Planeta Água",
-    "artworkUrl": "https://i.ytimg.com/vi/sMgCgImKCKw/hqdefault.jpg",
+    "artworkUrl": "https://i.ytimg.com/vi/sMgCgImKCKw/maxresdefault.jpg",
     "lyricsPolicy": "show_if_verified",
     "wikipediaTrackTerm": "Planeta Água",
     "wikipediaArtistTermPt": "Guilherme Arantes",
     "wikipediaArtistTermEn": "Guilherme Arantes",
-    "contextWikiTargets": [{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"},{"kind":"genre","pt":"Música pop","en":"Pop music"}],
-    "basis": "A discografia do artista documenta o compacto WEA/Elektra de 1981 e sua participação no Festival MPB-Shell 81; a mídia escolhida é o videoclipe colaborativo publicado no canal oficial de Guilherme Arantes."
+    "contextWikiTargets": [{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"},{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"}],
+    "basis": "O verbete da canção e a discografia do artista documentam a gravação em 1981, a participação no Festival MPB-Shell e a classificação em MPB; a mídia é o videoclipe colaborativo do canal oficial, com miniatura em alta resolução."
   },
   {
     "year": 1981,
@@ -19,13 +19,13 @@
     "title": "Deixa Chover",
     "youtubeId": "NUFQRHsskLU",
     "albumTitle": "Deixa Chover",
-    "artworkUrl": "https://i.ytimg.com/vi/NUFQRHsskLU/hqdefault.jpg",
+    "artworkUrl": "https://i.ytimg.com/vi/NUFQRHsskLU/maxresdefault.jpg",
     "lyricsPolicy": "show_if_verified",
     "wikipediaTrackTerm": "Discografia de Guilherme Arantes",
     "wikipediaArtistTermPt": "Guilherme Arantes",
     "wikipediaArtistTermEn": "Guilherme Arantes",
-    "contextWikiTargets": [{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"},{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"}],
-    "basis": "A discografia do artista e a biografia do AllMusic situam a gravação e o lançamento em 1981, quando a faixa entrou na trilha de Baila Comigo; a mídia escolhida é a publicação do canal oficial de Guilherme Arantes."
+    "contextWikiTargets": [{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"},{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"}],
+    "basis": "A discografia do artista e a biografia de referência situam a gravação e o lançamento em 1981, quando a faixa entrou na trilha de Baila Comigo; a mídia escolhida é a publicação oficial associada à gravação e usa a miniatura em alta resolução."
   },
   {
     "year": 1983,
@@ -47,13 +47,13 @@
     "title": "Cheia de Charme",
     "youtubeId": "u1bObyCEG8U",
     "albumTitle": "Despertar",
-    "artworkUrl": "https://i.ytimg.com/vi/u1bObyCEG8U/hqdefault.jpg",
+    "artworkUrl": "https://i.ytimg.com/vi/u1bObyCEG8U/maxresdefault.jpg",
     "lyricsPolicy": "show_if_verified",
     "wikipediaTrackTerm": "Despertar (álbum de Guilherme Arantes)",
     "wikipediaArtistTermPt": "Guilherme Arantes",
     "wikipediaArtistTermEn": "Guilherme Arantes",
-    "contextWikiTargets": [{"kind":"genre","pt":"Música pop","en":"Pop music"},{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"}],
-    "basis": "A faixa abre Despertar, álbum lançado pela CBS em 1985; a mídia escolhida é a publicação oficial da Sony Music no canal de Guilherme Arantes, com lançamento identificado em 1985."
+    "contextWikiTargets": [{"kind":"subgenre","pt":"Pop rock","en":"Pop rock"},{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"}],
+    "basis": "A faixa abre Despertar, álbum lançado pela CBS em 1985, e aparece entre os hits da década na biografia do artista; a mídia é a publicação oficial da Sony Music associada à gravação de 1985, com miniatura em alta resolução."
   },
   {
     "year": 1987,
@@ -61,12 +61,12 @@
     "title": "Um Dia, um Adeus",
     "youtubeId": "zSxr9zfZN1o",
     "albumTitle": "Guilherme Arantes",
-    "artworkUrl": "https://i.ytimg.com/vi/zSxr9zfZN1o/hqdefault.jpg",
+    "artworkUrl": "https://i.ytimg.com/vi/zSxr9zfZN1o/maxresdefault.jpg",
     "lyricsPolicy": "show_if_verified",
     "wikipediaTrackTerm": "Um Dia, Um Adeus",
     "wikipediaArtistTermPt": "Guilherme Arantes",
     "wikipediaArtistTermEn": "Guilherme Arantes",
-    "contextWikiTargets": [{"kind":"genre","pt":"Música pop","en":"Pop music"},{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"}],
-    "basis": "A canção integra o álbum epônimo de 1987 e aparece na discografia daquele ano; a mídia escolhida é a publicação oficial da Sony Music no canal de Guilherme Arantes, com lançamento identificado em 1987."
+    "contextWikiTargets": [{"kind":"subgenre","pt":"Balada romântica","en":"Sentimental ballad"},{"kind":"genre","pt":"Música popular brasileira","en":"Música popular brasileira"}],
+    "basis": "A canção integra o álbum epônimo de 1987 e aparece entre os hits daquele ano na biografia do artista; a mídia é a publicação oficial associada à gravação e usa a miniatura em alta resolução."
   }
 ]
