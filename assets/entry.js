@@ -1,4 +1,4 @@
-/* Play History v6.8.0 — stable year-entry controller. */
+/* Play History v6.40.0 — stable year-entry controller plus progressive enhancements. */
 (() => {
   const MIN_YEAR = 800;
   const MAX_YEAR = 2026;
@@ -8,6 +8,7 @@
   let pendingYear = "";
   let input = null;
   let form = null;
+  let enhancementsRequested = false;
 
   function value(){ return String(input?.value || "").trim(); }
   function valid(raw){
@@ -20,6 +21,16 @@
     console.error("Falha ao selecionar ano", error);
     const status = document.getElementById("status");
     if (status) status.textContent = "Falha ao selecionar o ano. Recarregue a página.";
+  }
+  function loadProgressiveEnhancements(){
+    if (enhancementsRequested) return;
+    enhancementsRequested = true;
+    const script = document.createElement("script");
+    script.src = "./assets/source/services/10.part?v=6.40.0";
+    script.async = true;
+    script.dataset.playHistoryEnhancements = "translation";
+    script.onerror = () => { enhancementsRequested = false; };
+    document.head.appendChild(script);
   }
   function apply(raw, autoplay = true){
     const text = String(raw || "").trim();
@@ -57,6 +68,7 @@
     selector = selectYearFn;
     ready = typeof selector === "function";
     document.documentElement.dataset.playerReady = ready ? "true" : "false";
+    if (ready) loadProgressiveEnhancements();
     const raw = pendingYear || value();
     if (ready && valid(raw)) queueMicrotask(() => apply(raw, true));
   }
